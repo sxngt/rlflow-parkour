@@ -73,6 +73,20 @@ class MonitorTests(unittest.TestCase):
                 self.assertEqual(client.get('/api/file',params={'path':path}).status_code,403)
             self.assertEqual(client.get('/api/preview',params={'path':'artifacts/train/run.json'}).status_code,200)
             self.assertEqual(client.get('/api/runs/unknown').status_code,404)
+    def test_evaluation_links_by_checkpoint_not_run_name(self):
+        self.scan()
+        evaluation=self.root/'artifacts/unrelated-evaluation-name'
+        evaluation.mkdir()
+        (evaluation/'run.json').write_text(json.dumps({
+            'kind':'evaluate','status':'SUCCEEDED','config':{},
+            'checkpoint':{'path':str(self.run/'checkpoint-000100.pt')}
+        }))
+        self.scan()
+        with TestClient(api.app) as client:
+            runs={r['id']:r for r in client.get('/api/runs').json()}
+            self.assertEqual(runs['unrelated-evaluation-name']['training_run'],'train')
+            self.assertIsNone(runs['train']['training_run'])
+
     def test_parallel_replay_environment_selection(self):
         p=self.root/'result/replay.json'
         p.write_text(json.dumps({'visible_env_ids':[3,7],'trace':[{'sim_time_s':0,'visible_env_ids':[3,7],

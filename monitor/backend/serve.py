@@ -6,8 +6,9 @@ import uvicorn
 def main():
     p=argparse.ArgumentParser()
     p.add_argument('--host',action='append',default=[])
-    p.add_argument('--port',type=int,default=8710)
+    p.add_argument('--port',type=int,default=18710)
     args=p.parse_args()
+    if not 10000 <= args.port <= 19999:p.error('Lab policy requires a port between 10000 and 19999')
     sockets=[]
     try:
         for host in args.host or ['127.0.0.1']:

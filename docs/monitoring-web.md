@@ -2,16 +2,16 @@
 
 현재 서버의 `artifacts/`, `result/`, `docs/`, `configs/`를 탐색하는 조회용 웹이다. 학습 worker는 변경하지 않으며 별도 Python 3.11 환경에서 실행한다.
 
-- 서버 브라우저: http://127.0.0.1:8710
-- Tailscale 연결 기기: http://100.104.103.77:8710
-- 일반 공인 인터페이스에는 바인딩하지 않는다. Tailscale Serve 설정 없이 해당 사설 인터페이스에 직접 바인딩한다.
+- 서버 브라우저: http://127.0.0.1:18710
+- Tailscale 연결 기기: http://100.104.103.77:18710
+- 사용자 요청과 연구실 규정에 따라 0.0.0.0:18710에 바인딩한다. 공인 접속 주소는 http://203.241.249.48:18710 이다. 현재는 로그인 없는 조회용 웹이며 연구 파일과 영상 다운로드를 제공한다.
 - 브라우저 탭이 닫혀도 수집을 계속한다. user systemd 서비스와 linger를 활성화했다.
 
 ## 제공 화면
 
 1. 전체 현황: GPU 4장의 사용률·VRAM·온도·전력·SM clock·compute PID, CPU/RAM/디스크 여유, 최근 실행, 수집 이후 GPU 이력.
 2. 실행 기록: 작업·상태·이름 필터, 학습 update/환경 step, 접촉 수·종료 episode 성공 비율·PPO loss·update 시간, 고정 평가 episode 결과, 설정/계보, 로그, 파일.
-3. 실험 비교: 최대 4개 학습 run의 곡선, 표준 이름으로 연결된 최종 평가. 학습 중 성공 비율과 고정 평가 성공률을 별도로 표시한다.
+3. 실험 비교: 최대 4개 학습 run의 곡선, 실제 checkpoint 출처로 연결된 평가. 학습 중 성공 비율과 고정 평가 성공률을 별도로 표시한다.
 4. 영상 라이브러리: 제목·seed·update·완주 결과·미리보기, 실제 학습/최종 평가 선택, 다운로드.
 5. 영상 분석: 표시 로봇 선택, simulator 시간 이동, 몸체·발의 월드 높이와 접촉 진행 단계. 기존 병렬 기록에 없는 접촉력·충격·행동은 미수집 표시. 과거 단일 영상의 단계 정보도 없으면 미수집이다.
 6. 파일 탐색: 연구 폴더 이동, 텍스트 첫 256 KB 미리보기, 이미지·MP4 재생, 원본 다운로드.
@@ -41,11 +41,11 @@ npm ci
 npm run build
 cd ..
 python3 scripts/setup_monitor_database.py
-python3 scripts/install_monitor_services.py --private-host 100.104.103.77
+python3 scripts/install_monitor_services.py --public --port 18710
 loginctl enable-linger sxngt
 ```
 
-다른 호스트에서는 사설 IP를 해당 기기 주소로 바꾸거나 `--private-host`를 생략해 loopback만 사용한다. 다른 PostgreSQL 버전은 setup/install 스크립트의 바이너리 경로를 맞춘다. 서비스의 루트 경로는 설치 시 현재 저장소 경로로 생성한다.
+공인 배포는 `--public`, 사설 인터페이스 추가는 `--private-host <IP>`, 둘 다 생략하면 loopback만 사용한다. 웹 포트는 10000–19999만 허용하며 개발 서버도 18711을 사용한다. 다른 PostgreSQL 버전은 setup/install 스크립트의 바이너리 경로를 맞춘다. 서비스의 루트 경로는 설치 시 현재 저장소 경로로 생성한다.
 
 ```bash
 systemctl --user status parkour-monitor-db parkour-monitor-collector parkour-monitor-web
@@ -60,7 +60,7 @@ systemctl --user restart parkour-monitor-collector parkour-monitor-web
 
 - 최초 연결: 실제 실행 45건, 평가 영상 묶음 14개(실제 학습 영상 1개 추가).
 - TypeScript 검사와 production build 통과.
-- 별도 임시 PostgreSQL schema에서 테스트 4개: 미완성 JSONL→추가 기록→수집기 재시작→파일 교체, 손상 메타데이터 처리, HTTP byte-range·경로 제한·증분 cursor, 병렬 replay 환경 선택.
+- 별도 임시 PostgreSQL schema에서 테스트 5개: 미완성 JSONL→추가 기록→수집기 재시작→파일 교체, 손상 메타데이터 처리, HTTP byte-range·경로 제한·증분 cursor, 병렬 replay 환경 선택, 이름과 무관한 checkpoint 계보 연결.
 - 실제 영상 14묶음 및 추가 학습 MP4의 byte-range 응답, replay JSON 응답 확인.
 - loopback/Tailscale 인터페이스에서 HTTP 200, SSE 이벤트 수신, 수집 health 확인.
 - 수집기·웹 서비스 재시작 전후 학습 지표 5,231행 유지: 중복 생성 없음.
@@ -73,3 +73,11 @@ systemctl --user restart parkour-monitor-collector parkour-monitor-web
 원본은 조회만 하며 `artifacts/`와 `result/`를 자동 삭제하지 않는다. DB 색인은 다시 만들 수 있지만 모니터링 시계열은 재구축되지 않는다. `.monitor/`, `.monitor-venv/`, `web/node_modules/`, `web/dist/`는 Git에서 제외한다. 서비스 로그는 user journal에 기록한다.
 
 구현 참고: [Starlette 파일 응답·Range](https://starlette.dev/responses/), [Vite 환경 요구](https://vite.dev/guide/), [psycopg 트랜잭션](https://www.psycopg.org/psycopg3/docs/basic/transactions.html).
+
+## 갱신 동작 보완
+
+실시간 데이터가 들어와도 그래프 인스턴스를 유지하고 series만 갱신해 확대·축소 및 범례 선택을 초기화하지 않도록 수정했다. 비교 화면의 평가 연결은 실행 이름 규칙 대신 checkpoint의 실제 출처 경로를 사용한다. 과거 수동 이름으로 실행한 평가도 표시하며 반복 평가는 개별 행으로 유지한다.
+
+## 공인 인터페이스 배포 — 연구실 포트 규정
+
+사용자 요청에 따라 웹을 18710으로 이동하고 모든 IPv4 인터페이스에서 수신한다. 서버 내부에서 loopback·공인 IP·Tailscale IP 모두 health HTTP 200을 확인했다. 외부 기기에서의 접속은 별도 확인이 필요하다. UFW 서비스는 active, 설정은 ENABLED=yes이며 규칙 조회·18710 허용은 root 권한이 없어 실행하지 못했다. 외부 접속이 차단되면 운영자가 `sudo ufw allow 18710/tcp`를 실행한다. 방화벽 전체 비활성화나 기존 규칙 변경은 수행하지 않았다.

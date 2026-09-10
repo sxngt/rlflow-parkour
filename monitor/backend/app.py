@@ -53,7 +53,16 @@ def overview():
 @app.get('/api/runs')
 def runs():
     items=records('run')
-    for r in items:r.pop('run',None)
+    training_paths={str((ROOT/r['path']).resolve()):r['id'] for r in items if r['kind']=='train'}
+    for r in items:
+        cp=(r.get('run') or {}).get('checkpoint') or {}
+        cp_path=cp.get('path')
+        r['training_run']=None
+        if r['kind']=='evaluate' and cp_path:
+            source=Path(cp_path)
+            if not source.is_absolute():source=ROOT/source
+            r['training_run']=training_paths.get(str(source.resolve().parent))
+        r.pop('run',None)
     return sorted(items,key=lambda r:r.get('started_at') or 0,reverse=True)
 
 @app.get('/api/runs/{id}')

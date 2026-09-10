@@ -74,4 +74,4 @@ T0S-v2에서 접촉→발 들기→목표 접촉의 실제 이벤트를 검증�
 
 ## 2026-09-10 모니터링 웹 인계
 
-FastAPI + React/TypeScript/ECharts + 별도 PostgreSQL 색인으로 조회용 모니터링 웹을 구축했다. run 45건·평가 영상 묶음 14개를 연결했으며 GPU/호스트 자원·학습 지표·로그·파일·영상/replay를 조회한다. 웹은 http://127.0.0.1:8710 및 Tailscale http://100.104.103.77:8710. `parkour-monitor-{db,collector,web}` user systemd 서비스가 운영 중이며 linger가 활성화돼 있다. 전체 설치·검증·제약은 [웹 운영 문서](monitoring-web.md)를 따른다. 실행 제어 API나 장기 scheduler는 이번 조회용 웹과 별도다.
+FastAPI + React/TypeScript/ECharts + 별도 PostgreSQL 색인으로 조회용 모니터링 웹을 구축했다. run 45건·평가 영상 묶음 14개를 연결했으며 GPU/호스트 자원·학습 지표·로그·파일·영상/replay를 조회한다. 웹은 http://127.0.0.1:18710 및 Tailscale http://100.104.103.77:18710. `parkour-monitor-{db,collector,web}` user systemd 서비스가 운영 중이며 linger가 활성화돼 있다. 전체 설치·검증·제약은 [웹 운영 문서](monitoring-web.md)를 따른다. 실행 제어 API나 장기 scheduler는 이번 조회용 웹과 별도다.
