@@ -81,3 +81,11 @@ FastAPI + React/TypeScript/ECharts + 별도 PostgreSQL 색인으로 조회용 �
 기존 800-update seed 0–3 및 zero 대조군을 200Hz에서 계측했다. 결과는 `docs/hopping-diagnosis-results.md`, 재생 영상은 result. seed 1은 64/64에서 연속 20ms 이상 네 발 무접촉, seed 0은 0/64이며 두 모델 모두 64/64 완주한다. 4개 seed의 evaluation.json은 계측 이전과 완전히 같다. 보상/정책 변경은 아직 하지 않았다. 다음은 별도 버전의 지지·착지 기준과 동일 예산 보상 비교다.
 
 웹은 Phase·실험 단계·과제·목적 태그로 실행·영상·원본 파일을 검색한다. `configs/research-tags.json`이 표시 이름과 과거 분류 registry이며 새 실행은 config/run에 태그를 남긴다. 현재 본 진단은 P1 + step:01-hopping-diagnosis + purpose:diagnosis (5건). 계측 파일럿 1건은 별도 purpose로 보존한다. API/웹 서비스는 기존 공인 18710 포트. SSE 연결이 있어도 재시작이 끝나도록 graceful shutdown 대기를 3초로 제한했다.
+
+## P1 Step 02 결과 인계
+
+사전 프로토콜 `docs/step02-protocol.md`에 따라 v3 과제(다른 3발 지지 이벤트 + 최종 0.2초 안정화)를 정의하고 수직 속도 벌점 A=0/B=4를 seed 0/1, 1024환경×800updates씩 처음부터 학습했다. 총 78,643,200 환경 steps. 4 run 및 자동 최종 평가/진단/영상 수집 완료, 자원 해제와 hash/계보 검사 8건 통과.
+
+모든 조건에서 안정화 포함 완주 0/64, 4발 이동 완료 0/64. 평균 완료 접촉 A0=.9531, A1=1.9844, B0=.9063, B1=2.0. B의 수직 속도 RMS는 낮지만 진행 개선은 입증하지 못했다. 대부분 두 번째 발 착지 또는 세 번째 발 들기에서 정체한다. `docs/step02-results.md`, `docs/step02-summary.json`에 자세히 기록했다. 실패를 보존하고 모델 승격은 하지 않았다. 다음은 발별 단일 이동 능력과 3발 지지 조건을 분리한 커리큘럼 파일럿이다.
+
+웹은 P1 / 02·발 디딤 기준선 / 목적: 조건 비교 / 실험 조건 A·B로 검색한다. 비교 화면은 필터 범위의 학습을 선택하며, 평가의 scenario seed 10000과 학습 모델 seed를 구분하도록 수정했다. 구현 확인 3,072 steps와 합성 상태 전이 검사는 목적: 구현 검증으로 별도 분류한다.

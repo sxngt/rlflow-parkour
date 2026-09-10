@@ -36,6 +36,18 @@ def require_run(id):
     if not run:raise HTTPException(404,'Run not found')
     return run
 
+def display_seed(r):
+    # Evaluation's config seed controls scenarios, not the trained policy.
+    if r['kind']=='evaluate':
+        r['evaluation_seed']=r.get('seed')
+        checkpoint=r.get('run',{}).get('checkpoint') or {}
+        r['seed']=checkpoint.get('training_seed')
+        if r['seed'] is None and checkpoint.get('path'):
+            parent=Path(checkpoint['path']).parent.name
+            source=record('run',parent)
+            if source and source['kind']=='train':r['seed']=source.get('seed')
+    return r
+
 @app.get('/api/health')
 def health():
     data=record('collector','health')
@@ -58,6 +70,7 @@ def runs(tag: list[str] = Query(default=[])):
     for r in items:annotate(r,r['id'],r.get('run',{}).get('config'),rules)
     training_paths={str((ROOT/r['path']).resolve()):r['id'] for r in items if r['kind']=='train'}
     for r in items:
+        display_seed(r)
         cp=(r.get('run') or {}).get('checkpoint') or {}
         cp_path=cp.get('path')
         r['training_run']=None
@@ -70,7 +83,7 @@ def runs(tag: list[str] = Query(default=[])):
 
 @app.get('/api/runs/{id}')
 def run_detail(id:str):
-    r=require_run(id); annotate(r,id,r.get('run',{}).get('config')); directory=resolve(r['path'])
+    r=display_seed(require_run(id)); annotate(r,id,r.get('run',{}).get('config')); directory=resolve(r['path'])
     r['files']=[{'name':p.name,'path':str(p.relative_to(ROOT)),'size':p.stat().st_size} for p in sorted(directory.iterdir()) if p.is_file() and not p.is_symlink()]
     r['related_videos']=[v for v in records('video') if v.get('evaluation_run')==id or v.get('training_run')==id]
     return r

@@ -64,3 +64,5 @@ python3 scripts/audit_artifacts.py artifacts/my-train artifacts/my-resume artifa
 GPU 현황, 학습·평가 지표, 실행 비교, 실제 학습/평가 영상, 시간 연동 위치 기록, 연구 파일 탐색을 제공합니다. 새 결과는 자동으로 편입됩니다. [설치·운영·검증 기록](docs/monitoring-web.md).
 
 최근 연구: [P1 · hopping 진단 결과](docs/hopping-diagnosis-results.md) · [연구 phase·태그 사용법](docs/research-phases.md).
+
+최근 비교: [Step 02 · 3발 지지와 안정화 파일럿](docs/step02-results.md) — 수직 속도 벌점 A/B, 두 seed씩 평가. 아직 완주 정책을 확보하지 못했습니다.
