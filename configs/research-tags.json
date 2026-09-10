@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "tags": {
+    "phase:P0": "P0 · 환경 확인",
+    "phase:P1": "P1 · 최소 수직 통합",
+    "phase:P2": "P2 · 동적 Tracker",
+    "phase:P3": "P3 · 발 디딤 Planner",
+    "phase:P4": "P4 · 접촉·이력 적응",
+    "phase:P5": "P5 · 실패 기반 재학습",
+    "phase:P6": "P6 · 상시 운영",
+    "phase:P7": "P7 · 최종 연구 결과",
+    "step:01-hopping-diagnosis": "01 · hopping 진단",
+    "step:02-foothold-baseline": "02 · 발 디딤 기준선",
+    "step:03-single-jump": "03 · 단일 도약·착지",
+    "step:04-linked-jumps": "04 · 연속 도약",
+    "step:05-planner": "05 · Planner 비교",
+    "step:06-contact-adaptation": "06 · 접촉·이력·재계획",
+    "step:07-failure-learning": "07 · 실패 기반 학습",
+    "step:gpu-ops": "GPU 운영 실험",
+    "task:static-foothold": "정적 발 목표",
+    "task:sequential-foothold": "순차 발 디딤",
+    "purpose:diagnosis": "동작 진단",
+    "purpose:baseline": "기준선 파일럿",
+    "purpose:instrumentation-pilot": "계측 파일럿"
+  },
+  "task_defaults": {
+    "a1_t0_foothold_v1": [
+      "phase:P1",
+      "task:static-foothold",
+      "purpose:baseline"
+    ],
+    "a1_t0_sequential_v2": [
+      "phase:P1",
+      "task:sequential-foothold",
+      "purpose:baseline"
+    ]
+  },
+  "run_overrides": {
+    "a1-isolation-003": [
+      "phase:P0"
+    ],
+    "a1-video-002": [
+      "phase:P0"
+    ],
+    "a1-video-001": [
+      "phase:P0"
+    ],
+    "a1-smoke-001": [
+      "phase:P0"
+    ],
+    "p1-step01-hopping-diagnosis-seed0": [
+      "phase:P1",
+      "step:01-hopping-diagnosis",
+      "task:sequential-foothold",
+      "purpose:instrumentation-pilot"
+    ]
+  },
+  "note": "Phase is work classification, not a completion claim. Explicit run research_tags override task defaults. Legacy annotations are derived without changing original artifacts."
+}

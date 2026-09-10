@@ -63,7 +63,7 @@ def collect(evaluation, result_root=ROOT / 'result'):
     if parallel:
         title += f' | {len(visible_episodes)}개 로봇 병렬 평가'
         video_name = f'A1__{task_title}__{mode}-seed{seed}__{updates}업데이트__병렬{len(visible_episodes)}개_최종평가.mp4'
-    record = {'title':title, 'evaluation_run':evaluation.name, 'training_run':Path(model['path']).parent.name if model else None,
+    record = {'research_tags':run.get('research_tags',run['config'].get('research_tags',[])), 'title':title, 'evaluation_run':evaluation.name, 'training_run':Path(model['path']).parent.name if model else None,
               'source_evaluation':os.path.relpath(evaluation, result_root), 'source_video_sha256':expected,
               'checkpoint':model, 'task':run['config']['task'], 'seed':seed, 'updates':updates,
               'video':video_name, 'video_episode':episode, 'aggregate':{k:v for k,v in report.items() if k!='results'},
@@ -92,6 +92,11 @@ def collect(evaluation, result_root=ROOT / 'result'):
                     record['training_video'] = {**training, 'file':training_name}
                 for name in ('evaluation.json','scenarios.json','replay.json'):
                     shutil.copyfile(evaluation/name, temp/name)
+                if (evaluation/'diagnostics.json').exists():
+                    if digest(evaluation/'diagnostics.json') != run['artifacts'].get('diagnostics.json'):
+                        raise ValueError('Diagnostics hash mismatch')
+                    shutil.copyfile(evaluation/'diagnostics.json',temp/'diagnostics.json')
+                    record['diagnostics_file']='diagnostics.json'
                 if (evaluation/'first-frame.png').exists():
                     shutil.copyfile(evaluation/'first-frame.png', temp/'preview.png')
                 (temp/'manifest.json').write_text(json.dumps(record,ensure_ascii=False,indent=2)+'\n')

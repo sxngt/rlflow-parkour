@@ -62,3 +62,5 @@ python3 scripts/audit_artifacts.py artifacts/my-train artifacts/my-resume artifa
 [공인 주소에서 열기](http://203.241.249.48:18710) · [서버에서 열기](http://127.0.0.1:18710) · [Tailscale에서 열기](http://100.104.103.77:18710)
 
 GPU 현황, 학습·평가 지표, 실행 비교, 실제 학습/평가 영상, 시간 연동 위치 기록, 연구 파일 탐색을 제공합니다. 새 결과는 자동으로 편입됩니다. [설치·운영·검증 기록](docs/monitoring-web.md).
+
+최근 연구: [P1 · hopping 진단 결과](docs/hopping-diagnosis-results.md) · [연구 phase·태그 사용법](docs/research-phases.md).

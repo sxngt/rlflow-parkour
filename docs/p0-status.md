@@ -75,3 +75,9 @@ T0S-v2에서 접촉→발 들기→목표 접촉의 실제 이벤트를 검증�
 ## 2026-09-10 모니터링 웹 인계
 
 FastAPI + React/TypeScript/ECharts + 별도 PostgreSQL 색인으로 조회용 모니터링 웹을 구축했다. run 45건·평가 영상 묶음 14개를 연결했으며 GPU/호스트 자원·학습 지표·로그·파일·영상/replay를 조회한다. 웹은 http://127.0.0.1:18710 및 Tailscale http://100.104.103.77:18710. `parkour-monitor-{db,collector,web}` user systemd 서비스가 운영 중이며 linger가 활성화돼 있다. 전체 설치·검증·제약은 [웹 운영 문서](monitoring-web.md)를 따른다. 실행 제어 API나 장기 scheduler는 이번 조회용 웹과 별도다.
+
+## P1 Step 01 진단·phase 태그 인계
+
+기존 800-update seed 0–3 및 zero 대조군을 200Hz에서 계측했다. 결과는 `docs/hopping-diagnosis-results.md`, 재생 영상은 result. seed 1은 64/64에서 연속 20ms 이상 네 발 무접촉, seed 0은 0/64이며 두 모델 모두 64/64 완주한다. 4개 seed의 evaluation.json은 계측 이전과 완전히 같다. 보상/정책 변경은 아직 하지 않았다. 다음은 별도 버전의 지지·착지 기준과 동일 예산 보상 비교다.
+
+웹은 Phase·실험 단계·과제·목적 태그로 실행·영상·원본 파일을 검색한다. `configs/research-tags.json`이 표시 이름과 과거 분류 registry이며 새 실행은 config/run에 태그를 남긴다. 현재 본 진단은 P1 + step:01-hopping-diagnosis + purpose:diagnosis (5건). 계측 파일럿 1건은 별도 purpose로 보존한다. API/웹 서비스는 기존 공인 18710 포트. SSE 연결이 있어도 재시작이 끝나도록 graceful shutdown 대기를 3초로 제한했다.

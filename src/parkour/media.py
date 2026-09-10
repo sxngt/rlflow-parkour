@@ -53,7 +53,11 @@ class ParallelRecorder:
         row={'sim_time_s':step*env.step_dt,'visible_env_ids':self.ids,
              'root_state_w':env.robot.data.root_state_w[self.ids].tolist(),
              'foot_positions_w':env.robot.data.body_pos_w[self.ids][:,env.foot_ids].tolist(),
-             'targets_w':env.targets[self.ids].tolist()}
+             'targets_w':env.targets[self.ids].tolist(),
+             'foot_normal_force_N':env.contacts.data.net_forces_w[self.ids][:,env.contact_ids,2].tolist(),
+             'contact_state':env.contact_on[self.ids].tolist(),
+             'root_vz':env.robot.data.root_lin_vel_w[self.ids,2].tolist(),
+             'actions':env.actions[self.ids].tolist()}
         if finished is not None:row['first_episode_finished']=finished[self.ids].tolist()
         if iteration is not None:row['learning_iteration']=iteration
         if hasattr(env,'stage'):

@@ -19,10 +19,13 @@ def main():
     p.add_argument("--episodes", type=int, default=64)
     p.add_argument("--video", action="store_true")
     p.add_argument("--video-envs", type=int, default=16)
+    p.add_argument("--diagnostics", action="store_true")
+    p.add_argument("--research-tag", action="append", default=[])
     args = p.parse_args()
     if args.baseline != "zero" and not args.checkpoint:
         p.error("policy evaluation requires checkpoint")
     config = json.loads(args.config.read_text())
+    if args.research_tag:config["research_tags"] = args.research_tag
     manifest = development_scenarios(args.episodes, config["target_offset_m"], config.get('sequence'))
     config["num_envs"] = args.episodes
     config["seed"] = 10000
@@ -58,6 +61,10 @@ def main():
         raw = env._get_observations()["policy"]
         done = torch.zeros(env.num_envs, dtype=torch.bool, device=env.device)
         records = [None] * env.num_envs
+        diagnostics = None
+        if args.diagnostics:
+            from parkour.diagnostics import MotionDiagnostics
+            diagnostics = MotionDiagnostics(env, done)
         if args.video:
             from parkour.media import ParallelRecorder
             recorder = ParallelRecorder(env,args.out,count=args.video_envs)
@@ -90,6 +97,8 @@ def main():
                            recording_kind='parallel_evaluation',
                            video_stop_rule='last visible first episode; subsequent auto-resets shown but excluded from metrics')
             recorder = None
+        if diagnostics:
+            diagnostics.close(args.out, [s["id"] for s in manifest["episodes"]])
         count = len(records)
         successes = sum(row["success"] for row in records)
         rate = successes / count
@@ -109,7 +118,7 @@ def main():
         atomic_json(args.out / "evaluation.json", report)
         meta["evaluation"] = {key: value for key, value in report.items() if key != "results"}
         meta["artifacts"] = {file.name: sha256(file) for file in args.out.iterdir()
-                             if file.suffix in (".mp4", ".png") or file.name in ("evaluation.json", "scenarios.json", "replay.json")}
+                             if file.suffix in (".mp4", ".png") or file.name in ("evaluation.json", "scenarios.json", "replay.json", "diagnostics.json", "motion-trace.npz")}
         finish_run(args.out, meta)
     except BaseException as exc:
         if recorder and recorder.writer:

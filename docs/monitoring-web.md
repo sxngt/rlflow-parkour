@@ -81,3 +81,7 @@ systemctl --user restart parkour-monitor-collector parkour-monitor-web
 ## 공인 인터페이스 배포 — 연구실 포트 규정
 
 사용자 요청에 따라 웹을 18710으로 이동하고 모든 IPv4 인터페이스에서 수신한다. 서버 내부에서 loopback·공인 IP·Tailscale IP 모두 health HTTP 200을 확인했다. 외부 기기에서의 접속은 별도 확인이 필요하다. UFW 서비스는 active, 설정은 ENABLED=yes이며 규칙 조회·18710 허용은 root 권한이 없어 실행하지 못했다. 외부 접속이 차단되면 운영자가 `sudo ufw allow 18710/tcp`를 실행한다. 방화벽 전체 비활성화나 기존 규칙 변경은 수행하지 않았다.
+
+## Phase 태그와 동작 진단
+
+Phase·실험 단계·과제·목적을 조합해 실행·영상·원본 파일을 필터링한다. [태그 계약](research-phases.md), [첫 진단 결과](hopping-diagnosis-results.md). 새 진단 영상에는 25Hz 접촉력·접촉 상태·행동과 수직 속도를 기록하며, 정량 진단은 별도 200Hz NPZ로 계산한다. 기존 영상의 없는 채널을 채워 넣지는 않는다.

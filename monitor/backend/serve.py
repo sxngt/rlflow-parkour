@@ -15,7 +15,7 @@ def main():
             sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
             sock.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
             sock.bind((host,args.port));sock.listen(128);sockets.append(sock)
-        server=uvicorn.Server(uvicorn.Config('monitor.backend.app:app',access_log=False))
+        server=uvicorn.Server(uvicorn.Config('monitor.backend.app:app',access_log=False,timeout_graceful_shutdown=3))
         server.run(sockets=sockets)
     finally:
         for sock in sockets:sock.close()

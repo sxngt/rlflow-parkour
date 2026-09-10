@@ -47,7 +47,7 @@ def begin_run(out, config, kind):
     revision = subprocess.run(["git", "rev-parse", "--verify", "HEAD"], cwd=root, capture_output=True, text=True)
     meta = {
         "schema_version": 1, "status": "RUNNING", "kind": kind, "pid": os.getpid(),
-        "started_unix_s": time.time(), "config": config, "source_hashes": sources,
+        "started_unix_s": time.time(), "config": config, "research_tags": config.get("research_tags", []), "source_hashes": sources,
         "gpu_uuid": os.environ.get("CUDA_VISIBLE_DEVICES"),
         "physics_device": "cuda:0", "graphics_host_index": os.environ.get("PARKOUR_GRAPHICS_GPU"),
         "git_commit": revision.stdout.strip() if revision.returncode == 0 else None,

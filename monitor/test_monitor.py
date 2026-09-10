@@ -7,7 +7,7 @@ from pathlib import Path
 from unittest.mock import patch
 import psycopg
 from fastapi.testclient import TestClient
-from monitor.backend import store, collector, app as api
+from monitor.backend import store, collector, tags as tagstore, app as api
 
 class MonitorTests(unittest.TestCase):
     @classmethod
@@ -24,7 +24,7 @@ class MonitorTests(unittest.TestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name)
         for name in ['artifacts','result','docs','configs']:(self.root/name).mkdir()
-        self.patches=[patch.object(m,'ROOT',self.root) for m in [store,collector,api]]
+        self.patches=[patch.object(m,'ROOT',self.root) for m in [store,collector,api,tagstore]]
         for p in self.patches:p.start()
         with store.connect() as db:
             for table in ['records','metrics','cursors','telemetry']:db.execute('DELETE FROM '+table)
@@ -86,6 +86,24 @@ class MonitorTests(unittest.TestCase):
             runs={r['id']:r for r in client.get('/api/runs').json()}
             self.assertEqual(runs['unrelated-evaluation-name']['training_run'],'train')
             self.assertIsNone(runs['train']['training_run'])
+
+    def test_phase_tags_filter_runs_and_videos_without_rewriting_sources(self):
+        (self.root/'configs/research-tags.json').write_text(json.dumps({'schema_version':1,
+            'tags':{'phase:P1':'P1','step:01':'Diagnosis'},'task_defaults':{'test':['phase:P1']}}))
+        (self.run/'run.json').write_text(json.dumps({'kind':'train','status':'SUCCEEDED',
+            'config':{'task':'test','research_tags':['phase:P1','step:01']}}))
+        source=(self.run/'run.json').read_bytes()
+        self.scan()
+        with store.connect() as db:
+            store.put(db,'video','example',{'id':'example','evaluation_run':'train','task':'test','research_tags':['phase:P1','step:01']})
+        with TestClient(api.app) as client:
+            self.assertEqual(len(client.get('/api/runs?tag=phase:P1&tag=step:01').json()),1)
+            self.assertEqual(client.get('/api/runs?tag=phase:P2').json(),[])
+            self.assertEqual(len(client.get('/api/videos?tag=step:01').json()),1)
+            self.assertEqual(len(client.get('/api/files?path=artifacts&tag=step:01').json()['entries']),1)
+            self.assertEqual(client.get('/api/files?path=artifacts&tag=phase:P2').json()['entries'],[])
+            self.assertEqual(client.get('/api/tags').json()['tags'][0]['run_count'],1)
+        self.assertEqual((self.run/'run.json').read_bytes(),source)
 
     def test_parallel_replay_environment_selection(self):
         p=self.root/'result/replay.json'

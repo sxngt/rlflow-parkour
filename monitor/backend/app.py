@@ -8,6 +8,7 @@ from urllib.parse import quote
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.responses import FileResponse, StreamingResponse, Response
 from fastapi.staticfiles import StaticFiles
+from .tags import catalog, annotate, matches
 from .store import ROOT, connect, init, record, records, safe_path, read_json
 
 @asynccontextmanager
@@ -51,8 +52,10 @@ def overview():
         'failed':sum(r['status'] in ('FAILED','LOST') for r in runs),'videos':len(records('video'))}}
 
 @app.get('/api/runs')
-def runs():
+def runs(tag: list[str] = Query(default=[])):
     items=records('run')
+    rules=catalog()
+    for r in items:annotate(r,r['id'],r.get('run',{}).get('config'),rules)
     training_paths={str((ROOT/r['path']).resolve()):r['id'] for r in items if r['kind']=='train'}
     for r in items:
         cp=(r.get('run') or {}).get('checkpoint') or {}
@@ -63,11 +66,11 @@ def runs():
             if not source.is_absolute():source=ROOT/source
             r['training_run']=training_paths.get(str(source.resolve().parent))
         r.pop('run',None)
-    return sorted(items,key=lambda r:r.get('started_at') or 0,reverse=True)
+    return sorted([r for r in items if matches(r,tag)],key=lambda r:r.get('started_at') or 0,reverse=True)
 
 @app.get('/api/runs/{id}')
 def run_detail(id:str):
-    r=require_run(id); directory=resolve(r['path'])
+    r=require_run(id); annotate(r,id,r.get('run',{}).get('config')); directory=resolve(r['path'])
     r['files']=[{'name':p.name,'path':str(p.relative_to(ROOT)),'size':p.stat().st_size} for p in sorted(directory.iterdir()) if p.is_file() and not p.is_symlink()]
     r['related_videos']=[v for v in records('video') if v.get('evaluation_run')==id or v.get('training_run')==id]
     return r
@@ -97,7 +100,23 @@ def logs(id:str, offset:int=Query(-1,ge=-1)):
     return {'text':data.decode('utf8',errors='replace'),'start_offset':start,'next_offset':end,'size':size}
 
 @app.get('/api/videos')
-def videos():return sorted(records('video'),key=lambda r:r['id'],reverse=True)
+def videos(tag: list[str] = Query(default=[])):
+    rules=catalog()
+    items=[annotate(v,v.get('evaluation_run',v['id']),rules=rules) for v in records('video')]
+    return sorted([v for v in items if matches(v,tag)],key=lambda r:r['id'],reverse=True)
+
+@app.get('/api/tags')
+def tags():
+    rules=catalog();counts={t:0 for t in rules.get('tags',{})}
+    for r in records('run'):
+        for tag in annotate(r,r['id'],r.get('run',{}).get('config'),rules)['research_tags']:
+            counts[tag]=counts.get(tag,0)+1
+    return {'schema_version':rules.get('schema_version'), 'tags':[{'id':t,'label':rules.get('tags',{}).get(t,t),'run_count':n} for t,n in sorted(counts.items())]}
+
+@app.get('/api/runs/{id}/diagnostics')
+def diagnostics(id:str):
+    r=require_run(id)
+    return read_json(resolve(r['path']+'/diagnostics.json'))
 
 @app.get('/api/replay')
 def replay(path:str, env:int=Query(0,ge=0), limit:int=Query(3000,ge=1,le=10000)):
@@ -118,9 +137,11 @@ def replay(path:str, env:int=Query(0,ge=0), limit:int=Query(3000,ge=1,le=10000))
         rows.append({'time':row.get('sim_time_s'),'stage':get('stage'),'phase':get('phase'),
             'root_z':root[2] if root else None,'feet_z':[x[2] for x in feet] if feet else None,
             'foot_positions':feet,'targets':targets,'learning_iteration':row.get('learning_iteration'),
-            'first_episode_finished':get('first_episode_finished')})
+            'first_episode_finished':get('first_episode_finished'),
+            'foot_normal_force_N':get('foot_normal_force_N'),'contact_state':get('contact_state'),
+            'root_vz':get('root_vz'),'actions':get('actions')})
     return {'metadata':data,'env_id':ids[env],'samples':rows,'stride':stride,
-        'available_channels':['root_z','feet_z','stage','phase'],'unavailable_channels':['contact_force','impact','action']}
+        'available_channels':[key for key in ['root_z','feet_z','stage','phase','foot_normal_force_N','contact_state','root_vz','actions'] if any(r.get(key) is not None for r in rows)],'unavailable_channels':['impact']}
 
 @app.get('/api/telemetry')
 def telemetry(hours:float=Query(1,gt=0,le=168)):
@@ -130,13 +151,23 @@ def telemetry(hours:float=Query(1,gt=0,le=168)):
     return [r['payload'] for r in rows[::stride]]
 
 @app.get('/api/files')
-def files(path:str='artifacts'):
+def files(path:str='artifacts',tag:list[str]=Query(default=[])):
     p=resolve(path)
     if not p.is_dir():raise HTTPException(400,'Directory required')
     items=[]
+    rules=catalog()
+    run_tags={r['id']:annotate(r,r['id'],r.get('run',{}).get('config'),rules)['research_tags'] for r in records('run')}
+    video_tags={v['id']:annotate(v,v.get('evaluation_run',v['id']),rules=rules)['research_tags'] for v in records('video')}
     for child in p.iterdir():
         if child.name.startswith('.') or child.is_symlink():continue
-        st=child.stat(); items.append({'name':child.name,'path':str(child.relative_to(ROOT)),
+        relative=child.relative_to(ROOT).parts
+        inherited=[]
+        if relative[0]=='artifacts' and len(relative)>1:
+            candidates=[rid for rid in run_tags if relative[1]==rid or relative[1].startswith(rid+'.')]
+            if candidates:inherited=run_tags[max(candidates,key=len)]
+        elif relative[0]=='result' and len(relative)>1:inherited=video_tags.get(relative[1],[])
+        if tag and relative[0] in ('artifacts','result') and not all(t in inherited for t in tag):continue
+        st=child.stat(); items.append({'research_tags':inherited,'name':child.name,'path':str(child.relative_to(ROOT)),
             'directory':child.is_dir(),'size':st.st_size,'modified_at':st.st_mtime})
     return {'path':str(p.relative_to(ROOT)),'entries':sorted(items,key=lambda x:(not x['directory'],x['name']))}
 
