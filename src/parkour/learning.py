@@ -1,0 +1,87 @@
+"""Fixed PPO implementation adapter; no off-policy trajectory replay."""
+from __future__ import annotations
+
+import copy
+import random
+from pathlib import Path
+import numpy as np
+import torch
+from rsl_rl.algorithms import PPO
+from rsl_rl.modules import ActorCritic, EmpiricalNormalization
+from parkour.runtime import sha256, atomic_json
+
+
+def make_algorithm(config, env):
+    policy_cfg = copy.deepcopy(config["runner"]["policy"])
+    if policy_cfg.pop("class_name") != "ActorCritic":
+        raise ValueError("Only ActorCritic is supported")
+    policy = ActorCritic(61, 61, 12, **policy_cfg).to(env.device)
+    alg_cfg = copy.deepcopy(config["runner"]["algorithm"])
+    if alg_cfg.pop("class_name") != "PPO":
+        raise ValueError("Only PPO is supported")
+    alg = PPO(policy, device=env.device, **alg_cfg)
+    alg.init_storage("rl", env.num_envs, config["runner"]["num_steps_per_env"], [61], [61], [12])
+    normalizer = EmpiricalNormalization(shape=[61]).to(env.device)
+    return alg, normalizer
+
+
+def save_checkpoint(path, config, alg, normalizer, env, completed_iterations, total_steps):
+    data = {
+        "schema_version": 1, "config": config, "completed_iterations": completed_iterations,
+        "total_environment_steps": total_steps, "model": alg.policy.state_dict(),
+        "optimizer": alg.optimizer.state_dict(), "learning_rate": alg.learning_rate,
+        "normalizer": normalizer.state_dict(), "rng_python": random.getstate(),
+        "rng_numpy": np.random.get_state(), "rng_torch": torch.get_rng_state(),
+        "rng_cuda": torch.cuda.get_rng_state_all(), "rng_scenario": env.generator.get_state(),
+        "curriculum": {"kind": "fixed", "target_offset_m": config["target_offset_m"]},
+        "resume_contract": "new_episode_boundary; unfinished episodes discarded; not bitwise replay",
+    }
+    path = Path(path)
+    temp = path.with_suffix(".tmp")
+    torch.save(data, temp)
+    # Validate readability before marking the artifact complete.
+    check = torch.load(temp, map_location="cpu", weights_only=False)
+    assert check["completed_iterations"] == completed_iterations
+    temp.replace(path)
+    atomic_json(path.with_suffix(".json"), {"sha256": sha256(path), "bytes": path.stat().st_size,
+        "completed_iterations": completed_iterations, "total_environment_steps": total_steps})
+
+
+def read_checkpoint(path):
+    path = Path(path)
+    import json
+    sidecar = json.loads(path.with_suffix(".json").read_text())
+    if sha256(path) != sidecar["sha256"]:
+        raise ValueError("Checkpoint hash mismatch")
+    # Only locally generated trusted checkpoints. torch pickle is not a public upload format.
+    return torch.load(path, map_location="cpu", weights_only=False)
+
+
+def restore(data, config, alg, normalizer, env, training):
+    keys = ("task", "episode_seconds", "target_offset_m", "surface_height_m", "success_radius_m", "success_dwell_s", "runner")
+    if any(data["config"][key] != config[key] for key in keys):
+        raise ValueError("Checkpoint/task contract differs")
+    alg.policy.load_state_dict(data["model"])
+    normalizer.load_state_dict(data["normalizer"])
+    if training:
+        if data["config"]["num_envs"] != config["num_envs"] or data["config"]["seed"] != config["seed"]:
+            raise ValueError("Resume must keep seed and environment count")
+        alg.optimizer.load_state_dict(data["optimizer"])
+        alg.learning_rate = data["learning_rate"]
+        random.setstate(data["rng_python"])
+        np.random.set_state(data["rng_numpy"])
+        torch.set_rng_state(data["rng_torch"])
+        torch.cuda.set_rng_state_all(data["rng_cuda"])
+        env.generator.set_state(data["rng_scenario"])
+
+
+def make_env(config):
+    from parkour.task import FootholdCfg, FootholdEnv
+    cfg = FootholdCfg()
+    cfg.seed = config["seed"]
+    cfg.scene.num_envs = config["num_envs"]
+    cfg.episode_length_s = config["episode_seconds"]
+    for key in ("target_offset_m", "surface_height_m", "success_radius_m", "success_dwell_s"):
+        setattr(cfg, key, config[key])
+    cfg.sim.device = "cuda:0"
+    return FootholdEnv(cfg)

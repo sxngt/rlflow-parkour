@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "robot": "unitree_a1",
+  "asset_config": "isaaclab_assets:UNITREE_A1_CFG",
+  "physics_dt_s": 0.005,
+  "steps": 600,
+  "control": "constant_default_joint_position",
+  "terrain": "flat",
+  "sensor": "simulator_ground_truth_foot_net_force_world",
+  "purpose": "P0 asset and contact smoke; not an RL policy or parkour evaluation"
+}
