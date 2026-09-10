@@ -4,3 +4,8 @@ __pycache__/
 *.pyc
 .venv/
 .env
+.monitor-venv/
+.monitor/
+web/node_modules/
+web/dist/
+*.tsbuildinfo
