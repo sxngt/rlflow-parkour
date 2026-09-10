@@ -130,6 +130,8 @@ def main():
         command = [sys.executable, str(ROOT/'scripts/run_job.py'), '--gpu', gpu, '--timeout', '180',
                    '--python', args.python, 'evaluate', '--config', str(out/'config.json'),
                    '--checkpoint', str(out/run['checkpoint']['path']), '--out', str(evaluation_out), '--video']
+        if run.get('config',{}).get('evaluation_diagnostics'):
+            command.append('--diagnostics')
         evaluation = subprocess.run(command, cwd=ROOT)
         result['final_evaluation'] = {'path': str(evaluation_out), 'exit_code': evaluation.returncode}
         out.with_suffix('.supervisor.json').write_text(json.dumps(result, indent=2)+'\n')

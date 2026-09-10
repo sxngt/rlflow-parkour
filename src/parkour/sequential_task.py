@@ -103,7 +103,8 @@ class SequentialEnv(FootholdEnv):
             self.phase, self.grounded_seen, self.lift_count, self.hold_steps, contact,
             foot_z-surface-0.02, self._errors()[self.indices, active], (foot_z-surface-0.02).abs(),
             support, settled, self.cfg.success_radius_m, self.seq['min_lift_clearance_m'],
-            self.seq['lift_confirm_steps'], math.ceil(self.cfg.success_dwell_s/self.step_dt))
+            self.seq['lift_confirm_steps'], math.ceil(self.cfg.success_dwell_s/self.step_dt),
+            min_support=self.seq.get('min_support_feet',2))
         base_contact = self.contacts.data.net_forces_w_history[:, :, self.base_ids].norm(dim=-1).amax(dim=(1, 2)) > 5
         height = self.robot.data.root_pos_w[:, 2] - surface
         out = (self.robot.data.root_pos_w[:, :2] - self.scene.env_origins[:, :2]).norm(dim=-1) > 0.6

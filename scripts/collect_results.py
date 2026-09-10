@@ -14,7 +14,8 @@ from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
 TASKS = {'a1_t0_foothold_v1': ('T0-v1', '정적_목표접촉'),
-         'a1_t0_sequential_v2': ('T0S-v2', '순차_발디딤_4회')}
+         'a1_t0_sequential_v2': ('T0S-v2', '순차_발디딤_4회'),
+         'a1_t0_sequential_stable_v3': ('T0S-v3', '3발지지_순차발디딤_착지안정화')}
 
 
 def digest(path):

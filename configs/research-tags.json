@@ -21,7 +21,12 @@
     "task:sequential-foothold": "순차 발 디딤",
     "purpose:diagnosis": "동작 진단",
     "purpose:baseline": "기준선 파일럿",
-    "purpose:instrumentation-pilot": "계측 파일럿"
+    "purpose:instrumentation-pilot": "계측 파일럿",
+    "task:stable-sequential-foothold": "3발 지지·최종 안정화",
+    "purpose:comparison": "조건 비교",
+    "purpose:implementation-check": "구현 검증",
+    "condition:a-vz0": "A · 수직 속도 벌점 0",
+    "condition:b-vz4": "B · 수직 속도 벌점 4"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
@@ -33,6 +38,11 @@
       "phase:P1",
       "task:sequential-foothold",
       "purpose:baseline"
+    ],
+    "a1_t0_sequential_stable_v3": [
+      "phase:P1",
+      "step:02-foothold-baseline",
+      "task:stable-sequential-foothold"
     ]
   },
   "run_overrides": {
@@ -53,6 +63,12 @@
       "step:01-hopping-diagnosis",
       "task:sequential-foothold",
       "purpose:instrumentation-pilot"
+    ],
+    "p1-step02-v3-implementation-check": [
+      "phase:P1",
+      "step:02-foothold-baseline",
+      "task:stable-sequential-foothold",
+      "purpose:implementation-check"
     ]
   },
   "note": "Phase is work classification, not a completion claim. Explicit run research_tags override task defaults. Legacy annotations are derived without changing original artifacts."
