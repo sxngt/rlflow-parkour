@@ -34,6 +34,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--gpu", required=True, help="GPU UUID, or host index resolved immediately to UUID")
     p.add_argument("--timeout", type=float, default=1800)
+    p.add_argument('--skip-final-evaluation', action='store_true', help='Opt out for debug/profiling training runs')
     p.add_argument("--python", default="/mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh")
     p.add_argument("kind", choices=["train", "evaluate"])
     p.add_argument("worker_args", nargs=argparse.REMAINDER)
@@ -119,6 +120,22 @@ def main():
         fcntl.flock(lease, fcntl.LOCK_UN)
         lease.close()
     print(json.dumps(result), flush=True)
+    if proc.returncode == 0 and run.get('kind') == 'evaluate' and run.get('status') == 'SUCCEEDED' and not remaining and (out/'evaluation.mp4').exists():
+        archive = subprocess.run([sys.executable, str(ROOT/'scripts/collect_results.py'), str(out)], cwd=ROOT)
+        if archive.returncode:
+            print('Evaluation completed, but result/ collection failed; rerun collect_results.py.', file=sys.stderr)
+            return 1
+    if proc.returncode == 0 and run.get('kind') == 'train' and run.get('status') == 'SUCCEEDED' and not remaining and not args.skip_final_evaluation:
+        evaluation_out = out.with_name(out.name + '__final-evaluation')
+        command = [sys.executable, str(ROOT/'scripts/run_job.py'), '--gpu', gpu, '--timeout', '180',
+                   '--python', args.python, 'evaluate', '--config', str(out/'config.json'),
+                   '--checkpoint', str(out/run['checkpoint']['path']), '--out', str(evaluation_out), '--video']
+        evaluation = subprocess.run(command, cwd=ROOT)
+        result['final_evaluation'] = {'path': str(evaluation_out), 'exit_code': evaluation.returncode}
+        out.with_suffix('.supervisor.json').write_text(json.dumps(result, indent=2)+'\n')
+        if evaluation.returncode:
+            print('Training succeeded; final evaluation/archive needs attention.', file=sys.stderr)
+            return 1
     return 0 if proc.returncode == 0 and run.get("status") == "SUCCEEDED" and not remaining and not timed_out and not interrupted else 1
 
 

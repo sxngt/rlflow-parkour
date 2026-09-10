@@ -18,15 +18,16 @@ def main():
     p.add_argument("--out", type=Path, required=True)
     p.add_argument("--episodes", type=int, default=64)
     p.add_argument("--video", action="store_true")
+    p.add_argument("--video-envs", type=int, default=16)
     args = p.parse_args()
     if args.baseline != "zero" and not args.checkpoint:
         p.error("policy evaluation requires checkpoint")
     config = json.loads(args.config.read_text())
-    manifest = development_scenarios(args.episodes, config["target_offset_m"])
+    manifest = development_scenarios(args.episodes, config["target_offset_m"], config.get('sequence'))
     config["num_envs"] = args.episodes
     config["seed"] = 10000
     meta = begin_run(args.out, config, "evaluate")
-    writer = None
+    recorder = None
     try:
         launch_app(args.video)
         import numpy as np
@@ -39,34 +40,27 @@ def main():
             data = read_checkpoint(args.checkpoint)
             restore(data, config, alg, norm, env, training=False)
             meta["checkpoint"] = {"path": str(args.checkpoint.resolve()), "sha256": sha256(args.checkpoint)}
+            meta['checkpoint'].update(training_seed=data['config']['seed'], completed_iterations=data['completed_iterations'],
+                                      total_environment_steps=data['total_environment_steps'])
         alg.policy.eval()
         norm.eval()
         env.reset()
         offsets = torch.tensor([episode["foot_offsets_xy_m"] for episode in manifest["episodes"]], device=env.device)
-        env.targets[:, :, :2] = env.scene.env_origins[:, None, :2] + env.nominal_xy + offsets
+        if hasattr(env, 'set_sequence_offsets'):
+            env.set_sequence_offsets(offsets)
+            meta['stance_calibration'] = env.calibration
+        else:
+            env.targets[:, :, :2] = env.scene.env_origins[:, None, :2] + env.nominal_xy + offsets
         atomic_json(args.out / "scenarios.json", manifest)
         meta["scenario_sha256"] = sha256(args.out / "scenarios.json")
         meta["baseline"] = args.baseline
         meta["nominal_foot_xy_m"] = env.nominal_xy.tolist()
-        initial_targets = env.targets.clone()
         raw = env._get_observations()["policy"]
         done = torch.zeros(env.num_envs, dtype=torch.bool, device=env.device)
         records = [None] * env.num_envs
-        trace = []
-        frames = 0
         if args.video:
-            import imageio.v2 as imageio
-            from isaaclab.markers import VisualizationMarkers
-            from isaaclab.markers.config import RAY_CASTER_MARKER_CFG
-            markers = VisualizationMarkers(RAY_CASTER_MARKER_CFG.replace(prim_path="/World/TargetMarkers"))
-            markers.visualize(translations=env.targets.reshape(-1, 3))
-            env.render_mode = "rgb_array"
-            env.cfg.viewer.resolution = (640, 480)
-            origin = env.scene.env_origins[0].cpu().numpy()
-            env.sim.set_camera_view(origin + np.array([1.4, 1.4, 1.0]), origin + np.array([0, 0, 0.25]))
-            for _ in range(40):
-                env.render()
-            writer = imageio.get_writer(str(args.out / "evaluation.mp4"), fps=25, codec="libx264")
+            from parkour.media import ParallelRecorder
+            recorder = ParallelRecorder(env,args.out,count=args.video_envs)
         with torch.inference_mode():
             for step in range(env.max_episode_length + 1):
                 if args.baseline == "zero":
@@ -77,19 +71,8 @@ def main():
                         # Replace only target channels; the true task/reward remains unchanged.
                         policy_obs[:, 45:57] = torch.roll(policy_obs[:, 45:57], 1, dims=0)
                     action = alg.policy.act_inference(norm(policy_obs))
-                if args.video and not bool(done[0]):
-                    if step % 2 == 0:
-                        frame = env.render()
-                        if frames == 0:
-                            if frame.max() == 0:
-                                raise RuntimeError("Black renderer output")
-                            imageio.imwrite(args.out / "first-frame.png", frame)
-                        writer.append_data(frame)
-                        frames += 1
-                    trace.append({"sim_time_s": step * env.step_dt,
-                        "root_state_w": env.robot.data.root_state_w[0].tolist(),
-                        "foot_positions_w": env.robot.data.body_pos_w[0, env.foot_ids].tolist(),
-                        "targets_w": initial_targets[0].tolist(), "actions": action[0].tolist()})
+                if recorder and not bool(done[recorder.ids].all()):
+                    recorder.capture(step,finished=done)
                 raw_dict, _, term, trunc, extras = env.step(action)
                 raw = raw_dict["policy"]
                 newly_done = (term | trunc) & ~done
@@ -102,12 +85,11 @@ def main():
                     break
         if not bool(done.all()) or any(record is None for record in records):
             raise RuntimeError("Evaluation incomplete; missing scenario results")
-        if writer:
-            writer.close()
-            writer = None
-            atomic_json(args.out / "replay.json", {"artifact_type": "original_simulation_frames",
-                "episode": records[0], "fps": 25, "frame_count": frames,
-                "video_start_sim_time_s": 0.0, "frame_dt_s": 0.04, "trace": trace})
+        if recorder:
+            recorder.close(episode=records[0], episodes=[records[i] for i in recorder.ids],
+                           recording_kind='parallel_evaluation',
+                           video_stop_rule='last visible first episode; subsequent auto-resets shown but excluded from metrics')
+            recorder = None
         count = len(records)
         successes = sum(row["success"] for row in records)
         rate = successes / count
@@ -122,14 +104,16 @@ def main():
                   "mean_final_error_m": sum(row["final_error_m"] for row in records) / count,
                   "mean_episode_seconds": sum(row["length"] for row in records) * env.step_dt / count,
                   "results": records}
+        if 'completed_contacts' in records[0]:
+            report['mean_completed_contacts'] = sum(row['completed_contacts'] for row in records)/count
         atomic_json(args.out / "evaluation.json", report)
         meta["evaluation"] = {key: value for key, value in report.items() if key != "results"}
         meta["artifacts"] = {file.name: sha256(file) for file in args.out.iterdir()
                              if file.suffix in (".mp4", ".png") or file.name in ("evaluation.json", "scenarios.json", "replay.json")}
         finish_run(args.out, meta)
     except BaseException as exc:
-        if writer:
-            writer.close()
+        if recorder and recorder.writer:
+            recorder.writer.close()
         traceback.print_exc()
         finish_run(args.out, meta, exc)
 

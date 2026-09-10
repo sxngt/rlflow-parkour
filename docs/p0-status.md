@@ -63,3 +63,11 @@ GPU UUID:
 - seed 0~3을 100 iterations씩 학습하고 각각 새 attempt에서 400 iterations 추가 재개하는 파일럿 진행.
 - 재개 checkpoint의 optimizer·normalizer count·iteration/step 증가·가중치 변경을 확인했다. hash가 틀린 checkpoint는 역직렬화 전에 거부했다.
 - 최종 결과와 정확한 검증 범위는 `docs/t0-pilot-results.md`에 기록한다.
+
+## 2026-09-10 순차 과제 및 영상 인계
+
+T0S-v2에서 접촉→발 들기→목표 접촉의 실제 이벤트를 검증하며 네 발을 순차 이동한다. 4 GPU에 seed별 1,024환경, 800업데이트 학습과 최종 평가를 완료했다. seed 0/1은 64/64, seed 2/3은 0/64 완주로 seed 간 편차가 남는다. 자세한 결과는 [순차 과제 결과](t0-sequential-results.md)에 기록했다.
+
+사용자 요청에 따라 기본 평가 카메라를 16대가 보이는 원거리 구도로 변경했다. seed 0의 801–825 업데이트를 실제 학습 영상으로 별도 촬영하고 자동 후속 평가·result 수집까지 검증했다. `result/README.md`가 영상 목록이며 원본은 artifacts에 보존한다. 테스트 11개와 새 실행 11건의 artifact/GPU 회수 감사를 통과했다. 종료 시 GPU compute 프로세스는 없다.
+
+다음 연구 작업은 seed 2/3의 정체 원인과 순차 실행 안정성을 분석한 뒤 지형·도약 과제로 확장하는 것이다. 현재는 평지의 짧은 발 이동이며 파쿠르 완료가 아니다.

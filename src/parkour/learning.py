@@ -15,13 +15,14 @@ def make_algorithm(config, env):
     policy_cfg = copy.deepcopy(config["runner"]["policy"])
     if policy_cfg.pop("class_name") != "ActorCritic":
         raise ValueError("Only ActorCritic is supported")
-    policy = ActorCritic(61, 61, 12, **policy_cfg).to(env.device)
+    obs_dim = env.cfg.observation_space
+    policy = ActorCritic(obs_dim, obs_dim, 12, **policy_cfg).to(env.device)
     alg_cfg = copy.deepcopy(config["runner"]["algorithm"])
     if alg_cfg.pop("class_name") != "PPO":
         raise ValueError("Only PPO is supported")
     alg = PPO(policy, device=env.device, **alg_cfg)
-    alg.init_storage("rl", env.num_envs, config["runner"]["num_steps_per_env"], [61], [61], [12])
-    normalizer = EmpiricalNormalization(shape=[61]).to(env.device)
+    alg.init_storage("rl", env.num_envs, config["runner"]["num_steps_per_env"], [obs_dim], [obs_dim], [12])
+    normalizer = EmpiricalNormalization(shape=[obs_dim]).to(env.device)
     return alg, normalizer
 
 
@@ -61,6 +62,8 @@ def restore(data, config, alg, normalizer, env, training):
     keys = ("task", "episode_seconds", "target_offset_m", "surface_height_m", "success_radius_m", "success_dwell_s", "runner")
     if any(data["config"][key] != config[key] for key in keys):
         raise ValueError("Checkpoint/task contract differs")
+    if data['config'].get('sequence') != config.get('sequence'):
+        raise ValueError('Checkpoint sequence contract differs')
     alg.policy.load_state_dict(data["model"])
     normalizer.load_state_dict(data["normalizer"])
     if training:
@@ -77,11 +80,20 @@ def restore(data, config, alg, normalizer, env, training):
 
 def make_env(config):
     from parkour.task import FootholdCfg, FootholdEnv
-    cfg = FootholdCfg()
+    if config['task'] == 'a1_t0_sequential_v2':
+        from parkour.sequential_task import SequentialCfg, SequentialEnv
+        if config['surface_height_m'] != 0:
+            raise ValueError('Sequential v2 currently supports flat ground only')
+        cfg, env_type = SequentialCfg(), SequentialEnv
+        cfg.sequence = copy.deepcopy(config['sequence'])
+    elif config['task'] == 'a1_t0_foothold_v1':
+        cfg, env_type = FootholdCfg(), FootholdEnv
+    else:
+        raise ValueError('Unknown task contract')
     cfg.seed = config["seed"]
     cfg.scene.num_envs = config["num_envs"]
     cfg.episode_length_s = config["episode_seconds"]
     for key in ("target_offset_m", "surface_height_m", "success_radius_m", "success_dwell_s"):
         setattr(cfg, key, config[key])
     cfg.sim.device = "cuda:0"
-    return FootholdEnv(cfg)
+    return env_type(cfg)
