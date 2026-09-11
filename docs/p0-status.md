@@ -269,3 +269,15 @@ docs/p2-horizontal-command-design.md 초안과scenarios.directed_jump_scenarios�
 목표만옮기면걸어간뒤제자리점프해도성공할수있음. 새P2-05는초기출발영역(제안반경3cm)에서유효비행을확인하고최초비행시점rootXY와최초착지rootXY를기록해실제비행전방이동량을측정해야한다. 비영점목표의최소이동량은제안max(0,목표거리-3cm),0cm명령에는양의이동강제안함. 아직숫자사전고정/물리검증전이므로프로토콜을먼저확정할것. 유효비행감지지연(20mshistory/50Hz판정)으로실제이륙보다늦은시점부터재는보수적거리임을명시. 출발기준은scene.env_origins가아니라calibrated_root[:2]까지반영해야함(기본rootx약-.047m!).
 
 제안구현: DirectedJumpEnv extends PrecisionJumpEnv. reset후4개발goal에동일전방거리(학습0~.15m)를추가,해당거리tensor와launch/landingrootlatch초기화. 첫flight_event에서launchXY저장/출발영역검사. 첫physicsfootcontact(FirstTouch new.any)시rootXY저장;현재precision wrapper확장시기존동작은보존하고새task에만hook을선택적으로호출. 성공은기존엄격성공AND launch영역AND 최소실비행거리. 과거안정화/정밀착지/이동충족을별도기록. 출발영역이탈/지상보행우회/이동없음/반대방향/0cm회귀의합성검증필수. 학습/관측66/물리/구동기/PPO기본유지여부를명시하고새계약체크포인트호환성을분리. 시행전짧은경로검증후4seed고정예산. 현재새학습은없고4GPU사용가능. goal active 유지.
+
+## P2-05 수평 목표 도약 구현 및 본 학습 시작
+
+DirectedJumpEnv extends PrecisionJumpEnv, task a1_directed_jump_v5. train_forward_range_m=[0,.15]를reset마다균등추출해네발목표에동일X추가. set_sequence_offsets가goal_distance도갱신하므로평가manifest적용시명령일치. evaluation_forward_m=[0,.05,.1,.15],같은16높이seed를거리별공유한64개개발명령. 기존66관측목표채널사용,높이4–6cm/구동기/PPO/보상항은P2-04그대로.
+
+FlightTravel 모듈: 첫flight_event에서env-localrootXY를저장하고calibrated_root[:2]반경3cm검사. 영역밖은즉시failure. 첫200Hzfootcontact에서rootXY1회저장,실비행x차이측정. 비영점goal은≥max(0,goal-.03),0goal은양의이동불필요. success=기존정밀hold AND출발/거리. launch조건과순수distance_requirement_met을분리하고travel_requirement_met은결합. 미접촉flight_forward_m=-1/유효성flag별도. phase원본에서launch는처음stage>=1인physics표본의바로이전표본(제어판정직전),invalidlaunch즉시종료는마지막유효표본으로대조한다. 최초touchroot는firsttouch시간의physics표본. reportassert1e-5m. 실제이륙보다늦게감지하는보수적비행거리라는한계명시.
+
+32unit PASS. check_directed_jump.py 합성실험PASS(관측/명령/정지거부/영역밖실제상승비행거부/0cm와15cm합성착지결합성공). artifacts/p2-05-directed-state-check.log. 2update64env train+자동평가와최신출발/거리분리코드추가평가p2-05-directed-validation-v2,총3run감사PASS(artifacts/p2-05-implementation-audit.jsonl). 모두implementation-check태그/본예산제외. 짧은정책유효비행0이므로양성원본root대조는본평가후추가확인필요. 합성teleport는정책성능아님.
+
+본4run artifacts/p2-05-directed-seed{0,1,2,3} 시작,GPU index=seed. 각1024×24×1600updates=39,321,600step,총157,286,400신규. sourcecommit88bf232,supervisor1800초,자동64평가/MP4/200Hz180초. session34664/99649/96009/65827. 새턴에서실제PID/메트릭확인후관측,중복실행금지.
+
+완료후8run감사,experiment_report.py및jump_trace_report.py configs/reports/p2-05.json. 보고서는거리별성공/출발/순수실이동/첫접촉/안정화 및원본firsttouch/root좌표대조. helper에서by_distance를보고하고success_label수평도약성공. 네거리각16개이며기존64개제자리프로토콜과동일평가라고비교하지말것. taskclass는평지뿐이라갭/발판성능아님. 영상T1J-v5별도result등록. 모델승격없고goal active 유지.
