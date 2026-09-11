@@ -10,18 +10,20 @@
 
 ## 현재 실행 / 다음 작업
 
-P2-12 대규모 batch 동일step 비교 시작. docs/p2-12-protocol.md, configs/p2-12-large-batch.json, configs/reports/p2-12.json. source8e5b321. 새정책seed0–3,각8192환경×24step×200updates=39,321,600step(P2-11과같음).커리큘럼101/151update에서4.5/3cm전환,checkpoint25마다,worker1800초. PPO batch8배/update수1/8,환경reset표본차이명시. 아직성능결과없음.
+P2-13 minibatch 비교 시작, source481b041. configs/p2-13-minibatch.json, configs/reports/p2-13.json, docs/p2-13-protocol.md. P2-12에서num_mini_batches4→32만변경(태그제외). 새정책seed0–3,각8192환경×24step×200update. minibatch6144및총gradient갱신32000은P2-11과같지만정책데이터수집빈도는200으로다름. 커리큘럼101/151에4.5/3cm,checkpoint25마다,worker1800초.
 
 |GPU|run|session|
 |---|---|---|
-|0|p2-12-large-batch-seed0|6334|
-|1|p2-12-large-batch-seed1|80604|
-|2|p2-12-large-batch-seed2|45086|
-|3|p2-12-large-batch-seed3|93589|
+|0|p2-13-minibatch-seed0|80211|
+|1|p2-13-minibatch-seed1|48969|
+|2|p2-13-minibatch-seed2|70391|
+|3|p2-13-minibatch-seed3|74163|
 
-종료후학습4+자동평가4 audit,GPU해제확인. experiment_report.py 및jump_trace_report.py configs/reports/p2-12.json.101/151반경전환검사,원본200Hz좌표대조. P2-11(48/17/51/51성공)과거리별/seed별성능·시간·환경step비교. result영상4개보존. 실패하면8192를처리량만으로채택하지말고4096또는minibatch구조별도검토. 중간결과로예산변경금지.
+종료후학습4+자동평가4 audit/GPU해제확인,experiment_report.py및jump_trace_report.py configs/reports/p2-13.json. 원본200Hz/커리큘럼전환확인,거리별성공·실패·학습시간을P2-12와P2-11에비교. 개선없으면병렬규모최적화무한반복하지말고기존유효정책으로실제발판/갭경계검증단계진행. result영상4개보존.
 
-완료profiling:단독1024/2048/4096/8192 step/s38495/64367/105392/146132.8192동시113419/114704/114231/114462합456817(개별구간합). 학습8+평가8감사통과·영상8개. docs/gpu-env-sweep-results.md/summary.json 및script. 공통동시구간실측진행량/CPU병목분석은미완료로남음. GPU사용률최대화완료주장금지.
+P2-12완료:모두성공0/64·유효비행0/64·timeout64/64.학습약366–376초vsP2-11약1167–1212초였지만성공모델없으므로목표성능도달시간개선아님. 학습4+평가4감사통과,101/151반경전환확인,영상4개. docs/p2-12-results.md/summary.json 및flight-diagnosis.json.
+
+GPU profiling완료:단독1024/2048/4096/8192 step/s38495/64367/105392/146132.8192동시합456817.학습8+평가8감사통과·영상8개. docs/gpu-env-sweep-results.md/summary.json.공통동시구간실측/CPU병목분석은미완료. GPU완전활용주장금지.
 
 ## 환경과 범위
 
