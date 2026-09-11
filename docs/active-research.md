@@ -154,3 +154,10 @@ scripts/p2_15_support_report.py에 선택적 report spec 인자를 추가했다.
 학습4개+최종평가4개 SUCCEEDED, 실제 모든worker PID 종료/GPU 유휴 확인. artifacts/p2-16-audit.jsonl 8감사통과. experiment_report/jump_trace_report/p2_15_support_report configs/reports/p2-16.json 모두완료. docs/p2-16-results/summary/height-diagnosis/support-diagnosis 및 figures 생성. result 주요영상4개 hash 대조, seed2 프레임시각검사. 결과32/1/48/5, 유효비행모두64. 기존대조0/0/0/48. 모든15cm실패, seed2 평균비행11.66cm가요구12cm미달. seed1 안정화,seed3 RR첫접촉 오차도실패원인. docs/p2-16-findings.md 해석 참조.
 
 다음 구체 과제: 같은4run checkpoint800/1200를 최종3cm 반경/동일64episode로 평가해 후반퇴화 여부 진단. 아직 시작하지 않았고 별도사전프로토콜 필요. 추가학습step0, 평가8개. configs와checkpoint는원래run계약유지,일반 evaluate restore사용. 태그는 P2-16 내 purpose:checkpoint-diagnosis 추가 또는새 명시적step. 전체연구미완료. 이번턴은verified wait→학습/평가완료감사→보고서/실패해석으로progress.
+
+
+### 최신: P2-16 중간평가8개 완료
+
+사전 docs/p2-16-checkpoint-protocol.md, script p2_16_checkpoints.py sourcef96c11a/batch90789. checkpoint800/1200×4seed 모두SUCCEEDED 및실제worker종료. artifacts/p2-16-checkpoint-audit.jsonl8감사통과,result8영상hash확인. p2_16_checkpoint_report.py로 docs/p2-16-checkpoint-results.md/summary.json생성. 최종과pairedscenario/원본checkpoint hash/3cm반경동일확인. 추가학습0step.
+
+800→1200→1600 성공수 seed0:32→32→32,1:31→32→1,2:18→0→48,3:24→0→5.15cm모두0. 특정seed퇴화는있으나seed2는후반회복. 단일조기종료해결주장금지. 다음은checkpoint의학습률/정책변화및안정화진단으로다음학습조건선정. 새학습미시작. 이번턴은8평가실행완료/감사/분석으로progress.
