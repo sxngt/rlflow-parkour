@@ -400,3 +400,10 @@ restored_distribution은checkpoint설정의완료update-1로cap을계산하고fl
 직전 턴은후속평가스크립트/분포검증일반화로progress. 이번 턴은실제동일PID를확인하며기다린verified wait 후401의거리0–10cm/launch6cm/cap.35/reset_all=true 네seed검증. checkpoint300/400 hash정상,전체loss유한. 최신 [{"run": "p2-24-deck-seed0", "pid": 1472939, "live": true, "iteration": 438, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"run": "p2-24-deck-seed1", "pid": 1472947, "live": true, "iteration": 434, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"run": "p2-24-deck-seed2", "pid": 1472940, "live": true, "iteration": 444, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"run": "p2-24-deck-seed3", "pid": 1472926, "live": true, "iteration": 438, "transition401_verified": true, "checkpoint400_hash_ok": true}]
 
 다음801/1201전환(마지막cap.05) 및1600+mean평가,그후사전준비된sampled8평가. batch79919유지, 중복실행금지. 전체목표미완료.
+
+
+### 최신: P2-24 전체 거리 전환 확인
+
+직전 턴은401검증으로progress. 이번 턴동일실제PID확인 후verified wait 및801의거리0–15cm/launch4.5cm/cap.2/reset_all=true 네seed검증. checkpoint600/800 hash정상,모든loss유한/std상한준수. 추가로checkpoint400 model/normalizer tensor는대응P2-20과모두동일(artifacts/p2-24-prefix400.json). 최신 [{"run": "p2-24-deck-seed0", "pid": 1472939, "live": true, "iteration": 865, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"run": "p2-24-deck-seed1", "pid": 1472947, "live": true, "iteration": 854, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"run": "p2-24-deck-seed2", "pid": 1472940, "live": true, "iteration": 881, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"run": "p2-24-deck-seed3", "pid": 1472926, "live": true, "iteration": 862, "transition801_verified": true, "checkpoint800_hash_ok": true}]
+
+다음1201의실제cap.05/floor.05/launch3cm 검증 및1600+mean평가. 그후sampled8개와P2-23대조보고서필수. batch79919 유지,중복실행금지. 전체연구미완료.
