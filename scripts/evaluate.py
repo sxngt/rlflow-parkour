@@ -30,6 +30,9 @@ def main():
     if config.get('jump'):
         from parkour.scenarios import jump_scenarios
         manifest=jump_scenarios(args.episodes,config['jump'])
+        if config['jump'].get('evaluation_forward_m') is not None:
+            from parkour.scenarios import directed_jump_scenarios
+            manifest=directed_jump_scenarios(args.episodes,config['jump'])
     manifest["task"] = config["task"]
     if config.get("sequence"):manifest["sequence_contract"] = config["sequence"]
     config["num_envs"] = args.episodes
@@ -137,6 +140,14 @@ def main():
             report['first_touch_precise_episodes']=sum(r['first_touch_all_within'] for r in records)
             report['stabilized_episodes']=sum(r['stabilized_once'] for r in records)
             report['success_contract']='verified flight + precise first touch + final stabilization'
+        if 'goal_forward_m' in records[0]:
+            report['success_contract']='verified flight from launch region + minimum airborne travel + precise first touch + stabilization'
+            report['by_distance']={}
+            for distance in config['jump']['evaluation_forward_m']:
+                subset=[r for r in records if abs(r['goal_forward_m']-distance)<1e-6]
+                if subset:report['by_distance'][str(distance)]={'episodes':len(subset),'successes':sum(r['success'] for r in subset),
+                    'launches_in_region':sum(r['launch_in_region'] for r in subset),'travel_met':sum(r['travel_requirement_met'] for r in subset),
+                    'first_touch_precise':sum(r['first_touch_all_within'] for r in subset),'stabilized':sum(r['stabilized_once'] for r in subset)}
         if 'active_foot' in records[0]:
             report['by_foot']={}
             for foot in env.foot_names:

@@ -82,12 +82,15 @@ def restore(data, config, alg, normalizer, env, training):
 
 def make_env(config):
     from parkour.task import FootholdCfg, FootholdEnv
-    if config['task'] in ('a1_flat_jump_v1','a1_flat_jump_shaped_v2','a1_flat_jump_precise_v3','a1_flat_jump_supported_v4'):
+    if config['task'] in ('a1_flat_jump_v1','a1_flat_jump_shaped_v2','a1_flat_jump_precise_v3','a1_flat_jump_supported_v4','a1_directed_jump_v5'):
         from parkour.jump_task import JumpCfg,JumpEnv
         cfg,env_type=JumpCfg(),JumpEnv
-        if config['task'] in ('a1_flat_jump_precise_v3','a1_flat_jump_supported_v4'):
+        if config['task'] in ('a1_flat_jump_precise_v3','a1_flat_jump_supported_v4','a1_directed_jump_v5'):
             from parkour.precision_jump_task import PrecisionJumpEnv
             env_type=PrecisionJumpEnv
+        if config['task']=='a1_directed_jump_v5':
+            from parkour.directed_jump_task import DirectedJumpEnv
+            env_type=DirectedJumpEnv
         cfg.sequence=copy.deepcopy(config['sequence']);cfg.jump=copy.deepcopy(config['jump'])
     elif config['task'] in ('a1_t0_sequential_v2','a1_t0_sequential_stable_v3','a1_t0_single_foot_v4','a1_t0_single_foot_aligned_v5','a1_t0_single_foot_continuous_v6','a1_t0_shared_single_foot_v7'):
         from parkour.sequential_task import SequentialCfg, SequentialEnv

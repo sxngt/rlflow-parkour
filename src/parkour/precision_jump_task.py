@@ -16,6 +16,7 @@ class PrecisionJumpEnv(JumpEnv):
             origin=self.scene.env_origins[:,None,:2]
             new=self.first_touch.update(self.flight_seen,self.contacts.data.net_forces_w[:,self.contact_ids],
                 self.robot.data.body_pos_w[:,self.foot_ids,:2]-origin,self.targets[:,:,:2]-origin)
+            if hasattr(self,'on_first_physics_contact'):self.on_first_physics_contact(new)
             self.first_touch_bonus+=(new*torch.exp(-self.first_touch.errors/self.jump['first_touch_reward_scale_m'])).sum(dim=1)*self.jump['first_touch_reward_weight']
         self.scene.update=update
 

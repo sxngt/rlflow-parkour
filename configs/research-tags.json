@@ -52,7 +52,9 @@
     "step:p2-03-first-landing": "P2-03 · 첫 착지 정밀화",
     "condition:precise-landing": "첫 접촉 오차 보상·정밀 성공",
     "step:p2-04-landing-support": "P2-04 · 착지 후 지지 안정화",
-    "condition:landing-support": "착지 후 지지·수직속도 비용"
+    "condition:landing-support": "착지 후 지지·수직속도 비용",
+    "step:p2-05-directed-jump": "P2-05 · 수평 목표 도약",
+    "task:directed-jump": "수평 목표·비행 이동"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
@@ -114,6 +116,11 @@
       "phase:P2",
       "step:p2-04-landing-support",
       "task:single-jump"
+    ],
+    "a1_directed_jump_v5": [
+      "phase:P2",
+      "step:p2-05-directed-jump",
+      "task:directed-jump"
     ]
   },
   "run_overrides": {
