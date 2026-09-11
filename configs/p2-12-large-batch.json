@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "task": "a1_directed_jump_v5",
+  "seed": 0,
+  "num_envs": 8192,
+  "iterations": 200,
+  "episode_seconds": 4.0,
+  "target_offset_m": 0.06,
+  "surface_height_m": 0.0,
+  "success_radius_m": 0.05,
+  "success_dwell_s": 0.08,
+  "runner": {
+    "num_steps_per_env": 24,
+    "save_interval": 25,
+    "empirical_normalization": true,
+    "logger": "tensorboard",
+    "policy": {
+      "class_name": "ActorCritic",
+      "init_noise_std": 0.35,
+      "actor_hidden_dims": [
+        128,
+        128
+      ],
+      "critic_hidden_dims": [
+        128,
+        128
+      ],
+      "activation": "elu"
+    },
+    "algorithm": {
+      "class_name": "PPO",
+      "value_loss_coef": 1.0,
+      "use_clipped_value_loss": true,
+      "clip_param": 0.2,
+      "entropy_coef": 0.005,
+      "num_learning_epochs": 5,
+      "num_mini_batches": 4,
+      "learning_rate": 0.001,
+      "schedule": "adaptive",
+      "gamma": 0.99,
+      "lam": 0.95,
+      "desired_kl": 0.01,
+      "max_grad_norm": 1.0
+    }
+  },
+  "sequence": {
+    "foot_order": [
+      "FL_foot",
+      "FR_foot",
+      "RL_foot",
+      "RR_foot"
+    ],
+    "forward_step_range_m": [
+      0.0,
+      0.0
+    ],
+    "lateral_step_m": 0.0,
+    "sequence_length": 4
+  },
+  "research_tags": [
+    "phase:P2",
+    "step:p2-12-large-batch",
+    "task:directed-jump",
+    "purpose:comparison",
+    "condition:env-8192-equal-steps"
+  ],
+  "evaluation_diagnostics": true,
+  "jump": {
+    "settle_seconds": 0.3,
+    "apex_range_m": [
+      0.04,
+      0.06
+    ],
+    "flight_min_rise_m": 0.03,
+    "flight_min_vz_m_s": 0.2,
+    "landing_radius_m": 0.05,
+    "final_hold_seconds": 0.2,
+    "final_vz_max_m_s": 0.15,
+    "final_angular_speed_max_rad_s": 1.0,
+    "final_height_error_max_m": 0.06,
+    "apex_progress_weight": 3.0,
+    "landing_height_weight": 0.5,
+    "first_touch_reward_weight": 2.0,
+    "first_touch_reward_scale_m": 0.08,
+    "landing_vz_weight": 2.0,
+    "landing_support_weight": 1.0,
+    "train_forward_range_m": [
+      0.0,
+      0.15
+    ],
+    "evaluation_forward_m": [
+      0.0,
+      0.05,
+      0.1,
+      0.15
+    ],
+    "launch_radius_m": 0.03,
+    "travel_tolerance_m": 0.03,
+    "travel_reward_weight": 4.0,
+    "travel_reward_scale_m": 0.03,
+    "launch_curriculum": [
+      {
+        "start_update": 0,
+        "radius_m": 0.06
+      },
+      {
+        "start_update": 100,
+        "radius_m": 0.045
+      },
+      {
+        "start_update": 150,
+        "radius_m": 0.03
+      }
+    ]
+  }
+}
