@@ -141,6 +141,8 @@ def main():
             report['stabilized_episodes']=sum(r['stabilized_once'] for r in records)
             report['success_contract']='verified flight + precise first touch + final stabilization'
         if 'goal_forward_m' in records[0]:
+            report['success_wilson95']=None
+            report['success_interval_note']='같은 높이 명령을 거리별로 재사용하므로 전체 episode를 독립 표본으로 간주한 Wilson 구간은 제공하지 않습니다. 거리별 결과와 학습 seed별 변동을 확인하세요.'
             report['success_contract']='verified flight from launch region + minimum airborne travel + precise first touch + stabilization'
             report['by_distance']={}
             for distance in config['jump']['evaluation_forward_m']:
