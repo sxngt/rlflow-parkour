@@ -34,3 +34,5 @@ P2-04는 동일 초기 자세·평지 제자리 정밀 도약을 네 seed 각각
 ## 환경
 
 Isaac Python: /mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh. .monitor-venv에는 NumPy가 없다. 모니터링 http://203.241.249.48:18710/ . 새 phase/step/condition 태그는 configs/research-tags.json에 등록됐다. 전체 이력은 [p0-status.md](p0-status.md).
+
+추가 원인 분석: [P2-05 비행 조건 진단](p2-05-flight-diagnosis.md). 세 실패 seed는50Hz 경계 최대 상승이1.55–2.80cm로3cm 기준 미달이다. 20ms 공중 이력과 양의 상승속도는 관측됐다. scripts/flight_gate_report.py로 원본200Hz에서 재생성 가능하며 실패/출발 조건 전체를 재구성하는 도구는 아니다.
