@@ -1,0 +1,75 @@
+{
+  "title": "P2-18 · 비행 이동과 최초 접촉 결합 보상",
+  "report": "p2-18",
+  "protocol": "p2-18-protocol.md",
+  "description": "거리 가중치12 단독 조건과 최초 네 발 접촉 결합 조건을 동일 예산으로 비교한다. 기존 P2-17 결과는 재사용 대조군이다.",
+  "success_label": "목표 도약 성공",
+  "trace_episode_index": 3,
+  "show_forward_trace": true,
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "distance-only12",
+      "seed": 0,
+      "run": "p2-17-deck-seed0",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "distance-only12",
+      "seed": 1,
+      "run": "p2-17-deck-seed1",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "distance-only12",
+      "seed": 2,
+      "run": "p2-17-deck-seed2",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "distance-only12",
+      "seed": 3,
+      "run": "p2-17-deck-seed3",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "coupled-first-touch12",
+      "seed": 0,
+      "run": "p2-18-deck-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "coupled-first-touch12",
+      "seed": 1,
+      "run": "p2-18-deck-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "coupled-first-touch12",
+      "seed": 2,
+      "run": "p2-18-deck-seed2",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "coupled-first-touch12",
+      "seed": 3,
+      "run": "p2-18-deck-seed3",
+      "updates": 1600,
+      "reused": false
+    }
+  ]
+}

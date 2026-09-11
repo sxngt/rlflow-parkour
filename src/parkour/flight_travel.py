@@ -3,13 +3,24 @@ import torch
 import math
 
 class TravelLandingReward:
-    """One reward at the first recorded body touchdown, never after correction."""
-    def __init__(self,count,device):
+    """One latched-flight reward; coupled mode waits for all first foot contacts."""
+    def __init__(self,count,device,mode='distance_only'):
+        if mode not in ('distance_only', 'coupled_first_touch_v1'):
+            raise ValueError('Unknown travel reward mode')
+        self.mode=mode
         self.paid=torch.zeros(count,dtype=torch.bool,device=device)
     def reset(self,ids):self.paid[ids]=False
-    def collect(self,travel,command,failure,weight,scale):
+    def collect(self,travel,command,failure,weight,scale,first_touch=None,precision_scale=None):
         if not math.isfinite(weight) or weight<0 or not math.isfinite(scale) or scale<=0:
             raise ValueError('Travel reward requires nonnegative weight and positive scale')
+        if self.mode == 'coupled_first_touch_v1':
+            if first_touch is None or precision_scale is None or not math.isfinite(precision_scale) or precision_scale<=0:
+                raise ValueError('Coupled reward requires first-touch state and positive precision scale')
+            ready=travel.touched&first_touch.seen.all(dim=1)
+            new=ready&~self.paid&~failure
+            self.paid|=ready|failure
+            precision=torch.exp(-first_touch.errors.amax(dim=1)/precision_scale)
+            return new*travel.launch_ok*weight*torch.exp(-(travel.distance()-command).abs()/scale)*precision
         new=travel.touched&~self.paid
         self.paid|=travel.touched
         return new*travel.launch_ok*(~failure)*weight*torch.exp(-(travel.distance()-command).abs()/scale)
