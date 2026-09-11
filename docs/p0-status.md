@@ -239,3 +239,13 @@ artifacts/p2-03-audit.jsonl의8run감사통과,4GPU실제compute프로세스없�
 다음P2-04: 같은PrecisionJumpEnv/성공계약을유지하고착지이후에만지지부족및수직속도비용을추가하는결합수정. 제안계수support1.0*(1-contact_count/4),vz2.0*vz²에dt곱함. 이계수는아직프로토콜미작성/미구현/미실행이므로실행전고정할것. flight_seen만으로걸지말고landed이후만적용,도약상승자체벌하지않음. 원래firsttouch보상/반경/hold/force임계값그대로. seed0은vz이미작으므로vz단독수정으로모든실패를설명하지않는다. 두항개별기여는미분리결합수정으로표현. 새task/version/config로기록,기존taskweightsdefault0 유지.
 
 구현힌트: jump_events.py의순수함수로landed mask* (supportweight*(1-contact_on.float().mean(dim=1))+vzweight*vz.square()), JumpEnv._get_rewards dense에서차감가능. v4 PrecisionJumpEnv선택라우팅/collect_results/tag/report추가. 순수단위검사(비행중0/완전지지정지0/결손접촉/수직양음동일)/합성검증/짧은train-eval진단hash확인후4seed×1600updates 고정예산. 보고서는P2-03을재사용대조군으로삼되이제엄격성공계약은동일하다고명시. 새첫착지개선을유지하면서안정화회복되는지관찰. 현재새학습없음,goal active 유지.
+
+## P2-04 지지 안정화 본 학습 시작 (2026-09-12)
+
+새task a1_flat_jump_supported_v4, PrecisionJumpEnv 및 P2-03 엄격 성공 그대로. JumpEnv dense에서landed 이후에만2.0*vz² +1.0*(1-contact_on.float().mean) 비용을차감하고dt곱함. P2-03 등옛config는두가중치default0. 최초착지전추가비용0, 반경/hold/힘threshold/관측66/PPO/구동기변경없음. 결합변경효과만비교하며항별인과주장없음. docs/p2-04-protocol.md 사전고정.
+
+단위28개통과(landing_settle_cost의착지전0/완전지지정지0/속도양음대칭/결손접촉/가중치0 포함). 합성check_precision_jump.py configs/p2-04-supported-jump.json PASS, log artifacts/p2-04-supported-state-check.log. 구현확인64env×2updates 및64개자동평가/영상/진단/hashUUID회수감사PASS: artifacts/p2-04-supported-implementation-check, __final-evaluation. 짧은정책유효비행0으로누락firsttouch값일치만확인,본평가양성일치추가검증필요.
+
+본4run artifacts/p2-04-supported-seed{0,1,2,3} 시작,GPU index=seed,각1024×24×1600updates=39,321,600step. 총157,286,400신규. commit b05f157 실행. supervisor1800초/자동최종64평가영상진단180초. shell session52902/41050/25327/15989. 새턴은실제PID/메트릭관측으로진행하고같은run중복시작금지.
+
+완료후8run audit_artifacts.py감사, experiment_report.py와jump_trace_report.py configs/reports/p2-04.json. A는P2-03재사용4seed,B는P2-04새4seed;이번엔성공계약동일. 온라인firsttouch↔원본200Hz1e-5일치,첫착지와지지유지/수직진동을함께검사. 최종T1J-v4 MP4는result수집. P2-03대조군에P2-04태그override추가했고원본config불변. 자동승격없음. 정밀도약이여러seed에서검증되면다음은수평목표와제한착지면으로진행하며평지보상수정만반복하는것을최종목표로삼지않는다. goal active 유지.
