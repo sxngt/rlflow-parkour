@@ -1,0 +1,75 @@
+{
+  "title": "P2-21 · 후반 학습 거리 상한 확장",
+  "report": "p2-21",
+  "protocol": "p2-21-protocol.md",
+  "description": "제한 탐색과 결합 보상은 유지하며 후반 목표 거리 상한 15cm와20cm를 동일 예산으로 비교한다. P2-20 결과를 대조로 재사용한다.",
+  "success_label": "목표 도약 성공",
+  "trace_episode_index": 3,
+  "show_forward_trace": true,
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "train-upper-15cm",
+      "seed": 0,
+      "run": "p2-20-deck-seed0",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-upper-15cm",
+      "seed": 1,
+      "run": "p2-20-deck-seed1",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-upper-15cm",
+      "seed": 2,
+      "run": "p2-20-deck-seed2",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-upper-15cm",
+      "seed": 3,
+      "run": "p2-20-deck-seed3",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-upper-20cm",
+      "seed": 0,
+      "run": "p2-21-deck-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-upper-20cm",
+      "seed": 1,
+      "run": "p2-21-deck-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-upper-20cm",
+      "seed": 2,
+      "run": "p2-21-deck-seed2",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-upper-20cm",
+      "seed": 3,
+      "run": "p2-21-deck-seed3",
+      "updates": 1600,
+      "reused": false
+    }
+  ]
+}

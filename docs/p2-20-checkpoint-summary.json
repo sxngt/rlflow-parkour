@@ -1,0 +1,606 @@
+{
+  "rows": [
+    {
+      "seed": 0,
+      "update": 800,
+      "evaluation_run": "p2-20-deck-seed0__checkpoint-000800-evaluation",
+      "restored_distribution": {
+        "stored_cap": 0.3499999940395355,
+        "effective_std_min": 0.3499999940395355,
+        "effective_std_max": 0.3499999940395355,
+        "effective_std_mean": 0.34999993443489075
+      },
+      "checkpoint_sha256": "18638c98ac885423f06681814b4367865c37b661153f4524e32e330d15eef634",
+      "successes": 48,
+      "valid_flights": 64,
+      "first_touch_precise": 48,
+      "stabilized": 48,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      }
+    },
+    {
+      "seed": 0,
+      "update": 1200,
+      "evaluation_run": "p2-20-deck-seed0__checkpoint-001200-evaluation",
+      "restored_distribution": {
+        "stored_cap": 0.20000000298023224,
+        "effective_std_min": 0.20000000298023224,
+        "effective_std_max": 0.20000000298023224,
+        "effective_std_mean": 0.20000003278255463
+      },
+      "checkpoint_sha256": "8939445335e2f9bd479dca9c13997b198ae99e68e2149fe4d844d3cf235b8cc6",
+      "successes": 48,
+      "valid_flights": 64,
+      "first_touch_precise": 48,
+      "stabilized": 48,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      }
+    },
+    {
+      "seed": 0,
+      "update": 1600,
+      "evaluation_run": "p2-20-deck-seed0__final-evaluation",
+      "restored_distribution": {
+        "stored_cap": 0.10000000149011612,
+        "effective_std_min": 0.10000000149011612,
+        "effective_std_max": 0.10000000149011612,
+        "effective_std_mean": 0.10000001639127731
+      },
+      "checkpoint_sha256": "4d7073573116c78824511c4941dfae6e2db5727291976e5e48b1f02a7dcec55d",
+      "successes": 48,
+      "valid_flights": 64,
+      "first_touch_precise": 64,
+      "stabilized": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "update": 800,
+      "evaluation_run": "p2-20-deck-seed1__checkpoint-000800-evaluation",
+      "restored_distribution": {
+        "stored_cap": 0.3499999940395355,
+        "effective_std_min": 0.3499999940395355,
+        "effective_std_max": 0.3499999940395355,
+        "effective_std_mean": 0.34999993443489075
+      },
+      "checkpoint_sha256": "d072fb0427d31000a9ca2330d7d7a44ece7a5b7a64525df221a019daecd323bb",
+      "successes": 0,
+      "valid_flights": 64,
+      "first_touch_precise": 64,
+      "stabilized": 6,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 6
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "update": 1200,
+      "evaluation_run": "p2-20-deck-seed1__checkpoint-001200-evaluation",
+      "restored_distribution": {
+        "stored_cap": 0.20000000298023224,
+        "effective_std_min": 0.20000000298023224,
+        "effective_std_max": 0.20000000298023224,
+        "effective_std_mean": 0.20000003278255463
+      },
+      "checkpoint_sha256": "7938a452b30527e4582b3831305be9cd9494e66cc085dc0d58bd0a0b21b3716d",
+      "successes": 20,
+      "valid_flights": 64,
+      "first_touch_precise": 48,
+      "stabilized": 20,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 4,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 4
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 15,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "update": 1600,
+      "evaluation_run": "p2-20-deck-seed1__final-evaluation",
+      "restored_distribution": {
+        "stored_cap": 0.10000000149011612,
+        "effective_std_min": 0.10000000149011612,
+        "effective_std_max": 0.10000000149011612,
+        "effective_std_mean": 0.10000001639127731
+      },
+      "checkpoint_sha256": "71a678ffec000534037ccc75c6123b9845d6be36dbf8e99d6f4ab7637ff7710e",
+      "successes": 48,
+      "valid_flights": 64,
+      "first_touch_precise": 64,
+      "stabilized": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "update": 800,
+      "evaluation_run": "p2-20-deck-seed2__checkpoint-000800-evaluation",
+      "restored_distribution": {
+        "stored_cap": 0.3499999940395355,
+        "effective_std_min": 0.3499999940395355,
+        "effective_std_max": 0.3499999940395355,
+        "effective_std_mean": 0.34999993443489075
+      },
+      "checkpoint_sha256": "8666bc37ad62bf8b3e2f86abb5b40761349cf78f8e228f4d40268b9bc427c664",
+      "successes": 16,
+      "valid_flights": 64,
+      "first_touch_precise": 32,
+      "stabilized": 16,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "update": 1200,
+      "evaluation_run": "p2-20-deck-seed2__checkpoint-001200-evaluation",
+      "restored_distribution": {
+        "stored_cap": 0.20000000298023224,
+        "effective_std_min": 0.20000000298023224,
+        "effective_std_max": 0.20000000298023224,
+        "effective_std_mean": 0.20000003278255463
+      },
+      "checkpoint_sha256": "bfe0263ebd53fdeeb7989c7aa943617794d73dc8bcc270a4fc2444427662ba59",
+      "successes": 32,
+      "valid_flights": 64,
+      "first_touch_precise": 48,
+      "stabilized": 32,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "update": 1600,
+      "evaluation_run": "p2-20-deck-seed2__final-evaluation",
+      "restored_distribution": {
+        "stored_cap": 0.10000000149011612,
+        "effective_std_min": 0.10000000149011612,
+        "effective_std_max": 0.10000000149011612,
+        "effective_std_mean": 0.10000001639127731
+      },
+      "checkpoint_sha256": "e39c83fd6249d158d70e4872a0b8d4600bd340d9f4888613d2eb21c99d11c6cb",
+      "successes": 24,
+      "valid_flights": 64,
+      "first_touch_precise": 64,
+      "stabilized": 40,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 8,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 8
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "update": 800,
+      "evaluation_run": "p2-20-deck-seed3__checkpoint-000800-evaluation",
+      "restored_distribution": {
+        "stored_cap": 0.3499999940395355,
+        "effective_std_min": 0.3499999940395355,
+        "effective_std_max": 0.3499999940395355,
+        "effective_std_mean": 0.34999993443489075
+      },
+      "checkpoint_sha256": "cf0748370e3a86313a3634fc51de53054dddd2a1fb67e725b0716329633eb074",
+      "successes": 16,
+      "valid_flights": 64,
+      "first_touch_precise": 32,
+      "stabilized": 16,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "update": 1200,
+      "evaluation_run": "p2-20-deck-seed3__checkpoint-001200-evaluation",
+      "restored_distribution": {
+        "stored_cap": 0.20000000298023224,
+        "effective_std_min": 0.20000000298023224,
+        "effective_std_max": 0.20000000298023224,
+        "effective_std_mean": 0.20000003278255463
+      },
+      "checkpoint_sha256": "a0a269f9dae64f606026092a4c9306b791f23462786aefee0b7dd1c94c1a7abb",
+      "successes": 0,
+      "valid_flights": 64,
+      "first_touch_precise": 26,
+      "stabilized": 0,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 10,
+          "travel_met": 10,
+          "first_touch_precise": 10,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "update": 1600,
+      "evaluation_run": "p2-20-deck-seed3__final-evaluation",
+      "restored_distribution": {
+        "stored_cap": 0.10000000149011612,
+        "effective_std_min": 0.10000000149011612,
+        "effective_std_max": 0.10000000149011612,
+        "effective_std_mean": 0.10000001639127731
+      },
+      "checkpoint_sha256": "d873a72ff90b91f8de0ef58150b65613771ecf3c6a37e13fdbec07eeaa787a18",
+      "successes": 22,
+      "valid_flights": 64,
+      "first_touch_precise": 64,
+      "stabilized": 45,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 6,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 6
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 7
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      }
+    }
+  ],
+  "additional_training_steps": 0,
+  "scope": "Post-hoc development diagnosis, fixed final 3cm launch radius and paired distance/height commands. Does not isolate effects of each curriculum change."
+}
