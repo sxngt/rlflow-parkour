@@ -1,0 +1,30 @@
+[
+  {
+    "run": "p2-12-large-batch-seed0",
+    "condition": "large-batch",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.01115831732749939,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-12-large-batch-seed1",
+    "condition": "large-batch",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.03906381130218506,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-12-large-batch-seed2",
+    "condition": "large-batch",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.018172502517700195,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-12-large-batch-seed3",
+    "condition": "large-batch",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.03946547210216522,
+    "terminal_height_outside_tolerance": 5
+  }
+]

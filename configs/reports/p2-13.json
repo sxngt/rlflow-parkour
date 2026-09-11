@@ -1,0 +1,43 @@
+{
+  "title": "P2-13 · 대규모 환경 minibatch 비교",
+  "report": "p2-13",
+  "protocol": "p2-13-protocol.md",
+  "description": "8192환경200update에서 minibatch수를4→32로 변경한다. 총환경step과gradient갱신수를 P2-11에맞추지만정책수집빈도는같지않다.",
+  "success_label": "수평 도약 성공",
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "minibatches-32",
+      "seed": 0,
+      "run": "p2-13-minibatch-seed0",
+      "updates": 200,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "minibatches-32",
+      "seed": 1,
+      "run": "p2-13-minibatch-seed1",
+      "updates": 200,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "minibatches-32",
+      "seed": 2,
+      "run": "p2-13-minibatch-seed2",
+      "updates": 200,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "minibatches-32",
+      "seed": 3,
+      "run": "p2-13-minibatch-seed3",
+      "updates": 200,
+      "reused": false
+    }
+  ],
+  "trace_episode_index": 3,
+  "show_forward_trace": true
+}

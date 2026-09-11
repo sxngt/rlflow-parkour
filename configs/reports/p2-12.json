@@ -39,5 +39,11 @@
     }
   ],
   "trace_episode_index": 3,
-  "show_forward_trace": true
+  "show_forward_trace": true,
+  "findings": [
+    "네 seed 모두 성공0/64·유효비행0/64·timeout64/64이다. 총환경step을맞췄지만 P2-11의48/17/51/51성공을유지하지못했다.",
+    "학습run wall-clock은약366–376초로 P2-11의1167–1212초보다짧았다. 성공모델을얻지못했으므로목표성능도달시간이개선됐다고주장하지않는다.",
+    "batch8배·update수1/8의종합변경이다. 실패원인을update수하나로확정하지않는다. 다음비교는minibatch수를4→32로바꿔기존minibatch표본수6144와총gradient갱신횟수를맞추되on-policy수집빈도차이는유지한다.",
+    "학습4+평가4감사와원본진단대조통과.101/151update조건전환을확인했고영상4개를result에보존했다."
+  ]
 }
