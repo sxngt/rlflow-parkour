@@ -393,3 +393,10 @@ P2-20 mean→sampled2: seed0 48→47/48,seed1 48→46/44,seed2 24→44/44,seed3 
 restored_distribution은checkpoint설정의완료update-1로cap을계산하고floor도설정에서읽음. 기존P2-20 12checkpoint결과정확히동일+P2-24 smoke완료3 cap.05실제복원검증. script문법검사통과. 주요학습코드변경없음. 현재 [{"run": "p2-24-deck-seed0", "pid": 1472939, "live": true, "iteration": 211}, {"run": "p2-24-deck-seed1", "pid": 1472947, "live": true, "iteration": 210}, {"run": "p2-24-deck-seed2", "pid": 1472940, "live": true, "iteration": 215}, {"run": "p2-24-deck-seed3", "pid": 1472926, "live": true, "iteration": 213}]
 
 다음401/801/1201전환확인,1600+mean평가완료후8artifact감사/4보고서. 이어 python3 scripts/p2_24_sampled.py 실행(새8평가이름p2-24-p2-24-seedS-sampled-rngR),감사후Isaac python으로 scripts/p2_24_sampling_report.py. P2-23의P2-20sampled재사용. 후속아직실행안됨(사전실행거부시험만). batch79919유지. 전체목표미완료.
+
+
+### 최신: P2-24 첫 거리 전환 검증
+
+직전 턴은후속평가스크립트/분포검증일반화로progress. 이번 턴은실제동일PID를확인하며기다린verified wait 후401의거리0–10cm/launch6cm/cap.35/reset_all=true 네seed검증. checkpoint300/400 hash정상,전체loss유한. 최신 [{"run": "p2-24-deck-seed0", "pid": 1472939, "live": true, "iteration": 438, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"run": "p2-24-deck-seed1", "pid": 1472947, "live": true, "iteration": 434, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"run": "p2-24-deck-seed2", "pid": 1472940, "live": true, "iteration": 444, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"run": "p2-24-deck-seed3", "pid": 1472926, "live": true, "iteration": 438, "transition401_verified": true, "checkpoint400_hash_ok": true}]
+
+다음801/1201전환(마지막cap.05) 및1600+mean평가,그후사전준비된sampled8평가. batch79919유지, 중복실행금지. 전체목표미완료.
