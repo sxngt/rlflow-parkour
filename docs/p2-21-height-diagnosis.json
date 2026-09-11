@@ -1,0 +1,58 @@
+[
+  {
+    "run": "p2-20-deck-seed0",
+    "condition": "train-upper-15cm",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.04289574176073074,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-20-deck-seed1",
+    "condition": "train-upper-15cm",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.02197175659239292,
+    "terminal_height_outside_tolerance": 5
+  },
+  {
+    "run": "p2-20-deck-seed2",
+    "condition": "train-upper-15cm",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.03140731155872345,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-20-deck-seed3",
+    "condition": "train-upper-15cm",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.05101156234741211,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-21-deck-seed0",
+    "condition": "train-upper-20cm",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.03876308351755142,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-21-deck-seed1",
+    "condition": "train-upper-20cm",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.04353240504860878,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-21-deck-seed2",
+    "condition": "train-upper-20cm",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.023619338870048523,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-21-deck-seed3",
+    "condition": "train-upper-20cm",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.016680648550391197,
+    "terminal_height_outside_tolerance": 0
+  }
+]

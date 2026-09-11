@@ -309,3 +309,12 @@ sourcee303428, docs/p2-20-protocol.md/configs/p2-20-deck.json. exploration.py Bo
 직전 턴은801전환 검증으로 progress. 이번 턴은 같은 실제PID를 확인한 verified wait 후 update1201의거리0–20cm/launch3cm/cap.1/reset_all=true를 네seed 모두 검증. checkpoint1000/1200 hash 정상, 전체loss유한/std상한 준수. 추가로 변경직전 checkpoint800의 model/normalizer 모든tensor가 대응P2-20과 일치(artifacts/p2-21-preintervention800.json). 최신 [{"run": "p2-21-deck-seed0", "pid": 1406069, "live": true, "iteration": 1247, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "training_successes": 23289}, {"run": "p2-21-deck-seed1", "pid": 1406060, "live": true, "iteration": 1242, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "training_successes": 5847}, {"run": "p2-21-deck-seed2", "pid": 1406061, "live": true, "iteration": 1267, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "training_successes": 7849}, {"run": "p2-21-deck-seed3", "pid": 1406043, "live": true, "iteration": 1250, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "training_successes": 6335}]
 
 다음1600완료/자동64평가·200Hz·64근접영상 이후8artifact감사 및 configs/reports/p2-21.json의3종보고서, 거리별 성공/회귀와result무결성 확인. batch59110 유지. 전체 연구 미완료.
+
+
+### 최신: P2-21 완료, 상한 확장 채택 기각
+
+직전 턴은1201전환 검증으로 progress. 이번 턴은 실제 학습PID를 기다려1600완료 및 자동평가PID1421041/1421572/1420488/1421050 실행·종료 확인. 학습4+평가4 SUCCEEDED, artifacts/p2-21-audit.jsonl8감사통과. configs/reports/p2-21.json의experiment_report/jump_trace_report/p2_15_support_report완료, result4영상hash/camera4/64개 및seed0.8초프레임확인.
+
+성공0/12/44/48, 유효비행64/64/64/64, 최초정밀64/64/64/64, 안정화0/18/44/64. P2-20 성공48/48/24/22. 평균35.5→26으로악화하여상한확장채택기각. seed2만15cm8/16성공,해당거리이동충족16/16/평균13.20cm. 다른seed15cm모두0. 성공사례지지면투영모두확인. docs/p2-21-findings.md.
+
+다음 구체 작업: 기존200Hz trace로 최초착지 후 발별목표영역이탈 진단. 안정화실패seed0/1/2 64/46/20개의최종행모두 feet_in_radius=false,contact/support/vz/omega는통과. 최초정밀은모두64라서후속목표유지문제근거. 종료시점만으로원인확정금지. P2-20/21 matched scenarios 비교해이탈시점/오차/지지중발중심이동/최대유지구간분석. 실제미끄러짐판정아님. 추가학습아직미실행,무조건거리sweep금지. 전체목표미완료.
