@@ -67,6 +67,9 @@ def collect(evaluation, result_root=ROOT / 'result'):
     if 'purpose:profiling' in run.get('research_tags', run['config'].get('research_tags', [])):
         task_title += '_처리량측정용_미수렴정책'
     mode = {'policy':'PPO', 'zero':'기본자세_대조군', 'shuffled-target':'PPO_목표셔플'}[run['baseline']]
+    action_evaluation = run.get('action_evaluation', {'mode': 'mean'})
+    if action_evaluation['mode'] == 'sampled':
+        mode += f"_행동샘플링-RNG{action_evaluation['seed']}"
     date = datetime.fromtimestamp(run['finished_unix_s'], timezone(timedelta(hours=9))).strftime('%Y-%m-%d')
     title = f'A1 | {task} {task_title.replace("_", " ")} | {mode} seed {seed} | {updates} updates | 개발군 {report["episodes"]} episodes'
     folder_name = f'{date}__A1__{task}__seed-{seed}__updates-{updates:06d}__{evaluation.name}'
@@ -82,7 +85,7 @@ def collect(evaluation, result_root=ROOT / 'result'):
         video_name = f'A1__{task_title}__{mode}-seed{seed}__{updates}업데이트__병렬{len(visible_episodes)}개_최종평가.mp4'
     record = {'research_tags':run.get('research_tags',run['config'].get('research_tags',[])), 'title':title, 'evaluation_run':evaluation.name, 'training_run':Path(model['path']).parent.name if model else None,
               'source_evaluation':os.path.relpath(evaluation, result_root), 'source_video_sha256':expected,
-              'checkpoint':model, 'task':run['config']['task'], 'seed':seed, 'updates':updates,
+              'checkpoint':model, 'action_evaluation':action_evaluation, 'task':run['config']['task'], 'seed':seed, 'updates':updates,
               'video':video_name, 'video_episode':episode, 'aggregate':{k:v for k,v in report.items() if k!='results'},
               'video_layout':replay.get('layout','single'), 'video_episodes':visible_episodes,
               'selection':'fixed render-enabled grid; camera may crop outer robots; not selected for success' if parallel else 'first fixed development scenario; not selected for success', 'date_kst':date}

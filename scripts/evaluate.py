@@ -23,6 +23,8 @@ def main():
     p.add_argument("--video-envs", type=int, default=16)
     p.add_argument("--video-camera-side", type=int, help="Camera distance in grid-side units; 4 preserves the 16-robot framing")
     p.add_argument("--diagnostics", action="store_true")
+    p.add_argument('--action-mode', choices=['mean', 'sampled'], default='mean')
+    p.add_argument('--action-seed', type=int, default=20000)
     p.add_argument("--research-tag", action="append", default=[])
     p.add_argument('--launch-radius', type=float, help='Evaluation-only tighter directed-jump launch radius in metres')
     p.add_argument('--support-mode', choices=['flat', 'continuous', 'split', 'deck'])
@@ -31,6 +33,8 @@ def main():
     p.add_argument('--support-calibration', type=Path, help='Frozen flat evaluation run.json for support transfer')
     p.add_argument('--support-probe-offset', type=float, choices=[.075], help='Zero-action geometry probe only: start feet above the gap')
     args = p.parse_args()
+    if args.action_mode == 'sampled' and args.baseline != 'policy':
+        p.error('Sampled action diagnosis requires the policy baseline')
     if args.baseline != "zero" and not args.checkpoint:
         p.error("policy evaluation requires checkpoint")
     if args.video_envs < 1 or (args.video_camera_side is not None and args.video_camera_side < 1):
@@ -128,6 +132,12 @@ def main():
             atomic_json(args.out / 'run.json', meta)
         alg.policy.eval()
         norm.eval()
+        from parkour.evaluation_action import sample_action
+        action_rng = torch.Generator(device=env.device).manual_seed(args.action_seed)
+        meta['action_evaluation'] = {'mode': args.action_mode,
+            'seed': args.action_seed if args.action_mode == 'sampled' else None,
+            'rng_contract': 'isolated torch generator; all environment rows sampled each control step',
+            'distribution': 'same diagonal Gaussian mean/std as PPO act; independent RNG stream'}
         env.reset()
         if args.support_probe_offset is not None:
             root = env.calibrated_root.expand(env.num_envs, -1).clone()
@@ -169,7 +179,9 @@ def main():
                     if args.baseline == "shuffled-target":
                         # Replace only target channels; the true task/reward remains unchanged.
                         policy_obs[:, 45:57] = torch.roll(policy_obs[:, 45:57], 1, dims=0)
-                    action = alg.policy.act_inference(norm(policy_obs))
+                    normalized = norm(policy_obs)
+                    action = (sample_action(alg.policy, normalized, action_rng) if args.action_mode == 'sampled'
+                              else alg.policy.act_inference(normalized))
                 if recorder and not bool(done[recorder.ids].all()):
                     recorder.capture(step,finished=done)
                 raw_dict, _, term, trunc, extras = env.step(action)
