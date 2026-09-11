@@ -13,21 +13,25 @@ from parkour.diagnostics import jump_first_touches
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--include-deck', action='store_true')
+    parser.add_argument('--matched-material', action='store_true')
     args = parser.parse_args()
     modes = ('flat', 'continuous', 'split', 'deck') if args.include_deck else ('flat', 'continuous', 'split')
     suffix = '-with-deck' if args.include_deck else ''
+    if args.matched_material:
+        suffix += '-material'
     rows = []
     paired_scenarios = None
     calibration_hash = None
     for seed in range(4):
         policy_hash = None
         for mode in modes:
-            path = ROOT/'artifacts'/f'p2-14-{mode}-seed{seed}'
+            path = ROOT/'artifacts'/f'p2-14-{"material-" if args.matched_material else ""}{mode}-seed{seed}'
             meta = json.loads((path/'run.json').read_text())
             report = json.loads((path/'evaluation.json').read_text())
             manifest = json.loads((path/'scenarios.json').read_text())
             assert meta['status'] == 'SUCCEEDED' and report['episodes'] == 64
             support = meta['evaluation_support']
+            assert bool(support.get('matched_material')) == args.matched_material
             assert support['mode'] == mode and 'probe_initial_x_offset_m' not in support
             policy_hash = policy_hash or meta['checkpoint']['sha256']
             assert policy_hash == meta['checkpoint']['sha256']

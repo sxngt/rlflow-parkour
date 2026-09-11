@@ -47,6 +47,8 @@ def collect(evaluation, result_root=ROOT / 'result'):
         support = run['evaluation_support']
         label = {'flat': '평지대조', 'continuous': '발별_연속지지면', 'split': '발별_분리지지면_갭6cm', 'deck': '단일발판_140x120cm'}[support['mode']]
         task_title = label + '_목표전이15cm_고정정책'
+        if support.get('matched_material'):
+            task_title += '_동일물리재질'
     model = run.get('checkpoint')
     seed, updates = 'NA', 0
     train_run = None
@@ -117,6 +119,10 @@ def collect(evaluation, result_root=ROOT / 'result'):
                         raise ValueError('Terrain manifest hash mismatch')
                     shutil.copyfile(evaluation/'terrain.json', temp/'terrain.json')
                     record['terrain_file'] = 'terrain.json'
+                if (evaluation/'collision-contract.json').exists():
+                    if digest(evaluation/'collision-contract.json') != run['artifacts'].get('collision-contract.json'):
+                        raise ValueError('Collision contract hash mismatch')
+                    shutil.copyfile(evaluation/'collision-contract.json', temp/'collision-contract.json')
                 if (evaluation/'first-frame.png').exists():
                     shutil.copyfile(evaluation/'first-frame.png', temp/'preview.png')
                 (temp/'manifest.json').write_text(json.dumps(record,ensure_ascii=False,indent=2)+'\n')

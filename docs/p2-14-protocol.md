@@ -50,3 +50,9 @@ A1 USD의 instance proxy 내부 collider를 조사했다. 네 발은 모두 Sphe
 ## 추가 진단: 넓은 단일 발판 (정책 결과 확인 전 고정)
 
 작은 지지면에서 전부 실패한 후, geometry 구현과 지지 영역 크기의 영향을 구분하기 위해 deck 조건을 추가한다. 이전 세 조건을 변경하지 않는다. 발판 크기는 1.4×1.2m, 두께10cm, 윗면z=0, 중심은 초기 네발 평균XY에서 +x7.5cm다. 같은 catch floor -.5m와 고정 calibration을 사용한다. 네 P2-11 checkpoint 각각 같은64높이seed/+15cm목표로 평가하고 학습은 하지 않는다. videos64/camera-side4, diagnostics200Hz, step:p2-14-support 및 terrain:deck. 추가진단으로 명시하고 원래세조건의 사전비교와 구분한다.
+
+## 동일 물리재질 확인 비교
+
+기존 Cuboid의 명시적 재질 부재를 해소하는 추가진단이다. --support-matched-material을 사용해 모든 support Cuboid에 TerrainImporter의 RigidBodyMaterialCfg를 연결한다. ground와 첫/마지막 환경의 collider를 USD instance proxy까지 조회하여 static/dynamic friction0.5, restitution0, friction combine average를 검사한다. 발의 실제 재질과 contact/rest offset도 기록하며 미명시/자동값을0으로 치환하지 않는다.
+
+초기 zero-action 지지검사 후 네기존정책×flat/continuous/split/deck×동일64높이seed를 평가한다. 기존배치와geometry·초기상태·checkpoint·영상설정은동일하며학습0step이다. p2-14-material-{mode}-seed{seed}에분리한다. flat은재질변경없는반복대조군이다. 재질명시후에도평지와box형상의solver차이·유한경계·수치민감도까지동일하다고가정하지않는다. 결과확인후별도보고한다.

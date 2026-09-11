@@ -26,6 +26,7 @@ def main():
     p.add_argument("--research-tag", action="append", default=[])
     p.add_argument('--launch-radius', type=float, help='Evaluation-only tighter directed-jump launch radius in metres')
     p.add_argument('--support-mode', choices=['flat', 'continuous', 'split', 'deck'])
+    p.add_argument('--support-matched-material', action='store_true')
     p.add_argument('--support-calibration', type=Path, help='Frozen flat evaluation run.json for support transfer')
     p.add_argument('--support-probe-offset', type=float, choices=[.075], help='Zero-action geometry probe only: start feet above the gap')
     args = p.parse_args()
@@ -45,6 +46,7 @@ def main():
         # Actual asset order is asserted by SequentialEnv before any policy step.
         names = ['FL_foot', 'FR_foot', 'RL_foot', 'RR_foot']
         support = {'mode': args.support_mode, 'foot_names': names,
+                   'matched_material': args.support_matched_material,
                    'calibration': reference['stance_calibration'],
                    'reference_path': str(args.support_calibration.resolve()),
                    'reference_sha256': sha256(args.support_calibration),
@@ -53,6 +55,8 @@ def main():
             support['layout'] = build_support_layout(names, support['calibration']['foot_xy_m'], mode=args.support_mode)
     elif args.support_calibration:
         p.error('--support-calibration requires --support-mode')
+    if args.support_matched_material and not support:
+        p.error('--support-matched-material requires a support mode')
     if args.support_probe_offset is not None:
         if not support or args.baseline != 'zero':
             p.error('Support offset is restricted to zero-action geometry probes')
@@ -92,6 +96,10 @@ def main():
         from parkour.learning import make_env, make_algorithm, read_checkpoint, restore
         torch.manual_seed(10000)
         env = make_env(config, evaluation_support=support)
+        if support:
+            from parkour.collision_contract import inspect_collision_contract
+            contract = inspect_collision_contract(env)
+            atomic_json(args.out/'collision-contract.json', contract)
         alg, norm = make_algorithm(config, env)
         if args.checkpoint:
             data = read_checkpoint(args.checkpoint)
@@ -223,7 +231,7 @@ def main():
         atomic_json(args.out / "evaluation.json", report)
         meta["evaluation"] = {key: value for key, value in report.items() if key != "results"}
         meta["artifacts"] = {file.name: sha256(file) for file in args.out.iterdir()
-                             if file.suffix in (".mp4", ".png") or file.name in ("terrain.json", "evaluation.json", "scenarios.json", "replay.json", "diagnostics.json", "motion-trace.npz")}
+                             if file.suffix in (".mp4", ".png") or file.name in ("collision-contract.json", "terrain.json", "evaluation.json", "scenarios.json", "replay.json", "diagnostics.json", "motion-trace.npz")}
         finish_run(args.out, meta)
     except BaseException as exc:
         if recorder and recorder.writer:

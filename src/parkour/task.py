@@ -80,6 +80,7 @@ class FootholdEnv(DirectRLEnv):
             for surface in support['layout']['surfaces']:
                 block = sim_utils.CuboidCfg(size=tuple(surface['size_m']),
                     collision_props=sim_utils.CollisionPropertiesCfg(),
+                    physics_material=self.cfg.terrain.physics_material if support.get('matched_material') else None,
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(.3, .4, .5)))
                 block.func('/World/envs/env_0/Supports/' + surface['id'], block,
                            translation=tuple(surface['center_m']))

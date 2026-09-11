@@ -9,10 +9,10 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def commands(seed, modes=('flat', 'continuous', 'split')):
+def commands(seed, modes=('flat', 'continuous', 'split'), matched=False):
     training = f'artifacts/p2-11-curriculum-seed{seed}'
     for mode in modes:
-        out = f'artifacts/p2-14-{mode}-seed{seed}'
+        out = f'artifacts/p2-14-{"material-" if matched else ""}{mode}-seed{seed}'
         yield [sys.executable, 'scripts/run_job.py', '--gpu', str(seed), '--timeout', '240',
                'evaluate', '--config', training+'/config.json',
                '--checkpoint', training+'/checkpoint-001600.pt', '--out', out,
@@ -20,11 +20,12 @@ def commands(seed, modes=('flat', 'continuous', 'split')):
                '--video-camera-side', '4', '--support-mode', mode,
                '--support-calibration', 'artifacts/p2-11-curriculum-seed0__final-evaluation/run.json',
                '--research-tag', 'phase:P2', '--research-tag', 'step:p2-14-support',
-               '--research-tag', 'terrain:'+mode, '--research-tag', 'purpose:fixed-policy-transfer']
+               '--research-tag', 'terrain:'+mode, '--research-tag', 'purpose:fixed-policy-transfer'] + (
+                   ['--support-matched-material', '--research-tag', 'step:p2-14-material'] if matched else [])
 
 
-def run_seed(seed, modes):
-    for command in commands(seed, modes):
+def run_seed(seed, modes, matched):
+    for command in commands(seed, modes, matched):
         result = subprocess.run(command, cwd=ROOT)
         if result.returncode:
             return {'seed': seed, 'exit_code': result.returncode, 'failed_command': command}
@@ -33,17 +34,18 @@ def run_seed(seed, modes):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--matched-material', action='store_true')
     parser.add_argument('--modes', nargs='+', choices=['flat', 'continuous', 'split', 'deck'],
                         default=['flat', 'continuous', 'split'])
     args = parser.parse_args()
     if len(set(args.modes)) != len(args.modes):
         parser.error('Duplicate modes would create duplicate attempts')
     for seed in range(4):
-        for command in commands(seed, args.modes):
+        for command in commands(seed, args.modes, args.matched_material):
             out = ROOT / command[command.index('--out')+1]
             if out.exists() or out.with_suffix('.log').exists():
                 raise RuntimeError(f'Existing attempt: {out}; inspect it instead of restarting the batch')
     with ThreadPoolExecutor(max_workers=4) as pool:
-        results = list(pool.map(lambda seed: run_seed(seed, args.modes), range(4)))
+        results = list(pool.map(lambda seed: run_seed(seed, args.modes, args.matched_material), range(4)))
     print(json.dumps(results), flush=True)
     sys.exit(int(any(r['exit_code'] for r in results)))
