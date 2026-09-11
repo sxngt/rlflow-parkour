@@ -1,0 +1,43 @@
+{
+  "title": "P2-11 · 출발 범위 커리큘럼",
+  "report": "p2-11",
+  "protocol": "p2-11-protocol.md",
+  "description": "6→4.5→3cm 출발 범위를 고정 업데이트에서 적용하는 새 정책 네 seed 비교.",
+  "success_label": "수평 도약 성공",
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "curriculum",
+      "seed": 0,
+      "run": "p2-11-curriculum-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "curriculum",
+      "seed": 1,
+      "run": "p2-11-curriculum-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "curriculum",
+      "seed": 2,
+      "run": "p2-11-curriculum-seed2",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "curriculum",
+      "seed": 3,
+      "run": "p2-11-curriculum-seed3",
+      "updates": 1600,
+      "reused": false
+    }
+  ],
+  "trace_episode_index": 3,
+  "show_forward_trace": true
+}

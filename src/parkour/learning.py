@@ -9,6 +9,7 @@ import torch
 from rsl_rl.algorithms import PPO
 from rsl_rl.modules import ActorCritic, EmpiricalNormalization
 from parkour.runtime import sha256, atomic_json
+from parkour.launch_curriculum import checkpoint_state
 
 
 def make_algorithm(config, env):
@@ -34,7 +35,7 @@ def save_checkpoint(path, config, alg, normalizer, env, completed_iterations, to
         "normalizer": normalizer.state_dict(), "rng_python": random.getstate(),
         "rng_numpy": np.random.get_state(), "rng_torch": torch.get_rng_state(),
         "rng_cuda": torch.cuda.get_rng_state_all(), "rng_scenario": env.generator.get_state(),
-        "curriculum": {"kind": "fixed", "target_offset_m": config["target_offset_m"]},
+        "curriculum": checkpoint_state(config, completed_iterations),
         "resume_contract": "new_episode_boundary; unfinished episodes discarded; not bitwise replay",
     }
     path = Path(path)
@@ -66,6 +67,8 @@ def restore(data, config, alg, normalizer, env, training):
         raise ValueError('Checkpoint jump contract differs')
     if data['config'].get('sequence') != config.get('sequence'):
         raise ValueError('Checkpoint sequence contract differs')
+    if training and data.get("curriculum") != checkpoint_state(config, data["completed_iterations"]):
+        raise ValueError("Checkpoint curriculum state differs")
     alg.policy.load_state_dict(data["model"])
     normalizer.load_state_dict(data["normalizer"])
     if training:

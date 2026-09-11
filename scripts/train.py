@@ -27,6 +27,8 @@ def main():
             config[key] = getattr(args, key)
     if config["iterations"] < 1 or config["num_envs"] < 1:
         raise ValueError("Positive iterations and num-envs required")
+    from parkour.launch_curriculum import radius_for_update
+    radius_for_update(config, 0)  # Validate the complete schedule before simulator startup.
     meta = begin_run(args.out, config, "train")
     recorder = None
     try:
@@ -49,6 +51,9 @@ def main():
             completed, total_steps = data["completed_iterations"], data["total_environment_steps"]
             meta["parent_checkpoint"] = {"path": str(args.resume.resolve()), "sha256": sha256(args.resume)}
             meta["resume_contract"] = data["resume_contract"]
+        active_radius = radius_for_update(config, completed)
+        if config.get("jump", {}).get("launch_curriculum") is not None:
+            env.jump["launch_radius_m"] = active_radius
         raw, _ = env.reset()
         alg.policy.train()
         norm.train()
@@ -65,6 +70,15 @@ def main():
         rollout_step=0
         for iteration in range(completed, completed + config["iterations"]):
             started = time.perf_counter()
+            transition = False
+            next_radius = radius_for_update(config, iteration)
+            if next_radius != active_radius:
+                env.jump["launch_radius_m"] = next_radius
+                active_radius = next_radius
+                raw, _ = env.reset()
+                with torch.inference_mode():
+                    obs = norm(raw["policy"])
+                transition = True
             successes, failures, episodes, errors = 0, 0, 0, []
             completed_contacts = []
             jump_flights,jump_landings,jump_apex_met=0,0,0
@@ -105,6 +119,8 @@ def main():
                    "mean_final_error_m": sum(errors) / len(errors) if errors else None,
                    "losses": {k: float(v) for k, v in losses.items()}}
             if config.get('jump'):
+                row['launch_radius_m'] = active_radius
+                row['curriculum_reset_all'] = transition
                 row['valid_flights']=jump_flights;row['landed_episodes']=jump_landings
                 row['apex_command_met']=jump_apex_met
                 row['mean_flight_apex_rise_m']=sum(jump_apices)/len(jump_apices) if jump_apices else None
