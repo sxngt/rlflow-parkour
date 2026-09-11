@@ -253,3 +253,19 @@ artifacts/p2-03-audit.jsonl의8run감사통과,4GPU실제compute프로세스없�
 ### P2-04 학습 중 모니터링 개선
 
 실제PID703256/703354/703436/703545가살아있고update301–310까지증가했다. 아직새성공0,고정설정유지. evaluator에first_touch_precise_episodes/stabilized_episodes/success_contract 요약만추가(행동·판정불변). 웹은과거정밀평가의results에서첫접촉/기존안정화/전체성공을별도로집계표시하고episode첫접촉열추가. 기존완주율표기는과제성공률로수정. 사용자지정서버18710기존배포체계유지,TS/Vite build통과, / 및기존P2-03평가run API200. 원본artifact변경없음. 새평가는추가요약필드도저장하므로완료후실제출력확인. goal active.
+
+## P2-04 완료: 제자리 정밀 도약과 지지 안정화 재현
+
+4seed1600updates 및각64평가완료. 엄격성공A=P2-03 0/8/0/0 →B=P2-04 전seed64/64. 첫접촉네발반경양쪽전seed64/64유지. B최종height/vz/omega/XY/contact/history위반전부0. 온라인firsttouch-원본오차일치 및8run hashUUID회수감사통과(artifacts/p2-04-audit.jsonl). 최종T1J-v4 영상4개result등록,4GPU회수완료. 자동champion승격없음.
+
+성공B조기종료와실패A4초timeout때문에전체posttouchRMS는같은관측길이가아니다. 추가보조분석first_touch_200ms는첫발접촉부터40표본이며모든A/B64episode window완전. 네발>5N 비율A2.5/36.9/9.8/10.0%→B57.4/77.5/62.5/55.0%. B전발<2N표본0. vzRMS A.281/.360/.552/.542→B.439/.394/.343/.324m/s. seed0/1은증가했으므로모든수직충격감소주장금지. 최종안정화성공개선과초기충격을분리. 결합보상항별인과분리없음.
+
+보고서docs/p2-04-results,summary,height-diagnosis,figures생성. experiment_report.py및jump_trace_report.py configs/reports/p2-04.json재현. evaluator추가요약first_touch_precise_episodes/stabilized_episodes도출력됐다. 동일개발초기조건평지작은높이명령범위로결론제한. 이제평지보상수정을계속늘리지말고수평목표/제한착지면으로진행한다.
+
+### 다음 수평 도약 준비
+
+docs/p2-horizontal-command-design.md 초안과scenarios.directed_jump_scenarios를작성했다. 이함수는아직evaluate.py나env에연결되지않았다. spec evaluation_forward_m=[0,.05,.1,.15],apex_range_m=[.04,.06]를받아같은16높이seed×4거리=64개명령을생성한다. id고유/prefix안정/거리균형/높이pair검증을추가해총30unit PASS. task문자열은아직directed-jump-design이며실제새task/version등록전이다. 기존jump_scenarios변경없음.
+
+목표만옮기면걸어간뒤제자리점프해도성공할수있음. 새P2-05는초기출발영역(제안반경3cm)에서유효비행을확인하고최초비행시점rootXY와최초착지rootXY를기록해실제비행전방이동량을측정해야한다. 비영점목표의최소이동량은제안max(0,목표거리-3cm),0cm명령에는양의이동강제안함. 아직숫자사전고정/물리검증전이므로프로토콜을먼저확정할것. 유효비행감지지연(20mshistory/50Hz판정)으로실제이륙보다늦은시점부터재는보수적거리임을명시. 출발기준은scene.env_origins가아니라calibrated_root[:2]까지반영해야함(기본rootx약-.047m!).
+
+제안구현: DirectedJumpEnv extends PrecisionJumpEnv. reset후4개발goal에동일전방거리(학습0~.15m)를추가,해당거리tensor와launch/landingrootlatch초기화. 첫flight_event에서launchXY저장/출발영역검사. 첫physicsfootcontact(FirstTouch new.any)시rootXY저장;현재precision wrapper확장시기존동작은보존하고새task에만hook을선택적으로호출. 성공은기존엄격성공AND launch영역AND 최소실비행거리. 과거안정화/정밀착지/이동충족을별도기록. 출발영역이탈/지상보행우회/이동없음/반대방향/0cm회귀의합성검증필수. 학습/관측66/물리/구동기/PPO기본유지여부를명시하고새계약체크포인트호환성을분리. 시행전짧은경로검증후4seed고정예산. 현재새학습은없고4GPU사용가능. goal active 유지.

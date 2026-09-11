@@ -43,6 +43,19 @@ def summarize(entry):
     'all_feet_above_5N_fraction':float((forces>5).all(axis=1).mean())}
 
   row['first_touch_samples']=first
+  fixed_vz=[];fixed_force=[];window_samples=int(round(.2*d['physics_hz']))
+  for i,sample in enumerate(first):
+   times=[t for t in sample['times_s'] if t is not None]
+   if not times:continue
+   start=int(np.searchsorted(a['time'],min(times)));stop=start+window_samples
+   if stop<=len(a['time']) and a['valid'][start:stop,i].all():
+    fixed_vz.append(a['root_vz'][start:stop,i]);fixed_force.append(np.linalg.norm(a['force'][start:stop,i],axis=-1))
+  row['first_touch_200ms']={'complete_episodes':len(fixed_vz),'definition':f'{window_samples} physics samples from first post-flight foot contact; incomplete windows excluded and counted.'}
+  if fixed_vz:
+   v=np.stack(fixed_vz);f=np.stack(fixed_force)
+   row['first_touch_200ms'].update(vertical_velocity_rms_m_s=float(np.sqrt(np.mean(v**2))),
+    all_feet_below_2N_fraction=float((f<2).all(axis=2).mean()),all_feet_above_5N_fraction=float((f>5).all(axis=2).mean()))
+
   row['first_touch_by_foot']={}
   for i,name in enumerate(['FL','FR','RL','RR']):
    errors=[sample['errors_m'][i] for sample in first if sample['errors_m'][i] is not None]

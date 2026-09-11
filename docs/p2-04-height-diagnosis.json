@@ -1,0 +1,58 @@
+[
+  {
+    "run": "p2-03-precise-seed0",
+    "condition": "A",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.0012382217682898045,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-03-precise-seed1",
+    "condition": "A",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.002624492160975933,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-03-precise-seed2",
+    "condition": "A",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.002131291199475527,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-03-precise-seed3",
+    "condition": "A",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.0032112658955156803,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-04-supported-seed0",
+    "condition": "B",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.026259232312440872,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-04-supported-seed1",
+    "condition": "B",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.01945444568991661,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-04-supported-seed2",
+    "condition": "B",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.0034111780114471912,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-04-supported-seed3",
+    "condition": "B",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.0025201295502483845,
+    "terminal_height_outside_tolerance": 0
+  }
+]
