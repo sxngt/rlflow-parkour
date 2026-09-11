@@ -100,3 +100,17 @@ seed0/1 학습4+평가8 모두완료. artifacts/p2-15-wave1-audit.jsonl 12감사
 사용자 최신 선호: 64개를 렌더링하되 16개 때와 같은 카메라 거리를 유지하고 바깥 로봇은 잘려도 된다. 기존 evaluation_video_envs=64, evaluation_camera_side=4 및 cross CLI에 이미 반영됨. deck seed3 최종 MP4 0.7초 프레임을 직접 확인했다. 모든64개가 화면 안에 들어온다는 뜻은 아니다. 주요16영상은 result에 저장되어 있으며 smoke2개도 별도로 존재한다.
 
 다음 연구 작업은 P2-15 유한 지지면의 첫 접촉 위치 검증과 실패 원인 종합, 이후 제한된 다음 학습 프로토콜 선정이다. P2-14 분석기의 지형 경계 검증 로직은 재사용할 수 있으나 +15cm 전용 manifest와 현재 혼합 거리 평가를 혼동하지 말 것. 현재 GPU 연구 worker는 모두 종료했으며 새 학습을 시작하지 않았다. 전체 연구 목표는 미완료다.
+
+
+### 최신: P2-16 거리 커리큘럼 4seed 실행
+
+직전 턴은 P2-15 전체 감사/보고서 생성과 영상 구도 확인으로 progress. 이번 턴은 유한 지지면 진단, P2-16 구현/검증/주요 학습 실행으로 progress다. P2-15 최초 접촉 진단은 scripts/p2_15_support_report.py 및 docs/p2-15-support-diagnosis.md/json. 모든 기존 성공이 보수적 최초 접촉 구 투영 포함 검사도 통과했다. 접촉 쌍이나 지속 지지의 증명은 아니다.
+
+새 사전 프로토콜 docs/p2-16-protocol.md, config configs/p2-16-deck.json. 같은 넓은 발판/초기 calibration/관측/보상/launch 일정에서 목표 거리만 update1–400 0–5cm,401–800 0–10cm,801–1600 0–15cm로 확장한다. 고정 분포 대조군은 완료된 P2-15 deck 4seed를 재사용하고 동시 무작위 대조로 표현하지 않는다. fresh seed0–3, 각각1024×24×1600, 추가157286400step. 실패 시 예산 임의 연장 금지.
+
+launch_curriculum.distance_for_update와 checkpoint 새 curriculum 계약 추가, train에서 전환 시 reset 및 현재 거리 범위를 metric에 기록한다. schedule 없는 기존 config의 동작/기존 checkpoint 계약은 유지한다. unit45 통과. p2-16-distance-smoke 3update에서5/10/15cm 전환과 reset, checkpoint1에서 resume-smoke update2/3 복구, 최종64개 평가/200Hz/영상/아카이브3artifact 감사 통과(artifacts/p2-16-smoke-audit.jsonl). smoke 성공0은 성능 결과가 아니다.
+
+주요 batch scripts/p2_16_train.py 세션96778, source5bb05c7. 실제 PID 및 metrics 확인:
+[{"run": "p2-16-deck-seed0", "status": "RUNNING", "pid": 1208366, "live": true, "iteration": 73, "distance_range": [0.0, 0.05], "steps": 1794048}, {"run": "p2-16-deck-seed1", "status": "RUNNING", "pid": 1208384, "live": true, "iteration": 74, "distance_range": [0.0, 0.05], "steps": 1818624}, {"run": "p2-16-deck-seed2", "status": "RUNNING", "pid": 1208383, "live": true, "iteration": 75, "distance_range": [0.0, 0.05], "steps": 1843200}, {"run": "p2-16-deck-seed3", "status": "RUNNING", "pid": 1208387, "live": true, "iteration": 74, "distance_range": [0.0, 0.05], "steps": 1818624}]
+
+현재 학습 중이며 재시작하지 말 것. 다음은 이 PID와 metrics 증가 감시, 종료 후 학습4+평가4 감사, configs/reports/p2-16.json으로 experiment_report.py와 jump_trace_report.py 실행. 기존 대조4개와 seed별/거리별 비교하고 지지면 진단도 추가한다. 각 final 평가64개 camera-side4, result와 step:p2-16-distance-curriculum 태그 자동 저장. GPU0–3 모두 사용자 자원 사용, 착수 전 유휴 확인, 디스크 여유536GB. 전체 연구 목표 미완료.
