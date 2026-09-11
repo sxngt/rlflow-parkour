@@ -159,3 +159,15 @@ collision_probe.py를추가하고run_job.py의명시적kind allowlist에collisio
 다음은P2단일도약환경구현(아직미실행). 평지에서명시적비행과착지검증부터진행하고수평이동/갭으로확장. 제안설계: 보정된기본자세로reset,초기settling이후전발합력비접촉의physics history(200Hz)와몸체상승을함께확인해flight latch,이후접촉재개와최종4발안정화구분. 비발접촉history>5N은실패. root/base높이를COM이라고부르지않는다. 발만들거나높이만높인서기는flight없어성공불가. 숫자/예산은합성검증후학습전고정.
 
 구현주의: 별도JumpCfg/Env/ task/version 필요. 현재v7 active_feet와phase관측은개별발에특화돼있으므로그대로점프에적용하지않는다. 새all4contactgroup에맞는관측(기본61+phase/명령/시간),media의phase label,diagnostics의support mask,평가 KPI(비행/apex/착지/안정화),scenario generator/registry/restore계약을분리한다. 기존결과는소급변경금지. GPU1~4상태검사후소규모synthetic/zero계약검증을먼저수행할것. goal active이며계속진행.
+
+## P2-01 단일 도약 환경 검증 및 본 학습 시작
+
+JumpEnv/JumpCfg, jump_events.py를 추가했다. self-collision on, 비발전체history>5N실패,66차원관측,기존모터/PD/±.5rad행동. 초기.3초PD유지 후 최근4물리표본 전발합력<2N + 몸체상승≥.03m + 상승속도≥.2m/s로유효비행을한번검출한다. 확인된비행/비접촉중apex가요구4–6cm이상이어야하고,비행후접촉4개와5cm목표반경·.2초안정화로성공한다.4초truncation,정지성공불가. 상세수식/예산은docs/p2-01-protocol.md.
+
+초기cfg class속성참조오류를수정했다. artifacts/p2-01-jump-state-check-v2.log의합성검사는관측66/서기거부/상승비행검출/공중성공거부/최종hold PASS. 단위23개/모니터링6개/웹빌드통과. zero64개평가(유효비행0,성공0) 및64env×2update=3072step 구현확인과자동평가/200Hz진단/MP4/result수집완료. artifacts/p2-01-jump-zero-check 및p2-01-jump-implementation-check, __final-evaluation. 이3run감사PASS,구현검증태그로본학습예산제외.
+
+본학습4run 시작: artifacts/p2-01-jump-seed{0,1,2,3}, GPU index=seed.1024env×1600updates 처음부터,신규총157,286,400steps. supervisor1800초,자동64평가/영상/진단. 현재학습handle16513/82355/43896/91666. 학습계약bb94ad6 후unused단독발메타데이터정리5500f4b,보고서등록0f8a3a5로실행.
+
+단일활성발이없으므로JumpEnv.active_feet()=-1,contact_group_all=True. media는4개목표모두표시하고phase_labels(도약준비/비행/착지안정화)를저장한다. 웹도이label을사용한다. diagnostics는grouped task에서지지중모든발의XY이동을집계하며active=-1을개별발로해석하지않는다. 유효비행은별도event계약이고기존diagnostic의≥20ms무접촉통계와같지않다.
+
+다음행동: 실제프로세스/메트릭으로4run을관측하고완료후자동평가·영상·GPU회수를확인한다. audit_artifacts.py 8run검사,Isaac python scripts/experiment_report.py configs/reports/p2-01.json로보고서생성. report helper는required_contacts4에맞추고valid_flights/landed_episodes/비발접촉/meanapex를별도표시한다. 결과로보상악용·상승/비행/착지실패를분리해다음학습을결정한다. 수평이동/제한착지면/갭은아직없고본실험은평지작은도약이다. goal active 유지.
