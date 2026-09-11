@@ -15,6 +15,7 @@ from urllib.parse import quote
 ROOT = Path(__file__).resolve().parents[1]
 TASKS = {'a1_t0_foothold_v1': ('T0-v1', '정적_목표접촉'),
          'a1_t0_sequential_v2': ('T0S-v2', '순차_발디딤_4회'),
+         'a1_t0_single_foot_continuous_v6': ('T0F-v6', '단독발이동_전단계네발정렬벌점'),
          'a1_t0_single_foot_aligned_v5': ('T0F-v5', '단독발이동_최종네발정렬벌점'),
          'a1_t0_single_foot_v4': ('T0F-v4', '단독발이동_3발지지_착지안정화'),
          'a1_t0_sequential_stable_v3': ('T0S-v3', '3발지지_순차발디딤_착지안정화')}
@@ -52,7 +53,7 @@ def collect(evaluation, result_root=ROOT / 'result'):
         train_run = json.loads((checkpoint.parent / 'run.json').read_text())
         seed = train_run['config']['seed']
         updates = json.loads(checkpoint.with_suffix('.json').read_text())['completed_iterations']
-    if run['config']['task'] in ('a1_t0_single_foot_v4','a1_t0_single_foot_aligned_v5'):
+    if run['config']['task'] in ('a1_t0_single_foot_v4','a1_t0_single_foot_aligned_v5','a1_t0_single_foot_continuous_v6'):
         task_title = run['config']['sequence']['foot_order'][0].replace('_foot','')+'_'+task_title
     mode = {'policy':'PPO', 'zero':'기본자세_대조군', 'shuffled-target':'PPO_목표셔플'}[run['baseline']]
     date = datetime.fromtimestamp(run['finished_unix_s'], timezone(timedelta(hours=9))).strftime('%Y-%m-%d')

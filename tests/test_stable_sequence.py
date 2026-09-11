@@ -26,3 +26,8 @@ class AlignmentTests(unittest.TestCase):
         errors=torch.tensor([[.1,0,0,0],[.1,0,0,0],[0,0,0,0],[1,1,1,1]])
         cost=final_alignment_cost(torch.tensor([0,4,4,4]),errors,.025)
         self.assertEqual(cost.tolist(),[0.,4.,0.,16.])
+
+    def test_continuous_cost_has_no_stage_entry_jump(self):
+        errors=torch.tensor([[.05,0,0,0],[.05,0,0,0]])
+        costs=final_alignment_cost(torch.tensor([0,4]),errors,.025,final_only=False)
+        self.assertEqual(costs.tolist(),[1.,1.])

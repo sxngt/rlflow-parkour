@@ -20,6 +20,7 @@ def stable_landing(stage, contacts, errors, vz, angular_speed, height_error, rad
             & (height_error.abs() <= spec['final_height_error_max_m']))
 
 
-def final_alignment_cost(stage, errors, radius):
+def final_alignment_cost(stage, errors, radius, final_only=True):
     """Bounded per-foot XY alignment cost, active only after placement."""
-    return (stage == 4).float() * (errors / radius).square().clamp_max(16).mean(dim=1)
+    cost = (errors / radius).square().clamp_max(16).mean(dim=1)
+    return (stage == 4).float() * cost if final_only else cost

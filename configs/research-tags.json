@@ -35,7 +35,9 @@
     "condition:foot-rr": "RR · 단독 이동",
     "step:02b-final-alignment": "02b · 최종 네 발 정렬",
     "condition:alignment-a": "A · 기존 보상",
-    "condition:alignment-b": "B · 최종 정렬 벌점"
+    "condition:alignment-b": "B · 최종 정렬 벌점",
+    "step:02c-continuous-alignment": "02c · 전 단계 정렬",
+    "condition:alignment-c": "C · 전 단계 정렬 벌점"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
@@ -61,6 +63,11 @@
     "a1_t0_single_foot_aligned_v5": [
       "phase:P1",
       "step:02b-final-alignment",
+      "task:single-foot"
+    ],
+    "a1_t0_single_foot_continuous_v6": [
+      "phase:P1",
+      "step:02c-continuous-alignment",
       "task:single-foot"
     ]
   },
@@ -90,40 +97,152 @@
       "purpose:implementation-check"
     ],
     "p1-step02a-single-fl-seed0": [
-      "phase:P1",
-      "step:02a-single-foot",
-      "task:single-foot",
-      "purpose:comparison",
+      "condition:alignment-a",
       "condition:foot-fl",
+      "phase:P1",
+      "purpose:comparison",
+      "step:02a-single-foot",
       "step:02b-final-alignment",
-      "condition:alignment-a"
+      "step:02c-continuous-alignment",
+      "task:single-foot"
     ],
     "p1-step02a-single-fl-seed0__final-evaluation": [
-      "phase:P1",
-      "step:02a-single-foot",
-      "task:single-foot",
-      "purpose:comparison",
+      "condition:alignment-a",
       "condition:foot-fl",
+      "phase:P1",
+      "purpose:comparison",
+      "step:02a-single-foot",
       "step:02b-final-alignment",
-      "condition:alignment-a"
+      "step:02c-continuous-alignment",
+      "task:single-foot"
     ],
     "p1-step02a-single-rl-seed0": [
-      "phase:P1",
-      "step:02a-single-foot",
-      "task:single-foot",
-      "purpose:comparison",
+      "condition:alignment-a",
       "condition:foot-rl",
+      "phase:P1",
+      "purpose:comparison",
+      "step:02a-single-foot",
       "step:02b-final-alignment",
-      "condition:alignment-a"
+      "step:02c-continuous-alignment",
+      "task:single-foot"
     ],
     "p1-step02a-single-rl-seed0__final-evaluation": [
-      "phase:P1",
-      "step:02a-single-foot",
-      "task:single-foot",
-      "purpose:comparison",
+      "condition:alignment-a",
       "condition:foot-rl",
+      "phase:P1",
+      "purpose:comparison",
+      "step:02a-single-foot",
       "step:02b-final-alignment",
-      "condition:alignment-a"
+      "step:02c-continuous-alignment",
+      "task:single-foot"
+    ],
+    "p1-step02b-b-fl-seed0": [
+      "condition:alignment-b",
+      "condition:foot-fl",
+      "phase:P1",
+      "purpose:comparison",
+      "step:02b-final-alignment",
+      "step:02c-continuous-alignment",
+      "task:single-foot"
+    ],
+    "p1-step02b-b-fl-seed0__final-evaluation": [
+      "condition:alignment-b",
+      "condition:foot-fl",
+      "phase:P1",
+      "purpose:comparison",
+      "step:02b-final-alignment",
+      "step:02c-continuous-alignment",
+      "task:single-foot"
+    ],
+    "p1-step02b-a-fl-seed1": [
+      "condition:alignment-a",
+      "condition:foot-fl",
+      "phase:P1",
+      "purpose:comparison",
+      "step:02b-final-alignment",
+      "step:02c-continuous-alignment",
+      "task:single-foot"
+    ],
+    "p1-step02b-a-fl-seed1__final-evaluation": [
+      "condition:alignment-a",
+      "condition:foot-fl",
+      "phase:P1",
+      "purpose:comparison",
+      "step:02b-final-alignment",
+      "step:02c-continuous-alignment",
+      "task:single-foot"
+    ],
+    "p1-step02b-b-fl-seed1": [
+      "condition:alignment-b",
+      "condition:foot-fl",
+      "phase:P1",
+      "purpose:comparison",
+      "step:02b-final-alignment",
+      "step:02c-continuous-alignment",
+      "task:single-foot"
+    ],
+    "p1-step02b-b-fl-seed1__final-evaluation": [
+      "condition:alignment-b",
+      "condition:foot-fl",
+      "phase:P1",
+      "purpose:comparison",
+      "step:02b-final-alignment",
+      "step:02c-continuous-alignment",
+      "task:single-foot"
+    ],
+    "p1-step02b-b-rl-seed0": [
+      "condition:alignment-b",
+      "condition:foot-rl",
+      "phase:P1",
+      "purpose:comparison",
+      "step:02b-final-alignment",
+      "step:02c-continuous-alignment",
+      "task:single-foot"
+    ],
+    "p1-step02b-b-rl-seed0__final-evaluation": [
+      "condition:alignment-b",
+      "condition:foot-rl",
+      "phase:P1",
+      "purpose:comparison",
+      "step:02b-final-alignment",
+      "step:02c-continuous-alignment",
+      "task:single-foot"
+    ],
+    "p1-step02b-a-rl-seed1": [
+      "condition:alignment-a",
+      "condition:foot-rl",
+      "phase:P1",
+      "purpose:comparison",
+      "step:02b-final-alignment",
+      "step:02c-continuous-alignment",
+      "task:single-foot"
+    ],
+    "p1-step02b-a-rl-seed1__final-evaluation": [
+      "condition:alignment-a",
+      "condition:foot-rl",
+      "phase:P1",
+      "purpose:comparison",
+      "step:02b-final-alignment",
+      "step:02c-continuous-alignment",
+      "task:single-foot"
+    ],
+    "p1-step02b-b-rl-seed1": [
+      "condition:alignment-b",
+      "condition:foot-rl",
+      "phase:P1",
+      "purpose:comparison",
+      "step:02b-final-alignment",
+      "step:02c-continuous-alignment",
+      "task:single-foot"
+    ],
+    "p1-step02b-b-rl-seed1__final-evaluation": [
+      "condition:alignment-b",
+      "condition:foot-rl",
+      "phase:P1",
+      "purpose:comparison",
+      "step:02b-final-alignment",
+      "step:02c-continuous-alignment",
+      "task:single-foot"
     ]
   },
   "note": "Phase is work classification, not a completion claim. Explicit run research_tags override task defaults. Legacy annotations are derived without changing original artifacts."

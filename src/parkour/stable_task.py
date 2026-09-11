@@ -50,7 +50,8 @@ class StableSequentialEnv(SequentialEnv):
         dense-=self.seq['stability']['vertical_velocity_penalty']*vz2
         alignment_weight=self.seq['stability'].get('final_alignment_penalty',0.)
         if alignment_weight:
-            dense-=alignment_weight*final_alignment_cost(self.stage,self._errors(),self.cfg.success_radius_m)
+            dense-=alignment_weight*final_alignment_cost(self.stage,self._errors(),self.cfg.success_radius_m,
+                final_only=self.seq['stability'].get('alignment_scope','final')=='final')
         reward=(dense*self.step_dt+self.lift_event.float()+3*self.place_event.float()
                 +5*self.success.float()-30*self.failure.float())
         planar=self._errors().mean(dim=1)
