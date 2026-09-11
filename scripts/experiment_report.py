@@ -27,6 +27,8 @@ def summarize(entry):
       'environment_steps':metrics[-1]['total_environment_steps'],
       'attempt_environment_steps':len(metrics)*meta['config']['runner']['num_steps_per_env']*json.loads((train/'run.json').read_text())['config']['num_envs'],
       'train_wall_seconds':json.loads(train.with_suffix('.supervisor.json').read_text())['wall_seconds']}
+ for key in ['valid_flights','landed_episodes','mean_flight_apex_rise_m','nonfoot_collisions']:
+  if key in r:row[key]=r[key]
  if r['required_contacts']==1:
   names=['FL','FR','RL','RR']
   active=np.array([names.index(x['active_foot'].replace('_foot','')) for x in sc['episodes']]) if entry['foot']=='ALL' else np.full(count,names.index(entry['foot']))
@@ -67,6 +69,10 @@ def main():
  lines=[f"# {spec['title']}",'',spec['description'],'',f"비교 전체 {total:,} 환경 step, 신규 {new:,}step. [사전 프로토콜]({spec['protocol']}).",'',
  '| 발 | 조건 | seed | 안정화 성공 | 필요 착지 완료 | 낙상 | 시간초과 | ≥20ms 전 발 무접촉 |','|---|---|---:|---:|---:|---:|---:|---:|']
  for x in rows:lines.append(f"| {x['foot']} | {x['condition']} | {x['seed']} | {x['successes']}/{x['episodes']} | {x['placed']}/{x['episodes']} | {x['failures']}/{x['episodes']} | {x['timeouts']}/{x['episodes']} | {x['flight_episodes']}/{x['episodes']} |")
+ if any('valid_flights' in x for x in rows):
+  lines+=['','## 도약 계약 지표','','| seed | 유효 비행 | 비행 후 재접촉 | 최종 안정화 | 비발 접촉 종료 | 평균 비행 apex 상승 |','|---:|---:|---:|---:|---:|---:|']
+  for x in rows:
+   if 'valid_flights' in x:lines.append(f"| {x['seed']} | {x['valid_flights']}/{x['episodes']} | {x['landed_episodes']}/{x['episodes']} | {x['successes']}/{x['episodes']} | {x['nonfoot_collisions']} | {100*x['mean_flight_apex_rise_m']:.2f} cm |")
  if any('by_foot' in x for x in rows):
   lines+=['','## 공유 정책의 발별 평가','','| 조건 | seed | 이동 발 | 안정화 | 착지 | ≥20ms 전 발 무접촉 |','|---|---:|---|---:|---:|---:|']
   for x in rows:

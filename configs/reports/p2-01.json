@@ -1,0 +1,40 @@
+{
+  "title": "P2-01 · 평지 단일 도약 기준선",
+  "report": "p2-01",
+  "protocol": "p2-01-protocol.md",
+  "description": "self-collision과 비발 접촉 실패 조건을 적용한 A1의 평지 단일 도약. 요구 비행 중 몸체 상승4–6cm, 마지막64개 개발 명령을 평가한다. 갭 통과 결과가 아니다.",
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "Jump",
+      "seed": 0,
+      "run": "p2-01-jump-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "Jump",
+      "seed": 1,
+      "run": "p2-01-jump-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "Jump",
+      "seed": 2,
+      "run": "p2-01-jump-seed2",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "Jump",
+      "seed": 3,
+      "run": "p2-01-jump-seed3",
+      "updates": 1600,
+      "reused": false
+    }
+  ]
+}
