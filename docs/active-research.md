@@ -327,3 +327,12 @@ sourcee303428, docs/p2-20-protocol.md/configs/p2-20-deck.json. exploration.py Bo
 안정화실패P2-20 43개 + P2-21 130개=173개 모두 접촉완료후200ms안에영역이탈 관찰, 이후200ms 네발기하유지구간없음. 모두RR이탈. P2-21 실패seed0/1/2 RR최종평균5.80/5.40/5.25cm. 8실행진단발순서FL/FR/RL/RR와동결target/terrain계약일치. 코드robot/contact순서assert/원래jointarray행동연결확인, 순서오류증거없음(동역학대칭성보장아님). 50Hz판정재현/미끄러짐원인확정아님.
 
 다음구체과제: P2-20 기준에서 착지후 dense precision의mean aggregation만worst-foot aggregation으로 바꾼 단일변경 고정예산 비교. 모든발동등,특정RR가중금지. 최초접촉/거리/성공조건유지. 새protocol/설정엄격계약/보상단위검사/짧은smoke후주요학습. 아직구현·학습미착수, 전체목표미완료. 현재실행GPU학습없음.
+
+
+### 최신: P2-22 착지후 최대오차 보상 학습 시작
+
+직전 턴은512episode 사후진단으로 progress. 이번 턴 sourcea807334, docs/p2-22-protocol.md/configs/p2-22-deck.json. landing_precision.precision_reward는 기존mean을 보존하고 worst_after_landing_v1일 때 landed 이후에만min(exp(-error²/.06²))-1 적용. [-1,0]범위/step_dt/다른보상유지,특정발가중없음. jump설정strictcheckpoint계약포함. 57unit통과,64env3update+최종64평가/영상 및resume3→4..7검증. artifacts/p2-22-smoke-audit.jsonl3감사통과. 검증식이 --iterations4를절대종료로잘못해석해한번실패했으나 실제CLI는추가4update이므로4..7로수정검증; simulator실패아님. 그검증오류뒤주요배치가먼저시작됐으나즉시조사해계약/finite loss/동일scenario를모두확인. 재실행하지않음.
+
+주요 scripts/p2_22_train.py batch99704 실행중. fresh4seed×1024×24×1600, 추가157286400step,대조P2-20재사용. P2-20과태그/landing_precision_mode외config정확히일치확인. 최신 [{"run": "p2-22-deck-seed0", "pid": 1434460, "live": true, "iteration": 96}, {"run": "p2-22-deck-seed1", "pid": 1434453, "live": true, "iteration": 97}, {"run": "p2-22-deck-seed2", "pid": 1434435, "live": true, "iteration": 99}, {"run": "p2-22-deck-seed3", "pid": 1434445, "live": true, "iteration": 98}]
+
+다음 같은PID관찰,401/801/1201커리큘럼/체크포인트검증,최종1600/자동평가후8artifact감사와 configs/reports/p2-22.json의 experiment_report/jump_trace_report/p2_15_support_report/post_landing_report. 도약/최초정밀/안정화/거리/성공 및착지회피함께검토. result64근접영상/태그자동. 전체목표미완료, 중복실행금지.
