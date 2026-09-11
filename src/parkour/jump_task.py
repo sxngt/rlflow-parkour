@@ -31,6 +31,9 @@ class JumpEnv(SequentialEnv):
         self.flight_event=torch.zeros_like(self.flight_seen)
         self.new_touch=torch.zeros_like(self.touched)
 
+    def active_feet(self):
+        return torch.full_like(self.stage,-1)  # all-four group, no single active foot
+
     def set_sequence_offsets(self,offsets,env_ids=None,episode_orders=None):
         super().set_sequence_offsets(offsets,env_ids,episode_orders)
         if env_ids is None:env_ids=self.robot._ALL_INDICES

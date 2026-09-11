@@ -2,8 +2,8 @@
   "schema_version": 1,
   "task": "a1_flat_jump_v1",
   "seed": 0,
-  "num_envs": 1024,
-  "iterations": 1600,
+  "num_envs": 64,
+  "iterations": 2,
   "episode_seconds": 4.0,
   "target_offset_m": 0.06,
   "surface_height_m": 0.0,
@@ -61,7 +61,7 @@
     "phase:P2",
     "step:p2-01-flat-jump",
     "task:single-jump",
-    "purpose:baseline"
+    "purpose:implementation-check"
   ],
   "evaluation_diagnostics": true,
   "jump": {
