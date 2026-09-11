@@ -39,6 +39,11 @@ def summarize(entry):
   for foot,values in row['by_foot'].items():
    ids=[i for i,x in enumerate(r['results']) if x['active_foot']==foot]
    values['flight_episodes']=sum(d['results'][i]['has_flight_20ms'] for i in ids)
+   states=Counter((int(a['stage'][last[i],i]),int(a['phase'][last[i],i])) for i in ids)
+   values['terminal_stage_phase']={f'{stage}:{phase}':n for (stage,phase),n in sorted(states.items())}
+   if r['required_contacts']==1:
+    values['terminal_foot_error_mean_m']=dict(zip(['FL','FR','RL','RR'],errors[ids].mean(axis=0).tolist()))
+    values['terminal_all_feet_in_radius']=int((errors[ids]<=meta['config']['success_radius_m']).all(axis=1).sum())
  return row,metrics,sc['episodes']
 
 def main():
@@ -66,7 +71,9 @@ def main():
    for foot,v in x.get('by_foot',{}).items():lines.append(f"| {x['condition']} | {x['seed']} | {foot} | {v['successes']}/{v['episodes']} | {v['placed']}/{v['episodes']} | {v['flight_episodes']}/{v['episodes']} |")
  lines+=['',f'![학습 곡선](figures/{stem}-learning.png)','',
  '학습 곡선은 각 update의 종료 episode 통계다. 고정 평가 결과와 구분한다. 종료 단계는 마지막 유효 200Hz 표본이며 실제 완료 여부는 terminal metrics를 우선한다.','', '## 종료 단계','']
- for x in rows:lines.append(f"- {x['foot']} {x['condition']} seed {x['seed']}: `{x['terminal_stage_phase']}`")
+ for x in rows:
+  lines.append(f"- {x['foot']} {x['condition']} seed {x['seed']}: `{x['terminal_stage_phase']}`")
+  for foot,v in x.get('by_foot',{}).items():lines.append(f"  - {foot}: `{v['terminal_stage_phase']}`")
  lines+=['','## 해석 및 다음 판단','']+spec.get('findings',['분석 중. 표만으로 모델 승격을 결정하지 않는다.'])
  lines+=['','## 범위·재현','',
  '개발 조건의 탐색적 실험이다. 평가 episode 수와 독립 학습 seed 수를 구분하며 최종 시험 결과로 주장하지 않는다. 같은 발의 평가 시나리오가 동일함을 확인했다. 설정·checkpoint·원본200Hz NPZ는 artifacts, 최종16대병렬영상은 result에 보존한다. 재사용 대조군 원본은 변경하지 않는다.','',
