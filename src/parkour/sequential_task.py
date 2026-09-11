@@ -85,7 +85,7 @@ class SequentialEnv(FootholdEnv):
 
     def _get_observations(self):
         basic = super()._get_observations()['policy']
-        active = self.order[self.stage.clamp_max(3)]
+        active = self.order[self.stage.clamp_max(self.seq.get('sequence_length',4)-1)]
         return {'policy': torch.cat((basic, torch.nn.functional.one_hot(active, 4),
                 torch.nn.functional.one_hot(self.phase, 2), self.stage[:, None]/4,
                 (self.episode_length_buf[:, None]*self.step_dt/self.seq['settle_seconds']).clamp_max(1)), dim=1)}
@@ -93,7 +93,7 @@ class SequentialEnv(FootholdEnv):
     def _get_dones(self):
         forces = self.contacts.data.net_forces_w[:, self.contact_ids, 2]
         self.contact_on = torch.where(self.contact_on, forces > 2.0, forces > 5.0)
-        active = self.order[self.stage.clamp_max(3)]
+        active = self.order[self.stage.clamp_max(self.seq.get('sequence_length',4)-1)]
         foot_z = self.robot.data.body_pos_w[self.indices, torch.tensor(self.foot_ids, device=self.device)[active], 2]
         surface = self.scene.env_origins[:, 2]
         contact = self.contact_on[self.indices, active]
@@ -116,7 +116,7 @@ class SequentialEnv(FootholdEnv):
         return terminated, (self.episode_length_buf >= self.max_episode_length) & ~terminated
 
     def _get_rewards(self):
-        active = self.order[self.stage.clamp_max(3)]
+        active = self.order[self.stage.clamp_max(self.seq.get('sequence_length',4)-1)]
         desired = self.targets.clone()
         desired[self.indices, active, 2] += (self.phase == 0)*self.seq['lift_target_height_m']
         errors3d = (self.robot.data.body_pos_w[:, self.foot_ids] - desired).norm(dim=-1)

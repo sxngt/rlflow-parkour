@@ -20,7 +20,7 @@ class MotionDiagnostics:
     def capture(self):
         e=self.env
         def cpu(x):return x.detach().cpu().numpy().copy()
-        active=e.order[e.stage.clamp_max(3)]
+        active=e.order[e.stage.clamp_max(e.seq.get('sequence_length',4)-1)]
         self.samples.append({
             'time':self.elapsed,'valid':cpu(~self.done),
             'root_z':cpu(e.robot.data.root_pos_w[:,2]-e.scene.env_origins[:,2]),

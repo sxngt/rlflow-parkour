@@ -114,6 +114,7 @@ def main():
                   "mean_episode_seconds": sum(row["length"] for row in records) * env.step_dt / count,
                   "results": records}
         if 'completed_contacts' in records[0]:
+            report['required_contacts'] = config.get('sequence',{}).get('sequence_length',4)
             report['mean_completed_contacts'] = sum(row['completed_contacts'] for row in records)/count
         atomic_json(args.out / "evaluation.json", report)
         meta["evaluation"] = {key: value for key, value in report.items() if key != "results"}

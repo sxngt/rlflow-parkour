@@ -26,7 +26,13 @@
     "purpose:comparison": "조건 비교",
     "purpose:implementation-check": "구현 검증",
     "condition:a-vz0": "A · 수직 속도 벌점 0",
-    "condition:b-vz4": "B · 수직 속도 벌점 4"
+    "condition:b-vz4": "B · 수직 속도 벌점 4",
+    "step:02a-single-foot": "02a · 발별 단독 이동",
+    "task:single-foot": "단독 발 이동·안정화",
+    "condition:foot-fl": "FL · 단독 이동",
+    "condition:foot-fr": "FR · 단독 이동",
+    "condition:foot-rl": "RL · 단독 이동",
+    "condition:foot-rr": "RR · 단독 이동"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
@@ -43,6 +49,11 @@
       "phase:P1",
       "step:02-foothold-baseline",
       "task:stable-sequential-foothold"
+    ],
+    "a1_t0_single_foot_v4": [
+      "phase:P1",
+      "step:02a-single-foot",
+      "task:single-foot"
     ]
   },
   "run_overrides": {

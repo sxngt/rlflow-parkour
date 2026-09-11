@@ -15,6 +15,7 @@ from urllib.parse import quote
 ROOT = Path(__file__).resolve().parents[1]
 TASKS = {'a1_t0_foothold_v1': ('T0-v1', '정적_목표접촉'),
          'a1_t0_sequential_v2': ('T0S-v2', '순차_발디딤_4회'),
+         'a1_t0_single_foot_v4': ('T0F-v4', '단독발이동_3발지지_착지안정화'),
          'a1_t0_sequential_stable_v3': ('T0S-v3', '3발지지_순차발디딤_착지안정화')}
 
 
@@ -50,6 +51,8 @@ def collect(evaluation, result_root=ROOT / 'result'):
         train_run = json.loads((checkpoint.parent / 'run.json').read_text())
         seed = train_run['config']['seed']
         updates = json.loads(checkpoint.with_suffix('.json').read_text())['completed_iterations']
+    if run['config']['task']=='a1_t0_single_foot_v4':
+        task_title = run['config']['sequence']['foot_order'][0].replace('_foot','')+'_'+task_title
     mode = {'policy':'PPO', 'zero':'기본자세_대조군', 'shuffled-target':'PPO_목표셔플'}[run['baseline']]
     date = datetime.fromtimestamp(run['finished_unix_s'], timezone(timedelta(hours=9))).strftime('%Y-%m-%d')
     title = f'A1 | {task} {task_title.replace("_", " ")} | {mode} seed {seed} | {updates} updates | 개발군 {report["episodes"]} episodes'
@@ -108,13 +111,13 @@ def collect(evaluation, result_root=ROOT / 'result'):
                 text += f'- 원본 학습 실행: `{record["training_run"] or "없음: 대조군"}`\n- 평가 실행: `{evaluation.name}`\n'
                 text += f'- 전체 개발군: **{report["successes"]}/{report["episodes"]} 성공**, 평균 최종 발 오차 **{report["mean_final_error_m"]*100:.2f} cm**\n'
                 if 'mean_completed_contacts' in report:
-                    text += f'- 평균 순차 접촉 완료: **{report["mean_completed_contacts"]:.2f}/4회**\n'
+                    text += f'- 평균 순차 접촉 완료: **{report["mean_completed_contacts"]:.2f}/{report.get("required_contacts",4)}회**\n'
                 if parallel:
                     text += f'- 이 영상: **{len(visible_episodes)}개 로봇 병렬**, 보이는 로봇의 첫 episode 성공 **{sum(e["success"] for e in visible_episodes)}/{len(visible_episodes)}**.\n'
                     text += '- 4×4 구역을 카메라로 관찰합니다. 종료 후 자동 reset된 로봇의 후속 episode는 화면에 보일 수 있지만 평가 지표에서 제외합니다.\n'
                 else:
                     text += f'- 이 영상: `{episode["scenario_id"]}`, **{outcome}**, simulator {episode["length"]*0.02:.2f}초'
-                    if completed is not None:text += f', 순차 접촉 **{completed}/4회**'
+                    if completed is not None:text += f', 순차 접촉 **{completed}/{report.get("required_contacts",4)}회**'
                     text += '\n'
                 text += '- 영상 선정: 고정 시나리오/구역. 대표 성공 사례로 선별하지 않음.\n'
                 text += f'- 원본 기록: [{evaluation.name}]({quote(os.path.relpath(evaluation, folder))})\n'
@@ -141,7 +144,7 @@ def rebuild_index(root):
     for folder, row in entries:
         report, ep=row['aggregate'],row['video_episode']
         state='성공' if ep['success'] else '실패' if ep['failure'] else '시간초과'
-        if 'completed_contacts' in ep:state+=f' · {ep["completed_contacts"]}/4 접촉'
+        if 'completed_contacts' in ep:state+=f' · {ep["completed_contacts"]}/{report.get("required_contacts",4)} 접촉'
         if row.get('video_layout') == 'parallel':
             visible=row['video_episodes']
             state=f'병렬 {len(visible)}개 · 첫 episode {sum(e["success"] for e in visible)}/{len(visible)} 성공'
@@ -149,7 +152,7 @@ def rebuild_index(root):
         rel=quote(folder.name)
         overall=f'{report["successes"]}/{report["episodes"]} 성공'
         if 'mean_completed_contacts' in report:
-            overall += f' · 평균 {report["mean_completed_contacts"]:.2f}/4 접촉'
+            overall += f' · 평균 {report["mean_completed_contacts"]:.2f}/{report.get("required_contacts",4)} 접촉'
         links=f'[최종 평가]({rel}/{quote(row["video"])})'
         if row.get('training_video'):
             links += f' · [실제 병렬 학습]({rel}/{quote(row["training_video"]["file"])})'

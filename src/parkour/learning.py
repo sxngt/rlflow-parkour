@@ -80,13 +80,13 @@ def restore(data, config, alg, normalizer, env, training):
 
 def make_env(config):
     from parkour.task import FootholdCfg, FootholdEnv
-    if config['task'] in ('a1_t0_sequential_v2','a1_t0_sequential_stable_v3'):
+    if config['task'] in ('a1_t0_sequential_v2','a1_t0_sequential_stable_v3','a1_t0_single_foot_v4'):
         from parkour.sequential_task import SequentialCfg, SequentialEnv
         if config['surface_height_m'] != 0:
             raise ValueError('Sequential v2 currently supports flat ground only')
         cfg, env_type = SequentialCfg(), SequentialEnv
         cfg.sequence = copy.deepcopy(config['sequence'])
-        if config['task']=='a1_t0_sequential_stable_v3':
+        if config['task'] in ('a1_t0_sequential_stable_v3','a1_t0_single_foot_v4'):
             from parkour.stable_task import StableSequentialEnv
             env_type=StableSequentialEnv
     elif config['task'] == 'a1_t0_foothold_v1':

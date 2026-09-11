@@ -34,7 +34,7 @@ class StableSequentialEnv(SequentialEnv):
         return terminated,(self.episode_length_buf>=self.max_episode_length)&~terminated
 
     def _get_rewards(self):
-        active=self.order[self.stage.clamp_max(3)]
+        active=self.order[self.stage.clamp_max(self.seq.get('sequence_length',4)-1)]
         desired=self.targets.clone()
         desired[self.indices,active,2]+=((self.phase==0)&(self.stage<4))*self.seq['lift_target_height_m']
         errors=(self.robot.data.body_pos_w[:,self.foot_ids]-desired).norm(dim=-1)
@@ -56,13 +56,14 @@ class StableSequentialEnv(SequentialEnv):
             'success':self.success.clone(),'failure':self.failure.clone(),'timeout':self.reset_time_outs.clone(),
             'length':self.episode_length_buf.clone(),'mean_error_m':(self.error_sum/self.sample_count.clamp_min(1)).clone(),
             'final_error_m':planar.clone(),'return':self.reward_sum.clone(),
-            'completed_contacts':(self.stage+self.place_event.long()).clamp_max(4).clone(),
+            'completed_contacts':(self.stage+self.place_event.long()).clamp_max(self.seq.get('sequence_length',4)).clone(),
             'mean_squared_vertical_speed':(self.quality_sum/self.sample_count.clamp_min(1)).clone(),
             'final_stable_steps':self.stable_steps.clone()}
         lift=self.lift_event&~self.reset_buf
         self.phase[lift]=1;self.hold_steps[lift]=0
         ids=(self.place_event&~self.reset_buf).nonzero().flatten()
         self.stage[ids]+=1
+        self.stage[ids]=torch.where(self.stage[ids]>=self.seq.get('sequence_length',4),4,self.stage[ids])
         self.phase[ids]=torch.where(self.stage[ids]==4,1,0)
         self.grounded_seen[ids]=False;self.lift_count[ids]=0;self.hold_steps[ids]=0
         moving=ids[self.stage[ids]<4]
