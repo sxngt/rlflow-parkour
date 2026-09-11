@@ -125,3 +125,13 @@ A는 FL/RL 모두 seed0 안정화 0/64, seed1 64/64. 모든 A 착지 64/64. B �
 다음은02e 공유단독발Tracker. 사전프로토콜docs/step02e-protocol.md만 작성했고 아직코드/학습미실행이다. 한정책이episode마다균등활성발을처리하도록환경별foot order를도입할계획. 기본A보상유지, 추가정렬벌점없음. seed0~3,1024env×1600updates,평가256개(각발64)·16대영상. 현재코드의order는global1D라서그대로randomize하면안된다. active_feet helper와Nx4 episode_order 등을통해관측·목표·접촉이벤트·진단·영상의활성발을같이갱신하고, 평가명세의활성발을reset이후명시적으로적용해야한다. 기존v2~v6고정순서회귀검사와random reset독립성검사필요.
 
 평가episodes는run_job.py의자동평가명령이기본64이므로config의evaluation_episodes=256을전달하는확장이필요하다. shared평가레코드에활성발을남기고발별집계한다. scripts/experiment_report.py는현재foot='FL'/'RL'를전제로최종오차계산하므로shared task에맞게확장하거나별도report를작성해야한다. goal은active이며사용자중단전까지계속연구한다.
+
+## Step 02e 구현 및 학습 시작
+
+공유 Tracker v7 구현 commit2363c8a. SequentialEnv에 환경별 episode_order(N×4)와 active_feet()를 도입했다. 고정 과제는 기존 순서 반복으로 유지하고, v7은 reset된 환경만 균등 첫 발 선택 후 순서를 회전한다. 관측·접촉이벤트·목표·진단·영상 모두 같은 환경별 활성 발을 사용한다. 평가 명세는 활성 발/순서를 명시하고 reset 후 목표와 함께 재적용한다.
+
+사전 검증: 합성 active/target/reset독립성/최종stage 검사 PASS, 단위18개·모니터링6개·웹빌드 통과. 이전 FL seed1의 1600update 고정평가 재실행 p1-step02e-fixed-regression의 evaluation.json은 원본과 완전히 같다. p1-step02e-shared-zero-check는256개/각발64개 zero평가·200Hz진단·16대영상·result수집 완료. 두run GPU/hash 감사통과, 구현검증태그로학습비교에서제외.
+
+4개 공유정책 학습 실행 중: artifacts/p1-step02e-shared-seed{0,1,2,3}, GPU index=seed.1024env×1600updates 처음부터, 각39,321,600step. supervisor timeout1800s, 자동최종평가에는config evaluation_episodes=256을전달하고 timeout180s. 사전zero평가48.8초로경로검증. 실행 shell tool session14927/46890/66762/16366; 새턴에서는process/실제GPU확인후관측한다.
+
+다음행동: run 종료 및 자동256평가·영상·자원회수 대기, audit_artifacts.py로8run검사. Isaac python scripts/experiment_report.py configs/reports/step02e.json로발별보고서를생성한다. helper는foot=ALL일때시나리오별active_foot으로target오차계산하고by_foot 성공/착지/무접촉을표시한다. 학습도중설정변경없이, 결과에따라공유정책실패분석/순차연결로진행. 아직02e학습성과없음. goal active 유지.
