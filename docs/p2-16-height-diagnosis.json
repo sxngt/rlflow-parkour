@@ -1,0 +1,58 @@
+[
+  {
+    "run": "p2-15-deck-seed0",
+    "condition": "fixed-distance",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.04444550350308418,
+    "terminal_height_outside_tolerance": 18
+  },
+  {
+    "run": "p2-15-deck-seed1",
+    "condition": "fixed-distance",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.10479876399040222,
+    "terminal_height_outside_tolerance": 64
+  },
+  {
+    "run": "p2-15-deck-seed2",
+    "condition": "fixed-distance",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.018824834376573563,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-15-deck-seed3",
+    "condition": "fixed-distance",
+    "seed": 3,
+    "mean_terminal_base_rise_m": 0.05418995022773743,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-16-deck-seed0",
+    "condition": "distance-curriculum",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.009318046271800995,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-16-deck-seed1",
+    "condition": "distance-curriculum",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.020347412675619125,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-16-deck-seed2",
+    "condition": "distance-curriculum",
+    "seed": 2,
+    "mean_terminal_base_rise_m": 0.0184059776365757,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-16-deck-seed3",
+    "condition": "distance-curriculum",
+    "seed": 3,
+    "mean_terminal_base_rise_m": 0.009473996236920357,
+    "terminal_height_outside_tolerance": 0
+  }
+]

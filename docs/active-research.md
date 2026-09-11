@@ -136,3 +136,21 @@ scripts/p2_15_support_report.py에 선택적 report spec 인자를 추가했다.
 ### 최신: P2-16 update801 전환 검증
 
 동일 네 PID를 확인하며 기다린 후 모든 seed의 update801에서 목표거리[0,0.15], launch반경0.045, curriculum_reset_all=true를 검증했다. checkpoint800 hash 네 개도 일치한다. 최근 update seed0/1/2/3=835/814/805/858, 모두 실제 PID 생존. 원시 관측은 artifacts/p2-16-watch.jsonl. batch96778 유지, 다음은1201의3cm 반경 전환과 최종1600 이후 자동평가. 이 턴은 verified wait와 전환 검증이며 최종 성능 결과는 아직 없다.
+
+
+### 최신: P2-16 checkpoint1000 검증
+
+동일 batch96778 네 PID를 확인한 verified wait. checkpoint1000 네 hash 일치, 최근 관측 update seed0/1/2/3=1036/1002/1007/1053. 실제 PID 모두 생존, 최근100update loss 유한. artifacts/p2-16-watch.jsonl에 관측 보존. 다음은1201의 launch3cm/reset 전환 확인 후1600 최종학습/자동평가 및 전체 보고서 생성. 중복 실행이나 예산 변경 없음.
+
+
+### 최신: P2-16 마지막 전환 검증
+
+동일 PID를 확인한 verified wait 후 네 seed 모두 update1201에서 launch3cm, 목표거리0–15cm, reset_all=true를 검증했다. checkpoint1200 네 hash도 정상. 최신 상태 [{"run": "p2-16-deck-seed0", "pid": 1208366, "live": true, "iteration": 1282, "transition1201_verified": true, "checkpoint1200_hash_ok": true}, {"run": "p2-16-deck-seed1", "pid": 1208384, "live": true, "iteration": 1243, "transition1201_verified": true, "checkpoint1200_hash_ok": true}, {"run": "p2-16-deck-seed2", "pid": 1208383, "live": true, "iteration": 1256, "transition1201_verified": true, "checkpoint1200_hash_ok": true}, {"run": "p2-16-deck-seed3", "pid": 1208387, "live": true, "iteration": 1319, "transition1201_verified": true, "checkpoint1200_hash_ok": true}]
+다음은1600 종료 및 자동평가,8artifact 감사 후 configs/reports/p2-16.json으로 연구/trace/지지면 보고서 생성. batch96778 유지, 중복 실행 금지. 전체 연구 미완료.
+
+
+### 최신: P2-16 전체 완료 및 실패 해석
+
+학습4개+최종평가4개 SUCCEEDED, 실제 모든worker PID 종료/GPU 유휴 확인. artifacts/p2-16-audit.jsonl 8감사통과. experiment_report/jump_trace_report/p2_15_support_report configs/reports/p2-16.json 모두완료. docs/p2-16-results/summary/height-diagnosis/support-diagnosis 및 figures 생성. result 주요영상4개 hash 대조, seed2 프레임시각검사. 결과32/1/48/5, 유효비행모두64. 기존대조0/0/0/48. 모든15cm실패, seed2 평균비행11.66cm가요구12cm미달. seed1 안정화,seed3 RR첫접촉 오차도실패원인. docs/p2-16-findings.md 해석 참조.
+
+다음 구체 과제: 같은4run checkpoint800/1200를 최종3cm 반경/동일64episode로 평가해 후반퇴화 여부 진단. 아직 시작하지 않았고 별도사전프로토콜 필요. 추가학습step0, 평가8개. configs와checkpoint는원래run계약유지,일반 evaluate restore사용. 태그는 P2-16 내 purpose:checkpoint-diagnosis 추가 또는새 명시적step. 전체연구미완료. 이번턴은verified wait→학습/평가완료감사→보고서/실패해석으로progress.
