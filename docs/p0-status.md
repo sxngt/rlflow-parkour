@@ -149,3 +149,13 @@ A는 FL/RL 모두 seed0 안정화 0/64, seed1 64/64. 모든 A 착지 64/64. B �
 P2제안(아직미구현/학습미실행): 평지의명시적단일도약부터실제전발비접촉지속과몸체상승/속도를확인한뒤착지·안정화. 다음에수평이동·제한착지면·단일갭확장. 3발지지정적조건은이새동적과제에강제하지않는다. 비행이없는서기/개별발들기는점프성공아님. observation·phase·contactgroup·media/diagnostics/report계약을새버전으로분리하고합성상태검사후수치/예산사전고정. 공유Tracker를더재개하지말고목표연구로진행한다.
 
 목표active,사용자중단전까지지속. 현재학습/평가worker전부종료,4GPU회수완료.
+
+## P2-00 충돌 계약 검사 완료
+
+collision_probe.py를추가하고run_job.py의명시적kind allowlist에collision_probe를추가했다. 두64env프로브 artifacts/p2-00-collision-{off,on} 완료. 실제USD articulation selfcollision flag 일치 확인. 정상1초지지의비발>5N은양쪽0/64,body-ground overlap은양쪽64/64. 지상3m randomjointpose 50ms는off0/on1 비발접촉, 같은샘플pose확인. 양성case47의FL_thigh43.37N,RL_calf7.66N,RL_foot35.71N. 모든bodycenter>2.64m로ground접촉분리. netforce만으로모든pair충돌검출을주장하지않음. docs/p2-collision-contract.md에결과/한계기록.
+
+새동적과제는selfcollisions=True와nonfoot전체합력>5N실패를사용할계획이며기존P1은그대로둔다. 모터33.5Nm/21rad/s/PD25,.5유지. scripts/audit_artifacts.py는probe kind의hash감사를추가했고두probe UUID/회수/hash통과. 현재4GPU모두비어있다.
+
+다음은P2단일도약환경구현(아직미실행). 평지에서명시적비행과착지검증부터진행하고수평이동/갭으로확장. 제안설계: 보정된기본자세로reset,초기settling이후전발합력비접촉의physics history(200Hz)와몸체상승을함께확인해flight latch,이후접촉재개와최종4발안정화구분. 비발접촉history>5N은실패. root/base높이를COM이라고부르지않는다. 발만들거나높이만높인서기는flight없어성공불가. 숫자/예산은합성검증후학습전고정.
+
+구현주의: 별도JumpCfg/Env/ task/version 필요. 현재v7 active_feet와phase관측은개별발에특화돼있으므로그대로점프에적용하지않는다. 새all4contactgroup에맞는관측(기본61+phase/명령/시간),media의phase label,diagnostics의support mask,평가 KPI(비행/apex/착지/안정화),scenario generator/registry/restore계약을분리한다. 기존결과는소급변경금지. GPU1~4상태검사후소규모synthetic/zero계약검증을먼저수행할것. goal active이며계속진행.

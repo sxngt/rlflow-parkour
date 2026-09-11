@@ -33,7 +33,7 @@ def audit(directory):
             assert digest(Path(parent["path"])) == parent["sha256"]
             state = json.loads(Path(parent["path"]).with_suffix(".json").read_text())
             assert rows[0]["iteration"] == state["completed_iterations"] + 1
-    else:
+    elif run["kind"] == "evaluate":
         report = json.loads((directory / "evaluation.json").read_text())
         scenarios = json.loads((directory / "scenarios.json").read_text())
         assert len(report["results"]) == len(scenarios["episodes"]) == report["episodes"]
@@ -42,6 +42,11 @@ def audit(directory):
             assert sum(bool(row[key]) for key in ("success", "failure", "timeout")) == 1
         for name, expected in run["artifacts"].items():
             assert digest(directory / name) == expected
+    elif run["kind"] == "probe":
+        for name, expected in run["artifacts"].items():
+            assert digest(directory / name) == expected
+    else:
+        raise ValueError(f"Unsupported audit kind: {run['kind']}")
     return {"run": str(directory), "kind": run["kind"], "gpu_uuid": supervisor["gpu_uuid"], "audit": "passed"}
 
 
