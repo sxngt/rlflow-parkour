@@ -1063,6 +1063,28 @@
         "all_within": false
       }
     ],
+    "first_touch_by_foot": {
+      "FL": {
+        "observed": 64,
+        "mean_error_m": 0.004971393853012528,
+        "within_radius": 64
+      },
+      "FR": {
+        "observed": 64,
+        "mean_error_m": 0.013390169029677266,
+        "within_radius": 64
+      },
+      "RL": {
+        "observed": 64,
+        "mean_error_m": 0.05600240149579759,
+        "within_radius": 0
+      },
+      "RR": {
+        "observed": 64,
+        "mean_error_m": 0.1557855358354825,
+        "within_radius": 0
+      }
+    },
     "mean_terminal_base_rise_m": -0.1010032519698143,
     "terminal_height_outside_tolerance": 64,
     "apex_command_met": 0,
@@ -2139,6 +2161,28 @@
         "all_within": false
       }
     ],
+    "first_touch_by_foot": {
+      "FL": {
+        "observed": 64,
+        "mean_error_m": 0.08694491482464116,
+        "within_radius": 0
+      },
+      "FR": {
+        "observed": 64,
+        "mean_error_m": 0.1427059189792122,
+        "within_radius": 0
+      },
+      "RL": {
+        "observed": 64,
+        "mean_error_m": 0.19728404813298506,
+        "within_radius": 0
+      },
+      "RR": {
+        "observed": 64,
+        "mean_error_m": 0.07803105762203477,
+        "within_radius": 0
+      }
+    },
     "mean_terminal_base_rise_m": -0.08159562945365906,
     "terminal_height_outside_tolerance": 64,
     "apex_command_met": 11,
@@ -3215,6 +3259,28 @@
         "all_within": false
       }
     ],
+    "first_touch_by_foot": {
+      "FL": {
+        "observed": 64,
+        "mean_error_m": 0.09734522467987913,
+        "within_radius": 0
+      },
+      "FR": {
+        "observed": 64,
+        "mean_error_m": 0.021937005328551782,
+        "within_radius": 64
+      },
+      "RL": {
+        "observed": 64,
+        "mean_error_m": 0.12898605257164092,
+        "within_radius": 0
+      },
+      "RR": {
+        "observed": 64,
+        "mean_error_m": 0.12337025793591402,
+        "within_radius": 0
+      }
+    },
     "mean_terminal_base_rise_m": -0.08164817094802856,
     "terminal_height_outside_tolerance": 64,
     "apex_command_met": 11,
@@ -4291,6 +4357,28 @@
         "all_within": false
       }
     ],
+    "first_touch_by_foot": {
+      "FL": {
+        "observed": 64,
+        "mean_error_m": 0.04736150723875057,
+        "within_radius": 64
+      },
+      "FR": {
+        "observed": 64,
+        "mean_error_m": 0.0036336455022610136,
+        "within_radius": 64
+      },
+      "RL": {
+        "observed": 64,
+        "mean_error_m": 0.05967738524389134,
+        "within_radius": 0
+      },
+      "RR": {
+        "observed": 64,
+        "mean_error_m": 0.17754808080673715,
+        "within_radius": 0
+      }
+    },
     "mean_terminal_base_rise_m": -0.08758606016635895,
     "terminal_height_outside_tolerance": 64,
     "apex_command_met": 12,
@@ -5367,6 +5455,28 @@
         "all_within": false
       }
     ],
+    "first_touch_by_foot": {
+      "FL": {
+        "observed": 64,
+        "mean_error_m": 0.13092411581463964,
+        "within_radius": 0
+      },
+      "FR": {
+        "observed": 64,
+        "mean_error_m": 0.05136078462986785,
+        "within_radius": 39
+      },
+      "RL": {
+        "observed": 64,
+        "mean_error_m": 0.04672721112088325,
+        "within_radius": 53
+      },
+      "RR": {
+        "observed": 64,
+        "mean_error_m": 0.03609383490405961,
+        "within_radius": 64
+      }
+    },
     "mean_terminal_base_rise_m": -0.013028022833168507,
     "terminal_height_outside_tolerance": 0,
     "apex_command_met": 64,
@@ -6451,6 +6561,28 @@
         "all_within": false
       }
     ],
+    "first_touch_by_foot": {
+      "FL": {
+        "observed": 64,
+        "mean_error_m": 0.054843744355142,
+        "within_radius": 0
+      },
+      "FR": {
+        "observed": 64,
+        "mean_error_m": 0.08225151403959374,
+        "within_radius": 0
+      },
+      "RL": {
+        "observed": 64,
+        "mean_error_m": 0.19415579026637225,
+        "within_radius": 0
+      },
+      "RR": {
+        "observed": 64,
+        "mean_error_m": 0.2106740721247839,
+        "within_radius": 0
+      }
+    },
     "mean_terminal_base_rise_m": -0.00610347930341959,
     "terminal_height_outside_tolerance": 0,
     "apex_command_met": 64,
@@ -7535,6 +7667,28 @@
         "all_within": false
       }
     ],
+    "first_touch_by_foot": {
+      "FL": {
+        "observed": 64,
+        "mean_error_m": 0.034052287900427164,
+        "within_radius": 64
+      },
+      "FR": {
+        "observed": 64,
+        "mean_error_m": 0.030367254119354356,
+        "within_radius": 64
+      },
+      "RL": {
+        "observed": 64,
+        "mean_error_m": 0.0331363757265708,
+        "within_radius": 64
+      },
+      "RR": {
+        "observed": 64,
+        "mean_error_m": 0.07042516663060652,
+        "within_radius": 0
+      }
+    },
     "mean_terminal_base_rise_m": -0.0037392987869679928,
     "terminal_height_outside_tolerance": 0,
     "apex_command_met": 64,
@@ -8619,6 +8773,28 @@
         "all_within": false
       }
     ],
+    "first_touch_by_foot": {
+      "FL": {
+        "observed": 64,
+        "mean_error_m": 0.025676697930236747,
+        "within_radius": 64
+      },
+      "FR": {
+        "observed": 64,
+        "mean_error_m": 0.10398082772935352,
+        "within_radius": 0
+      },
+      "RL": {
+        "observed": 64,
+        "mean_error_m": 0.029837408466341232,
+        "within_radius": 64
+      },
+      "RR": {
+        "observed": 64,
+        "mean_error_m": 0.09575833768081835,
+        "within_radius": 0
+      }
+    },
     "mean_terminal_base_rise_m": -0.005468050949275494,
     "terminal_height_outside_tolerance": 0,
     "apex_command_met": 64,

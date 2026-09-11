@@ -36,6 +36,11 @@ def summarize(entry):
   first=jump_first_touches(a,meta['nominal_foot_xy_m'],sc['episodes'],meta['config']['jump']['landing_radius_m'])
   row['first_touch_all_within']=sum(x['all_within'] for x in first)
   row['first_touch_samples']=first
+  row['first_touch_by_foot']={}
+  for i,name in enumerate(['FL','FR','RL','RR']):
+   errors=[sample['errors_m'][i] for sample in first if sample['errors_m'][i] is not None]
+   row['first_touch_by_foot'][name]={'observed':len(errors),'mean_error_m':float(np.mean(errors)) if errors else None,
+    'within_radius':sum(e<=meta['config']['jump']['landing_radius_m'] for e in errors)}
   if 'first_touch_count' in r['results'][0]:
    row['stabilized_once']=sum(x['stabilized_once'] for x in r['results'])
    row['online_first_touch_all_within']=sum(x['first_touch_all_within'] for x in r['results'])
@@ -105,6 +110,12 @@ def main():
   lines+=['','## 도약 계약 지표','','| 조건 | seed | 유효 비행 | 비행 후 재접촉 | 최종 안정화 | 비발 접촉 종료 | 평균 비행 apex 상승 | 높이 명령 충족 | 네 발 첫 접촉 반경 내 | 최종 높이 범위 밖 |','|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|']
   for x in rows:
    if 'valid_flights' in x:lines.append(f"| {x['condition']} | {x['seed']} | {x['valid_flights']}/{x['episodes']} | {x['landed_episodes']}/{x['episodes']} | {x['successes']}/{x['episodes']} | {x['nonfoot_collisions']} | {100*x['mean_flight_apex_rise_m']:.2f} cm | {x['apex_command_met']}/{x['episodes']} | {x['first_touch_all_within']}/{x['episodes']} | {x['terminal_height_outside_tolerance']}/{x['episodes']} |")
+ if any('first_touch_by_foot' in x for x in rows):
+  lines+=['','## 발별 첫 접촉','','오차 평균은 관측된 첫 접촉만 포함한다. 반경 내 수의 분모는 전체 episode이며 미접촉을 성공으로 세지 않는다.','', '| 조건 | seed | 발 | 관측 수 | 평균 오차 | 반경 내 |','|---|---:|---|---:|---:|---:|']
+  for x in rows:
+   for foot,v in x.get('first_touch_by_foot',{}).items():
+    error='N/A' if v['mean_error_m'] is None else f"{100*v['mean_error_m']:.2f} cm"
+    lines.append(f"| {x['condition']} | {x['seed']} | {foot} | {v['observed']}/{x['episodes']} | {error} | {v['within_radius']}/{x['episodes']} |")
  if any('stabilized_once' in x for x in rows):
   lines+=['','## 공통 지표 분리','','| 조건 | seed | 기존 안정화 달성 | 첫 접촉 네 발 반경 내 |','|---|---:|---:|---:|']
   for x in rows:lines.append(f"| {x['condition']} | {x['seed']} | {x.get('stabilized_once',x['successes'])}/{x['episodes']} | {x['first_touch_all_within']}/{x['episodes']} |")
