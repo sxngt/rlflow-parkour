@@ -39,3 +39,10 @@ make_env(config, evaluation_support=None), FootholdCfg.evaluation_support 및 ev
 다음은 bridge-v2 정상지지 확인 후 source commit을 기준으로 기존P2-11 seed0–3 × flat/continuous/split ×64episodes 정책 평가, diagnostics200Hz 및 --video-envs64 --video-camera-side4 영상. 실제 발판 첫접촉 위치/내부영역 분석은 추가해야 하며 기존 success만으로 안전한 표면접촉을 단정하지 않는다. 필요하면 낮은높이 포획면과 낙하 종료조건을 별도 probe로 검증한다. 이번 턴은 로봇 장면의 숨은 평면 문제를 발견·수정한 progress다.
 
 추가 확인: robot-bridge-v2도 네 대 모두4초 지지, 무접촉0초, 실패0으로 통과했고 artifact 감사·worker 종료·GPU 회수를 확인했다. 현재 모든 probe 종료, 정책평가 미시작.
+
+
+### 최신 완료: P2-14 고정 정책 12개 평가
+
+source fe20ba9, batch scripts/p2_14_evaluate.py 세션21428 정상 종료. 4seed×flat/continuous/split×64episode 모두 종료, 12 artifact 감사통과, result 영상12 및 terrain manifest 확인. GPU4개 모두 해제됨. docs/p2-14-results.md/summary.json 및 p2-14-findings.md 참조. 추가학습0step. 평지성공1/5/36/64, 연속·분리 모두0/64 및유효비행0. 원본200Hz 최초접촉오차대조통과.
+
+seed3 episode0에서 .35초 전발무접촉 준비동작 후 .45초 평지는 FR/RL이 초기 발판 바깥에서 재지지하지만 유한지지면에서는 떨어진다. 연속지지면도 실패하므로 갭폭만의 효과가 아니다. 다음은 넓은 단일발판에서 기존정책 진단 후 P2-15 유한지지면 커리큘럼 학습 조건을 고정. 현재 support_geometry는 연속/분리 발별패드뿐이며 넓은 단일발판 mode는 아직없다. 학습중 evaluation_support를 암묵적으로 사용하지말고 새terrain/observation/checkpoint 계약을 설계할 것. 이번 턴은 실제12평가와분석 완료로 progress다.
