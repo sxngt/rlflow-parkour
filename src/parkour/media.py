@@ -10,7 +10,7 @@ from parkour.runtime import atomic_json
 
 
 class ParallelRecorder:
-    def __init__(self, env, out, name='evaluation', count=16):
+    def __init__(self, env, out, name='evaluation', count=16, camera_side=None):
         self.env, self.out, self.name = env, out, name
         origins=env.scene.env_origins.cpu().numpy()
         side=int(np.ceil(np.sqrt(min(count,env.num_envs))))
@@ -25,7 +25,13 @@ class ParallelRecorder:
         env.render_mode='rgb_array'
         env.cfg.viewer.resolution=(1280,720)
         center=origins[self.ids].mean(axis=0)+np.array([0,0,.25])
-        distance=max(2.0,float(side)*2.3)
+        camera_side = side if camera_side is None else camera_side
+        if not isinstance(camera_side, int) or camera_side < 1:
+            raise ValueError("Camera side must be a positive integer")
+        distance=max(2.0,float(camera_side)*2.3)
+        self.camera_metadata={"framing_side": camera_side, "enabled_grid_side": side,
+            "look_at_m": center.tolist(), "eye_m": (center+np.array([distance,-distance,distance*1.3])).tolist(),
+            "note": "visible_env_ids are render-enabled IDs; camera frustum may exclude some robots"}
         env.sim.set_camera_view(center+np.array([distance,-distance,distance*1.3]),center)
         config=VisualizationMarkersCfg(prim_path='/World/VideoTargets',markers={
             'support':sim_utils.SphereCfg(radius=.025,visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(.9,.2,.15))),
@@ -73,7 +79,7 @@ class ParallelRecorder:
         payload={'artifact_type':'original_simulation_frames','layout':'parallel',
                  'visible_env_ids':self.ids,'total_simulated_envs':self.env.num_envs,
                  'fps':25,'frame_count':self.frames,'video_start_sim_time_s':0.,'frame_dt_s':.04,
-                 'resolution':[1280,720],'trace':self.trace,**metadata}
+                 'resolution':[1280,720],'camera':self.camera_metadata,'trace':self.trace,**metadata}
         if hasattr(self.env,'phase_labels'):
             payload['phase_labels']=self.env.phase_labels
             payload['contact_group']='all_four'

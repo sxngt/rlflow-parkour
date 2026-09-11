@@ -21,12 +21,15 @@ def main():
     p.add_argument("--episodes", type=int, default=64)
     p.add_argument("--video", action="store_true")
     p.add_argument("--video-envs", type=int, default=16)
+    p.add_argument("--video-camera-side", type=int, help="Camera distance in grid-side units; 4 preserves the 16-robot framing")
     p.add_argument("--diagnostics", action="store_true")
     p.add_argument("--research-tag", action="append", default=[])
     p.add_argument('--launch-radius', type=float, help='Evaluation-only tighter directed-jump launch radius in metres')
     args = p.parse_args()
     if args.baseline != "zero" and not args.checkpoint:
         p.error("policy evaluation requires checkpoint")
+    if args.video_envs < 1 or (args.video_camera_side is not None and args.video_camera_side < 1):
+        p.error("Video robot count and camera side must be positive")
     config = json.loads(args.config.read_text())
     if args.launch_radius is not None:
         if (not args.checkpoint or config['task'] != 'a1_directed_jump_v5'
@@ -98,7 +101,7 @@ def main():
             diagnostics = MotionDiagnostics(env, done)
         if args.video:
             from parkour.media import ParallelRecorder
-            recorder = ParallelRecorder(env,args.out,count=args.video_envs)
+            recorder = ParallelRecorder(env,args.out,count=args.video_envs,camera_side=args.video_camera_side)
         with torch.inference_mode():
             for step in range(env.max_episode_length + 1):
                 if args.baseline == "zero":
