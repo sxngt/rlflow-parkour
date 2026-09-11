@@ -71,3 +71,10 @@ smoke:3updates+resume4, 같은발판/교차평지4episode의진단영상과scena
 재시작하지말고실제PID/metrics확인. 초기실행증거:
 [{"run": "artifacts/p2-15-deck-seed0", "status": "RUNNING", "pid": 1110684, "live": true, "iteration": 54}, {"run": "artifacts/p2-15-deck-seed1", "status": "RUNNING", "pid": 1110674, "live": true, "iteration": 54}, {"run": "artifacts/p2-15-flat-seed0", "status": "RUNNING", "pid": 1110691, "live": true, "iteration": 57}, {"run": "artifacts/p2-15-flat-seed1", "status": "RUNNING", "pid": 1110675, "live": true, "iteration": 54}]
 현재학습완료아님. 다음은살아있는batch진행감시및최종8학습+16평가분석. 학습terrain.json/collision-contract도audit에추가됨. 모든finalvideo result자동저장. 이번턴은학습경로구현·smoke완료·주요학습실행으로progress.
+
+
+### 학습 감시 및 보고서 설정
+
+P2-15 batch99332 계속실행. 최신확인: deck0PID1110684/update146, deck1PID1110674/update146, flat0PID1110691/update148, flat1PID1110675/update144. 네PID /proc 생존 및실제metrics증가 확인. 최근update평균약0.75초, 각checkpoint100의hash/size모두검증. 아직wave1학습중, 재시작금지.
+
+configs/reports/p2-15.json에 8학습×2평가지형=16평가 목록 준비. scripts/experiment_report.py의 환경step집계를고유run으로중복제거해 총314572800steps를두번세지않는다. 모든평가완료후 experiment_report.py configs/reports/p2-15.json 및 jump_trace_report.py 같은spec 실행. 대표trace는사전에정한episode3(+15cm). 아직결과보고서생성안함. 이번턴은보고서설정·예산집계수정과checkpoint검증으로progress.

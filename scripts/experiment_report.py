@@ -140,8 +140,8 @@ def main():
   for j,title in enumerate(['completed contacts','training episode success']):
    ax=axes[fi,j];ax.set_title(f'{foot}: {title}');ax.set_xlabel('PPO update');ax.grid(alpha=.2);ax.legend(fontsize=8)
  stem=spec['report'];fig.tight_layout();fig.savefig(ROOT/f'docs/figures/{stem}-learning.png',dpi=160);plt.close(fig)
- total=sum(x['attempt_environment_steps'] for x in rows);new=sum(x['attempt_environment_steps'] for x in rows if not x.get('reused'))
- lines=[f"# {spec['title']}",'',spec['description'],'',f"비교 전체 {total:,} 환경 step, 신규 {new:,}step. [사전 프로토콜]({spec['protocol']}).",'',
+ total=sum({x['run']:x['attempt_environment_steps'] for x in rows}.values());new=sum({x['run']:x['attempt_environment_steps'] for x in rows if not x.get('reused')}.values())
+ lines=[f"# {spec['title']}",'',spec['description'],'',f"고유 학습 run 기준 {total:,} 환경 step, 신규 {new:,}step. [사전 프로토콜]({spec['protocol']}).",'',
  '| 발 | 조건 | seed | 안정화 성공 | 필요 착지 완료 | 낙상 | 시간초과 | ≥20ms 전 발 무접촉 |','|---|---|---:|---:|---:|---:|---:|---:|---:|']
  for x in rows:lines.append(f"| {x['foot']} | {x['condition']} | {x['seed']} | {x['successes']}/{x['episodes']} | {x['placed']}/{x['episodes']} | {x['failures']}/{x['episodes']} | {x['timeouts']}/{x['episodes']} | {x['flight_episodes']}/{x['episodes']} |")
  if any('valid_flights' in x for x in rows):
@@ -179,7 +179,7 @@ def main():
    if 'terminal_gate_violations' in x:lines.append(f"- {x['condition']} seed {x['seed']}: `{x['terminal_gate_violations']}`")
  lines+=['','## 해석 및 다음 판단','']+spec.get('findings',['분석 중. 표만으로 모델 승격을 결정하지 않는다.'])
  lines+=['','## 범위·재현','',
- '개발 조건의 탐색적 실험이다. 평가 episode 수와 독립 학습 seed 수를 구분하며 최종 시험 결과로 주장하지 않는다. 같은 발의 평가 시나리오가 동일함을 확인했다. 설정·checkpoint·원본200Hz NPZ는 artifacts, 최종16대병렬영상은 result에 보존한다. 재사용 대조군 원본은 변경하지 않는다.','',
+ '개발 조건의 탐색적 실험이다. 평가 episode 수와 독립 학습 seed 수를 구분하며 최종 시험 결과로 주장하지 않는다. 같은 발의 평가 시나리오가 동일함을 확인했다. 설정·checkpoint·원본200Hz NPZ는 artifacts, 최종 병렬 평가 영상은 result에 보존한다. 재사용 대조군 원본은 변경하지 않는다.','',
  f"실행 목록 및 보고서 명세: `{args.spec}`. 이 보고서는 `scripts/experiment_report.py`로 재생성한다."]
  if spec.get('success_label'):
   lines=[line.replace('안정화 성공',spec['success_label']).replace('최종 안정화 |',spec['success_label']+' |') for line in lines]

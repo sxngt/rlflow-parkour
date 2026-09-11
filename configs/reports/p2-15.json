@@ -1,0 +1,158 @@
+{
+  "title": "P2-15 · 유한 지지면 학습과 교차 평가",
+  "report": "p2-15",
+  "protocol": "p2-15-protocol.md",
+  "description": "평지/넓은 발판에서 각각 fresh PPO 4seed를 같은 예산으로 학습하고 양쪽 지형에서 평가한다. 각 모델은 두 번 평가하지만 학습 예산은 한 번만 계산한다.",
+  "success_label": "목표 도약 성공",
+  "trace_episode_index": 3,
+  "show_forward_trace": true,
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "flat-train → flat-eval",
+      "seed": 0,
+      "run": "p2-15-flat-seed0",
+      "evaluation_run": "p2-15-flat-seed0__final-evaluation",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "flat-train → deck-eval",
+      "seed": 0,
+      "run": "p2-15-flat-seed0",
+      "evaluation_run": "p2-15-flat-seed0__cross-deck",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "flat-train → flat-eval",
+      "seed": 1,
+      "run": "p2-15-flat-seed1",
+      "evaluation_run": "p2-15-flat-seed1__final-evaluation",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "flat-train → deck-eval",
+      "seed": 1,
+      "run": "p2-15-flat-seed1",
+      "evaluation_run": "p2-15-flat-seed1__cross-deck",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "flat-train → flat-eval",
+      "seed": 2,
+      "run": "p2-15-flat-seed2",
+      "evaluation_run": "p2-15-flat-seed2__final-evaluation",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "flat-train → deck-eval",
+      "seed": 2,
+      "run": "p2-15-flat-seed2",
+      "evaluation_run": "p2-15-flat-seed2__cross-deck",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "flat-train → flat-eval",
+      "seed": 3,
+      "run": "p2-15-flat-seed3",
+      "evaluation_run": "p2-15-flat-seed3__final-evaluation",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "flat-train → deck-eval",
+      "seed": 3,
+      "run": "p2-15-flat-seed3",
+      "evaluation_run": "p2-15-flat-seed3__cross-deck",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "deck-train → flat-eval",
+      "seed": 0,
+      "run": "p2-15-deck-seed0",
+      "evaluation_run": "p2-15-deck-seed0__cross-flat",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "deck-train → deck-eval",
+      "seed": 0,
+      "run": "p2-15-deck-seed0",
+      "evaluation_run": "p2-15-deck-seed0__final-evaluation",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "deck-train → flat-eval",
+      "seed": 1,
+      "run": "p2-15-deck-seed1",
+      "evaluation_run": "p2-15-deck-seed1__cross-flat",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "deck-train → deck-eval",
+      "seed": 1,
+      "run": "p2-15-deck-seed1",
+      "evaluation_run": "p2-15-deck-seed1__final-evaluation",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "deck-train → flat-eval",
+      "seed": 2,
+      "run": "p2-15-deck-seed2",
+      "evaluation_run": "p2-15-deck-seed2__cross-flat",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "deck-train → deck-eval",
+      "seed": 2,
+      "run": "p2-15-deck-seed2",
+      "evaluation_run": "p2-15-deck-seed2__final-evaluation",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "deck-train → flat-eval",
+      "seed": 3,
+      "run": "p2-15-deck-seed3",
+      "evaluation_run": "p2-15-deck-seed3__cross-flat",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "deck-train → deck-eval",
+      "seed": 3,
+      "run": "p2-15-deck-seed3",
+      "evaluation_run": "p2-15-deck-seed3__final-evaluation",
+      "updates": 1600,
+      "reused": false
+    }
+  ],
+  "findings": [
+    "학습 진행 중. 완료된 고정 평가와 원시 진단을 확인한 뒤 해석한다."
+  ]
+}
