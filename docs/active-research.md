@@ -121,3 +121,8 @@ launch_curriculum.distance_for_update와 checkpoint 새 curriculum 계약 추가
 동일 batch96778의 네 PID 생존과 metrics 증가 확인. checkpoint100 모두 hash 정상, 현재까지 loss 유한. artifacts/p2-16-watch.jsonl에 관측 기록. API의 step:p2-16-distance-curriculum 검색에서 네 RUNNING 작업과 실제 거리 범위 metric 노출 확인. 실제 최근 상태: [{"run": "p2-16-deck-seed0", "pid": 1208366, "live": true, "iteration": 218}, {"run": "p2-16-deck-seed1", "pid": 1208384, "live": true, "iteration": 220}, {"run": "p2-16-deck-seed2", "pid": 1208383, "live": true, "iteration": 220}, {"run": "p2-16-deck-seed3", "pid": 1208387, "live": true, "iteration": 219}]
 
 scripts/p2_15_support_report.py에 선택적 report spec 인자를 추가했다. 기본 P2-15 실행 결과는 기존 MD/JSON과 byte 차이 없이 검증했다. 64개 평가의 거리별16개 구성도 float32 허용오차1e-7로 확인한다. P2-16 전체 완료 후 `python.sh scripts/p2_15_support_report.py configs/reports/p2-16.json`으로 첫 접촉 지지면 진단 생성 가능. 현재 미완료이므로 P2-16 결과 보고서는 아직 생성하지 않았다. 이번 턴은 분석 경로 확장/실제 기존 결과 대조/체크포인트 검증으로 progress. 학습 조건 변경 없음, 기존 batch를 계속 관찰할 것.
+
+
+### 최신: P2-16 첫 거리 전환 검증
+
+이번 턴은 동일한 네 실제 PID(1208366/1208384/1208383/1208387)를 확인한 verified wait 후, update401 전환 증거를 확보했다. 모든 seed에서 train_forward_range_m=[0,0.1], launch_radius_m=0.06, curriculum_reset_all=true를 검증했다. checkpoint400도 네 hash 일치. 최근 진행420/425/422/426, 모두 실제 PID 생존. artifacts/p2-16-watch.jsonl에 기록. 학습/평가를 재시작하지 않았으며 batch96778 계속 실행 중. 다음 전환 검사는 update801의 거리0–15cm와 launch반경4.5cm, 그 다음1201의3cm다. 아직 최종 성능 결과 없음.
