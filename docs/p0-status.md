@@ -281,3 +281,10 @@ FlightTravel 모듈: 첫flight_event에서env-localrootXY를저장하고calibrat
 본4run artifacts/p2-05-directed-seed{0,1,2,3} 시작,GPU index=seed. 각1024×24×1600updates=39,321,600step,총157,286,400신규. sourcecommit88bf232,supervisor1800초,자동64평가/MP4/200Hz180초. session34664/99649/96009/65827. 새턴에서실제PID/메트릭확인후관측,중복실행금지.
 
 완료후8run감사,experiment_report.py및jump_trace_report.py configs/reports/p2-05.json. 보고서는거리별성공/출발/순수실이동/첫접촉/안정화 및원본firsttouch/root좌표대조. helper에서by_distance를보고하고success_label수평도약성공. 네거리각16개이며기존64개제자리프로토콜과동일평가라고비교하지말것. taskclass는평지뿐이라갭/발판성능아님. 영상T1J-v5별도result등록. 모델승격없고goal active 유지.
+
+
+## P2-05 완료 및 P2-06 착수 · 2026-09-12
+
+P2-05 네 seed 모두 성공0/64. 유효 비행은 seed1만64/64이고 첫 접촉 정밀1/64, 안정화0/64다. 나머지는 유효 비행0/64. 모두 timeout이며 출발 영역 위반 종료가 아니다. 보고서·원본200Hz 좌표 대조 및8개 run audit 완료. 평가영상4개 result/보존, GPU 회수 확인. [전체 결과](p2-05-results.md).
+
+P2-06은 같은 보상·계약에서 학습 목표를 제자리 또는0–5cm로 제한하는 두 조건×두 seed 비교다. 총157,286,400 신규step,1600updates/run. 사전 프로토콜과 source commit c3f094b를 고정하고 GPU0/1 zero, GPU2/3 short로 시작했다. 현재 상태와 후속 절차는 [active-research.md](active-research.md). 새로운 성능 달성이나 champion 승격을 주장하지 않는다.

@@ -1,45 +1,36 @@
 # 현재 연구 인계
 
-2026-09-12 갱신. 이 문서는 현재 작업의 진입점이고, 실행 상태의 최종 근거는 실제 worker·GPU 프로세스와 run artifact다. 사용자가 중단할 때까지 연구를 지속하는 goal은 active다. 이번 실험 종료를 전체 연구 완료로 취급하지 않는다.
+2026-09-12 갱신. 실제 worker·GPU 및 artifact로 상태를 다시 확인한다. 사용자가 중단할 때까지 연구 goal은 active다.
 
-## 현재 작업: P2-05 수평 목표 도약
+## 현재 작업: P2-06 학습 거리 범위
 
-- 프로토콜: [p2-05-protocol.md](p2-05-protocol.md)
-- 학습 설정: `configs/p2-05-directed-jump.json`
-- 보고서 명세: `configs/reports/p2-05.json`
-- 실행: `artifacts/p2-05-directed-seed{0,1,2,3}`
-- GPU: seed와 host index를 동일하게 배치. 실제 할당은 UUID로 기록한다.
-- 확인된 worker PID: 724020, 724113, 724212, 724317. 새 턴에서는 다시 확인한다.
-- shell session: 34664, 99649, 96009, 65827.
-- 예산: 각각1024환경 ×24step ×1600updates, 총157,286,400 신규 환경 step.
-- 학습 종료 후 같은 GPU에서64개 평가·16대 병렬 MP4·200Hz 진단이 자동 실행된다.
+[P2-06 사전 프로토콜](p2-06-protocol.md). DirectedJumpEnv와 보상·성공 기준을 유지하고 학습 거리만 제자리 / 0–5cm로 비교한다. 각 조건 seed0/1, 각각1024환경 ×24step ×1600updates. 총157,286,400 신규step. 네 run 모두 신규 학습이다.
 
-실행 중 설정을 바꾸거나 관측 timeout만으로 재시작하지 않는다. 실제 PID가 살아 있고 step이 증가하면 같은 작업을 관측한다. 새 output 경로 없이 중복 실행하지 않는다.
+| GPU | 실행 | shell session |
+|---|---|---|
+| 0 | p2-06-zero-seed0 | 42659 |
+| 1 | p2-06-zero-seed1 | 61387 |
+| 2 | p2-06-short-seed0 | 15729 |
+| 3 | p2-06-short-seed1 | 59082 |
 
-## 무엇을 검증하는가
+학습 source commit c3f094b. 각 supervisor 제한3600초, 종료 후64개 고정 평가·200Hz 진단·16대 MP4가 자동 실행된다. 실제 PID와 step 증가를 확인하고 중복 실행하지 않는다. 평가 거리는0/5/10/15cm 각각16개로 유지한다. 학습 범위 밖 거리는 전이 진단으로 분리한다.
 
-학습 목표는 네 발의 전방 이동0–15cm다. 평지에서 유효 비행을 확인한 몸체 위치가 보정된 출발점 반경3cm 안이어야 한다. 최초 착지 때의 몸체 위치와 비교해 실제 비행 중 전방 이동량도 검사한다. 걸어간 뒤 제자리 점프하는 우회를 구분하는 조건이다.
+## 직전 결과: P2-05
 
-평가는0/5/10/15cm 각각16개이며, 같은16개 높이 명령을 거리마다 사용한다. 성공은 출발 영역·최소 비행 이동·정밀한 첫 접촉·연속 안정화를 모두 요구한다. 기존 제자리64개 평가와 같은 프로토콜로 직접 비교하지 않는다. 아직 갭·발판 geometry는 없다.
+[결과](p2-05-results.md). 4개 seed 모두0/64 성공. seed1은 유효 비행·출발 영역64/64, 첫 접촉 정밀1/64, 안정화0/64. 나머지는 유효 비행0/64다. 모두 timeout이며 출발 영역 위반 종료가 아니다. 20ms 전 발 무접촉은 모두64/64지만 유효 비행의 상승 높이·속도 조건과 구분해야 한다.
 
-## 완료 후 수행할 작업
+원본200Hz 첫 접촉 및 launch/first-touch root XY 대조 통과. 학습4개·평가4개 audit 통과, artifacts/p2-05-audit.jsonl. result/에 상세 제목의 평가 영상4개 보존. 종료 후 GPU compute PID가 없음을 확인했다. 모델 승격 없음.
 
-1. 네 학습과 네 자동 평가의 종료 상태, 실제 GPU 회수, checkpoint·영상·진단 hash를 확인한다. `scripts/audit_artifacts.py`에8개 run 경로를 전달한다.
-2. Isaac Python으로 `scripts/experiment_report.py configs/reports/p2-05.json`과 `scripts/jump_trace_report.py configs/reports/p2-05.json`을 실행한다.
-3. 첫 접촉 오차와 launch/first-touch 몸체 XY가 원본200Hz 기록과 일치하는지 확인한다. 짧은 구현 확인 정책에는 비행이 없어 양성 대조를 아직 검증하지 못했다.
-4. 거리별 출발 조건·실제 이동·첫 접촉·안정화 중 실패 원인을 분리한다. `result/` 영상 및 모니터링 태그도 확인한다.
-5. 결과와 다음 고정 예산 실험을 기록하고 이 문서를 갱신한다. 모델을 자동 champion으로 승격하지 않는다.
+P2-04는 동일 초기 자세·평지 제자리 정밀 도약을 네 seed 각각64/64 성공했다. P2-05 실패로 수평 목표 일반화는 아직 달성하지 못했다. P1 정적 발 디딤의 재현성 한계도 해결했다고 표현하지 않는다.
 
-## 직전 검증 결과와 범위
+## 완료 후
 
-[P2-04](p2-04-results.md)는 네 seed 모두 제자리 정밀 도약·착지·안정화64/64에 성공했다. 첫 접촉 반경은 유지됐고 지지 안정화가 개선됐다. 초기 수직속도 RMS는 모든 seed에서 감소한 것은 아니다.
+1. 실제 worker 종료·GPU 회수 및8개 run 감사.
+2. Isaac Python으로 scripts/experiment_report.py configs/reports/p2-06.json 및 scripts/jump_trace_report.py configs/reports/p2-06.json 실행.
+3. 거리별 유효 비행·출발·실제 이동·첫 접촉·안정화 분리. 원본 기록 대조 assertion이 실패하면 원인을 조사한다.
+4. zero의0cm, short의0/5cm 결과를 먼저 판정한다. 두 seed의 탐색적 비교이며 효과를 확정하지 않는다.
+5. 결과에 따라 커리큘럼/전이 또는 출발·비행 보상 계약 진단을 고정 예산으로 설계하고 지속한다. result/영상·모니터링 태그·인계 갱신, 자동 승격 없음.
 
-이는 동일 초기 자세·평지·작은 높이 명령의 개발평가 결과다. 불연속 지형, Planner, 센서 적응, 실기 성능을 증명하지 않는다. P1의 정적 발 디딤 재현성 한계도 보존하며 이를 해결한 것으로 소급 표현하지 않는다.
+## 환경
 
-## 환경과 접근
-
-Isaac Python: `/mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh`. 일반 모니터링 가상환경에는 NumPy가 없으므로 연구 분석 스크립트는 Isaac Python으로 실행한다.
-
-모니터링: http://203.241.249.48:18710/ . 기존 연구실 서버 배포를 유지한다. 평가 영상은 `result/`의 상세 제목으로 보존하고, 과제별 phase/step 태그로 분류한다. 장기 이력과 세부 구현 경계는 [p0-status.md](p0-status.md)에 남아 있다.
-
-보고서 그림은 `trace_episode_index=3`으로 미리 지정한15cm 명령을 사용하고, `show_forward_trace=true`로 몸체 전방 이동을 함께 표시한다. 이는 평가 결과를 보고 좋은 사례를 고른 것이 아니다. 전체 성능은 거리별16개 집계를 우선한다. 최신 웹에도 거리별 조건 표가 반영됐다.
+Isaac Python: /mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh. .monitor-venv에는 NumPy가 없다. 모니터링 http://203.241.249.48:18710/ . 새 phase/step/condition 태그는 configs/research-tags.json에 등록됐다. 전체 이력은 [p0-status.md](p0-status.md).
