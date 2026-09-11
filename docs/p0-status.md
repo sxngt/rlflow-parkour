@@ -135,3 +135,17 @@ A는 FL/RL 모두 seed0 안정화 0/64, seed1 64/64. 모든 A 착지 64/64. B �
 4개 공유정책 학습 실행 중: artifacts/p1-step02e-shared-seed{0,1,2,3}, GPU index=seed.1024env×1600updates 처음부터, 각39,321,600step. supervisor timeout1800s, 자동최종평가에는config evaluation_episodes=256을전달하고 timeout180s. 사전zero평가48.8초로경로검증. 실행 shell tool session14927/46890/66762/16366; 새턴에서는process/실제GPU확인후관측한다.
 
 다음행동: run 종료 및 자동256평가·영상·자원회수 대기, audit_artifacts.py로8run검사. Isaac python scripts/experiment_report.py configs/reports/step02e.json로발별보고서를생성한다. helper는foot=ALL일때시나리오별active_foot으로target오차계산하고by_foot 성공/착지/무접촉을표시한다. 학습도중설정변경없이, 결과에따라공유정책실패분석/순차연결로진행. 아직02e학습성과없음. goal active 유지.
+
+## Step 02e 결과 및 P2 준비 인계
+
+공유정책1600updates seed0~3 학습/256개평가 완료. 안정화 성공0/190/127/192(각256중), 착지완료61/256/128/256. 발별성공(FL,FR,RL,RR): seed0=(0,0,0,0),seed1=(62,64,0,64),seed2=(63,0,0,64),seed3=(64,64,64,0), 각발64개. 모든평가≥20ms전발무접촉0. seed1/3은모든발착지64/64이지만각각RL/RR최종안정화실패. 공유제어기의부분실행가능성은확인했으나전발재현성은미확보이며승격없음.
+
+신규8run artifact/UUID/자원회수감사통과. 최종영상4개result등록. scripts/experiment_report.py의NPZ반복압축해제병목을고쳐필요배열을한번씩만읽는다. docs/step02e-results.md,summaryJSON,configs/reports/step02e.json에발별결과·종료단계·오차를남겼다.
+
+다음은P2최소도약계약검사. 정적3발지지모든seed완벽성을원래파쿠르목표대신최적화하는분기를계속늘리지않는다. docs/p2-transition-review.md를읽고진행. 기존P1은한계와실패를보존하며전체P1검수완료를주장하지않음.
+
+현재UNITREE_A1_CFG는self_collisions=False,토크/포화33.5Nm,속도21rad/s. FootholdEnv의failure는trunk접촉만사용하지만MotionDiagnostics는비발전체netforce를기록한다. 동적새과제에서selfcollision켜기/기본자세·접촉관측검증,비발접촉실패명세가우선이다. 내부접촉을netforce만으로완벽히분리할수있는지확인하고검증한범위만주장한다. 구동기한계는늘리지않는다.
+
+P2제안(아직미구현/학습미실행): 평지의명시적단일도약부터실제전발비접촉지속과몸체상승/속도를확인한뒤착지·안정화. 다음에수평이동·제한착지면·단일갭확장. 3발지지정적조건은이새동적과제에강제하지않는다. 비행이없는서기/개별발들기는점프성공아님. observation·phase·contactgroup·media/diagnostics/report계약을새버전으로분리하고합성상태검사후수치/예산사전고정. 공유Tracker를더재개하지말고목표연구로진행한다.
+
+목표active,사용자중단전까지지속. 현재학습/평가worker전부종료,4GPU회수완료.

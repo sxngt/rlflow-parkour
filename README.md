@@ -1,8 +1,9 @@
 # parkour
 
-사전 지도 기반 Planner–RL Tracker 사족 파쿠르 연구 플랫폼. 현재는 **A1의 발별 단독 이동 및 추가 학습·회귀(P1 Step 02d)를 평가하고 공유 Tracker를 준비하는 파일럿** 단계다. 점프나 연속 파쿠르 성공을 의미하지 않는다.
+사전 지도 기반 Planner–RL Tracker 사족 파쿠르 연구 플랫폼. 현재는 **A1의 발별 단독 이동 및 공유 Tracker(P1 Step 02e)의 발별 한계를 평가하고 동적 도약 실험을 준비하는 파일럿** 단계다. 점프나 연속 파쿠르 성공을 의미하지 않는다.
 
-- [추가 학습·회귀 최신 결과](docs/step02d-results.md)
+- [공유 Tracker 최신 결과](docs/step02e-results.md)
+- [추가 학습·회귀 결과](docs/step02d-results.md)
 - [정렬 비용 적용 시점 결과](docs/step02c-results.md)
 - [최종 정렬 보상 비교 결과](docs/step02b-results.md)
 - [발별 단독 이동 결과](docs/step02a-results.md)

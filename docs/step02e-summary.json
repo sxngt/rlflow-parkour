@@ -1,0 +1,484 @@
+[
+  {
+    "foot": "ALL",
+    "condition": "Shared",
+    "seed": 0,
+    "run": "p1-step02e-shared-seed0",
+    "updates": 1600,
+    "reused": false,
+    "episodes": 256,
+    "successes": 0,
+    "mean_contacts": 0.23828125,
+    "required_contacts": 1,
+    "placed": 61,
+    "failures": 0,
+    "timeouts": 256,
+    "flight_episodes": 0,
+    "diagnostic_means": {
+      "duration_s": 12.0,
+      "root_z_range_m": 0.03350442019291222,
+      "root_vz_abs_max_m_s": 0.15852589983842336,
+      "all_feet_air_time_s": 0.0,
+      "max_all_feet_air_duration_s": 0.0,
+      "under_three_contacts_fraction": 0.008478190104166667,
+      "nonfoot_contact_fraction": 0.0,
+      "nonfoot_force_peak_N": 0.0,
+      "foot_normal_force_peak_N": 77.9646880030632,
+      "landing_50ms_impulse_max_Ns": 1.7956035459041595,
+      "support_travel_total_m": 0.0713033130086842,
+      "supported_speed_peak_m_s": 0.622267295839265,
+      "torque_abs_peak_Nm": 11.415999190881848,
+      "action_clip_fraction": 0.00026367187499999996
+    },
+    "terminal_stage_phase": {
+      "0:0": 132,
+      "0:1": 63,
+      "4:1": 61
+    },
+    "environment_steps": 39321600,
+    "attempt_environment_steps": 39321600,
+    "train_wall_seconds": 834.1323990821838,
+    "terminal_foot_error_mean_m": {
+      "FL": 0.02695442042867745,
+      "FR": 0.02336796328055573,
+      "RL": 0.015029829455780156,
+      "RR": 0.012141383177967244
+    },
+    "terminal_all_feet_in_radius": 58,
+    "by_foot": {
+      "FL_foot": {
+        "episodes": 64,
+        "successes": 0,
+        "placed": 0,
+        "failures": 0,
+        "timeouts": 64,
+        "flight_episodes": 0,
+        "terminal_stage_phase": {
+          "0:0": 64
+        },
+        "terminal_foot_error_mean_m": {
+          "FL": 0.015062953056704955,
+          "FR": 0.003655605771366125,
+          "RL": 0.009399283033176102,
+          "RR": 0.011765472001777353
+        },
+        "terminal_all_feet_in_radius": 58
+      },
+      "FR_foot": {
+        "episodes": 64,
+        "successes": 0,
+        "placed": 0,
+        "failures": 0,
+        "timeouts": 64,
+        "flight_episodes": 0,
+        "terminal_stage_phase": {
+          "0:0": 64
+        },
+        "terminal_foot_error_mean_m": {
+          "FL": 0.00924145911666315,
+          "FR": 0.05310204907680144,
+          "RL": 0.005702787099070068,
+          "RR": 0.00888645441892184
+        },
+        "terminal_all_feet_in_radius": 0
+      },
+      "RL_foot": {
+        "episodes": 64,
+        "successes": 0,
+        "placed": 7,
+        "failures": 0,
+        "timeouts": 64,
+        "flight_episodes": 0,
+        "terminal_stage_phase": {
+          "0:1": 57,
+          "4:1": 7
+        },
+        "terminal_foot_error_mean_m": {
+          "FL": 0.04799454254865146,
+          "FR": 0.033430919721960224,
+          "RL": 0.036982478238977705,
+          "RR": 0.011187290047047662
+        },
+        "terminal_all_feet_in_radius": 0
+      },
+      "RR_foot": {
+        "episodes": 64,
+        "successes": 0,
+        "placed": 54,
+        "failures": 0,
+        "timeouts": 64,
+        "flight_episodes": 0,
+        "terminal_stage_phase": {
+          "0:0": 4,
+          "0:1": 6,
+          "4:1": 54
+        },
+        "terminal_foot_error_mean_m": {
+          "FL": 0.03551872699269016,
+          "FR": 0.0032832785520951007,
+          "RL": 0.008034769451896736,
+          "RR": 0.01672631624412212
+        },
+        "terminal_all_feet_in_radius": 0
+      }
+    }
+  },
+  {
+    "foot": "ALL",
+    "condition": "Shared",
+    "seed": 1,
+    "run": "p1-step02e-shared-seed1",
+    "updates": 1600,
+    "reused": false,
+    "episodes": 256,
+    "successes": 190,
+    "mean_contacts": 1.0,
+    "required_contacts": 1,
+    "placed": 256,
+    "failures": 0,
+    "timeouts": 66,
+    "flight_episodes": 0,
+    "diagnostic_means": {
+      "duration_s": 3.8479687499999997,
+      "root_z_range_m": 0.04640330746769905,
+      "root_vz_abs_max_m_s": 0.44039048976264894,
+      "all_feet_air_time_s": 0.0,
+      "max_all_feet_air_duration_s": 0.0,
+      "under_three_contacts_fraction": 0.11010708684530446,
+      "nonfoot_contact_fraction": 0.0,
+      "nonfoot_force_peak_N": 0.0,
+      "foot_normal_force_peak_N": 109.10027956962585,
+      "landing_50ms_impulse_max_Ns": 2.8994580215215686,
+      "support_travel_total_m": 0.08380877955642063,
+      "supported_speed_peak_m_s": 0.6843848219141364,
+      "torque_abs_peak_Nm": 16.540604688227177,
+      "action_clip_fraction": 0.0038037643299888247
+    },
+    "terminal_stage_phase": {
+      "4:1": 256
+    },
+    "environment_steps": 39321600,
+    "attempt_environment_steps": 39321600,
+    "train_wall_seconds": 863.6570920944214,
+    "terminal_foot_error_mean_m": {
+      "FL": 0.013443317093417914,
+      "FR": 0.015576308694382862,
+      "RL": 0.012176359111544683,
+      "RR": 0.009171767878109697
+    },
+    "terminal_all_feet_in_radius": 190,
+    "by_foot": {
+      "FL_foot": {
+        "episodes": 64,
+        "successes": 62,
+        "placed": 64,
+        "failures": 0,
+        "timeouts": 2,
+        "flight_episodes": 0,
+        "terminal_stage_phase": {
+          "4:1": 64
+        },
+        "terminal_foot_error_mean_m": {
+          "FL": 0.018865260385877113,
+          "FR": 0.005029936437937151,
+          "RL": 0.012104463827515297,
+          "RR": 0.022784971658169385
+        },
+        "terminal_all_feet_in_radius": 62
+      },
+      "FR_foot": {
+        "episodes": 64,
+        "successes": 64,
+        "placed": 64,
+        "failures": 0,
+        "timeouts": 0,
+        "flight_episodes": 0,
+        "terminal_stage_phase": {
+          "4:1": 64
+        },
+        "terminal_foot_error_mean_m": {
+          "FL": 0.0068837235043244255,
+          "FR": 0.011359438518131728,
+          "RL": 0.020959661045434255,
+          "RR": 0.0013807353139976464
+        },
+        "terminal_all_feet_in_radius": 64
+      },
+      "RL_foot": {
+        "episodes": 64,
+        "successes": 0,
+        "placed": 64,
+        "failures": 0,
+        "timeouts": 64,
+        "flight_episodes": 0,
+        "terminal_stage_phase": {
+          "4:1": 64
+        },
+        "terminal_foot_error_mean_m": {
+          "FL": 0.010326027132267724,
+          "FR": 0.039657830644938045,
+          "RL": 0.013449509209954223,
+          "RR": 0.006302441480495657
+        },
+        "terminal_all_feet_in_radius": 0
+      },
+      "RR_foot": {
+        "episodes": 64,
+        "successes": 64,
+        "placed": 64,
+        "failures": 0,
+        "timeouts": 0,
+        "flight_episodes": 0,
+        "terminal_stage_phase": {
+          "4:1": 64
+        },
+        "terminal_foot_error_mean_m": {
+          "FL": 0.017698257351202378,
+          "FR": 0.006258029176524553,
+          "RL": 0.002191802363274933,
+          "RR": 0.0062189230597760855
+        },
+        "terminal_all_feet_in_radius": 64
+      }
+    }
+  },
+  {
+    "foot": "ALL",
+    "condition": "Shared",
+    "seed": 2,
+    "run": "p1-step02e-shared-seed2",
+    "updates": 1600,
+    "reused": false,
+    "episodes": 256,
+    "successes": 127,
+    "mean_contacts": 0.5,
+    "required_contacts": 1,
+    "placed": 128,
+    "failures": 0,
+    "timeouts": 129,
+    "flight_episodes": 0,
+    "diagnostic_means": {
+      "duration_s": 6.482265625,
+      "root_z_range_m": 0.02571149985305965,
+      "root_vz_abs_max_m_s": 0.2636475319159217,
+      "all_feet_air_time_s": 0.00076171875,
+      "max_all_feet_air_duration_s": 0.000703125,
+      "under_three_contacts_fraction": 0.10885396479328165,
+      "nonfoot_contact_fraction": 0.0,
+      "nonfoot_force_peak_N": 0.0,
+      "foot_normal_force_peak_N": 111.13489016890526,
+      "landing_50ms_impulse_max_Ns": 2.5616210997104645,
+      "support_travel_total_m": 0.09295086927886587,
+      "supported_speed_peak_m_s": 0.5614054694451625,
+      "torque_abs_peak_Nm": 17.727606639266014,
+      "action_clip_fraction": 0.03368408757512137
+    },
+    "terminal_stage_phase": {
+      "0:0": 128,
+      "4:1": 128
+    },
+    "environment_steps": 39321600,
+    "attempt_environment_steps": 39321600,
+    "train_wall_seconds": 897.3566300868988,
+    "terminal_foot_error_mean_m": {
+      "FL": 0.005339724257960279,
+      "FR": 0.011962012095149395,
+      "RL": 0.011979803574107063,
+      "RR": 0.008916639392751773
+    },
+    "terminal_all_feet_in_radius": 255,
+    "by_foot": {
+      "FL_foot": {
+        "episodes": 64,
+        "successes": 63,
+        "placed": 64,
+        "failures": 0,
+        "timeouts": 1,
+        "flight_episodes": 0,
+        "terminal_stage_phase": {
+          "4:1": 64
+        },
+        "terminal_foot_error_mean_m": {
+          "FL": 0.010363909207215555,
+          "FR": 0.014436506782586424,
+          "RL": 0.02091681479431053,
+          "RR": 0.01192808523703992
+        },
+        "terminal_all_feet_in_radius": 63
+      },
+      "FR_foot": {
+        "episodes": 64,
+        "successes": 0,
+        "placed": 0,
+        "failures": 0,
+        "timeouts": 64,
+        "flight_episodes": 0,
+        "terminal_stage_phase": {
+          "0:0": 64
+        },
+        "terminal_foot_error_mean_m": {
+          "FL": 0.0007903345754063995,
+          "FR": 0.01270950418785139,
+          "RL": 0.006763048615445516,
+          "RR": 0.0061391231434680055
+        },
+        "terminal_all_feet_in_radius": 64
+      },
+      "RL_foot": {
+        "episodes": 64,
+        "successes": 0,
+        "placed": 0,
+        "failures": 0,
+        "timeouts": 64,
+        "flight_episodes": 0,
+        "terminal_stage_phase": {
+          "0:0": 64
+        },
+        "terminal_foot_error_mean_m": {
+          "FL": 0.0014382238055580658,
+          "FR": 0.01636876000638138,
+          "RL": 0.005903711628985918,
+          "RR": 0.0055120497144394345
+        },
+        "terminal_all_feet_in_radius": 64
+      },
+      "RR_foot": {
+        "episodes": 64,
+        "successes": 64,
+        "placed": 64,
+        "failures": 0,
+        "timeouts": 0,
+        "flight_episodes": 0,
+        "terminal_stage_phase": {
+          "4:1": 64
+        },
+        "terminal_foot_error_mean_m": {
+          "FL": 0.008766429443661104,
+          "FR": 0.004333277403778361,
+          "RL": 0.01433563925768628,
+          "RR": 0.012087299476059722
+        },
+        "terminal_all_feet_in_radius": 64
+      }
+    }
+  },
+  {
+    "foot": "ALL",
+    "condition": "Shared",
+    "seed": 3,
+    "run": "p1-step02e-shared-seed3",
+    "updates": 1600,
+    "reused": false,
+    "episodes": 256,
+    "successes": 192,
+    "mean_contacts": 1.0,
+    "required_contacts": 1,
+    "placed": 256,
+    "failures": 0,
+    "timeouts": 64,
+    "flight_episodes": 0,
+    "diagnostic_means": {
+      "duration_s": 3.66421875,
+      "root_z_range_m": 0.03799320379039273,
+      "root_vz_abs_max_m_s": 0.25858700717799366,
+      "all_feet_air_time_s": 0.0,
+      "max_all_feet_air_duration_s": 0.0,
+      "under_three_contacts_fraction": 0.07166420233302767,
+      "nonfoot_contact_fraction": 0.0,
+      "nonfoot_force_peak_N": 0.0,
+      "foot_normal_force_peak_N": 123.43133640289307,
+      "landing_50ms_impulse_max_Ns": 3.635403834581375,
+      "support_travel_total_m": 0.09387910466466565,
+      "supported_speed_peak_m_s": 0.8369303465005942,
+      "torque_abs_peak_Nm": 19.160035777837038,
+      "action_clip_fraction": 0.005676455171065377
+    },
+    "terminal_stage_phase": {
+      "4:1": 256
+    },
+    "environment_steps": 39321600,
+    "attempt_environment_steps": 39321600,
+    "train_wall_seconds": 865.4293382167816,
+    "terminal_foot_error_mean_m": {
+      "FL": 0.009783355512442993,
+      "FR": 0.01196961106927189,
+      "RL": 0.009900458155353538,
+      "RR": 0.007149710928031232
+    },
+    "terminal_all_feet_in_radius": 192,
+    "by_foot": {
+      "FL_foot": {
+        "episodes": 64,
+        "successes": 64,
+        "placed": 64,
+        "failures": 0,
+        "timeouts": 0,
+        "flight_episodes": 0,
+        "terminal_stage_phase": {
+          "4:1": 64
+        },
+        "terminal_foot_error_mean_m": {
+          "FL": 0.004403513110334826,
+          "FR": 0.009309589632946412,
+          "RL": 0.0060497913393452235,
+          "RR": 0.01784417238522936
+        },
+        "terminal_all_feet_in_radius": 64
+      },
+      "FR_foot": {
+        "episodes": 64,
+        "successes": 64,
+        "placed": 64,
+        "failures": 0,
+        "timeouts": 0,
+        "flight_episodes": 0,
+        "terminal_stage_phase": {
+          "4:1": 64
+        },
+        "terminal_foot_error_mean_m": {
+          "FL": 0.003758876934699761,
+          "FR": 0.006708605393328736,
+          "RL": 0.019683169647587078,
+          "RR": 0.002467819687180335
+        },
+        "terminal_all_feet_in_radius": 64
+      },
+      "RL_foot": {
+        "episodes": 64,
+        "successes": 64,
+        "placed": 64,
+        "failures": 0,
+        "timeouts": 0,
+        "flight_episodes": 0,
+        "terminal_stage_phase": {
+          "4:1": 64
+        },
+        "terminal_foot_error_mean_m": {
+          "FL": 0.0010854317195971728,
+          "FR": 0.01647670340412036,
+          "RL": 0.009479683534417829,
+          "RR": 0.0033962937121706214
+        },
+        "terminal_all_feet_in_radius": 64
+      },
+      "RR_foot": {
+        "episodes": 64,
+        "successes": 0,
+        "placed": 64,
+        "failures": 0,
+        "timeouts": 64,
+        "flight_episodes": 0,
+        "terminal_stage_phase": {
+          "4:1": 64
+        },
+        "terminal_foot_error_mean_m": {
+          "FL": 0.029885600285140198,
+          "FR": 0.015383545846692019,
+          "RL": 0.004389188100064021,
+          "RR": 0.0048905579275446125
+        },
+        "terminal_all_feet_in_radius": 0
+      }
+    }
+  }
+]

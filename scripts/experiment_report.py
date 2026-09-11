@@ -15,7 +15,9 @@ def summarize(entry):
  metrics=[json.loads(s) for s in (train/'metrics.jsonl').read_text().splitlines()]
  assert meta['status']=='SUCCEEDED' and json.loads((train/'run.json').read_text())['status']=='SUCCEEDED'
  assert metrics[-1]['iteration']==entry.get('updates',800)
- a=np.load(ev/'motion-trace.npz');count=r['episodes'];last=[np.flatnonzero(a['valid'][:,i])[-1] for i in range(count)]
+ with np.load(ev/'motion-trace.npz') as trace:
+  a={key:trace[key] for key in ('valid','stage','phase','foot_pos')}
+ count=r['episodes'];last=[np.flatnonzero(a['valid'][:,i])[-1] for i in range(count)]
  terminal=Counter((int(a['stage'][t,i]),int(a['phase'][t,i])) for i,t in enumerate(last))
  row={**entry,'episodes':count,'successes':r['successes'],'mean_contacts':r['mean_completed_contacts'],
       'required_contacts':r['required_contacts'],'placed':sum(x['completed_contacts']==r['required_contacts'] for x in r['results']),
