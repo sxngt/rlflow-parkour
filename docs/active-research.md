@@ -407,3 +407,10 @@ restored_distribution은checkpoint설정의완료update-1로cap을계산하고fl
 직전 턴은401검증으로progress. 이번 턴동일실제PID확인 후verified wait 및801의거리0–15cm/launch4.5cm/cap.2/reset_all=true 네seed검증. checkpoint600/800 hash정상,모든loss유한/std상한준수. 추가로checkpoint400 model/normalizer tensor는대응P2-20과모두동일(artifacts/p2-24-prefix400.json). 최신 [{"run": "p2-24-deck-seed0", "pid": 1472939, "live": true, "iteration": 865, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"run": "p2-24-deck-seed1", "pid": 1472947, "live": true, "iteration": 854, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"run": "p2-24-deck-seed2", "pid": 1472940, "live": true, "iteration": 881, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"run": "p2-24-deck-seed3", "pid": 1472926, "live": true, "iteration": 862, "transition801_verified": true, "checkpoint800_hash_ok": true}]
 
 다음1201의실제cap.05/floor.05/launch3cm 검증 및1600+mean평가. 그후sampled8개와P2-23대조보고서필수. batch79919 유지,중복실행금지. 전체연구미완료.
+
+
+### 최신: P2-24 마지막 실제std0.05 전환 검증
+
+직전 턴은801검증으로progress. 이번 턴동일실제PID 확인 후verified wait 및1201의거리0–15cm/launch3cm/cap.05/reset_all=true,실제std min/max .05 네seed검증. checkpoint1000/1200 hash정상,모든loss유한. 변경직전1200checkpoint의model/normalizer tensor 대조 결과도저장. 최신 [{"run": "p2-24-deck-seed0", "pid": 1472939, "live": true, "iteration": 1255, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "model_equal": true, "normalizer_equal": true}, {"run": "p2-24-deck-seed1", "pid": 1472947, "live": true, "iteration": 1245, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "model_equal": true, "normalizer_equal": true}, {"run": "p2-24-deck-seed2", "pid": 1472940, "live": true, "iteration": 1293, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "model_equal": true, "normalizer_equal": true}, {"run": "p2-24-deck-seed3", "pid": 1472926, "live": true, "iteration": 1262, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "model_equal": true, "normalizer_equal": true}]
+
+다음1600완료+mean평가 후8감사/4보고서, scripts/p2_24_sampled.py 새8평가와 sampling_report필수. batch79919유지,중복실행금지. 전체연구미완료.
