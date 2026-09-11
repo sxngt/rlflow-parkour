@@ -1,0 +1,1176 @@
+{
+  "rows": [
+    {
+      "experiment": "p2-20",
+      "seed": 0,
+      "mode": "mean",
+      "rng": null,
+      "run": "p2-20-deck-seed0__final-evaluation",
+      "reused": true,
+      "successes": 48,
+      "valid_flights": 64,
+      "first_touch_precise": 64,
+      "stabilized": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      }
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 0,
+      "mode": "sampled",
+      "rng": 20000,
+      "run": "p2-23-p2-20-seed0-sampled-rng20000",
+      "reused": true,
+      "successes": 47,
+      "valid_flights": 64,
+      "first_touch_precise": 60,
+      "stabilized": 60,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 15,
+          "launches_in_region": 16,
+          "travel_met": 15,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 12,
+          "travel_met": 0,
+          "first_touch_precise": 12,
+          "stabilized": 12
+        }
+      }
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 0,
+      "mode": "sampled",
+      "rng": 20001,
+      "run": "p2-23-p2-20-seed0-sampled-rng20001",
+      "reused": true,
+      "successes": 48,
+      "valid_flights": 64,
+      "first_touch_precise": 61,
+      "stabilized": 61,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 13,
+          "travel_met": 0,
+          "first_touch_precise": 13,
+          "stabilized": 13
+        }
+      }
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 1,
+      "mode": "mean",
+      "rng": null,
+      "run": "p2-20-deck-seed1__final-evaluation",
+      "reused": true,
+      "successes": 48,
+      "valid_flights": 64,
+      "first_touch_precise": 64,
+      "stabilized": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      }
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 1,
+      "mode": "sampled",
+      "rng": 20000,
+      "run": "p2-23-p2-20-seed1-sampled-rng20000",
+      "reused": true,
+      "successes": 46,
+      "valid_flights": 64,
+      "first_touch_precise": 59,
+      "stabilized": 57,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 14,
+          "launches_in_region": 16,
+          "travel_met": 14,
+          "first_touch_precise": 16,
+          "stabilized": 14
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 11,
+          "stabilized": 11
+        }
+      }
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 1,
+      "mode": "sampled",
+      "rng": 20001,
+      "run": "p2-23-p2-20-seed1-sampled-rng20001",
+      "reused": true,
+      "successes": 44,
+      "valid_flights": 64,
+      "first_touch_precise": 59,
+      "stabilized": 53,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 15,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 15
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 13,
+          "launches_in_region": 16,
+          "travel_met": 13,
+          "first_touch_precise": 16,
+          "stabilized": 15
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 15,
+          "travel_met": 0,
+          "first_touch_precise": 11,
+          "stabilized": 7
+        }
+      }
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 2,
+      "mode": "mean",
+      "rng": null,
+      "run": "p2-20-deck-seed2__final-evaluation",
+      "reused": true,
+      "successes": 24,
+      "valid_flights": 64,
+      "first_touch_precise": 64,
+      "stabilized": 40,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 8,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 8
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      }
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 2,
+      "mode": "sampled",
+      "rng": 20000,
+      "run": "p2-23-p2-20-seed2-sampled-rng20000",
+      "reused": true,
+      "successes": 44,
+      "valid_flights": 64,
+      "first_touch_precise": 64,
+      "stabilized": 60,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 14,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 14
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 15,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 15
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 15,
+          "launches_in_region": 16,
+          "travel_met": 15,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 15
+        }
+      }
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 2,
+      "mode": "sampled",
+      "rng": 20001,
+      "run": "p2-23-p2-20-seed2-sampled-rng20001",
+      "reused": true,
+      "successes": 44,
+      "valid_flights": 64,
+      "first_touch_precise": 63,
+      "stabilized": 59,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 13,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 13
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 15,
+          "launches_in_region": 16,
+          "travel_met": 15,
+          "first_touch_precise": 16,
+          "stabilized": 15
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 15,
+          "stabilized": 15
+        }
+      }
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 3,
+      "mode": "mean",
+      "rng": null,
+      "run": "p2-20-deck-seed3__final-evaluation",
+      "reused": true,
+      "successes": 22,
+      "valid_flights": 64,
+      "first_touch_precise": 64,
+      "stabilized": 45,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 6,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 6
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 7
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      }
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 3,
+      "mode": "sampled",
+      "rng": 20000,
+      "run": "p2-23-p2-20-seed3-sampled-rng20000",
+      "reused": true,
+      "successes": 27,
+      "valid_flights": 64,
+      "first_touch_precise": 63,
+      "stabilized": 50,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 12,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 12
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 14,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 14
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 1,
+          "launches_in_region": 16,
+          "travel_met": 1,
+          "first_touch_precise": 16,
+          "stabilized": 13
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 15,
+          "stabilized": 11
+        }
+      }
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 3,
+      "mode": "sampled",
+      "rng": 20001,
+      "run": "p2-23-p2-20-seed3-sampled-rng20001",
+      "reused": true,
+      "successes": 32,
+      "valid_flights": 64,
+      "first_touch_precise": 60,
+      "stabilized": 49,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 14,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 14
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 15,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 15
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 3,
+          "launches_in_region": 16,
+          "travel_met": 3,
+          "first_touch_precise": 16,
+          "stabilized": 11
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 12,
+          "stabilized": 9
+        }
+      }
+    },
+    {
+      "experiment": "p2-24",
+      "seed": 0,
+      "mode": "mean",
+      "rng": null,
+      "run": "p2-24-deck-seed0__final-evaluation",
+      "reused": true,
+      "successes": 56,
+      "valid_flights": 64,
+      "first_touch_precise": 64,
+      "stabilized": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 8,
+          "launches_in_region": 16,
+          "travel_met": 8,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      }
+    },
+    {
+      "experiment": "p2-24",
+      "seed": 0,
+      "mode": "sampled",
+      "rng": 20000,
+      "run": "p2-24-p2-24-seed0-sampled-rng20000",
+      "reused": false,
+      "successes": 54,
+      "valid_flights": 64,
+      "first_touch_precise": 60,
+      "stabilized": 60,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 6,
+          "launches_in_region": 12,
+          "travel_met": 6,
+          "first_touch_precise": 12,
+          "stabilized": 12
+        }
+      }
+    },
+    {
+      "experiment": "p2-24",
+      "seed": 0,
+      "mode": "sampled",
+      "rng": 20001,
+      "run": "p2-24-p2-24-seed0-sampled-rng20001",
+      "reused": false,
+      "successes": 59,
+      "valid_flights": 64,
+      "first_touch_precise": 63,
+      "stabilized": 63,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 11,
+          "launches_in_region": 15,
+          "travel_met": 11,
+          "first_touch_precise": 15,
+          "stabilized": 15
+        }
+      }
+    },
+    {
+      "experiment": "p2-24",
+      "seed": 1,
+      "mode": "mean",
+      "rng": null,
+      "run": "p2-24-deck-seed1__final-evaluation",
+      "reused": true,
+      "successes": 32,
+      "valid_flights": 64,
+      "first_touch_precise": 64,
+      "stabilized": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      }
+    },
+    {
+      "experiment": "p2-24",
+      "seed": 1,
+      "mode": "sampled",
+      "rng": 20000,
+      "run": "p2-24-p2-24-seed1-sampled-rng20000",
+      "reused": false,
+      "successes": 31,
+      "valid_flights": 64,
+      "first_touch_precise": 63,
+      "stabilized": 57,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 10,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 10
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 5,
+          "launches_in_region": 16,
+          "travel_met": 5,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 15,
+          "travel_met": 0,
+          "first_touch_precise": 15,
+          "stabilized": 15
+        }
+      }
+    },
+    {
+      "experiment": "p2-24",
+      "seed": 1,
+      "mode": "sampled",
+      "rng": 20001,
+      "run": "p2-24-p2-24-seed1-sampled-rng20001",
+      "reused": false,
+      "successes": 29,
+      "valid_flights": 64,
+      "first_touch_precise": 62,
+      "stabilized": 58,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 13,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 13
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 15,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 15
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 1,
+          "launches_in_region": 14,
+          "travel_met": 1,
+          "first_touch_precise": 14,
+          "stabilized": 14
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      }
+    },
+    {
+      "experiment": "p2-24",
+      "seed": 2,
+      "mode": "mean",
+      "rng": null,
+      "run": "p2-24-deck-seed2__final-evaluation",
+      "reused": true,
+      "successes": 48,
+      "valid_flights": 64,
+      "first_touch_precise": 64,
+      "stabilized": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      }
+    },
+    {
+      "experiment": "p2-24",
+      "seed": 2,
+      "mode": "sampled",
+      "rng": 20000,
+      "run": "p2-24-p2-24-seed2-sampled-rng20000",
+      "reused": false,
+      "successes": 47,
+      "valid_flights": 64,
+      "first_touch_precise": 64,
+      "stabilized": 63,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 15,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 15
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      }
+    },
+    {
+      "experiment": "p2-24",
+      "seed": 2,
+      "mode": "sampled",
+      "rng": 20001,
+      "run": "p2-24-p2-24-seed2-sampled-rng20001",
+      "reused": false,
+      "successes": 44,
+      "valid_flights": 64,
+      "first_touch_precise": 62,
+      "stabilized": 59,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 15,
+          "launches_in_region": 15,
+          "travel_met": 15,
+          "first_touch_precise": 15,
+          "stabilized": 15
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 15,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 15
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 14,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 14
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 15,
+          "stabilized": 15
+        }
+      }
+    },
+    {
+      "experiment": "p2-24",
+      "seed": 3,
+      "mode": "mean",
+      "rng": null,
+      "run": "p2-24-deck-seed3__final-evaluation",
+      "reused": true,
+      "successes": 21,
+      "valid_flights": 64,
+      "first_touch_precise": 64,
+      "stabilized": 53,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 15,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 15
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 6,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 6
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      }
+    },
+    {
+      "experiment": "p2-24",
+      "seed": 3,
+      "mode": "sampled",
+      "rng": 20000,
+      "run": "p2-24-p2-24-seed3-sampled-rng20000",
+      "reused": false,
+      "successes": 20,
+      "valid_flights": 64,
+      "first_touch_precise": 61,
+      "stabilized": 46,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 13,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 13
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 7,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 7
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 15,
+          "travel_met": 0,
+          "first_touch_precise": 15,
+          "stabilized": 12
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 14,
+          "travel_met": 0,
+          "first_touch_precise": 14,
+          "stabilized": 14
+        }
+      }
+    },
+    {
+      "experiment": "p2-24",
+      "seed": 3,
+      "mode": "sampled",
+      "rng": 20001,
+      "run": "p2-24-p2-24-seed3-sampled-rng20001",
+      "reused": false,
+      "successes": 24,
+      "valid_flights": 64,
+      "first_touch_precise": 62,
+      "stabilized": 51,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 13,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 13
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 11,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 11
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 15,
+          "travel_met": 0,
+          "first_touch_precise": 15,
+          "stabilized": 12
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 15,
+          "travel_met": 0,
+          "first_touch_precise": 15,
+          "stabilized": 15
+        }
+      }
+    }
+  ],
+  "distributions": [
+    {
+      "experiment": "p2-20",
+      "seed": 0,
+      "stored_cap": 0.10000000149011612,
+      "effective_std_min": 0.10000000149011612,
+      "effective_std_max": 0.10000000149011612,
+      "effective_std_mean": 0.10000001639127731
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 1,
+      "stored_cap": 0.10000000149011612,
+      "effective_std_min": 0.10000000149011612,
+      "effective_std_max": 0.10000000149011612,
+      "effective_std_mean": 0.10000001639127731
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 2,
+      "stored_cap": 0.10000000149011612,
+      "effective_std_min": 0.10000000149011612,
+      "effective_std_max": 0.10000000149011612,
+      "effective_std_mean": 0.10000001639127731
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 3,
+      "stored_cap": 0.10000000149011612,
+      "effective_std_min": 0.10000000149011612,
+      "effective_std_max": 0.10000000149011612,
+      "effective_std_mean": 0.10000001639127731
+    },
+    {
+      "experiment": "p2-24",
+      "seed": 0,
+      "stored_cap": 0.05000000074505806,
+      "effective_std_min": 0.05000000074505806,
+      "effective_std_max": 0.05000000074505806,
+      "effective_std_mean": 0.05000000819563866
+    },
+    {
+      "experiment": "p2-24",
+      "seed": 1,
+      "stored_cap": 0.05000000074505806,
+      "effective_std_min": 0.05000000074505806,
+      "effective_std_max": 0.05000000074505806,
+      "effective_std_mean": 0.05000000819563866
+    },
+    {
+      "experiment": "p2-24",
+      "seed": 2,
+      "stored_cap": 0.05000000074505806,
+      "effective_std_min": 0.05000000074505806,
+      "effective_std_max": 0.05000000074505806,
+      "effective_std_mean": 0.05000000819563866
+    },
+    {
+      "experiment": "p2-24",
+      "seed": 3,
+      "stored_cap": 0.05000000074505806,
+      "effective_std_min": 0.05000000074505806,
+      "effective_std_max": 0.05000000074505806,
+      "effective_std_mean": 0.05000000819563866
+    }
+  ],
+  "additional_training_steps": 0,
+  "scope": "Fixed development scenarios and checkpoint, mean versus two sampled action RNG repeats. Not a reconstruction of evolving training or independent training replicates."
+}

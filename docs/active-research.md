@@ -414,3 +414,12 @@ restored_distribution은checkpoint설정의완료update-1로cap을계산하고fl
 직전 턴은801검증으로progress. 이번 턴동일실제PID 확인 후verified wait 및1201의거리0–15cm/launch3cm/cap.05/reset_all=true,실제std min/max .05 네seed검증. checkpoint1000/1200 hash정상,모든loss유한. 변경직전1200checkpoint의model/normalizer tensor 대조 결과도저장. 최신 [{"run": "p2-24-deck-seed0", "pid": 1472939, "live": true, "iteration": 1255, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "model_equal": true, "normalizer_equal": true}, {"run": "p2-24-deck-seed1", "pid": 1472947, "live": true, "iteration": 1245, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "model_equal": true, "normalizer_equal": true}, {"run": "p2-24-deck-seed2", "pid": 1472940, "live": true, "iteration": 1293, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "model_equal": true, "normalizer_equal": true}, {"run": "p2-24-deck-seed3", "pid": 1472926, "live": true, "iteration": 1262, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "model_equal": true, "normalizer_equal": true}]
 
 다음1600완료+mean평가 후8감사/4보고서, scripts/p2_24_sampled.py 새8평가와 sampling_report필수. batch79919유지,중복실행금지. 전체연구미완료.
+
+
+### 최신: P2-24 전체 학습·평가 완료
+
+직전 턴은1201검증으로progress. 이번 턴학습4종료/mean4종료실제PID확인 및8감사 artifacts/p2-24-audit.jsonl통과. scripts/p2_24_sampled.py batch68597로새8평가완료, artifacts/p2-24-sampled-audit.jsonl통과. configs/reports/p2-24.json 4보고서 + p2_24_sampling_report완료, result12영상hash/camera4/64개 및meanseed0프레임확인.
+
+mean성공56/32/48/21,유효비행·최초정밀모두64,안정화64/64/64/53. sampled54/59,31/29,47/44,20/24. 기준P2-20 mean48/48/24/22. mean안정화실패43→11. seed0의15cm8/16성공,다른seed15cm0. seed1은10cm비행거리실패로퇴화. mean/sample gap은native std도.1→.05로다르므로동일잡음강건성주장금지. docs/p2-24-findings.md. 승격안함.
+
+다음P2-25 후보는거리상한20cm+마지막std.05조합(기존P2-20:15/.1,P2-21:20/.1,P2-24:15/.05에남은2×2조건). 새로운보상스윕대신두변경의상호작용검증. 기존결과를본뒤설계한탐색적비교임을명시. P2-24 config에서trainrange와마지막distancecurriculum상한만.2로변경,동일고정64평가/4seed예산. 프로토콜/설정/smoke후학습. 아직미착수,현재추가학습없음. 전체목표미완료.

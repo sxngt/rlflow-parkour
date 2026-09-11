@@ -1,0 +1,58 @@
+[
+  {
+    "run": "p2-20-deck-seed0",
+    "condition": "final-std-010",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.04289574176073074,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-20-deck-seed1",
+    "condition": "final-std-010",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.02197175659239292,
+    "terminal_height_outside_tolerance": 5
+  },
+  {
+    "run": "p2-20-deck-seed2",
+    "condition": "final-std-010",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.03140731155872345,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-20-deck-seed3",
+    "condition": "final-std-010",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.05101156234741211,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-24-deck-seed0",
+    "condition": "final-std-005",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.05700291693210602,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-24-deck-seed1",
+    "condition": "final-std-005",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.016568902879953384,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-24-deck-seed2",
+    "condition": "final-std-005",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.0011661350727081299,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-24-deck-seed3",
+    "condition": "final-std-005",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.03272545710206032,
+    "terminal_height_outside_tolerance": 0
+  }
+]
