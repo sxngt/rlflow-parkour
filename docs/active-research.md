@@ -53,3 +53,10 @@ seed3 episode0에서 .35초 전발무접촉 준비동작 후 .45초 평지는 FR
 support_geometry/evaluate/collector에 deck(1.4×1.2m) 추가, tests3통과. source9b4431a, batch --modes deck 세션39295 정상 종료. p2-14-deck-seed0–3 모두종료/감사통과/result4영상확인. 성공31/17/10/21, 유효비행64/25/34/21. scripts/support_transfer_report.py --include-deck로 docs/p2-14-results-with-deck.md 및 summary-with-deck.json 생성, 원래보고서보존.
 
 다음중요: 넓은발판도평지와큰차이가있어 바로학습전에physics contract확인. task.py에서support CuboidCfg에 physics_material을지정하지않았다. TerrainImporter 기본은static/dynamic0.5/rest0이며Cuboid는bindingNone(실제값차이확정아님). 양쪽동일재질명시, USD바인딩/shape/offset계보확인하고새조건평가를원래결과와분리할것. 전체16평가terminal, 현재GPU작업없음. 작은발판에서준비재접촉의존은확인했지만폭만의인과효과라고단정하지않는다. P2-15학습아직미시작. 이번턴4평가완료로progress.
+
+
+### 최신: 재질비교16개 완료, 학습연결로 진행
+
+source3161fd6. scripts/p2_14_evaluate.py --modes flat continuous split deck --matched-material batch 세션10160 정상종료. 16개 run terminal 및감사통과; result16영상+collision-contract확인. 성공수모든조건기존동일. docs/p2-14-results-with-deck-material.md, summary-with-deck-material.json, material-comparison.json 참조. support-matched-material은명시적TerrainImporter재질을Cuboid에연결하고USD first/last env/ground material과offset을기록한다. -inf값은nonfinite_usd_value문자열로보존. 초기smoke실패는JSON inf직렬화 문제로기록보존, smoke-v2지지/감사통과.
+
+다음은P2-15 실제유한지지면 학습경로와평지예산대조. 평가전용evaluation_support를암묵적으로학습에사용하지말고 terrain config/version, checkpoint strictresume와warmstart의구분, calibratedinitialstate계보를추가해야한다. 초기단계는넓은단일발판에서시작해출발지지를학습하고좁은지지영역/갭으로이행. 아직P2-15 protocol/config/학습코드없다. 재질확인추가만으로연구를대체하지않을것. 현재4GPU모두작업종료상태. 이번턴은16평가와재질계보확인으로progress.

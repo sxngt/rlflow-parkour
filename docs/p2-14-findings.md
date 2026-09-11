@@ -25,3 +25,9 @@ source9b4431a, p2-14-deck-seed0–3 완료. 성공31/17/10/21 of64, 유효비행
 넓은 지지면에서는 성공이 나타나므로 기존 정책이 모든 유한발판에서 실행 불가능하다고 할 수 없다. 동시에 평지와 seed별 차이가 커서 작은 지지면 폭만으로 모든 변화를 설명해서는 안 된다. 초기지지 이후 준비동작, 물리재질, 접촉형상 차이 및 수치 민감도를 구분해야 한다.
 
 로컬 Isaac Lab 소스 확인: TerrainImporterCfg.physics_material은 RigidBodyMaterialCfg이며 기본 static/dynamic friction은 각각0.5, restitution0이다. 현재 CuboidCfg의 physics_material은 지정하지 않아 명시적 material binding이 없다. 이것만으로 실제마찰이 다르다고 확정하지 않지만, 다음 비교에서는 양쪽을 동일재질로 명시하고 USD binding과 solver관련 속성을 저장해야 한다. P2-14 결과는 현재 명세 그대로 보존하고 수정조건을 새attempt로 분리한다.
+
+## 재질 명시 비교 완료
+
+source3161fd6, p2-14-material-{flat,continuous,split,deck}-seed0–3 16개 모두 완료·artifact감사 통과. 첫/마지막 환경 및ground의USD material binding을기록하고마찰0.5/반발0/average조합을확인했다. 결과표는 results-with-deck-material.md와 summary-with-deck-material.json이다. 모든조건성공수는 이전과동일하며 episode별 결과완전일치 여부는 material-comparison.json에기록했다. 영상16개와terrain/collision-contract를result에보존했다.
+
+따라서 이번비교에서 명시적material binding추가가 성능차이를 설명하지 않았다. 구형발과평면/box의접촉차이,유한지지영역,준비동작의재접촉은여전히구분해야 하지만기본재질점검만반복하지않는다. 다음은명시적terrain계약을학습경로에추가해 실제유한지지면에서의학습과 같은예산의평지대조를비교한다. 현재goal은계속active이며 P2-15학습은아직시작하지않았다.

@@ -1,0 +1,98 @@
+[
+  {
+    "mode": "flat",
+    "seed": 0,
+    "same_results": true,
+    "successes": 1
+  },
+  {
+    "mode": "flat",
+    "seed": 1,
+    "same_results": true,
+    "successes": 5
+  },
+  {
+    "mode": "flat",
+    "seed": 2,
+    "same_results": true,
+    "successes": 36
+  },
+  {
+    "mode": "flat",
+    "seed": 3,
+    "same_results": true,
+    "successes": 64
+  },
+  {
+    "mode": "continuous",
+    "seed": 0,
+    "same_results": true,
+    "successes": 0
+  },
+  {
+    "mode": "continuous",
+    "seed": 1,
+    "same_results": true,
+    "successes": 0
+  },
+  {
+    "mode": "continuous",
+    "seed": 2,
+    "same_results": true,
+    "successes": 0
+  },
+  {
+    "mode": "continuous",
+    "seed": 3,
+    "same_results": true,
+    "successes": 0
+  },
+  {
+    "mode": "split",
+    "seed": 0,
+    "same_results": true,
+    "successes": 0
+  },
+  {
+    "mode": "split",
+    "seed": 1,
+    "same_results": true,
+    "successes": 0
+  },
+  {
+    "mode": "split",
+    "seed": 2,
+    "same_results": true,
+    "successes": 0
+  },
+  {
+    "mode": "split",
+    "seed": 3,
+    "same_results": true,
+    "successes": 0
+  },
+  {
+    "mode": "deck",
+    "seed": 0,
+    "same_results": true,
+    "successes": 31
+  },
+  {
+    "mode": "deck",
+    "seed": 1,
+    "same_results": true,
+    "successes": 17
+  },
+  {
+    "mode": "deck",
+    "seed": 2,
+    "same_results": true,
+    "successes": 10
+  },
+  {
+    "mode": "deck",
+    "seed": 3,
+    "same_results": true,
+    "successes": 21
+  }
+]
