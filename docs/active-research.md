@@ -161,3 +161,12 @@ scripts/p2_15_support_report.py에 선택적 report spec 인자를 추가했다.
 사전 docs/p2-16-checkpoint-protocol.md, script p2_16_checkpoints.py sourcef96c11a/batch90789. checkpoint800/1200×4seed 모두SUCCEEDED 및실제worker종료. artifacts/p2-16-checkpoint-audit.jsonl8감사통과,result8영상hash확인. p2_16_checkpoint_report.py로 docs/p2-16-checkpoint-results.md/summary.json생성. 최종과pairedscenario/원본checkpoint hash/3cm반경동일확인. 추가학습0step.
 
 800→1200→1600 성공수 seed0:32→32→32,1:31→32→1,2:18→0→48,3:24→0→5.15cm모두0. 특정seed퇴화는있으나seed2는후반회복. 단일조기종료해결주장금지. 다음은checkpoint의학습률/정책변화및안정화진단으로다음학습조건선정. 새학습미시작. 이번턴은8평가실행완료/감사/분석으로progress.
+
+
+### 최신: P2-17 비행 거리 가중치 비교 실행
+
+P2-16 전체64checkpoint 학습률/actor변화/normalizer상태와12평가의최종지지조건진단완료. scripts/p2_16_update_diagnosis.py,docs/p2-16-update-diagnosis.json 및 findings참조. 공통고학습률원인주장근거없음. 다음개입은모든15cm실패에대한기존비행거리보상weight4→12 단일변경. 새단위코드경로없고config차이검증 및45unit통과.
+
+P2-17 사전 docs/p2-17-protocol.md/configs/p2-17-deck.json,source8493c4c. scripts/p2_17_train.py batch77388 실행중. fresh4seed 각1024×24×1600,추가157286400step. 기존 P2-16 동일예산대조재사용. 커리큘럼/관측/행동/나머지보상/성공기준은동일. rawreturn비교로성과판정금지. 최종64개평가+200Hz+근접64영상/result자동저장. 실제초기진행 [{"run": "p2-17-deck-seed0", "pid": 1261669, "live": true, "iteration": 61}, {"run": "p2-17-deck-seed1", "pid": 1261670, "live": true, "iteration": 61}, {"run": "p2-17-deck-seed2", "pid": 1261668, "live": true, "iteration": 63}, {"run": "p2-17-deck-seed3", "pid": 1261648, "live": true, "iteration": 63}]
+
+중복실행금지,같은PID/metrics관찰. 전환401/801/1201 확인 및학습4/평가4종료감사후configs/reports/p2-17.json으로experiment_report/jump_trace_report/p2_15_support_report 실행. 전체연구미완료. 이번턴은진단/단일개입프로토콜/검증/새학습실행으로progress.
