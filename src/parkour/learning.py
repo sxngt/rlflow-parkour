@@ -17,7 +17,12 @@ def make_algorithm(config, env):
     if policy_cfg.pop("class_name") != "ActorCritic":
         raise ValueError("Only ActorCritic is supported")
     obs_dim = env.cfg.observation_space
-    policy = ActorCritic(obs_dim, obs_dim, 12, **policy_cfg).to(env.device)
+    if config.get('exploration') is not None:
+        from parkour.exploration import BoundedActorCritic, cap_for_update
+        policy = BoundedActorCritic(obs_dim, obs_dim, 12,
+            min_std=config['exploration']['min_std'], max_std=cap_for_update(config,0), **policy_cfg).to(env.device)
+    else:
+        policy = ActorCritic(obs_dim, obs_dim, 12, **policy_cfg).to(env.device)
     alg_cfg = copy.deepcopy(config["runner"]["algorithm"])
     if alg_cfg.pop("class_name") != "PPO":
         raise ValueError("Only PPO is supported")
@@ -60,6 +65,8 @@ def read_checkpoint(path):
 
 
 def restore(data, config, alg, normalizer, env, training):
+    if data['config'].get('exploration') != config.get('exploration'):
+        raise ValueError('Checkpoint exploration contract differs')
     from parkour.terrain_contract import assert_same_terrain
     assert_same_terrain(data['config'], config)
     keys = ("task", "episode_seconds", "target_offset_m", "surface_height_m", "success_radius_m", "success_dwell_s", "runner")

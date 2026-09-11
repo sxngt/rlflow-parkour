@@ -1,0 +1,75 @@
+{
+  "title": "P2-20 · 탐색 표준편차 상한 일정",
+  "report": "p2-20",
+  "protocol": "p2-20-protocol.md",
+  "description": "결합 보상은 유지하며 Gaussian 표준편차 상한 일정을 비교한다. P2-18의 기존 무상한 결과를 동일 예산 대조로 재사용한다.",
+  "success_label": "목표 도약 성공",
+  "trace_episode_index": 3,
+  "show_forward_trace": true,
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "unbounded-std",
+      "seed": 0,
+      "run": "p2-18-deck-seed0",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "unbounded-std",
+      "seed": 1,
+      "run": "p2-18-deck-seed1",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "unbounded-std",
+      "seed": 2,
+      "run": "p2-18-deck-seed2",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "unbounded-std",
+      "seed": 3,
+      "run": "p2-18-deck-seed3",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "bounded-std-schedule",
+      "seed": 0,
+      "run": "p2-20-deck-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "bounded-std-schedule",
+      "seed": 1,
+      "run": "p2-20-deck-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "bounded-std-schedule",
+      "seed": 2,
+      "run": "p2-20-deck-seed2",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "bounded-std-schedule",
+      "seed": 3,
+      "run": "p2-20-deck-seed3",
+      "updates": 1600,
+      "reused": false
+    }
+  ]
+}

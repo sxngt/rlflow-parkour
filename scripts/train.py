@@ -40,6 +40,8 @@ def main():
         import numpy as np
         import torch
         from parkour.learning import make_env, make_algorithm, read_checkpoint, restore, save_checkpoint
+        from parkour.exploration import cap_for_update
+        cap_for_update(config,0)
         random.seed(config["seed"])
         np.random.seed(config["seed"])
         torch.manual_seed(config["seed"])
@@ -81,6 +83,9 @@ def main():
         rollout_step=0
         for iteration in range(completed, completed + config["iterations"]):
             started = time.perf_counter()
+            exploration_cap = cap_for_update(config, iteration)
+            if exploration_cap is not None:
+                alg.policy.std_cap.fill_(exploration_cap)
             transition = False
             next_radius = radius_for_update(config, iteration)
             next_distance = distance_for_update(config, iteration)
@@ -133,6 +138,10 @@ def main():
                    "successes": successes, "failures": failures,
                    "mean_final_error_m": sum(errors) / len(errors) if errors else None,
                    "losses": {k: float(v) for k, v in losses.items()}}
+            if exploration_cap is not None:
+                effective=alg.policy.std.detach().clamp(min=alg.policy.std_floor,max=alg.policy.std_cap)
+                row.update(exploration_std_cap=exploration_cap, exploration_std_min=float(effective.min()),
+                           exploration_std_max=float(effective.max()),exploration_std_mean=float(effective.mean()))
             if config.get('jump'):
                 row['launch_radius_m'] = active_radius
                 row['curriculum_reset_all'] = transition
