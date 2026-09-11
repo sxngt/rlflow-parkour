@@ -357,3 +357,12 @@ sourcee303428, docs/p2-20-protocol.md/configs/p2-20-deck.json. exploration.py Bo
 직전 턴은801전환검증으로 progress. 이번 턴은 동일실제PID 확인 후 verified wait 및 update1201의거리0–15cm/launch3cm/cap.1/reset_all=true 확인. checkpoint1000/1200 hash정상, 전체loss유한/std상한준수. 최신 [{"run": "p2-22-deck-seed0", "pid": 1434460, "live": true, "iteration": 1227, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "training_successes": 37786}, {"run": "p2-22-deck-seed1", "pid": 1434453, "live": true, "iteration": 1291, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "training_successes": 0}, {"run": "p2-22-deck-seed2", "pid": 1434435, "live": true, "iteration": 1264, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "training_successes": 6222}, {"run": "p2-22-deck-seed3", "pid": 1434445, "live": true, "iteration": 1238, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "training_successes": 39659}]
 
 801–1000의seed1은24590episode 중validflight180/landed0/success0. seed0/2/3success10507/46/14326. 실제도약/착지습득실패원인은최종평가와분리진단필요. 다음1600종료/자동64평가·영상,8artifact감사/4보고서(미접촉시post_landing분모명시수정필요). batch99704 유지. 전체연구미완료.
+
+
+### 최신: P2-22 완료 및 채택 기각
+
+직전 턴은1201검증으로 progress. 이번 턴 동일학습PID와자동평가PID1460458/1458441/1459475/1459979의진행·종료확인, 학습4+평가4 SUCCEEDED. artifacts/p2-22-audit.jsonl8감사통과. configs/reports/p2-22.json의4보고서완료 및result4영상hash/camera4/64개/seed1프레임확인. post_landing_report 미접촉episode별도기록/분모수정,기존512개완전접촉결과정확히유지검증+새seed1미접촉64개실제경로검증.
+
+최종성공0/0/0/8, 유효비행64/0/64/64, 최초정밀64/0/64/64, 안정화0/0/0/8. 기존48/48/24/22보다악화,최악발보상채택기각. docs/p2-22-findings.md. seed0/2/3의미안정화64/64/56 모두200ms내영역이탈/200ms기하유지부재. seed1은도약미습득.
+
+마지막400update훈련success/episode61543/87774,0/49190,44585/74514,47635/78399인데최종mean평가차이큼. 다음 P2-23 진단: P2-20+P2-22최종4seed각각sampledRNG20000/20001 총16평가, 기존mean8재사용. 동일64scenarios/정규화고정/effectiveclampedstd확인/추가학습0. 프로토콜부터작성;아직새평가미실행. 기존p2_19_evaluate.py 패턴활용,rawstd표금지. 보상추가변경전에행동샘플링차이분리. 전체목표미완료.

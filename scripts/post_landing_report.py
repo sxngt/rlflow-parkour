@@ -46,6 +46,20 @@ def main():
         details = []
         for i, (scenario, touch, result) in enumerate(zip(scenarios, touches, evaluation['results'])):
             assert scenario['id'] == result['scenario_id'] == touch['scenario_id']
+            for foot, name in enumerate(('fl', 'fr', 'rl', 'rr')):
+                observed = touch['errors_m'][foot]
+                recorded = result[f'first_touch_error_{name}_m']
+                assert (observed is None and recorded == -1) or (observed is not None and abs(observed-recorded) < 1e-5)
+            if any(time is None for time in touch['times_s']):
+                details.append({'scenario_id': scenario['id'], 'goal_forward_m': result['goal_forward_m'],
+                                'success': result['success'], 'stabilized_once': result['stabilized_once'],
+                                'post_landing_eligible': False, 'reason': 'incomplete_first_contacts',
+                                'first_contact_times_s': touch['times_s']})
+                if i == 0:
+                    ax = axes[entry['seed'], conditions.index(entry['condition'])]
+                    ax.set_title(f"{entry['condition']} / seed {entry['seed']} / scenario 0")
+                    ax.text(.5, .5, 'No complete first-contact group', ha='center', transform=ax.transAxes)
+                continue
             target = np.asarray(meta['nominal_foot_xy_m']) + np.asarray(scenario['foot_offsets_xy_m'])
             xy = a['foot_pos'][:, i, :, :2]
             error = np.linalg.norm(xy - target, axis=-1)
@@ -53,8 +67,6 @@ def main():
             force = np.linalg.norm(a['force'][:, i], axis=-1)
             per_foot = []
             for foot, name in enumerate(('fl', 'fr', 'rl', 'rr')):
-                assert touch['times_s'][foot] is not None, 'This report requires all first contacts'
-                assert abs(touch['errors_m'][foot] - result[f'first_touch_error_{name}_m']) < 1e-5
                 k = int(np.argmin(np.abs(t - touch['times_s'][foot])))
                 after = valid & (np.arange(len(t)) >= k)
                 outside = np.flatnonzero(after & (error[:, foot] > radius))
@@ -73,6 +85,7 @@ def main():
             complete_window = float(t[np.flatnonzero(valid)[-1]]) >= all_touch + .2 - 1e-9
             early_exit = bool((window & ~inside).any())
             details.append({'scenario_id': scenario['id'], 'goal_forward_m': result['goal_forward_m'],
+                            'post_landing_eligible': True,
                             'success': result['success'], 'stabilized_once': result['stabilized_once'],
                             'all_touch_s': all_touch, 'post_touch_observed_span_s': float(t[np.flatnonzero(valid)[-1]] - all_touch),
                             'max_all_feet_inside_span_s': longest_span(after & inside, t),
@@ -89,9 +102,12 @@ def main():
                 ax.set_xlim(0, .6)
                 ax.grid(alpha=.2); ax.legend(ncol=4)
         failed = [d for d in details if not d['stabilized_once']]
+        eligible_failed = [d for d in failed if d['post_landing_eligible']]
         rows.append({**entry, 'evaluation_run': p.name, 'unstabilized': len(failed),
-                     'unstabilized_with_exit_200ms': sum(d['window_200ms_exit_observed'] for d in failed),
-                     'unstabilized_without_200ms_inside_span': sum(d['max_all_feet_inside_span_s'] < .2 - 1e-9 for d in failed),
+                     'incomplete_first_contacts': sum(not d['post_landing_eligible'] for d in details),
+                     'eligible_unstabilized': len(eligible_failed),
+                     'unstabilized_with_exit_200ms': sum(d['window_200ms_exit_observed'] for d in eligible_failed),
+                     'unstabilized_without_200ms_inside_span': sum(d['max_all_feet_inside_span_s'] < .2 - 1e-9 for d in eligible_failed),
                      'details': details})
     stem = spec['report']
     payload = {'rows': rows, 'additional_training_steps': 0,
@@ -105,10 +121,11 @@ def main():
     fig.tight_layout(); fig.savefig(ROOT / f'docs/figures/{stem}-post-landing.png', dpi=150); plt.close(fig)
     lines = [f'# {stem.upper()} 최초 착지 이후 목표 유지', '',
              '동일64개 개발군·200Hz 원본 기록을 비교했다. 발별 최초접촉 오차는 기존 KPI와1e-5m 이내로 대조했다.', '',
-             '| 조건 | seed | 안정화 미달 | 그중 첫 접촉 완료 후200ms 안에 영역 이탈 관찰 | 그중 연속200ms 기하 유지 구간 없음 |',
-             '|---|---:|---:|---:|---:|']
+             '| 조건 | seed | 안정화 미달 | 최초접촉 미완료 | 착지 분석 가능한 미달 | 그중200ms 내 이탈 | 그중200ms 유지 구간 없음 |',
+             '|---|---:|---:|---:|---:|---:|---:|']
     for r in rows:
-        lines.append(f"| {r['condition']} | {r['seed']} | {r['unstabilized']} | {r['unstabilized_with_exit_200ms']} | {r['unstabilized_without_200ms_inside_span']} |")
+        lines.append(f"| {r['condition']} | {r['seed']} | {r['unstabilized']} | {r['incomplete_first_contacts']} | {r['eligible_unstabilized']} | {r['unstabilized_with_exit_200ms']} | {r['unstabilized_without_200ms_inside_span']} |")
+    lines += ['', '네 발 최초접촉이 완료되지 않은 episode도 원래 성공/실패 분모와 JSON에 남긴다. 이들은 접촉 완료 시점을 정의할 수 없어 이후 목표 유지 분석의 분모에서만 제외한다.']
     lines += ['', '영역 유지는 발 중심 XY 오차5cm 기준만을 뜻한다. 50Hz 제어기의 dwell·접촉 hysteresis·자세·속도 판정을 재현한 성공 지표가 아니다. 연속 구간은 마지막과 첫 샘플의 시간 차로 계산한다. 종료 후에는 관측하지 않으므로 성공 episode와 실패 episode의 전체 경로 길이를 무조건 비교하지 않는다. 200ms 창의 관측 완료 여부와 이탈 관찰 여부를 별도로 저장했다. 지지 중 발 중심 이동은 마찰 미끄러짐의 확정 증거가 아니다.', '',
               f'![동일 scenario 0의 발별 오차](figures/{stem}-post-landing.png)', '']
     (ROOT / f'docs/{stem}-post-landing.md').write_text('\n'.join(lines))
