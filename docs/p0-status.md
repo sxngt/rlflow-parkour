@@ -97,3 +97,13 @@ v4는 지정 발 1회 착지 후 기존 stage 4 안정화로 이동하며 다른
 최종 지지 발 오차가 안정화 기준을 넘는 조건들이 남는다. 다음은 기존 보상 대조군과 지지 발별 오차/최종 정렬 신호를 명시한 변경을 동일 예산·추가 seed로 비교하는 후보이다. 아직 변경 효과나 순차 실행 성공을 주장하지 않는다. 보고서 `docs/step02a-results.md`, JSON `docs/step02a-summary.json`; 원본 `artifacts/p1-step02a-single-{fl,fr,rl,rr}-seed0` 및 `__final-evaluation`. 영상 4개는 상세 발 이름 제목으로 result에 보존한다.
 
 태그 P1 / 02a·발별 단독 이동 / 발별 조건으로 실행·영상·파일 조회. 웹과 결과 목록의 완료 접촉 분모는 required_contacts(이번에는 1)를 사용한다. evaluation manifest에 실제 task와 sequence_contract를 기록한다. 학습 코드·예산 고정 commit ccb4167, 이후 c0af055는 평가 메타데이터/보고서만 변경했다. 합성 상태 전이 검사 통과, 단위 15개·모니터링 6개 통과, 8run artifact/GPU 감사 통과.
+
+## P1 Step 02b 최종 정렬 벌점 비교 인계
+
+사용자의 즉시 후속 학습 지시에 따라 최종 단계에만 네 발 XY 정렬 비용을 추가하는 B(v5)를 A(v4)와 비교했다. FL/RL × seed 0/1, 각 800updates. A seed0 두 run은 02a 원본 재사용. 신규 6run = 117,964,800step, 전체 비교 예산 = 157,286,400step. 사전 프로토콜·학습 코드 고정 commit 5ae5c1b. 보상은 최종 단계에서만 `-mean(min((XYerror/.025)^2,16))*dt` 추가, 성공 기준은 동일.
+
+A는 FL/RL 모두 seed0 안정화 0/64, seed1 64/64. 모든 A 착지 64/64. B 네 run은 모두 착지/안정화 0/64이며 낙상 없이 timeout. B FL seed0/1·RL seed0은 착지 단계, RL seed1은 들기 단계 정체. 비용을 피하는 양상과 일치하지만 물리 원인이나 정책의 의도를 확정하지 않는다. B는 채택하지 않는다. 기존 보상의 seed 변동이 커 추가 seed 검증이 필요하다. 다음 후보는 단계 진입을 불리하게 만들지 않는 오차 개선 신호와 기존 보상의 재현성 확인이며 아직 구현하지 않았다.
+
+`docs/step02b-results.md`, summary JSON, 학습 그림에 결과 기록. `artifacts/p1-step02b-*` 학습 6건·최종 평가 6건, 상세 제목 MP4 6개를 result에 보존. 태그 P1 / 02b·최종 네 발 정렬 / A·B / FL·RL로 검색. 재사용 A0는 registry override로 이번 비교에도 연결하고 원본 artifact는 변경하지 않았다.
+
+신규 12run hash·계보·UUID·GPU 회수 감사 통과. 단위16개/모니터링6개/합성 상태 검사 통과. 모든 작업 종료 후 GPU compute 프로세스 없음. champion 승격은 하지 않았으며 다음 실험은 미실행.
