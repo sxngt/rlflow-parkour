@@ -58,6 +58,8 @@ def collect(evaluation, result_root=ROOT / 'result'):
     if run['config']['task'] == 'a1_directed_jump_v5' and train_run:
         low, high = train_run['config']['jump']['train_forward_range_m']
         task_title += f'_학습거리{100*low:g}–{100*high:g}cm'
+    if 'purpose:profiling' in run.get('research_tags', run['config'].get('research_tags', [])):
+        task_title += '_처리량측정용_미수렴정책'
     mode = {'policy':'PPO', 'zero':'기본자세_대조군', 'shuffled-target':'PPO_목표셔플'}[run['baseline']]
     date = datetime.fromtimestamp(run['finished_unix_s'], timezone(timedelta(hours=9))).strftime('%Y-%m-%d')
     title = f'A1 | {task} {task_title.replace("_", " ")} | {mode} seed {seed} | {updates} updates | 개발군 {report["episodes"]} episodes'
