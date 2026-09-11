@@ -1,0 +1,58 @@
+[
+  {
+    "run": "p2-16-deck-seed0",
+    "condition": "travel-weight4",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.009318046271800995,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-16-deck-seed1",
+    "condition": "travel-weight4",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.020347412675619125,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-16-deck-seed2",
+    "condition": "travel-weight4",
+    "seed": 2,
+    "mean_terminal_base_rise_m": 0.0184059776365757,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-16-deck-seed3",
+    "condition": "travel-weight4",
+    "seed": 3,
+    "mean_terminal_base_rise_m": 0.009473996236920357,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-17-deck-seed0",
+    "condition": "travel-weight12",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.018314197659492493,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-17-deck-seed1",
+    "condition": "travel-weight12",
+    "seed": 1,
+    "mean_terminal_base_rise_m": 0.010780117474496365,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-17-deck-seed2",
+    "condition": "travel-weight12",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.012004995718598366,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-17-deck-seed3",
+    "condition": "travel-weight12",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.012666571885347366,
+    "terminal_height_outside_tolerance": 0
+  }
+]

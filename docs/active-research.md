@@ -170,3 +170,28 @@ P2-16 전체64checkpoint 학습률/actor변화/normalizer상태와12평가의최
 P2-17 사전 docs/p2-17-protocol.md/configs/p2-17-deck.json,source8493c4c. scripts/p2_17_train.py batch77388 실행중. fresh4seed 각1024×24×1600,추가157286400step. 기존 P2-16 동일예산대조재사용. 커리큘럼/관측/행동/나머지보상/성공기준은동일. rawreturn비교로성과판정금지. 최종64개평가+200Hz+근접64영상/result자동저장. 실제초기진행 [{"run": "p2-17-deck-seed0", "pid": 1261669, "live": true, "iteration": 61}, {"run": "p2-17-deck-seed1", "pid": 1261670, "live": true, "iteration": 61}, {"run": "p2-17-deck-seed2", "pid": 1261668, "live": true, "iteration": 63}, {"run": "p2-17-deck-seed3", "pid": 1261648, "live": true, "iteration": 63}]
 
 중복실행금지,같은PID/metrics관찰. 전환401/801/1201 확인 및학습4/평가4종료감사후configs/reports/p2-17.json으로experiment_report/jump_trace_report/p2_15_support_report 실행. 전체연구미완료. 이번턴은진단/단일개입프로토콜/검증/새학습실행으로progress.
+
+
+### 최신: P2-17 첫 거리 전환
+
+동일 batch77388 네 PID를 확인한 verified wait 및 transition401 검증. 네 seed 모두 거리0–10cm/launch6cm/reset_all=true 확인. checkpoint300 네 hash 정상, 최근loss 유한. artifacts/p2-17-watch.jsonl에 관측보존. 최근상태 [{"run": "p2-17-deck-seed0", "pid": 1261669, "live": true, "iteration": 420, "transition401_verified": true}, {"run": "p2-17-deck-seed1", "pid": 1261670, "live": true, "iteration": 420, "transition401_verified": true}, {"run": "p2-17-deck-seed2", "pid": 1261668, "live": true, "iteration": 422, "transition401_verified": true}, {"run": "p2-17-deck-seed3", "pid": 1261648, "live": true, "iteration": 426, "transition401_verified": true}]
+다음은801의0–15cm/4.5cm 전환,1201의3cm 전환 및1600최종평가. 기존실행재시작금지.
+
+
+### 최신: P2-17 전체 거리 전환 검증
+
+동일PID를확인한verified wait 후 네seed update801 거리0–15cm/launch4.5cm/reset_all=true 확인. checkpoint800 네hash 일치. 최근 [{"run": "p2-17-deck-seed0", "pid": 1261669, "live": true, "iteration": 838, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"run": "p2-17-deck-seed1", "pid": 1261670, "live": true, "iteration": 820, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"run": "p2-17-deck-seed2", "pid": 1261668, "live": true, "iteration": 836, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"run": "p2-17-deck-seed3", "pid": 1261648, "live": true, "iteration": 840, "transition801_verified": true, "checkpoint800_hash_ok": true}]
+다음1201의3cm전환,1600종료자동평가. batch77388 유지,재시작금지. 관측 artifacts/p2-17-watch.jsonl.
+
+
+### 최신: P2-17 마지막 반경 전환
+
+같은 실제PID를 확인한 verified wait 후 update1201의 출발반경3cm/거리0–15cm/reset_all=true를 네seed모두검증. checkpoint1200 네hash정상. 최근 [{"run": "p2-17-deck-seed0", "pid": 1261669, "live": true, "iteration": 1268, "transition1201_verified": true, "checkpoint1200_hash_ok": true}, {"run": "p2-17-deck-seed1", "pid": 1261670, "live": true, "iteration": 1229, "transition1201_verified": true, "checkpoint1200_hash_ok": true}, {"run": "p2-17-deck-seed2", "pid": 1261668, "live": true, "iteration": 1269, "transition1201_verified": true, "checkpoint1200_hash_ok": true}, {"run": "p2-17-deck-seed3", "pid": 1261648, "live": true, "iteration": 1278, "transition1201_verified": true, "checkpoint1200_hash_ok": true}]
+다음1600학습종료/자동평가8artifact감사및configs/reports/p2-17.json의3종보고서. batch77388 유지,중복실행금지.
+
+
+### 최신: P2-17 완료, weight12 채택 기각
+
+학습4+평가4 모두 SUCCEEDED/PID종료. artifacts/p2-17-audit.jsonl8감사통과. configs/reports/p2-17.json으로experiment_report/jump_trace_report/p2_15_support_report 완료,docs결과/summary/height/support+figures생성. result4주요영상hash/seed1프레임시각검사완료. 성공0/0/3/0(기존32/1/48/5).15cm이동충족2/16/16/16으로개선됐으나최초접촉16/15/4/32,안정화0/0/30/0으로손실. weight12단독변경채택기각,성공기준유지.
+
+다음구체방향 docs/p2-17-findings.md: 네발최초접촉모두확인후기록된비행거리와최초접촉오차를결합한보상 검토. 현재 first body touchdown의거리보상과별도발보상이tradeoff를허용할가능성(원인확정아님). 무조건가중치sweep중단. 새프로토콜/보상일회성/미접촉/실패/재접촉테스트및smoke후다음학습. 아직구현/실행안함. 전체연구미완료. 이번턴은wait→학습/평가완료→감사/분석/기각결정으로progress.
