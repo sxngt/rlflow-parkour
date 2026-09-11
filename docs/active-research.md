@@ -336,3 +336,10 @@ sourcee303428, docs/p2-20-protocol.md/configs/p2-20-deck.json. exploration.py Bo
 주요 scripts/p2_22_train.py batch99704 실행중. fresh4seed×1024×24×1600, 추가157286400step,대조P2-20재사용. P2-20과태그/landing_precision_mode외config정확히일치확인. 최신 [{"run": "p2-22-deck-seed0", "pid": 1434460, "live": true, "iteration": 96}, {"run": "p2-22-deck-seed1", "pid": 1434453, "live": true, "iteration": 97}, {"run": "p2-22-deck-seed2", "pid": 1434435, "live": true, "iteration": 99}, {"run": "p2-22-deck-seed3", "pid": 1434445, "live": true, "iteration": 98}]
 
 다음 같은PID관찰,401/801/1201커리큘럼/체크포인트검증,최종1600/자동평가후8artifact감사와 configs/reports/p2-22.json의 experiment_report/jump_trace_report/p2_15_support_report/post_landing_report. 도약/최초정밀/안정화/거리/성공 및착지회피함께검토. result64근접영상/태그자동. 전체목표미완료, 중복실행금지.
+
+
+### 최신: P2-22 첫 거리 전환 확인
+
+직전 턴은 보상구현/검증/학습착수로 progress. 이번 턴은 동일실제PID를 확인하며 기다린 verified wait 후 update401 거리0–10cm/launch6cm/cap.35/reset_all=true 및모든loss유한/std상한검증. checkpoint100/400 hash정상. 최신 [{"run": "p2-22-deck-seed0", "pid": 1434460, "live": true, "iteration": 445, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"run": "p2-22-deck-seed1", "pid": 1434453, "live": true, "iteration": 455, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"run": "p2-22-deck-seed2", "pid": 1434435, "live": true, "iteration": 449, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"run": "p2-22-deck-seed3", "pid": 1434445, "live": true, "iteration": 451, "transition401_verified": true, "checkpoint400_hash_ok": true}]
+
+첫400update P2-20/22의episode/flight/landed/success를 artifacts/p2-22-first-stage.json에저장. 초기구간비교만으로최종성능이나착지회피확정금지. GPU약3GB/32–33도, 저장534GB여유. 다음801/1201전환 및1600최종평가. batch99704 유지,중복실행금지. 전체연구미완료.
