@@ -288,3 +288,10 @@ sourcee303428, docs/p2-20-protocol.md/configs/p2-20-deck.json. exploration.py Bo
 64env3update 축소거리/launch/cap 일정 smoke와 최종평가·영상 완료, 2artifact감사 artifacts/p2-21-smoke-audit.jsonl 통과. 실제20cm/reset/finite loss 및 평가 scenario equality 확인. resume코드는 변경 없으며 이번에 새 resume시험은 하지 않음. 주요 scripts/p2_21_train.py batch59110 실행중, 상태 [{"run": "p2-21-deck-seed0", "pid": 1406069, "live": true, "iteration": 78}, {"run": "p2-21-deck-seed1", "pid": 1406060, "live": true, "iteration": 77}, {"run": "p2-21-deck-seed2", "pid": 1406061, "live": true, "iteration": 80}, {"run": "p2-21-deck-seed3", "pid": 1406043, "live": true, "iteration": 79}]
 
 다음 같은 PID 관찰,401/801의 실제거리20cm/cap.2/reset 및1201cap.1/반경3cm 검증. 1600 종료 후8artifact감사 및 configs/reports/p2-21.json 세보고서/영상hash/거리별분석. 20cm성능 주장 금지(현재 평가0–15cm). 저장535GB여유. 전체 목표 미완료, 중복 실행 금지.
+
+
+### 최신: P2-21 첫 거리 전환 검증
+
+직전 턴은 P2-20 진단 완료와 P2-21 착수로 progress. 이번 턴은 동일 실제 PID의 생존을 확인하며 기다린 verified wait 후 update401의거리0–10cm/launch6cm/cap.35/reset_all=true를 네 seed 모두 검증했다. checkpoint100/300 네hash 및 전구간 finite loss 확인. 첫100update의 episode/success/failure/validflight/landed/apex 집계가 대응 P2-20과 seed별·update별 모두 일치(artifacts/p2-21-preintervention-check.json). 이는 전체 학습의 bitwise 동일성을 보장하지 않는다. 최신 [{"run": "p2-21-deck-seed0", "pid": 1406069, "live": true, "iteration": 451, "transition401_verified": true}, {"run": "p2-21-deck-seed1", "pid": 1406060, "live": true, "iteration": 447, "transition401_verified": true}, {"run": "p2-21-deck-seed2", "pid": 1406061, "live": true, "iteration": 456, "transition401_verified": true}, {"run": "p2-21-deck-seed3", "pid": 1406043, "live": true, "iteration": 449, "transition401_verified": true}]
+
+다음801의 실제20cm 전환/cap.2,1201반경3cm/cap.1 검증 후 최종평가. batch59110 유지, 중복 실행 금지. GPU 약3GB/32–33도, 저장535GB여유. 관측 artifacts/p2-21-watch.jsonl. 전체 연구 미완료.
