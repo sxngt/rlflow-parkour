@@ -1,0 +1,72 @@
+{
+  "title": "P2-02 · 도약 높이·착지 자세 결합 보상 비교",
+  "report": "p2-02",
+  "protocol": "p2-02-protocol.md",
+  "description": "같은 성공 계약에서 기존 보상 A와 높이 진행·착지 자세 비용을 결합한 B를 비교한다. 각 항의 개별 효과를 분리한 실험은 아니다.",
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "A",
+      "seed": 0,
+      "run": "p2-01-jump-seed0",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "A",
+      "seed": 1,
+      "run": "p2-01-jump-seed1",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "A",
+      "seed": 2,
+      "run": "p2-01-jump-seed2",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "A",
+      "seed": 3,
+      "run": "p2-01-jump-seed3",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "B",
+      "seed": 0,
+      "run": "p2-02-shaped-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "B",
+      "seed": 1,
+      "run": "p2-02-shaped-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "B",
+      "seed": 2,
+      "run": "p2-02-shaped-seed2",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "B",
+      "seed": 3,
+      "run": "p2-02-shaped-seed3",
+      "updates": 1600,
+      "reused": false
+    }
+  ]
+}

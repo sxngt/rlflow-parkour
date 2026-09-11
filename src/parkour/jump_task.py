@@ -5,7 +5,7 @@ from isaaclab.utils import configclass
 from isaaclab_assets import UNITREE_A1_CFG
 from parkour.task import FootholdCfg,FootholdEnv
 from parkour.sequential_task import SequentialCfg,SequentialEnv
-from parkour.jump_events import jump_transition
+from parkour.jump_events import jump_transition,apex_progress,landing_height_cost
 
 @configclass
 class JumpCfg(SequentialCfg):
@@ -27,6 +27,8 @@ class JumpEnv(SequentialEnv):
         self.touched=torch.zeros(self.num_envs,4,dtype=torch.bool,device=self.device)
         self.apex=torch.zeros(self.num_envs,device=self.device)
         self.air_time=torch.zeros_like(self.apex)
+        self.apex_progress=torch.zeros_like(self.apex)
+        self.apex_progress_delta=torch.zeros_like(self.apex)
         self.required_apex=torch.zeros_like(self.apex)
         self.flight_event=torch.zeros_like(self.flight_seen)
         self.new_touch=torch.zeros_like(self.touched)
@@ -42,7 +44,7 @@ class JumpEnv(SequentialEnv):
     def _reset_idx(self,env_ids):
         if env_ids is None:env_ids=self.robot._ALL_INDICES
         super()._reset_idx(env_ids)
-        for x in [self.flight_seen,self.landed,self.touched,self.apex,self.air_time,self.flight_event,self.new_touch]:x[env_ids]=0
+        for x in [self.flight_seen,self.landed,self.touched,self.apex,self.air_time,self.flight_event,self.new_touch,self.apex_progress,self.apex_progress_delta]:x[env_ids]=0
         low,high=self.jump['apex_range_m']
         self.required_apex[env_ids]=low+(high-low)*torch.rand(len(env_ids),device=self.device,generator=self.generator)
         offset=torch.zeros(len(env_ids),4,2,device=self.device)
@@ -82,6 +84,7 @@ class JumpEnv(SequentialEnv):
             self.failure,self.hold_steps,self.step_dt,spec)
         self.flight_seen,self.landed,self.touched,self.hold_steps,self.flight_event,self.new_touch,self.success=values
         self.apex=torch.where(self.flight_event,torch.maximum(self.apex,rise),self.apex)
+        self.apex_progress,self.apex_progress_delta=apex_progress(self.apex,self.required_apex,spec['flight_min_rise_m'],self.apex_progress)
         self.phase=torch.where(self.landed,2,torch.where(self.flight_seen,1,0))
         self.stage=self.phase.clone()
         term=self.success|self.failure
@@ -97,7 +100,10 @@ class JumpEnv(SequentialEnv):
         dense-=.02*self.robot.data.root_ang_vel_b.square().sum(dim=1)
         dense-=.002*(self.actions-self.previous_actions).square().sum(dim=1)
         dense-=.00002*self.robot.data.applied_torque.square().sum(dim=1)
+        rise=self.robot.data.root_pos_w[:,2]-self.scene.env_origins[:,2]-self.calibrated_root[2]
+        dense-=self.jump.get('landing_height_weight',0)*landing_height_cost(rise,self.landed,self.jump['final_height_error_max_m'])
         reward=dense*self.step_dt+3*self.flight_event.float()+self.new_touch.sum(dim=1)+8*self.success.float()-10*self.failure.float()
+        reward+=self.jump.get('apex_progress_weight',0)*self.apex_progress_delta*(~self.failure)
         error=errors.mean(dim=1);self.error_sum+=error;self.sample_count+=1;self.reward_sum+=reward
         self.extras['terminal_metrics']={'success':self.success.clone(),'failure':self.failure.clone(),'timeout':self.reset_time_outs.clone(),
           'length':self.episode_length_buf.clone(),'mean_error_m':(self.error_sum/self.sample_count.clamp_min(1)).clone(),

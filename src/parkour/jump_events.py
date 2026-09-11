@@ -15,3 +15,14 @@ def jump_transition(seen,landed,touched,contact,air_window,settled,rise,vz,error
     new_hold=torch.where(stable,hold+1,0)
     success=(new_hold>=math.ceil(spec['final_hold_seconds']/dt))&~failure
     return new_seen,new_landed,new_touched,new_hold,flight_event,new_touch,success
+
+
+def apex_progress(apex,required_apex,min_rise,previous):
+    """Bounded once-per-episode progress above the flight-detection floor."""
+    progress=((apex-min_rise)/(required_apex-min_rise).clamp_min(1e-6)).clamp(0,1)
+    progress=torch.maximum(progress,previous)
+    return progress,progress-previous
+
+
+def landing_height_cost(rise,landed,tolerance):
+    return (rise/tolerance).square().clamp_max(4)*landed
