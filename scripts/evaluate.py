@@ -27,6 +27,8 @@ def main():
     config = json.loads(args.config.read_text())
     if args.research_tag:config["research_tags"] = args.research_tag
     manifest = development_scenarios(args.episodes, config["target_offset_m"], config.get('sequence'))
+    manifest["task"] = config["task"]
+    if config.get("sequence"):manifest["sequence_contract"] = config["sequence"]
     config["num_envs"] = args.episodes
     config["seed"] = 10000
     meta = begin_run(args.out, config, "evaluate")
