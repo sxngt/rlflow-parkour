@@ -60,3 +60,14 @@ support_geometry/evaluate/collector에 deck(1.4×1.2m) 추가, tests3통과. sou
 source3161fd6. scripts/p2_14_evaluate.py --modes flat continuous split deck --matched-material batch 세션10160 정상종료. 16개 run terminal 및감사통과; result16영상+collision-contract확인. 성공수모든조건기존동일. docs/p2-14-results-with-deck-material.md, summary-with-deck-material.json, material-comparison.json 참조. support-matched-material은명시적TerrainImporter재질을Cuboid에연결하고USD first/last env/ground material과offset을기록한다. -inf값은nonfinite_usd_value문자열로보존. 초기smoke실패는JSON inf직렬화 문제로기록보존, smoke-v2지지/감사통과.
 
 다음은P2-15 실제유한지지면 학습경로와평지예산대조. 평가전용evaluation_support를암묵적으로학습에사용하지말고 terrain config/version, checkpoint strictresume와warmstart의구분, calibratedinitialstate계보를추가해야한다. 초기단계는넓은단일발판에서시작해출발지지를학습하고좁은지지영역/갭으로이행. 아직P2-15 protocol/config/학습코드없다. 재질확인추가만으로연구를대체하지않을것. 현재4GPU모두작업종료상태. 이번턴은16평가와재질계보확인으로progress.
+
+
+### 현재 실행: P2-15 fresh 유한지형 학습
+
+source ef14a6e. docs/p2-15-protocol.md, configs/p2-15-flat/deck.json. terrain_contract는학습config/checkpoint에포함되고strictresume비교. cfg.support_contract로학습/평가공유. 기존evaluation_support CLI는명시적override. 학습1024env×24×1600, 두조건각4seed, fresh총8run314572800step. launchradius6→4.5→3cm은P2-11동일,새경계관측없음. 단일발판넓은1.4×1.2m에서배우는기준선이며좁은패드/갭해결주장아님.
+
+smoke:3updates+resume4, 같은발판/교차평지4episode의진단영상과scenario일치,4artifact감사,42unit검사통과. scripts/p2_15_train.py 배치세션99332 실행중. GPU0flatseed0→2, GPU1deckseed0→2, GPU2flatseed1→3, GPU3deckseed1→3. 각run후run_job자동same-terrain평가64및영상64/camera4, 이후batch가교차지형평가(__cross-flat/deck)64를실행. --support-preserve-goals로0/5/10/15cm구성유지. timeout1800train240cross.
+
+재시작하지말고실제PID/metrics확인. 초기실행증거:
+[{"run": "artifacts/p2-15-deck-seed0", "status": "RUNNING", "pid": 1110684, "live": true, "iteration": 54}, {"run": "artifacts/p2-15-deck-seed1", "status": "RUNNING", "pid": 1110674, "live": true, "iteration": 54}, {"run": "artifacts/p2-15-flat-seed0", "status": "RUNNING", "pid": 1110691, "live": true, "iteration": 57}, {"run": "artifacts/p2-15-flat-seed1", "status": "RUNNING", "pid": 1110675, "live": true, "iteration": 54}]
+현재학습완료아님. 다음은살아있는batch진행감시및최종8학습+16평가분석. 학습terrain.json/collision-contract도audit에추가됨. 모든finalvideo result자동저장. 이번턴은학습경로구현·smoke완료·주요학습실행으로progress.
