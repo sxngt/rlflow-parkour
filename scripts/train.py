@@ -27,8 +27,9 @@ def main():
             config[key] = getattr(args, key)
     if config["iterations"] < 1 or config["num_envs"] < 1:
         raise ValueError("Positive iterations and num-envs required")
-    from parkour.launch_curriculum import radius_for_update
+    from parkour.launch_curriculum import radius_for_update, distance_for_update
     radius_for_update(config, 0)  # Validate the complete schedule before simulator startup.
+    distance_for_update(config, 0)
     from parkour.terrain_contract import training_support
     support = training_support(config)
     meta = begin_run(args.out, config, "train")
@@ -59,6 +60,9 @@ def main():
             meta["parent_checkpoint"] = {"path": str(args.resume.resolve()), "sha256": sha256(args.resume)}
             meta["resume_contract"] = data["resume_contract"]
         active_radius = radius_for_update(config, completed)
+        active_distance = distance_for_update(config, completed)
+        if config.get('jump', {}).get('distance_curriculum') is not None:
+            env.jump['train_forward_range_m'] = active_distance
         if config.get("jump", {}).get("launch_curriculum") is not None:
             env.jump["launch_radius_m"] = active_radius
         raw, _ = env.reset()
@@ -79,9 +83,13 @@ def main():
             started = time.perf_counter()
             transition = False
             next_radius = radius_for_update(config, iteration)
-            if next_radius != active_radius:
+            next_distance = distance_for_update(config, iteration)
+            if next_radius != active_radius or next_distance != active_distance:
                 env.jump["launch_radius_m"] = next_radius
                 active_radius = next_radius
+                if next_distance is not None:
+                    env.jump['train_forward_range_m'] = next_distance
+                active_distance = next_distance
                 with torch.inference_mode():
                     raw, _ = env.reset()
                     obs = norm(raw["policy"])
@@ -128,6 +136,7 @@ def main():
             if config.get('jump'):
                 row['launch_radius_m'] = active_radius
                 row['curriculum_reset_all'] = transition
+                row['train_forward_range_m'] = active_distance
                 row['valid_flights']=jump_flights;row['landed_episodes']=jump_landings
                 row['apex_command_met']=jump_apex_met
                 row['mean_flight_apex_rise_m']=sum(jump_apices)/len(jump_apices) if jump_apices else None
