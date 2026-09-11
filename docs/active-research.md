@@ -43,3 +43,9 @@ Isaac Python /mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh. .monitor-venv에는 NumP
 [p2-07-results.md](p2-07-results.md). 전4run 비행64/64. zero seed0/1 성공0/31, short seed0/1 성공16/16. short는0cm만성공하고5cm는정밀첫접촉·안정화16/16이나실비행이동0/16이다. 실제이동1.47–1.82cm로최소2cm미달. zero seed1은0cm15/16,5cm16/16이며3cm내성공부분집합31개. 다른run3cm내성공0개.
 
 다음은 추가 학습 전에 고정된 네 checkpoint를3cm 종료조건으로 재평가한다. scripts/evaluate.py는 현재 radius override가 없고 learning.restore는jump계약의일치를검사한다. 일반적인 계약검사를 무력화하지 말고 평가 전용의 명시적·기록되는 출발반경 override를 구현해야 한다. 허용 범위는 DirectedJumpEnv의더엄격한양수반경으로 제한할 수 있다. 학습재개에는 허용하지 않는다. 소스·원래학습계약·적용평가계약을 모두 남긴다. 새로운 평가 run 이름과 protocol을 정해4GPU에서실행한다. 이후 수평 추진 보상/학습을 판단한다. 아직 새학습 시작하지 않음.
+
+## 3cm 재평가도 완료
+
+source d5918b9, 네 strict-evaluation 모두 SUCCEEDED. artifacts/p2-07-strict-audit.jsonl 감사와 원본launch/첫접촉좌표 대조 통과. GPUcompute없음. zero seed1은0cm15/16,5cm16/16 성공 유지. 다른세모델0/64. 출발영역위반 zero0=16, short0=32, short1=16. report configs/reports/p2-07-strict.json, docs/p2-07-strict-results.md. 영상4개보존. evaluate.py --launch-radius는더엄격한양수출발반경만평가에서허용하며 원래restore계약검사는유지했다. meta에checkpoint_training_config/evaluation_override와적용config기록.
+
+이제 다음 학습을 설계·검증·실행해야 한다. 남은 병목은0–5cm 학습의 실비행 전방 이동 부족(5cm에서1.47–1.82cm,최소2cm미달)과seed재현성이다. 후보는 최초몸체재접촉때단한번주는실비행거리정렬보상으로,기존최초발접촉보상과분리하고 성공조건은유지한다. 현재후보일뿐아직구현/프로토콜/학습없음. 6cm학습+3cm재평가를명확히구분하고새seed/예산을고정한다. 기존성공사례가있으므로추가반경완화를자동으로선택하지않는다. 필요하면현재정책에서명령민감도와보상유인을추가분석한다. 전체goal계속active.

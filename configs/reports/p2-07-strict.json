@@ -43,5 +43,12 @@
     }
   ],
   "trace_episode_index": 1,
-  "show_forward_trace": true
+  "show_forward_trace": true,
+  "findings": [
+    "추가 학습 없이 네 checkpoint를3cm 출발 종료 조건으로 재평가했다. 원래 checkpoint 계약 검사는 유지하고 평가 override를 명시적으로 기록했다.",
+    "zero seed1만31/64 성공:0cm15/16,5cm16/16. 다른 세 모델은0/64. 6cm 실행의3cm 내 성공 부분집합과 일치했지만 실제 재실행으로 확인한 별도 결과다.",
+    "출발 영역 위반 종료는 zero seed0에서16/64, short seed0에서32/64, short seed1에서16/64였다. zero seed1은0건.5cm 목표 short seed1은출발·첫접촉·안정화를충족하지만비행이동부족으로성공0/16이다.",
+    "한 seed의5cm 전이 성공은 여러 seed의 수평 명령 학습 재현성을 증명하지 않는다. 다음은 실비행 거리의 보상·학습 유인을 조사하며 성공 기준은 변경하지 않는다.",
+    "네 재평가 감사 및 원본좌표 대조 통과, 영상4개 보존, GPU회수 확인. 학습예산0step. 모델자동승격없음."
+  ]
 }
