@@ -229,3 +229,12 @@ source55a913e, protocol docs/p2-18-protocol.md. TravelLandingReward mode=coupled
 4학습+4평가SUCCEEDED, artifacts/p2-18-audit.jsonl8감사통과. configs/reports/p2-18.json 3종보고서완료 및result4영상hash/seed3프레임확인. 결과0/0/0/33,유효비행0/64/0/64,firstprecision0/49/0/64,stable0/0/0/47.15cm모두0. 결합보상안정적기준선채택보류/기각,전체연구미완료.
 
 중요: P2-18 모든학습metrics에서successes합계0,결정적평가seed3은33성공. 400update구간집계docs/p2-18-training-stages.json. seed0/2유효도약극소수,seed1/3은후반거의모두도약. docs/p2-18-findings.md 해석. 다음구체과제는동일고정개발군의sampled policy와deterministic policy비교진단. checkpoint std와실제PPO act/act_inference경로,RNG계약확인후별도사전프로토콜과평가모드추가. 목표분포도다르므로현재만으로noise원인확정금지. 새학습/진단아직미시작. 이번턴은wait→전체완료감사→분석과후속원인분리로progress.
+
+
+### 최신: P2-19 행동 샘플링 진단 완료
+
+source26a2520, protocol docs/p2-19-protocol.md, batch28613. evaluate.py --action-mode mean|sampled/--action-seed 추가. sample_action은PPO update_distribution의mean/std+독립torch.Generator noise,전체행매step소비로reset RNG와분리. 기존mean act_inference유지. collector sampled모드/RNG를제목과manifest에기록. 51unit통과.
+
+P2-18 최종4모델 mean1+sampled2RNG(20000/20001) 총12평가SUCCEEDED, artifacts/p2-19-audit.jsonl12감사, result12영상hash와sampled제목검증. mean의모든episode 결과가원래P2-18과정확히일치. sampled모두0/64. seed3 mean33성공/64정밀/47안정화→sampled두반복0성공/26,30정밀/0안정화,비행64유지. seed1정밀49→13,15,안정화는모두0. seed0/2는어느모드든도약0. 학습된std평균0.3767/0.9823/0.4924/0.8721(환경스케일적용전). docs/p2-19-results.md/summary.json 및script p2_19_report.py.
+
+다음은학습에서탐색noise크기/지속을명시적으로제어하는고정예산비교. 현재모델의평가샘플링영향은확인했지만noise감소훈련개선은미검증. 도약탐색실패seed0/2도있으므로처음부터탐색제거하지말것. 학습에서std를바꾸면act/logprob/entropy/update distribution 일관성을유지해야함. 새학습미착수. 이번턴은평가경로구현/검증/12평가완료/원인분리증거로progress. 전체연구미완료.

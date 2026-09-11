@@ -1,0 +1,608 @@
+{
+  "rows": [
+    {
+      "seed": 0,
+      "mode": "mean",
+      "rng": null,
+      "run": "p2-19-seed0-mean-rng20000",
+      "successes": 0,
+      "valid_flights": 0,
+      "first_touch_precise": 0,
+      "stabilized": 0,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      }
+    },
+    {
+      "seed": 0,
+      "mode": "sampled",
+      "rng": 20000,
+      "run": "p2-19-seed0-sampled-rng20000",
+      "successes": 0,
+      "valid_flights": 0,
+      "first_touch_precise": 0,
+      "stabilized": 0,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      }
+    },
+    {
+      "seed": 0,
+      "mode": "sampled",
+      "rng": 20001,
+      "run": "p2-19-seed0-sampled-rng20001",
+      "successes": 0,
+      "valid_flights": 0,
+      "first_touch_precise": 0,
+      "stabilized": 0,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "mode": "mean",
+      "rng": null,
+      "run": "p2-19-seed1-mean-rng20000",
+      "successes": 0,
+      "valid_flights": 64,
+      "first_touch_precise": 49,
+      "stabilized": 0,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 10,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 7,
+          "stabilized": 0
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "mode": "sampled",
+      "rng": 20000,
+      "run": "p2-19-seed1-sampled-rng20000",
+      "successes": 0,
+      "valid_flights": 64,
+      "first_touch_precise": 13,
+      "stabilized": 0,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 6,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 15,
+          "first_touch_precise": 3,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 1,
+          "first_touch_precise": 1,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 15,
+          "travel_met": 0,
+          "first_touch_precise": 3,
+          "stabilized": 0
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "mode": "sampled",
+      "rng": 20001,
+      "run": "p2-19-seed1-sampled-rng20001",
+      "successes": 0,
+      "valid_flights": 64,
+      "first_touch_precise": 15,
+      "stabilized": 0,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 5,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 15,
+          "first_touch_precise": 6,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 2,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 2,
+          "stabilized": 0
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "mode": "mean",
+      "rng": null,
+      "run": "p2-19-seed2-mean-rng20000",
+      "successes": 0,
+      "valid_flights": 0,
+      "first_touch_precise": 0,
+      "stabilized": 0,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "mode": "sampled",
+      "rng": 20000,
+      "run": "p2-19-seed2-sampled-rng20000",
+      "successes": 0,
+      "valid_flights": 0,
+      "first_touch_precise": 0,
+      "stabilized": 0,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "mode": "sampled",
+      "rng": 20001,
+      "run": "p2-19-seed2-sampled-rng20001",
+      "successes": 0,
+      "valid_flights": 0,
+      "first_touch_precise": 0,
+      "stabilized": 0,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "mode": "mean",
+      "rng": null,
+      "run": "p2-19-seed3-mean-rng20000",
+      "successes": 33,
+      "valid_flights": 64,
+      "first_touch_precise": 64,
+      "stabilized": 47,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 3,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 3
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 14,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 14
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 14
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "mode": "sampled",
+      "rng": 20000,
+      "run": "p2-19-seed3-sampled-rng20000",
+      "successes": 0,
+      "valid_flights": 64,
+      "first_touch_precise": 26,
+      "stabilized": 0,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 8,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 6,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 4,
+          "first_touch_precise": 6,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 15,
+          "travel_met": 0,
+          "first_touch_precise": 6,
+          "stabilized": 0
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "mode": "sampled",
+      "rng": 20001,
+      "run": "p2-19-seed3-sampled-rng20001",
+      "successes": 0,
+      "valid_flights": 64,
+      "first_touch_precise": 30,
+      "stabilized": 0,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 9,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 15,
+          "first_touch_precise": 8,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 10,
+          "first_touch_precise": 8,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 1,
+          "first_touch_precise": 5,
+          "stabilized": 0
+        }
+      }
+    }
+  ],
+  "policy_stds": [
+    {
+      "seed": 0,
+      "std_per_joint": [
+        0.13628080487251282,
+        0.120395727455616,
+        0.34337520599365234,
+        0.2584703862667084,
+        0.2929609715938568,
+        0.32252588868141174,
+        0.36448293924331665,
+        0.45788007974624634,
+        0.46235305070877075,
+        0.5990111827850342,
+        0.5946866273880005,
+        0.5677847862243652
+      ],
+      "mean_std": 0.376683970913291
+    },
+    {
+      "seed": 1,
+      "std_per_joint": [
+        0.8839414715766907,
+        0.8293764591217041,
+        0.8920602798461914,
+        0.9678293466567993,
+        1.2560163736343384,
+        0.9987900257110596,
+        0.8244958519935608,
+        1.2437703609466553,
+        0.9407435655593872,
+        0.9096560478210449,
+        0.8768296837806702,
+        1.164540410041809
+      ],
+      "mean_std": 0.9823374897241592
+    },
+    {
+      "seed": 2,
+      "std_per_joint": [
+        0.1858062744140625,
+        0.39109787344932556,
+        0.18234235048294067,
+        0.24427185952663422,
+        0.910116970539093,
+        0.7338414788246155,
+        0.434317022562027,
+        0.5538120269775391,
+        0.438866525888443,
+        0.44674140214920044,
+        0.5923691391944885,
+        0.795278787612915
+      ],
+      "mean_std": 0.49240514263510704
+    },
+    {
+      "seed": 3,
+      "std_per_joint": [
+        0.820257306098938,
+        0.9526939392089844,
+        0.9272633194923401,
+        0.8123195767402649,
+        0.967629075050354,
+        0.9857130646705627,
+        0.9511891007423401,
+        0.7560639381408691,
+        0.8581194877624512,
+        0.8246477842330933,
+        0.8921790719032288,
+        0.7171421051025391
+      ],
+      "mean_std": 0.8721014807621638
+    }
+  ],
+  "additional_training_steps": 0,
+  "scope": "Frozen policy mean versus two independent Gaussian RNG repeats on identical scenarios; not proof that changing exploration improves training."
+}
