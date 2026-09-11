@@ -19,6 +19,11 @@
 
 ## 종료 후
 
+사용자가64개 렌더링을 요청했다. evaluate.py에 --video-envs64 옵션이 이미 있으며 ParallelRecorder가8×8 배치/먼 카메라를 지원한다. P2-11 자동16개 평가 종료 후 별도출력 __overview64-evaluation에서 --video --video-envs64 --diagnostics로 고정모델 평가를 실행하고 result에 보존할 것. 현재1280×720이므로 실제 첫프레임에서64개가 보이는지와 식별성을 확인한다. 필요시 해상도 옵션을 추가하며 학습run은 변경하지 않는다.
+
+
+사용자의 GPU 활용도 질문에 따라 P2-11 완료/평가 다음에는 docs/gpu-env-sweep-protocol.md의1024→2048→4096→8192 환경 처리량 측정을 우선 실행한다. 현재 학습 설정은 유지. 단독/4GPU 동시 실행의 실제 처리량과 호스트 병목을 측정한 후 다음 연구 규모를 정한다.
+
 실제PID종료 및GPU해제확인, 학습4+평가4 audit. IsaacPython scripts/experiment_report.py와 scripts/jump_trace_report.py configs/reports/p2-11.json 실행. 801/1201반경전환과reset기록을 확인한다. 원본200Hz launch/first-touch좌표 대조. P2-10 및 P2-09-strict와 같은3cm 평가에서 거리별·seed별 비교. result영상·웹태그·문서갱신. 자동champion승격없음. 실패시동일예산무한연장금지.
 
 ## 직전 P2-10
