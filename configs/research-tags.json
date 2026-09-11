@@ -57,7 +57,9 @@
     "task:directed-jump": "수평 목표·비행 이동",
     "step:p2-06-distance-range": "P2-06 · 학습 거리 범위",
     "condition:distance-zero": "학습 거리 · 제자리",
-    "condition:distance-short": "학습 거리 · 0–5cm"
+    "condition:distance-short": "학습 거리 · 0–5cm",
+    "step:p2-07-launch-region": "P2-07 · 출발 영역 진단",
+    "condition:launch-6cm": "출발 반경 · 6cm"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [

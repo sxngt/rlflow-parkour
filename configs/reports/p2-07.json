@@ -1,0 +1,43 @@
+{
+  "title": "P2-07 · 출발 영역 진단",
+  "report": "p2-07",
+  "protocol": "p2-07-protocol.md",
+  "description": "출발 반경6cm에서 제자리/0–5cm 학습을 검사한다. P2-06의3cm 성공 기준과 다르므로 성공률을 동일 기준 개선으로 해석하지 않는다.",
+  "success_label": "수평 도약 성공",
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "zero-6cm",
+      "seed": 0,
+      "run": "p2-07-zero-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "zero-6cm",
+      "seed": 1,
+      "run": "p2-07-zero-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "short-6cm",
+      "seed": 0,
+      "run": "p2-07-short-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "short-6cm",
+      "seed": 1,
+      "run": "p2-07-short-seed1",
+      "updates": 1600,
+      "reused": false
+    }
+  ],
+  "trace_episode_index": 1,
+  "show_forward_trace": true
+}
