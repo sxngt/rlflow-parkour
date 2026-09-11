@@ -1,0 +1,41 @@
+{
+  "title": "P2-05 · 수평 목표 도약",
+  "report": "p2-05",
+  "protocol": "p2-05-protocol.md",
+  "description": "평지0/5/10/15cm 수평 목표의 출발 영역·실비행 이동·정밀 첫 착지·안정화를 검사한다. 갭 통과 결과가 아니다.",
+  "success_label": "수평 도약 성공",
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "Directed",
+      "seed": 0,
+      "run": "p2-05-directed-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "Directed",
+      "seed": 1,
+      "run": "p2-05-directed-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "Directed",
+      "seed": 2,
+      "run": "p2-05-directed-seed2",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "Directed",
+      "seed": 3,
+      "run": "p2-05-directed-seed3",
+      "updates": 1600,
+      "reused": false
+    }
+  ]
+}

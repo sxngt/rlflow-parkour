@@ -18,6 +18,7 @@ def summarize(entry):
  with np.load(ev/'motion-trace.npz') as trace:
   keys=['valid','stage','phase','foot_pos']
   if meta['config'].get('jump'):keys+=['force','time','root_z','root_vz']
+  if meta['config'].get('jump',{}).get('evaluation_forward_m') is not None:keys+=['root_xy']
   a={key:trace[key] for key in keys}
  count=r['episodes'];last=[np.flatnonzero(a['valid'][:,i])[-1] for i in range(count)]
  terminal=Counter((int(a['stage'][t,i]),int(a['phase'][t,i])) for i,t in enumerate(last))
@@ -56,6 +57,17 @@ def summarize(entry):
    row['first_touch_200ms'].update(vertical_velocity_rms_m_s=float(np.sqrt(np.mean(v**2))),
     all_feet_below_2N_fraction=float((f<2).all(axis=2).mean()),all_feet_above_5N_fraction=float((f>5).all(axis=2).mean()))
 
+  if 'by_distance' in r:
+   row['by_distance']=r['by_distance']
+   for i,(sample,record) in enumerate(zip(first,r['results'])):
+    if record['launch_recorded']:
+     stages=np.flatnonzero(a['valid'][:,i]&(a['stage'][:,i]>=1))
+     launch_index=int(stages[0]-1) if len(stages) else last[i]
+     assert launch_index>=0
+     assert np.allclose(a['root_xy'][launch_index,i],[record['launch_root_x_m'],record['launch_root_y_m']],atol=1e-5,rtol=0),'Launch root differs from trace'
+    if record['flight_touch_recorded']:
+     touch_index=int(np.searchsorted(a['time'],min(t for t in sample['times_s'] if t is not None)))
+     assert np.allclose(a['root_xy'][touch_index,i],[record['first_touch_root_x_m'],record['first_touch_root_y_m']],atol=1e-5,rtol=0),'First-touch root differs from trace'
   row['first_touch_by_foot']={}
   for i,name in enumerate(['FL','FR','RL','RR']):
    errors=[sample['errors_m'][i] for sample in first if sample['errors_m'][i] is not None]
@@ -139,6 +151,10 @@ def main():
  if any('stabilized_once' in x for x in rows):
   lines+=['','## 공통 지표 분리','','| 조건 | seed | 기존 안정화 달성 | 첫 접촉 네 발 반경 내 |','|---|---:|---:|---:|']
   for x in rows:lines.append(f"| {x['condition']} | {x['seed']} | {x.get('stabilized_once',x['successes'])}/{x['episodes']} | {x['first_touch_all_within']}/{x['episodes']} |")
+ if any('by_distance' in x for x in rows):
+  lines+=['','## 거리별 평가','','| seed | 전방 목표 | 성공 | 출발 영역 | 실비행 이동 충족 | 첫 접촉 반경 | 안정화 |','|---:|---:|---:|---:|---:|---:|---:|']
+  for x in rows:
+   for distance,v in x.get('by_distance',{}).items():lines.append(f"| {x['seed']} | {100*float(distance):g} cm | {v['successes']}/{v['episodes']} | {v['launches_in_region']}/{v['episodes']} | {v['travel_met']}/{v['episodes']} | {v['first_touch_precise']}/{v['episodes']} | {v['stabilized']}/{v['episodes']} |")
  if any('by_foot' in x for x in rows):
   lines+=['','## 공유 정책의 발별 평가','','| 조건 | seed | 이동 발 | 안정화 | 착지 | ≥20ms 전 발 무접촉 |','|---|---:|---|---:|---:|---:|']
   for x in rows:
