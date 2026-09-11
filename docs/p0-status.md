@@ -117,3 +117,11 @@ A는 FL/RL 모두 seed0 안정화 0/64, seed1 64/64. 모든 A 착지 64/64. B �
 02d는 기존A(v4)의 FL/RL seed0/1을 800 checkpoint에서추가800updates재개 중이다. GPU0 FL0, GPU1 RL0, GPU2 FL1, GPU3 RL1. run artifacts/p1-step02d-a-{fl,rl}-seed{0,1}, launcher로그 같은접두. 원본seed0은02a single, seed1은02b A. 신규run끝update1600, 추가예산78,643,200step. 프로토콜docs/step02d-protocol.md, report명세configs/reports/step02d.json, 고정commit4f8383c.
 
 다음행동: 네run과자동평가·MP4·result완료까지확인, scripts/audit_artifacts.py감사, Isaac python으로scripts/experiment_report.py configs/reports/step02d.json실행. 결과분석후다음실험을계속진행. 보고서 helper는attempt_environment_steps와누적environment_steps를분리해재개예산중복계산을피한다. 아직02d결과를보고하지않음.
+
+## Step 02d 완료 · 공유 Tracker 다음 단계
+
+02d 재개4run은누적1600updates 완료. 고정평가 안정화 FL0=0/64, FL1=64/64, RL0=64/64, RL1=64/64. 모두착지64/64. RL0는800update의0/64에서개선됐고 기존성공seed1은유지됐다. FL0는최종안정화에서정체. 모든재개평가 ≥20ms전발무접촉0/64. 신규8run감사통과, 영상4개result등록. 보고서docs/step02d-results.md 및configs/reports/step02d.json. 신규78,643,200step으로 실제비교총157,286,400step. 모든학습·평가프로세스종료와GPU회수확인.
+
+다음은02e 공유단독발Tracker. 사전프로토콜docs/step02e-protocol.md만 작성했고 아직코드/학습미실행이다. 한정책이episode마다균등활성발을처리하도록환경별foot order를도입할계획. 기본A보상유지, 추가정렬벌점없음. seed0~3,1024env×1600updates,평가256개(각발64)·16대영상. 현재코드의order는global1D라서그대로randomize하면안된다. active_feet helper와Nx4 episode_order 등을통해관측·목표·접촉이벤트·진단·영상의활성발을같이갱신하고, 평가명세의활성발을reset이후명시적으로적용해야한다. 기존v2~v6고정순서회귀검사와random reset독립성검사필요.
+
+평가episodes는run_job.py의자동평가명령이기본64이므로config의evaluation_episodes=256을전달하는확장이필요하다. shared평가레코드에활성발을남기고발별집계한다. scripts/experiment_report.py는현재foot='FL'/'RL'를전제로최종오차계산하므로shared task에맞게확장하거나별도report를작성해야한다. goal은active이며사용자중단전까지계속연구한다.
