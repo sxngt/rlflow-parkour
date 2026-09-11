@@ -195,3 +195,12 @@ P2-17 사전 docs/p2-17-protocol.md/configs/p2-17-deck.json,source8493c4c. scrip
 학습4+평가4 모두 SUCCEEDED/PID종료. artifacts/p2-17-audit.jsonl8감사통과. configs/reports/p2-17.json으로experiment_report/jump_trace_report/p2_15_support_report 완료,docs결과/summary/height/support+figures생성. result4주요영상hash/seed1프레임시각검사완료. 성공0/0/3/0(기존32/1/48/5).15cm이동충족2/16/16/16으로개선됐으나최초접촉16/15/4/32,안정화0/0/30/0으로손실. weight12단독변경채택기각,성공기준유지.
 
 다음구체방향 docs/p2-17-findings.md: 네발최초접촉모두확인후기록된비행거리와최초접촉오차를결합한보상 검토. 현재 first body touchdown의거리보상과별도발보상이tradeoff를허용할가능성(원인확정아님). 무조건가중치sweep중단. 새프로토콜/보상일회성/미접촉/실패/재접촉테스트및smoke후다음학습. 아직구현/실행안함. 전체연구미완료. 이번턴은wait→학습/평가완료→감사/분석/기각결정으로progress.
+
+
+### 최신: P2-18 결합 보상 학습 실행
+
+source55a913e, protocol docs/p2-18-protocol.md. TravelLandingReward mode=coupled_first_touch_v1 추가. 네발최초접촉모두seen 때한번 12*exp(-거리오차/.03)*exp(-최대최초발오차/.05),첫bodytouch거리고정,실패사건paid차단,선택reset. 기존distance_only는동작유지. jump엄격checkpoint계약포함. 50unit통과,smoke64env3update+resume4+최종64episode/200Hz/64근접영상/result 및3artifact감사통과. 새보상실제비영지급의단위검사통과; 짧은smoke의성공률을학습성과로주장하지않는다.
+
+주요 scripts/p2_18_train.py batch33864 실행중, configs/p2-18-deck.json. fresh seed0–3,각1024×24×1600,추가157286400step. 대조P2-17 weight12재사용,기존P2-16참고. 모든평가/성공기준/기타조건유지. 관측초기진행 [{"run": "p2-18-deck-seed0", "pid": 1310361, "live": true, "iteration": 55}, {"run": "p2-18-deck-seed1", "pid": 1310352, "live": true, "iteration": 55}, {"run": "p2-18-deck-seed2", "pid": 1310353, "live": true, "iteration": 56}, {"run": "p2-18-deck-seed3", "pid": 1310354, "live": true, "iteration": 56}]
+
+다음같은PID/metrics관찰,401/801/1201전환확인,종료후8artifact감사와 configs/reports/p2-18.json의experiment_report/jump_trace_report/p2_15_support_report실행. batch중복실행금지. 이번턴은보상구조구현/검증/주요학습착수로progress. 전체연구미완료.
