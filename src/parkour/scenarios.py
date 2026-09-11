@@ -33,3 +33,20 @@ def jump_scenarios(count,spec):
             'foot_offsets_xy_m':[[0.,0.] for _ in range(4)],
             'required_apex_m':rng.uniform(*spec['apex_range_m'])})
     return {'schema_version':1,'split':'development','task':'a1_flat_jump_v1','episodes':episodes}
+
+
+def directed_jump_scenarios(count,spec):
+    """Paired height commands across distances; not yet a simulator task adapter."""
+    import math
+    levels=spec['evaluation_forward_m']
+    if not 1<=count<=1000 or not levels or any(not math.isfinite(x) or x<0 for x in levels):
+        raise ValueError('Invalid directed-jump evaluation request')
+    episodes=[]
+    for i in range(count):
+        seed=20000+i//len(levels)
+        distance=levels[i%len(levels)]
+        episodes.append({'id':f'directed-jump-dev-{20000+i}','seed':seed,'goal_forward_m':distance,
+            'foot_offsets_xy_m':[[distance,0.] for _ in range(4)],
+            'required_apex_m':random.Random(seed).uniform(*spec['apex_range_m'])})
+    return {'schema_version':1,'split':'development','task':'directed-jump-design',
+        'paired_by':'height seed across forward distances','episodes':episodes}
