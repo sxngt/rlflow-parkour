@@ -295,3 +295,10 @@ sourcee303428, docs/p2-20-protocol.md/configs/p2-20-deck.json. exploration.py Bo
 직전 턴은 P2-20 진단 완료와 P2-21 착수로 progress. 이번 턴은 동일 실제 PID의 생존을 확인하며 기다린 verified wait 후 update401의거리0–10cm/launch6cm/cap.35/reset_all=true를 네 seed 모두 검증했다. checkpoint100/300 네hash 및 전구간 finite loss 확인. 첫100update의 episode/success/failure/validflight/landed/apex 집계가 대응 P2-20과 seed별·update별 모두 일치(artifacts/p2-21-preintervention-check.json). 이는 전체 학습의 bitwise 동일성을 보장하지 않는다. 최신 [{"run": "p2-21-deck-seed0", "pid": 1406069, "live": true, "iteration": 451, "transition401_verified": true}, {"run": "p2-21-deck-seed1", "pid": 1406060, "live": true, "iteration": 447, "transition401_verified": true}, {"run": "p2-21-deck-seed2", "pid": 1406061, "live": true, "iteration": 456, "transition401_verified": true}, {"run": "p2-21-deck-seed3", "pid": 1406043, "live": true, "iteration": 449, "transition401_verified": true}]
 
 다음801의 실제20cm 전환/cap.2,1201반경3cm/cap.1 검증 후 최종평가. batch59110 유지, 중복 실행 금지. GPU 약3GB/32–33도, 저장535GB여유. 관측 artifacts/p2-21-watch.jsonl. 전체 연구 미완료.
+
+
+### 최신: P2-21 거리20cm 전환 검증
+
+직전 턴은401전환 검증으로 progress. 이번 턴은 같은 실제PID를 관찰한 verified wait 후 update801의거리0–20cm/launch4.5cm/cap.2/reset_all=true 및 실제std상한을 네seed에서 확인. checkpoint600/800 hash 정상, 전체loss유한. checkpoint400의 model/normalizer 모든tensor가 대응P2-20과 정확히 일치(artifacts/p2-21-checkpoint-prefix.json). 전체 RNG/optimizer/trajectory 동일성 주장은 아님. 최신 [{"run": "p2-21-deck-seed0", "pid": 1406069, "live": true, "iteration": 865, "transition801_verified": true, "checkpoint800_hash_ok": true, "training_successes": 757}, {"run": "p2-21-deck-seed1", "pid": 1406060, "live": true, "iteration": 857, "transition801_verified": true, "checkpoint800_hash_ok": true, "training_successes": 209}, {"run": "p2-21-deck-seed2", "pid": 1406061, "live": true, "iteration": 876, "transition801_verified": true, "checkpoint800_hash_ok": true, "training_successes": 0}, {"run": "p2-21-deck-seed3", "pid": 1406043, "live": true, "iteration": 861, "transition801_verified": true, "checkpoint800_hash_ok": true, "training_successes": 22}]
+
+다음1201의launch3cm/cap.1 전환과1600최종평가. batch59110 유지, 중복 실행 금지. 추가 변형 학습 미시작. 전체 연구 미완료.
