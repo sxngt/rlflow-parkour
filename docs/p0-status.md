@@ -171,3 +171,11 @@ JumpEnv/JumpCfg, jump_events.py를 추가했다. self-collision on, 비발전체
 단일활성발이없으므로JumpEnv.active_feet()=-1,contact_group_all=True. media는4개목표모두표시하고phase_labels(도약준비/비행/착지안정화)를저장한다. 웹도이label을사용한다. diagnostics는grouped task에서지지중모든발의XY이동을집계하며active=-1을개별발로해석하지않는다. 유효비행은별도event계약이고기존diagnostic의≥20ms무접촉통계와같지않다.
 
 다음행동: 실제프로세스/메트릭으로4run을관측하고완료후자동평가·영상·GPU회수를확인한다. audit_artifacts.py 8run검사,Isaac python scripts/experiment_report.py configs/reports/p2-01.json로보고서생성. report helper는required_contacts4에맞추고valid_flights/landed_episodes/비발접촉/meanapex를별도표시한다. 결과로보상악용·상승/비행/착지실패를분리해다음학습을결정한다. 수평이동/제한착지면/갭은아직없고본실험은평지작은도약이다. goal active 유지.
+
+## P2-01 완료: 작은 비행은 획득, 높이·착지 안정화 미달
+
+4seed×1600updates 및 각64개 평가 완료. 모든 seed 유효 비행/네 발 재접촉64/64, 성공0/64, 비발 접촉 종료0, 모두시간초과. 비행 apex 평균3.75/4.41/4.43/4.43cm, 요구높이 충족0/11/11/12개. 최종 몸체는 보정 자세보다10.10/8.16/8.16/8.76cm 낮아 모든 episode가±6cm 높이 조건을 벗어났다. 첫 접촉 네 발 모두5cm 이내는 전seed0/64이며 나중의 작은 발오차를 정밀 착지로 부르면 안 된다.
+
+8run UUID/lease회수/checkpoint·영상·진단hash감사통과(artifacts/p2-01-audit.jsonl). result에최종영상4개보존. docs/p2-01-results.md,summary,height-diagnosis,figures의결과 및 scripts/p2_01_trace_report.py로진단재생성. 200Hz 첫접촉 지표는학습시작후추가한보조지표이며원래성공계약은그대로다. tests24통과.
+
+다음은P2-02 보상 수정: 유효비행 후 요구apex까지의1회성 진행 보상, 착지 후 몸체 높이 비용을 결합한다. 성공 조건·구동기·명령분포·예산은유지하고기준선4seed와비교한다. 두항개별기여를분리한주장은하지않음. 먼저순수함수검증/짧은시뮬레이터경로검증. 모델승격없음. 현재4GPU회수완료. goal active,사용자중단전까지계속진행.
