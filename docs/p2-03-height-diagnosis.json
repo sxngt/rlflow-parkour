@@ -1,0 +1,58 @@
+[
+  {
+    "run": "p2-02-shaped-seed0",
+    "condition": "A",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.013028022833168507,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-02-shaped-seed1",
+    "condition": "A",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.00610347930341959,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-02-shaped-seed2",
+    "condition": "A",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.0037392987869679928,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-02-shaped-seed3",
+    "condition": "A",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.005468050949275494,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-03-precise-seed0",
+    "condition": "B",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.0012382217682898045,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-03-precise-seed1",
+    "condition": "B",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.002624492160975933,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-03-precise-seed2",
+    "condition": "B",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.002131291199475527,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-03-precise-seed3",
+    "condition": "B",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.0032112658955156803,
+    "terminal_height_outside_tolerance": 0
+  }
+]

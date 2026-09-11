@@ -227,3 +227,15 @@ PrecisionJumpEnv(별도task a1_flat_jump_precise_v3)를구현했다. scene.updat
 configs/reports/p2-03.json은A=P2-02재사용4seed,B=P2-03새4seed. 새성공계약차이를제목/표에명시하고공통첫접촉비율·stabilized_once로비교한다. report helper는발별온라인firsttouch와사후200Hz오차1e-5m이내일치assert. count누락은-1/None매칭. 이전A의첫접촉은모두실패(전seed0/64)지만기존안정화64/64였다. 따라서새B0성공을A64와동일기준처럼해석하면안됨.
 
 다음은실행상태관측→자동평가/회수→8run감사→experiment_report.py와jump_trace_report.py configs/reports/p2-03.json→실패분석/후속학습. 최종영상은T1J-v3상세제목result등록. P2-02대조군에catalog override로P2-03태그추가,원본config불변. goal active 유지.
+
+## P2-03 완료: 첫 접촉은 정밀해졌으나 지지 안정화 부족
+
+네1600학습및각64평가완료. 새엄격성공0/8/0/0, 기존안정화달성stabilized_once도0/8/0/0. 공통첫접촉네발5cm내는전seed64/64(P2-02대조자료는전seed0/64). 온라인FirstTouch의발별양성값과원본200Hz사후오차가전부1e-5m이내일치. 발별평균첫오차약0.03–0.49cm. 새모델승격없음. 새로운수평목표나갭일반화는아직없다.
+
+마지막접촉상태위반64/35/64/58,history위반64/47/64/63. 높이/XY위반0. 착지단계200Hz 네발>5N비율0.15/28.30/0.58/8.83%,vzRMS .055/.127/.171/.209m/s,네발<2N비율0/12.09/1.64/32.72%. seed0은전발재비행이없으므로단순hopping만문제로보면안됨. 일부발지지누락과다른seed수직진동/재비행을분리한다. 기록된후반stage를사용하는보조진단이고최종hysteresis/history판정과동일통계는아님.
+
+artifacts/p2-03-audit.jsonl의8run감사통과,4GPU실제compute프로세스없고회수완료. result의T1J-v3최종영상4개등록. docs/p2-03-results,summary,height-diagnosis,figures생성. configs/reports/p2-03.json로재생성. experiment_report.py에발별최초접촉오차/반경내수/관측수및착지후접촉·vz통계추가. 첫오차의평균분모는관측값,성공분모는모든episode임을명시했다.
+
+다음P2-04: 같은PrecisionJumpEnv/성공계약을유지하고착지이후에만지지부족및수직속도비용을추가하는결합수정. 제안계수support1.0*(1-contact_count/4),vz2.0*vz²에dt곱함. 이계수는아직프로토콜미작성/미구현/미실행이므로실행전고정할것. flight_seen만으로걸지말고landed이후만적용,도약상승자체벌하지않음. 원래firsttouch보상/반경/hold/force임계값그대로. seed0은vz이미작으므로vz단독수정으로모든실패를설명하지않는다. 두항개별기여는미분리결합수정으로표현. 새task/version/config로기록,기존taskweightsdefault0 유지.
+
+구현힌트: jump_events.py의순수함수로landed mask* (supportweight*(1-contact_on.float().mean(dim=1))+vzweight*vz.square()), JumpEnv._get_rewards dense에서차감가능. v4 PrecisionJumpEnv선택라우팅/collect_results/tag/report추가. 순수단위검사(비행중0/완전지지정지0/결손접촉/수직양음동일)/합성검증/짧은train-eval진단hash확인후4seed×1600updates 고정예산. 보고서는P2-03을재사용대조군으로삼되이제엄격성공계약은동일하다고명시. 새첫착지개선을유지하면서안정화회복되는지관찰. 현재새학습없음,goal active 유지.

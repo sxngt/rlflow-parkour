@@ -17,7 +17,7 @@ def summarize(entry):
  assert metrics[-1]['iteration']==entry.get('updates',800)
  with np.load(ev/'motion-trace.npz') as trace:
   keys=['valid','stage','phase','foot_pos']
-  if meta['config'].get('jump'):keys+=['force','time','root_z']
+  if meta['config'].get('jump'):keys+=['force','time','root_z','root_vz']
   a={key:trace[key] for key in keys}
  count=r['episodes'];last=[np.flatnonzero(a['valid'][:,i])[-1] for i in range(count)]
  terminal=Counter((int(a['stage'][t,i]),int(a['phase'][t,i])) for i,t in enumerate(last))
@@ -35,6 +35,13 @@ def summarize(entry):
   from parkour.diagnostics import jump_first_touches
   first=jump_first_touches(a,meta['nominal_foot_xy_m'],sc['episodes'],meta['config']['jump']['landing_radius_m'])
   row['first_touch_all_within']=sum(x['all_within'] for x in first)
+  post=a['valid']&(a['stage']==2)
+  if post.any():
+   forces=np.linalg.norm(a['force'][post],axis=-1)
+   row['post_touch_physics']={'vertical_velocity_rms_m_s':float(np.sqrt(np.mean(a['root_vz'][post]**2))),
+    'all_feet_below_2N_fraction':float((forces<2).all(axis=1).mean()),
+    'all_feet_above_5N_fraction':float((forces>5).all(axis=1).mean())}
+
   row['first_touch_samples']=first
   row['first_touch_by_foot']={}
   for i,name in enumerate(['FL','FR','RL','RR']):
