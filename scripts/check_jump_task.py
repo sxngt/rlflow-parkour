@@ -9,7 +9,7 @@ from parkour.runtime import launch_app
 launch_app(False)
 import torch
 from parkour.learning import make_env
-c=json.loads(Path('configs/p2-01-flat-jump.json').read_text());c['num_envs']=8
+c=json.loads(Path(sys.argv[1] if len(sys.argv)>1 else 'configs/p2-01-flat-jump.json').read_text());c['num_envs']=8
 e=make_env(c);e.reset();assert e._get_observations()['policy'].shape==(8,66)
 zero=torch.zeros(8,12,device=e.device)
 for i in range(60):
@@ -22,6 +22,9 @@ for i in range(3):
  _,_,term,trunc,extra=e.step(zero)
 assert extra['terminal_metrics']['valid_flight'].all(),'Rising separated state not detected'
 assert not extra['terminal_metrics']['success'].any(),'Airborne state incorrectly counted as landed'
+assert e.apex_progress.eq(1).all(),'Synthetic height should saturate progress'
+e.step(zero)
+assert e.apex_progress_delta.eq(0).all(),'Progress reward repeated without new height'
 # Synthetic supported landing with an already verified flight validates final hold.
 e.reset();e.flight_seen[:]=True;e.landed[:]=True;e.touched[:]=True;e.apex[:]=.08;e.required_apex[:]=.04;e.episode_length_buf[:]=30
 seen=False
