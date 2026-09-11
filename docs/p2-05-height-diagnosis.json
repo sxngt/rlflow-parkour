@@ -1,0 +1,30 @@
+[
+  {
+    "run": "p2-05-directed-seed0",
+    "condition": "Directed",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.03001740761101246,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-05-directed-seed1",
+    "condition": "Directed",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.021388277411460876,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-05-directed-seed2",
+    "condition": "Directed",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.1271670013666153,
+    "terminal_height_outside_tolerance": 64
+  },
+  {
+    "run": "p2-05-directed-seed3",
+    "condition": "Directed",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.12124725431203842,
+    "terminal_height_outside_tolerance": 64
+  }
+]

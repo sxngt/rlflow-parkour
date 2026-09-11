@@ -1,0 +1,43 @@
+{
+  "title": "P2-06 · 수평 도약 학습 거리 범위",
+  "report": "p2-06",
+  "protocol": "p2-06-protocol.md",
+  "description": "제자리와0–5cm 학습을 동일 수평 도약 계약으로 비교한다. 각 조건의 학습 범위를 벗어난 거리 평가는 전이 진단이다.",
+  "success_label": "수평 도약 성공",
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "zero",
+      "seed": 0,
+      "run": "p2-06-zero-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "zero",
+      "seed": 1,
+      "run": "p2-06-zero-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "short",
+      "seed": 0,
+      "run": "p2-06-short-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "short",
+      "seed": 1,
+      "run": "p2-06-short-seed1",
+      "updates": 1600,
+      "reused": false
+    }
+  ],
+  "trace_episode_index": 1,
+  "show_forward_trace": true
+}
