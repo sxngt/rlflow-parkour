@@ -1,0 +1,43 @@
+{
+  "title": "P2-09 · 수평 명령 범위 확장",
+  "report": "p2-09",
+  "protocol": "p2-09-protocol.md",
+  "description": "비행거리 보상4를 유지하고0–15cm 학습을 네 seed에서 검사한다. 실제 갭 통과 결과가 아니다.",
+  "success_label": "수평 도약 성공",
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "expanded",
+      "seed": 0,
+      "run": "p2-09-expanded-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "expanded",
+      "seed": 1,
+      "run": "p2-09-expanded-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "expanded",
+      "seed": 2,
+      "run": "p2-09-expanded-seed2",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "expanded",
+      "seed": 3,
+      "run": "p2-09-expanded-seed3",
+      "updates": 1600,
+      "reused": false
+    }
+  ],
+  "trace_episode_index": 3,
+  "show_forward_trace": true
+}

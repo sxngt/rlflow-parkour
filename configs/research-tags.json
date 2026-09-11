@@ -63,7 +63,9 @@
     "condition:launch-3cm-evaluation": "재평가 출발 반경 · 3cm",
     "step:p2-08-travel-reward": "P2-08 · 비행거리 보상",
     "condition:travel-reward-control": "비행거리 보상 · 0",
-    "condition:travel-reward-travel": "비행거리 보상 · 4"
+    "condition:travel-reward-travel": "비행거리 보상 · 4",
+    "step:p2-09-distance-expansion": "P2-09 · 수평 명령 확장",
+    "condition:distance-15cm": "학습 거리 · 0–15cm"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
