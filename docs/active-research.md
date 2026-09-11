@@ -432,3 +432,10 @@ mean성공56/32/48/21,유효비행·최초정밀모두64,안정화64/64/64/53. s
 64env3update축소일정의거리.05/.1/.2,cap.35/.2/.05,reset/finite loss/effectivestd검증 및기존64scenario동일확인. smoke학습/평가·영상완료, artifacts/p2-25-smoke-audit.jsonl2감사통과. 주요 scripts/p2_25_train.py batch98960 실행중, fresh4seed×1024×24×1600 추가157286400step. 최신 [{"run": "p2-25-deck-seed0", "pid": 1495130, "live": true, "iteration": 76}, {"run": "p2-25-deck-seed1", "pid": 1495129, "live": true, "iteration": 76}, {"run": "p2-25-deck-seed2", "pid": 1495128, "live": true, "iteration": 78}, {"run": "p2-25-deck-seed3", "pid": 1495131, "live": true, "iteration": 78}]
 
 다음401/801(20cm)/1201(cap.05)과checkpoint검증,1600+mean평가8artifact감사 및configs/reports/p2-25.json 4종보고서. seed별거리/안정화/회귀와두변수상호작용분석. 새로운작은상한sweep반복금지;조합실패시목표표현/정책계약구조적재검토. 저장533GB여유. 전체목표미완료,중복실행금지.
+
+
+### 최신: P2-25 첫 거리 전환 검증
+
+직전 턴은조합설정검증/학습착수로progress. 이번 턴동일실제PID확인 후verified wait 및401의거리0–10cm/launch6cm/cap.35/reset_all=true 네seed검증. checkpoint100/300/400 hash정상,모든loss유한. 최신 [{"run": "p2-25-deck-seed0", "pid": 1495130, "live": true, "iteration": 438, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"run": "p2-25-deck-seed1", "pid": 1495129, "live": true, "iteration": 434, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"run": "p2-25-deck-seed2", "pid": 1495128, "live": true, "iteration": 441, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"run": "p2-25-deck-seed3", "pid": 1495131, "live": true, "iteration": 439, "transition401_verified": true, "checkpoint400_hash_ok": true}]
+
+다음801거리20cm/cap.2,1201cap.05/launch3cm,1600최종평가8감사/4보고서. batch98960유지,중복실행금지. 전체목표미완료.
