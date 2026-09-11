@@ -10,9 +10,18 @@
 
 ## 현재 실행 / 다음 작업
 
-모든profiling학습8개와평가8개종료·감사통과. GPU별8192동시 처리량113419/114704/114231/114462step/s,합456817(개별구간합,동기화makespan과다름). 단독8192는146132. 평균GPU약28%,표본VRAM약5.2GiB. docs/gpu-env-sweep-results.md/summary.json 및 scripts/gpu_profile_report.py. .host-profile.jsonl 원본에CPU/RSS/I/O포함. 추가과제:공통동시구간처리량을표본진행으로집계하고CPU병목분석. 순간snapshot이나VRAM만으로완전활용주장금지.
+P2-12 대규모 batch 동일step 비교 시작. docs/p2-12-protocol.md, configs/p2-12-large-batch.json, configs/reports/p2-12.json. source8e5b321. 새정책seed0–3,각8192환경×24step×200updates=39,321,600step(P2-11과같음).커리큘럼101/151update에서4.5/3cm전환,checkpoint25마다,worker1800초. PPO batch8배/update수1/8,환경reset표본차이명시. 아직성능결과없음.
 
-다음제어실험은총환경step을P2-11과맞춰8192환경×24step×200updates로검토한다(각39,321,600step).6/4.5/3cm커리큘럼경계100/150으로변경하면노출step비율동일. PPO batch8배·optimizerupdate수1/8의학습효과를명시적으로비교해야하며성능향상미검증. 아직P2-12 config/protocol/실행없음. 사전프로토콜작성후seed0–3실행하고원래1024조건과같은고정64평가·result영상. 실제갭·발판단계진행이라는원래목표유지.
+|GPU|run|session|
+|---|---|---|
+|0|p2-12-large-batch-seed0|6334|
+|1|p2-12-large-batch-seed1|80604|
+|2|p2-12-large-batch-seed2|45086|
+|3|p2-12-large-batch-seed3|93589|
+
+종료후학습4+자동평가4 audit,GPU해제확인. experiment_report.py 및jump_trace_report.py configs/reports/p2-12.json.101/151반경전환검사,원본200Hz좌표대조. P2-11(48/17/51/51성공)과거리별/seed별성능·시간·환경step비교. result영상4개보존. 실패하면8192를처리량만으로채택하지말고4096또는minibatch구조별도검토. 중간결과로예산변경금지.
+
+완료profiling:단독1024/2048/4096/8192 step/s38495/64367/105392/146132.8192동시113419/114704/114231/114462합456817(개별구간합). 학습8+평가8감사통과·영상8개. docs/gpu-env-sweep-results.md/summary.json 및script. 공통동시구간실측진행량/CPU병목분석은미완료로남음. GPU사용률최대화완료주장금지.
 
 ## 환경과 범위
 
