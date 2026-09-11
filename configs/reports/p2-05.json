@@ -37,5 +37,7 @@
       "updates": 1600,
       "reused": false
     }
-  ]
+  ],
+  "trace_episode_index": 3,
+  "show_forward_trace": true
 }

@@ -41,3 +41,5 @@
 Isaac Python: `/mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh`. 일반 모니터링 가상환경에는 NumPy가 없으므로 연구 분석 스크립트는 Isaac Python으로 실행한다.
 
 모니터링: http://203.241.249.48:18710/ . 기존 연구실 서버 배포를 유지한다. 평가 영상은 `result/`의 상세 제목으로 보존하고, 과제별 phase/step 태그로 분류한다. 장기 이력과 세부 구현 경계는 [p0-status.md](p0-status.md)에 남아 있다.
+
+보고서 그림은 `trace_episode_index=3`으로 미리 지정한15cm 명령을 사용하고, `show_forward_trace=true`로 몸체 전방 이동을 함께 표시한다. 이는 평가 결과를 보고 좋은 사례를 고른 것이 아니다. 전체 성능은 거리별16개 집계를 우선한다. 최신 웹에도 거리별 조건 표가 반영됐다.
