@@ -55,6 +55,9 @@ def collect(evaluation, result_root=ROOT / 'result'):
         updates = json.loads(checkpoint.with_suffix('.json').read_text())['completed_iterations']
     if run['config']['task'] in ('a1_t0_single_foot_v4','a1_t0_single_foot_aligned_v5','a1_t0_single_foot_continuous_v6'):
         task_title = run['config']['sequence']['foot_order'][0].replace('_foot','')+'_'+task_title
+    if run['config']['task'] == 'a1_directed_jump_v5' and train_run:
+        low, high = train_run['config']['jump']['train_forward_range_m']
+        task_title += f'_학습거리{100*low:g}–{100*high:g}cm'
     mode = {'policy':'PPO', 'zero':'기본자세_대조군', 'shuffled-target':'PPO_목표셔플'}[run['baseline']]
     date = datetime.fromtimestamp(run['finished_unix_s'], timezone(timedelta(hours=9))).strftime('%Y-%m-%d')
     title = f'A1 | {task} {task_title.replace("_", " ")} | {mode} seed {seed} | {updates} updates | 개발군 {report["episodes"]} episodes'

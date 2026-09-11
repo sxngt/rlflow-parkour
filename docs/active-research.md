@@ -36,3 +36,5 @@ P2-04는 동일 초기 자세·평지 제자리 정밀 도약을 네 seed 각각
 Isaac Python: /mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh. .monitor-venv에는 NumPy가 없다. 모니터링 http://203.241.249.48:18710/ . 새 phase/step/condition 태그는 configs/research-tags.json에 등록됐다. 전체 이력은 [p0-status.md](p0-status.md).
 
 추가 원인 분석: [P2-05 비행 조건 진단](p2-05-flight-diagnosis.md). 세 실패 seed는50Hz 경계 최대 상승이1.55–2.80cm로3cm 기준 미달이다. 20ms 공중 이력과 양의 상승속도는 관측됐다. scripts/flight_gate_report.py로 원본200Hz에서 재생성 가능하며 실패/출발 조건 전체를 재구성하는 도구는 아니다.
+
+중요한 추가 근거: [P2-04 출발 위치 사후 진단](p2-04-launch-region-retrospective.md). 기존 성공 정책은 비행 확인 시점 몸체 이동4.18–5.06cm로3cm 출발 영역을 전부 벗어난다. P2-06 zero도 기존 과제의 완전한 반복은 아니다. P2-05 seed1은3cm 내 비행64/64이므로 불가능한 조건이라고 단정하지 않는다. 현재 실험은 유지하고 zero 실패 시 출발 제약을 별도 비교하는 후보를 고려한다.
