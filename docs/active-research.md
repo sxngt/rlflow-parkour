@@ -238,3 +238,14 @@ source26a2520, protocol docs/p2-19-protocol.md, batch28613. evaluate.py --action
 P2-18 최종4모델 mean1+sampled2RNG(20000/20001) 총12평가SUCCEEDED, artifacts/p2-19-audit.jsonl12감사, result12영상hash와sampled제목검증. mean의모든episode 결과가원래P2-18과정확히일치. sampled모두0/64. seed3 mean33성공/64정밀/47안정화→sampled두반복0성공/26,30정밀/0안정화,비행64유지. seed1정밀49→13,15,안정화는모두0. seed0/2는어느모드든도약0. 학습된std평균0.3767/0.9823/0.4924/0.8721(환경스케일적용전). docs/p2-19-results.md/summary.json 및script p2_19_report.py.
 
 다음은학습에서탐색noise크기/지속을명시적으로제어하는고정예산비교. 현재모델의평가샘플링영향은확인했지만noise감소훈련개선은미검증. 도약탐색실패seed0/2도있으므로처음부터탐색제거하지말것. 학습에서std를바꾸면act/logprob/entropy/update distribution 일관성을유지해야함. 새학습미착수. 이번턴은평가경로구현/검증/12평가완료/원인분리증거로progress. 전체연구미완료.
+
+
+### 최신: P2-20 제한 Gaussian 탐색 학습 실행
+
+sourcee303428, docs/p2-20-protocol.md/configs/p2-20-deck.json. exploration.py BoundedActorCritic.update_distribution에서raw std를floor.05/cap에clamp;rollout/logprob/entropy/update공유. cap buffer checkpoint저장/복원,exploration설정strictrestore비교. 기존config는ActorCritic유지. train은새rollout시절대update로cap적용,미니배치내일정고정,effective std metric기록. 일정1–800 .35,801–1200 .2,1201–1600 .1. clamp외부gradient0이라는효과포함.
+
+53unit통과,64env3update축소cap일정/체크포인트1→2,3resume/최종64평가·200Hz·근접영상·result 및3artifact감사통과(artifacts/p2-20-smoke-audit.jsonl). 실제std상한기록대조.
+
+주요 scripts/p2_20_train.py batch70012 실행중. fresh4seed각1024×24×1600,추가157286400step. P2-18결합보상/나머지계약유지,대조P2-18재사용. 현재 [{"run": "p2-20-deck-seed0", "pid": 1372183, "live": true, "iteration": 73, "std_cap": 0.35}, {"run": "p2-20-deck-seed1", "pid": 1372176, "live": true, "iteration": 73, "std_cap": 0.35}, {"run": "p2-20-deck-seed2", "pid": 1372162, "live": true, "iteration": 74, "std_cap": 0.35}, {"run": "p2-20-deck-seed3", "pid": 1372175, "live": true, "iteration": 74, "std_cap": 0.35}]
+
+다음동일PID관찰,401거리/801거리+cap.2/1201반경+cap.1확인 및훈련중successes유무검사. 종료후8artifact감사와configs/reports/p2-20.json으로3종보고서. sampled후속평가에서effective std는raw model std가아닌복원된clamp분포를사용할것. 이전p2_19_report.py의raw std표를이모델에그대로적용금지. 전체연구미완료. 이번턴구현/검증/새학습시작으로progress.
