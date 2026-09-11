@@ -26,3 +26,7 @@ def apex_progress(apex,required_apex,min_rise,previous):
 
 def landing_height_cost(rise,landed,tolerance):
     return (rise/tolerance).square().clamp_max(4)*landed
+
+
+def landing_settle_cost(vz,contact,landed,velocity_weight,support_weight):
+    return landed*(velocity_weight*vz.square()+support_weight*(1-contact.float().mean(dim=1)))

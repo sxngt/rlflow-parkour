@@ -1,0 +1,72 @@
+{
+  "title": "P2-04 · 착지 후 지지와 수직속도 비용",
+  "report": "p2-04",
+  "protocol": "p2-04-protocol.md",
+  "description": "동일한 정밀 착지 및 안정화 성공 계약에서 P2-03 A와 착지 후 비용을 추가한 B를 비교한다.",
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "A",
+      "seed": 0,
+      "run": "p2-03-precise-seed0",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "A",
+      "seed": 1,
+      "run": "p2-03-precise-seed1",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "A",
+      "seed": 2,
+      "run": "p2-03-precise-seed2",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "A",
+      "seed": 3,
+      "run": "p2-03-precise-seed3",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "B",
+      "seed": 0,
+      "run": "p2-04-supported-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "B",
+      "seed": 1,
+      "run": "p2-04-supported-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "B",
+      "seed": 2,
+      "run": "p2-04-supported-seed2",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "B",
+      "seed": 3,
+      "run": "p2-04-supported-seed3",
+      "updates": 1600,
+      "reused": false
+    }
+  ]
+}

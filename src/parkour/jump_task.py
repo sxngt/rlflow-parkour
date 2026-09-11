@@ -5,7 +5,7 @@ from isaaclab.utils import configclass
 from isaaclab_assets import UNITREE_A1_CFG
 from parkour.task import FootholdCfg,FootholdEnv
 from parkour.sequential_task import SequentialCfg,SequentialEnv
-from parkour.jump_events import jump_transition,apex_progress,landing_height_cost
+from parkour.jump_events import jump_transition,apex_progress,landing_height_cost,landing_settle_cost
 
 @configclass
 class JumpCfg(SequentialCfg):
@@ -102,6 +102,8 @@ class JumpEnv(SequentialEnv):
         dense-=.00002*self.robot.data.applied_torque.square().sum(dim=1)
         rise=self.robot.data.root_pos_w[:,2]-self.scene.env_origins[:,2]-self.calibrated_root[2]
         dense-=self.jump.get('landing_height_weight',0)*landing_height_cost(rise,self.landed,self.jump['final_height_error_max_m'])
+        dense-=landing_settle_cost(self.robot.data.root_lin_vel_w[:,2],self.contact_on,self.landed,
+            self.jump.get('landing_vz_weight',0),self.jump.get('landing_support_weight',0))
         reward=dense*self.step_dt+3*self.flight_event.float()+self.new_touch.sum(dim=1)+8*self.success.float()-10*self.failure.float()
         reward+=self.jump.get('apex_progress_weight',0)*self.apex_progress_delta*(~self.failure)
         error=errors.mean(dim=1);self.error_sum+=error;self.sample_count+=1;self.reward_sum+=reward

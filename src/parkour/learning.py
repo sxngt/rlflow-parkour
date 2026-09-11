@@ -82,10 +82,10 @@ def restore(data, config, alg, normalizer, env, training):
 
 def make_env(config):
     from parkour.task import FootholdCfg, FootholdEnv
-    if config['task'] in ('a1_flat_jump_v1','a1_flat_jump_shaped_v2','a1_flat_jump_precise_v3'):
+    if config['task'] in ('a1_flat_jump_v1','a1_flat_jump_shaped_v2','a1_flat_jump_precise_v3','a1_flat_jump_supported_v4'):
         from parkour.jump_task import JumpCfg,JumpEnv
         cfg,env_type=JumpCfg(),JumpEnv
-        if config['task']=='a1_flat_jump_precise_v3':
+        if config['task'] in ('a1_flat_jump_precise_v3','a1_flat_jump_supported_v4'):
             from parkour.precision_jump_task import PrecisionJumpEnv
             env_type=PrecisionJumpEnv
         cfg.sequence=copy.deepcopy(config['sequence']);cfg.jump=copy.deepcopy(config['jump'])

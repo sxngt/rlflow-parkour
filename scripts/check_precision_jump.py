@@ -9,7 +9,7 @@ from parkour.runtime import launch_app
 launch_app(False)
 import torch
 from parkour.learning import make_env
-c=json.loads(Path('configs/p2-03-precise-jump.json').read_text());c['num_envs']=8
+c=json.loads(Path(sys.argv[1] if len(sys.argv)>1 else 'configs/p2-03-precise-jump.json').read_text());c['num_envs']=8
 e=make_env(c);e.reset();zero=torch.zeros(8,12,device=e.device)
 for _ in range(30):
  _,_,term,_,_=e.step(zero)
