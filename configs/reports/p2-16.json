@@ -1,0 +1,75 @@
+{
+  "title": "P2-16 · 목표 거리 커리큘럼",
+  "report": "p2-16",
+  "protocol": "p2-16-protocol.md",
+  "description": "동일 발판과 예산에서 거리 커리큘럼 4seed를 기존 P2-15 고정 분포와 비교한다. 기존 대조 결과 재사용이며 동시 무작위 실험은 아니다.",
+  "success_label": "목표 도약 성공",
+  "trace_episode_index": 3,
+  "show_forward_trace": true,
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "fixed-distance",
+      "seed": 0,
+      "run": "p2-15-deck-seed0",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "fixed-distance",
+      "seed": 1,
+      "run": "p2-15-deck-seed1",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "fixed-distance",
+      "seed": 2,
+      "run": "p2-15-deck-seed2",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "fixed-distance",
+      "seed": 3,
+      "run": "p2-15-deck-seed3",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "distance-curriculum",
+      "seed": 0,
+      "run": "p2-16-deck-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "distance-curriculum",
+      "seed": 1,
+      "run": "p2-16-deck-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "distance-curriculum",
+      "seed": 2,
+      "run": "p2-16-deck-seed2",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "distance-curriculum",
+      "seed": 3,
+      "run": "p2-16-deck-seed3",
+      "updates": 1600,
+      "reused": false
+    }
+  ]
+}
