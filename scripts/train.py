@@ -75,8 +75,8 @@ def main():
             if next_radius != active_radius:
                 env.jump["launch_radius_m"] = next_radius
                 active_radius = next_radius
-                raw, _ = env.reset()
                 with torch.inference_mode():
+                    raw, _ = env.reset()
                     obs = norm(raw["policy"])
                 transition = True
             successes, failures, episodes, errors = 0, 0, 0, []
