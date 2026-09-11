@@ -423,3 +423,12 @@ restored_distribution은checkpoint설정의완료update-1로cap을계산하고fl
 mean성공56/32/48/21,유효비행·최초정밀모두64,안정화64/64/64/53. sampled54/59,31/29,47/44,20/24. 기준P2-20 mean48/48/24/22. mean안정화실패43→11. seed0의15cm8/16성공,다른seed15cm0. seed1은10cm비행거리실패로퇴화. mean/sample gap은native std도.1→.05로다르므로동일잡음강건성주장금지. docs/p2-24-findings.md. 승격안함.
 
 다음P2-25 후보는거리상한20cm+마지막std.05조합(기존P2-20:15/.1,P2-21:20/.1,P2-24:15/.05에남은2×2조건). 새로운보상스윕대신두변경의상호작용검증. 기존결과를본뒤설계한탐색적비교임을명시. P2-24 config에서trainrange와마지막distancecurriculum상한만.2로변경,동일고정64평가/4seed예산. 프로토콜/설정/smoke후학습. 아직미착수,현재추가학습없음. 전체목표미완료.
+
+
+### 최신: P2-25 조합 조건 학습 시작
+
+직전 턴은P2-24전체완료로progress. 이번 턴 source5a27411, docs/p2-25-protocol.md/configs/p2-25-deck.json. 후반거리상한20cm+마지막std.05,나머지P2-24동일. P2-24대비거리변수만/P2-21대비최종cap만차이임을정확한config대조검증. configs/reports/p2-25.json은P2-20/21/24기존12run+새4run으로탐색적2×2비교.
+
+64env3update축소일정의거리.05/.1/.2,cap.35/.2/.05,reset/finite loss/effectivestd검증 및기존64scenario동일확인. smoke학습/평가·영상완료, artifacts/p2-25-smoke-audit.jsonl2감사통과. 주요 scripts/p2_25_train.py batch98960 실행중, fresh4seed×1024×24×1600 추가157286400step. 최신 [{"run": "p2-25-deck-seed0", "pid": 1495130, "live": true, "iteration": 76}, {"run": "p2-25-deck-seed1", "pid": 1495129, "live": true, "iteration": 76}, {"run": "p2-25-deck-seed2", "pid": 1495128, "live": true, "iteration": 78}, {"run": "p2-25-deck-seed3", "pid": 1495131, "live": true, "iteration": 78}]
+
+다음401/801(20cm)/1201(cap.05)과checkpoint검증,1600+mean평가8artifact감사 및configs/reports/p2-25.json 4종보고서. seed별거리/안정화/회귀와두변수상호작용분석. 새로운작은상한sweep반복금지;조합실패시목표표현/정책계약구조적재검토. 저장533GB여유. 전체목표미완료,중복실행금지.
