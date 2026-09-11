@@ -18,3 +18,8 @@ def stable_landing(stage, contacts, errors, vz, angular_speed, height_error, rad
             & (vz.abs() <= spec['final_vz_max_m_s'])
             & (angular_speed <= spec['final_angular_speed_max_rad_s'])
             & (height_error.abs() <= spec['final_height_error_max_m']))
+
+
+def final_alignment_cost(stage, errors, radius):
+    """Bounded per-foot XY alignment cost, active only after placement."""
+    return (stage == 4).float() * (errors / radius).square().clamp_max(16).mean(dim=1)

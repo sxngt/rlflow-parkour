@@ -4,7 +4,7 @@ import torch
 from parkour.sequential_task import SequentialEnv
 
 
-from parkour.sequence import stable_landing
+from parkour.sequence import stable_landing, final_alignment_cost
 
 
 class StableSequentialEnv(SequentialEnv):
@@ -48,6 +48,9 @@ class StableSequentialEnv(SequentialEnv):
                -.00002*self.robot.data.applied_torque.square().sum(dim=1))
         vz2=self.robot.data.root_lin_vel_w[:,2].square()
         dense-=self.seq['stability']['vertical_velocity_penalty']*vz2
+        alignment_weight=self.seq['stability'].get('final_alignment_penalty',0.)
+        if alignment_weight:
+            dense-=alignment_weight*final_alignment_cost(self.stage,self._errors(),self.cfg.success_radius_m)
         reward=(dense*self.step_dt+self.lift_event.float()+3*self.place_event.float()
                 +5*self.success.float()-30*self.failure.float())
         planar=self._errors().mean(dim=1)

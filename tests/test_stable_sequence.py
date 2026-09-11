@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src'))
 import torch
-from parkour.sequence import contact_events,stable_landing
+from parkour.sequence import contact_events,stable_landing,final_alignment_cost
 
 class StabilityTests(unittest.TestCase):
     def test_three_support_gate_rejects_two_support_lift(self):
@@ -20,3 +20,9 @@ class StabilityTests(unittest.TestCase):
         omega=torch.zeros(7);omega[5]=.6
         height=torch.zeros(7);height[6]=.05
         self.assertEqual(stable_landing(stages,contacts,errors,vz,omega,height,.025,spec).tolist(),[True,False,False,False,False,False,False])
+
+class AlignmentTests(unittest.TestCase):
+    def test_cost_is_final_only_and_does_not_hide_one_bad_foot(self):
+        errors=torch.tensor([[.1,0,0,0],[.1,0,0,0],[0,0,0,0],[1,1,1,1]])
+        cost=final_alignment_cost(torch.tensor([0,4,4,4]),errors,.025)
+        self.assertEqual(cost.tolist(),[0.,4.,0.,16.])
