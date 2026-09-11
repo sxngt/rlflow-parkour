@@ -195,3 +195,9 @@ P2-02 구현 및 검증 완료, 본 학습4개 실행 중. 새task a1_flat_jump_
 실제 GPU worker PID666799/666892/666997/667095를 확인했다. 4run은 update238–242까지 진행 중이며 종료 episode의 apex 명령 충족은 증가했지만 성공은 아직0. 이것은 중간 학습 통계이며 최종 평가 결과가 아니다. 기존 session42486/7314/10665/2176을 유지하고 새 실행을 만들지 않는다.
 
 scripts/experiment_report.py의 jump 표에 조건명(A/B)과 마지막 유효 표본의 높이 범위 위반 수를 추가했다. docs/p2-01 결과를 다시 생성해 기존 높이 진단 수치와 일치 확인. scripts/jump_trace_report.py configs/reports/p2-02.json은 평가 완료 후 조건별 동일 대표 명령의 높이/발오차 궤적을 생성한다. 각episode의 valid 마지막 표본을 사용하므로 성공 조기 종료·auto-reset 데이터가 최종높이에 섞이지 않는다. 기존 p2_01_trace_report.py는 호환 실행기로 유지한다. P2-02 종료 후 report와 trace report를 모두 실행할 것.
+
+### P2-02 중간 관측 및 정확한 종료 조건 기록
+
+4개 실제worker PID666799/666892/666997/667095가 살아 있고 update514–527까지증가했다. 평균 최종발오차약1–2cm,성공0이며고정예산유지. GPU33–34°C/약3GB씩,디스크540GB여유. 완료나최종성능으로해석하지않는다.
+
+commit2d5203f는평가에final_height_error_m/final_vz_m_s/final_angular_speed_rad_s/final_contact_all/final_supported/final_all_feet_in_radius를추가한다. diagnostics에root_xy/root_angular_velocity_b도추가. 제어·보상·종료논리는동일하고진행중학습프로세스는이미로드한기존코드대로실행된다. 자동최종평가가새commit의기록필드를저장한다. report는존재하는필드만위반수집계하며과거실행누락필드를추정하지않음. 마지막표본위반과전체hold실패원인은구분. py_compile/diff검사통과,실제새필드출력은자동평가완료후확인필요.
