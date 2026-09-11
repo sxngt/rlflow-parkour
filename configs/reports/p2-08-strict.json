@@ -1,0 +1,47 @@
+{
+  "title": "P2-08 · 3cm 출발 재평가",
+  "report": "p2-08-strict",
+  "protocol": "p2-08-strict-protocol.md",
+  "description": "고정된P2-08모델을3cm출발조건에서재평가한다. 추가학습없음.",
+  "success_label": "수평 도약 성공",
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "control",
+      "seed": 0,
+      "run": "p2-08-control-seed0",
+      "updates": 1600,
+      "reused": true,
+      "evaluation_run": "p2-08-control-seed0__strict-evaluation"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "control",
+      "seed": 1,
+      "run": "p2-08-control-seed1",
+      "updates": 1600,
+      "reused": true,
+      "evaluation_run": "p2-08-control-seed1__strict-evaluation"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "travel",
+      "seed": 0,
+      "run": "p2-08-travel-seed0",
+      "updates": 1600,
+      "reused": true,
+      "evaluation_run": "p2-08-travel-seed0__strict-evaluation"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "travel",
+      "seed": 1,
+      "run": "p2-08-travel-seed1",
+      "updates": 1600,
+      "reused": true,
+      "evaluation_run": "p2-08-travel-seed1__strict-evaluation"
+    }
+  ],
+  "trace_episode_index": 1,
+  "show_forward_trace": true
+}
