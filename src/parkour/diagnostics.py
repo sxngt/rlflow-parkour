@@ -91,3 +91,20 @@ def summarize(a,dt,scenario_ids,foot_names):
             'support_travel':('XY path length of all supported feet (grouped task).' if bool(a.get('all_feet_task',False)) else 'XY path length of non-active supported feet.')+' Consecutive physics samples; foot-center motion, not proven slip.',
             'scope':'All first episodes, includes initial settling, ends before auto-reset. Oracle simulated net contact forces, not physical sensor readings.'},
         'results':results}
+
+
+def jump_first_touches(a,nominal_xy,episodes,radius):
+    """Supplemental first-contact metric, excluding pre-flight and reset samples."""
+    results=[]
+    for i,episode in enumerate(episodes):
+        target=np.asarray(nominal_xy)+np.asarray(episode['foot_offsets_xy_m'])
+        after=a['valid'][:,i]&(a['stage'][:,i]>=1)
+        errors=[];times=[]
+        for foot in range(4):
+            candidates=np.flatnonzero(after&(np.linalg.norm(a['force'][:,i,foot],axis=1)>5))
+            t=int(candidates[0]) if len(candidates) else None
+            errors.append(float(np.linalg.norm(a['foot_pos'][t,i,foot,:2]-target[foot])) if t is not None else None)
+            times.append(float(a['time'][t]) if t is not None else None)
+        results.append({'scenario_id':episode['id'],'errors_m':errors,'times_s':times,
+            'all_within':all(x is not None and x<=radius for x in errors)})
+    return results

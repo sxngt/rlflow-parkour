@@ -16,7 +16,9 @@ def summarize(entry):
  assert meta['status']=='SUCCEEDED' and json.loads((train/'run.json').read_text())['status']=='SUCCEEDED'
  assert metrics[-1]['iteration']==entry.get('updates',800)
  with np.load(ev/'motion-trace.npz') as trace:
-  a={key:trace[key] for key in ('valid','stage','phase','foot_pos')}
+  keys=['valid','stage','phase','foot_pos']
+  if meta['config'].get('jump'):keys+=['force','time']
+  a={key:trace[key] for key in keys}
  count=r['episodes'];last=[np.flatnonzero(a['valid'][:,i])[-1] for i in range(count)]
  terminal=Counter((int(a['stage'][t,i]),int(a['phase'][t,i])) for i,t in enumerate(last))
  row={**entry,'episodes':count,'successes':r['successes'],'mean_contacts':r['mean_completed_contacts'],
@@ -27,6 +29,14 @@ def summarize(entry):
       'environment_steps':metrics[-1]['total_environment_steps'],
       'attempt_environment_steps':len(metrics)*meta['config']['runner']['num_steps_per_env']*json.loads((train/'run.json').read_text())['config']['num_envs'],
       'train_wall_seconds':json.loads(train.with_suffix('.supervisor.json').read_text())['wall_seconds']}
+ if meta['config'].get('jump'):
+  import sys
+  sys.path.insert(0,str(ROOT/'src'))
+  from parkour.diagnostics import jump_first_touches
+  first=jump_first_touches(a,meta['nominal_foot_xy_m'],sc['episodes'],meta['config']['jump']['landing_radius_m'])
+  row['first_touch_all_within']=sum(x['all_within'] for x in first)
+  row['first_touch_samples']=first
+  row['first_touch_definition']='First >5N foot force at 200Hz after valid-flight stage, foot body-center XY; supplemental metric, not the original success gate.'
  for key in ['valid_flights','landed_episodes','mean_flight_apex_rise_m','nonfoot_collisions']:
   if key in r:row[key]=r[key]
  if r['required_contacts']==1:
@@ -67,12 +77,12 @@ def main():
  stem=spec['report'];fig.tight_layout();fig.savefig(ROOT/f'docs/figures/{stem}-learning.png',dpi=160);plt.close(fig)
  total=sum(x['attempt_environment_steps'] for x in rows);new=sum(x['attempt_environment_steps'] for x in rows if not x.get('reused'))
  lines=[f"# {spec['title']}",'',spec['description'],'',f"비교 전체 {total:,} 환경 step, 신규 {new:,}step. [사전 프로토콜]({spec['protocol']}).",'',
- '| 발 | 조건 | seed | 안정화 성공 | 필요 착지 완료 | 낙상 | 시간초과 | ≥20ms 전 발 무접촉 |','|---|---|---:|---:|---:|---:|---:|---:|']
+ '| 발 | 조건 | seed | 안정화 성공 | 필요 착지 완료 | 낙상 | 시간초과 | ≥20ms 전 발 무접촉 |','|---|---|---:|---:|---:|---:|---:|---:|---:|']
  for x in rows:lines.append(f"| {x['foot']} | {x['condition']} | {x['seed']} | {x['successes']}/{x['episodes']} | {x['placed']}/{x['episodes']} | {x['failures']}/{x['episodes']} | {x['timeouts']}/{x['episodes']} | {x['flight_episodes']}/{x['episodes']} |")
  if any('valid_flights' in x for x in rows):
-  lines+=['','## 도약 계약 지표','','| seed | 유효 비행 | 비행 후 재접촉 | 최종 안정화 | 비발 접촉 종료 | 평균 비행 apex 상승 |','|---:|---:|---:|---:|---:|---:|']
+  lines+=['','## 도약 계약 지표','','| seed | 유효 비행 | 비행 후 재접촉 | 최종 안정화 | 비발 접촉 종료 | 평균 비행 apex 상승 | 네 발 첫 접촉 반경 내 |','|---:|---:|---:|---:|---:|---:|---:|']
   for x in rows:
-   if 'valid_flights' in x:lines.append(f"| {x['seed']} | {x['valid_flights']}/{x['episodes']} | {x['landed_episodes']}/{x['episodes']} | {x['successes']}/{x['episodes']} | {x['nonfoot_collisions']} | {100*x['mean_flight_apex_rise_m']:.2f} cm |")
+   if 'valid_flights' in x:lines.append(f"| {x['seed']} | {x['valid_flights']}/{x['episodes']} | {x['landed_episodes']}/{x['episodes']} | {x['successes']}/{x['episodes']} | {x['nonfoot_collisions']} | {100*x['mean_flight_apex_rise_m']:.2f} cm | {x['first_touch_all_within']}/{x['episodes']} |")
  if any('by_foot' in x for x in rows):
   lines+=['','## 공유 정책의 발별 평가','','| 조건 | seed | 이동 발 | 안정화 | 착지 | ≥20ms 전 발 무접촉 |','|---|---:|---|---:|---:|---:|']
   for x in rows:
