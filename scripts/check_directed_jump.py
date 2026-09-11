@@ -1,15 +1,16 @@
 """Synthetic travel contracts, including intentional teleports; not policy results."""
-import sys,json,os,traceback
+import sys,json,os,traceback,argparse
 from pathlib import Path
 def fatal(typ,exc,tb):
  traceback.print_exception(typ,exc,tb);sys.stderr.flush();os._exit(1)
 sys.excepthook=fatal
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src'))
+parser=argparse.ArgumentParser();parser.add_argument('--config',default='configs/p2-05-directed-jump.json');args=parser.parse_args()
 from parkour.runtime import launch_app
 launch_app(False)
 import torch
 from parkour.learning import make_env
-c=json.loads(Path('configs/p2-05-directed-jump.json').read_text());c['num_envs']=8
+c=json.loads(Path(args.config).read_text());c['num_envs']=8
 e=make_env(c);e.reset();zero=torch.zeros(8,12,device=e.device)
 assert e._get_observations()['policy'].shape==(8,66)
 assert ((e.goal_distance>=0)&(e.goal_distance<=.15)).all()
@@ -33,12 +34,17 @@ for distance in (0.,.15):
  e.flight_seen[:]=True;e.apex[:]=.08;e.required_apex[:]=.04;e.episode_length_buf[:]=30
  root=e.robot.data.root_state_w.clone();root[:,0]+=distance;e.robot.write_root_pose_to_sim(root[:,:7])
  finished=False
+ reward_count=torch.zeros(8,device=e.device);reward_total=torch.zeros(8,device=e.device)
  for i in range(30):
   _,_,term,_,extra=e.step(zero)
+  bonus=extra['terminal_metrics']['first_travel_reward'];reward_count+=(bonus>0);reward_total+=bonus
   if term.any():
    m=extra['terminal_metrics'];assert m['success'][term].all() and m['travel_requirement_met'][term].all()
    assert (m['flight_forward_m'][term]-distance).abs().max()<.01
    finished=True;break
  assert finished,f'Synthetic directed stance {distance} did not complete'
+ if c['jump'].get('travel_reward_weight',0)>0:
+  assert (reward_count==1).all(), 'Travel bonus must occur exactly once before synthetic success'
+  assert (reward_total<=c['jump']['travel_reward_weight']+1e-5).all() and (reward_total>0).all()
 print('PASS: sampled goals and observation, standing rejected, launch outside region rejected, zero and forward synthetic landing conjunction.',flush=True)
 os._exit(0)
