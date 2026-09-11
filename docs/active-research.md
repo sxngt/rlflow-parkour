@@ -343,3 +343,10 @@ sourcee303428, docs/p2-20-protocol.md/configs/p2-20-deck.json. exploration.py Bo
 직전 턴은 보상구현/검증/학습착수로 progress. 이번 턴은 동일실제PID를 확인하며 기다린 verified wait 후 update401 거리0–10cm/launch6cm/cap.35/reset_all=true 및모든loss유한/std상한검증. checkpoint100/400 hash정상. 최신 [{"run": "p2-22-deck-seed0", "pid": 1434460, "live": true, "iteration": 445, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"run": "p2-22-deck-seed1", "pid": 1434453, "live": true, "iteration": 455, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"run": "p2-22-deck-seed2", "pid": 1434435, "live": true, "iteration": 449, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"run": "p2-22-deck-seed3", "pid": 1434445, "live": true, "iteration": 451, "transition401_verified": true, "checkpoint400_hash_ok": true}]
 
 첫400update P2-20/22의episode/flight/landed/success를 artifacts/p2-22-first-stage.json에저장. 초기구간비교만으로최종성능이나착지회피확정금지. GPU약3GB/32–33도, 저장534GB여유. 다음801/1201전환 및1600최종평가. batch99704 유지,중복실행금지. 전체연구미완료.
+
+
+### 최신: P2-22 전체 거리와 탐색상한 전환 검증
+
+직전 턴은401전환/초기집계로 progress. 이번 턴은 동일실제PID 확인 후 verified wait 및 update801의거리0–15cm/launch4.5cm/cap.2/reset_all=true 검증. checkpoint500/800 hash정상, 전체loss유한/std상한준수. 최신 [{"run": "p2-22-deck-seed0", "pid": 1434460, "live": true, "iteration": 855, "transition801_verified": true, "checkpoint800_hash_ok": true, "training_successes": 492}, {"run": "p2-22-deck-seed1", "pid": 1434453, "live": true, "iteration": 892, "transition801_verified": true, "checkpoint800_hash_ok": true, "training_successes": 0}, {"run": "p2-22-deck-seed2", "pid": 1434435, "live": true, "iteration": 869, "transition801_verified": true, "checkpoint800_hash_ok": true, "training_successes": 26}, {"run": "p2-22-deck-seed3", "pid": 1434445, "live": true, "iteration": 863, "transition801_verified": true, "checkpoint800_hash_ok": true, "training_successes": 2175}]
+
+401–600 구간 seed0/2/3은대부분도약/착지, seed1은24632episode 중validflight286/landed0. 최종판정아니며착지회피가능성을계속검토. 다음1201/1600 및자동평가. post_landing_report는모든발최초접촉이있어야현재실행되므로만약최종모델에미접촉episode가있으면분석에서제외여부/분모를명시하도록수정해야함(성공사례만보고하지말것). batch99704 유지, 중복실행금지. 전체연구미완료.
