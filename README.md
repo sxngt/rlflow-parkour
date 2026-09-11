@@ -73,3 +73,5 @@ GPU 현황, 학습·평가 지표, 실행 비교, 실제 학습/평가 영상, �
 최근 연구: [P1 · hopping 진단 결과](docs/hopping-diagnosis-results.md) · [연구 phase·태그 사용법](docs/research-phases.md).
 
 최근 비교: [Step 02 · 3발 지지와 안정화 파일럿](docs/step02-results.md) — 수직 속도 벌점 A/B, 두 seed씩 평가. 아직 완주 정책을 확보하지 못했습니다.
+
+P2-09 거리 확장: [결과](docs/p2-09-results.md), [3cm 재평가](docs/p2-09-strict-results.md). 다음 [P2-10](docs/p2-10-protocol.md)은 같은 조건에서3cm 출발을 직접 학습한다.

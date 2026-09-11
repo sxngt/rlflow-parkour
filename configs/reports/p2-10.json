@@ -1,0 +1,43 @@
+{
+  "title": "P2-10 · 3cm 출발 조건 직접 학습",
+  "report": "p2-10",
+  "protocol": "p2-10-protocol.md",
+  "description": "P2-09와 같은 비행거리 보상과0–15cm 명령에서 출발 범위만3cm로 줄여 새 정책을 학습한다.",
+  "success_label": "수평 도약 성공",
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "strict",
+      "seed": 0,
+      "run": "p2-10-strict-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "strict",
+      "seed": 1,
+      "run": "p2-10-strict-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "strict",
+      "seed": 2,
+      "run": "p2-10-strict-seed2",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "strict",
+      "seed": 3,
+      "run": "p2-10-strict-seed3",
+      "updates": 1600,
+      "reused": false
+    }
+  ],
+  "trace_episode_index": 3,
+  "show_forward_trace": true
+}
