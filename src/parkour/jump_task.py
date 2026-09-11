@@ -110,5 +110,10 @@ class JumpEnv(SequentialEnv):
           'final_error_m':error.clone(),'return':self.reward_sum.clone(),'completed_contacts':self.touched.sum(dim=1).clone(),
           'valid_flight':self.flight_seen.clone(),'landed':self.landed.clone(),'flight_apex_rise_m':self.apex.clone(),
           'required_apex_m':self.required_apex.clone(),'air_time_s':self.air_time.clone(),
-          'nonfoot_collision':self.nonfoot_collision.clone(),'final_stable_steps':self.hold_steps.clone()}
+          'nonfoot_collision':self.nonfoot_collision.clone(),'final_stable_steps':self.hold_steps.clone(),
+          'final_height_error_m':rise.clone(),'final_vz_m_s':self.robot.data.root_lin_vel_w[:,2].clone(),
+          'final_angular_speed_rad_s':self.robot.data.root_ang_vel_b.norm(dim=1).clone(),
+          'final_contact_all':self.contact_on.all(dim=1).clone(),
+          'final_all_feet_in_radius':(errors<=self.jump['landing_radius_m']).all(dim=1).clone(),
+          'final_supported':(self.contacts.data.net_forces_w_history.norm(dim=-1)[:,:,self.contact_ids]>2).all(dim=(1,2)).clone()}
         return reward

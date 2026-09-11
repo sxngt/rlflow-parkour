@@ -41,6 +41,16 @@ def summarize(entry):
   row['terminal_height_outside_tolerance']=int((np.abs(terminal_rise)>meta['config']['jump']['final_height_error_max_m']).sum())
   row['apex_command_met']=sum(x['valid_flight'] and x['flight_apex_rise_m']>=x['required_apex_m'] for x in r['results'])
   row['terminal_stable_steps_histogram']=dict(sorted(Counter(str(x['final_stable_steps']) for x in r['results']).items()))
+  if 'final_supported' in r['results'][0]:
+   spec=meta['config']['jump']
+   row['terminal_gate_violations']={
+    'height':sum(abs(x['final_height_error_m'])>spec['final_height_error_max_m'] for x in r['results']),
+    'vertical_speed':sum(abs(x['final_vz_m_s'])>spec['final_vz_max_m_s'] for x in r['results']),
+    'angular_speed':sum(x['final_angular_speed_rad_s']>spec['final_angular_speed_max_rad_s'] for x in r['results']),
+    'foot_target':sum(not x['final_all_feet_in_radius'] for x in r['results']),
+    'contact_state':sum(not x['final_contact_all'] for x in r['results']),
+    'support_history':sum(not x['final_supported'] for x in r['results'])}
+
   row['first_touch_definition']='First >5N foot force at 200Hz after valid-flight stage, foot body-center XY; supplemental metric, not the original success gate.'
  for key in ['valid_flights','landed_episodes','mean_flight_apex_rise_m','nonfoot_collisions']:
   if key in r:row[key]=r[key]
@@ -97,6 +107,10 @@ def main():
  for x in rows:
   lines.append(f"- {x['foot']} {x['condition']} seed {x['seed']}: `{x['terminal_stage_phase']}`")
   for foot,v in x.get('by_foot',{}).items():lines.append(f"  - {foot}: `{v['terminal_stage_phase']}`")
+ if any('terminal_gate_violations' in x for x in rows):
+  lines+=['','## 마지막 제어 표본의 안정화 조건 위반','','복수 위반을 허용한다. 연속 hold 전체 구간의 실패 원인과 같지 않으며, 기록되지 않은 과거 실행은 표시하지 않는다.','']
+  for x in rows:
+   if 'terminal_gate_violations' in x:lines.append(f"- {x['condition']} seed {x['seed']}: `{x['terminal_gate_violations']}`")
  lines+=['','## 해석 및 다음 판단','']+spec.get('findings',['분석 중. 표만으로 모델 승격을 결정하지 않는다.'])
  lines+=['','## 범위·재현','',
  '개발 조건의 탐색적 실험이다. 평가 episode 수와 독립 학습 seed 수를 구분하며 최종 시험 결과로 주장하지 않는다. 같은 발의 평가 시나리오가 동일함을 확인했다. 설정·checkpoint·원본200Hz NPZ는 artifacts, 최종16대병렬영상은 result에 보존한다. 재사용 대조군 원본은 변경하지 않는다.','',

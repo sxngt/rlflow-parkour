@@ -25,6 +25,8 @@ class MotionDiagnostics:
             'time':self.elapsed,'valid':cpu(~self.done),
             'root_z':cpu(e.robot.data.root_pos_w[:,2]-e.scene.env_origins[:,2]),
             'root_vz':cpu(e.robot.data.root_lin_vel_w[:,2]),
+            'root_xy':cpu(e.robot.data.root_pos_w[:,:2]-e.scene.env_origins[:,:2]),
+            'root_angular_velocity_b':cpu(e.robot.data.root_ang_vel_b),
             'foot_pos':cpu(e.robot.data.body_pos_w[:,e.foot_ids]-e.scene.env_origins[:,None,:]),
             'foot_vel':cpu(e.robot.data.body_lin_vel_w[:,e.foot_ids]),
             'force':cpu(e.contacts.data.net_forces_w[:,e.contact_ids]),
