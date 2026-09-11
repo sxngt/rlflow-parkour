@@ -179,3 +179,13 @@ JumpEnv/JumpCfg, jump_events.py를 추가했다. self-collision on, 비발전체
 8run UUID/lease회수/checkpoint·영상·진단hash감사통과(artifacts/p2-01-audit.jsonl). result에최종영상4개보존. docs/p2-01-results.md,summary,height-diagnosis,figures의결과 및 scripts/p2_01_trace_report.py로진단재생성. 200Hz 첫접촉 지표는학습시작후추가한보조지표이며원래성공계약은그대로다. tests24통과.
 
 다음은P2-02 보상 수정: 유효비행 후 요구apex까지의1회성 진행 보상, 착지 후 몸체 높이 비용을 결합한다. 성공 조건·구동기·명령분포·예산은유지하고기준선4seed와비교한다. 두항개별기여를분리한주장은하지않음. 먼저순수함수검증/짧은시뮬레이터경로검증. 모델승격없음. 현재4GPU회수완료. goal active,사용자중단전까지계속진행.
+
+## P2-02 본 학습 실행 인계
+
+P2-02 구현 및 검증 완료, 본 학습4개 실행 중. 새task a1_flat_jump_shaped_v2, 보상 추가분은 episode당 최대3의apex 진행도 증가와 착지 후 높이 정규화 제곱 비용0.5×dt(상한초당2). 성공/실패/명령/관측/구동기/PPO 조건은동일. docs/p2-02-protocol.md 사전고정. 두항결합효과만주장하며개별기여는미분리.
+
+단위26개통과, 실제시뮬레이터 합성검사에서서기거부/유효비행/공중성공거부/진행도포화·중복보상방지/최종hold통과. artifacts/p2-02-jump-state-check.log. 별도64env×2update,64평가+MP4+200Hz+result 및2run감사완료: artifacts/p2-02-shaped-implementation-check, __final-evaluation. 구현확인성공0/유효비행0이며본예산제외.
+
+본4run artifacts/p2-02-shaped-seed{0,1,2,3}, GPU index=seed. 각1024×24×1600updates=39,321,600step,총157,286,400신규. 현재shell tool session42486/7314/10665/2176;4run RUNNING 실제update7–12확인. 실행commit d720f20. supervisor1800초,최종64평가자동영상/진단180초. 기다리는 동안실제메트릭/프로세스확인하며중복실행하지말것.
+
+다음행동: 종료/자동평가/자원회수 후8run감사, configs/reports/p2-02.json로보고서생성. 명세는P2-01의4seed를재사용A로포함하고새4seed를B로비교(총314,572,800step,신규절반). 첫접촉/요구높이충족/최종높이를별도확인. 기존P2-01영상/원본config는변경하지않고catalog override에P2-02대조군태그추가. API runs/videos200확인. 보조지표는사후진단이며시험군주장안함. 모델승격없음. goal active 유지,사용자중단전까지연구계속.
