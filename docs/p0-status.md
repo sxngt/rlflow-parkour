@@ -201,3 +201,17 @@ scripts/experiment_report.py의 jump 표에 조건명(A/B)과 마지막 유효 �
 4개 실제worker PID666799/666892/666997/667095가 살아 있고 update514–527까지증가했다. 평균 최종발오차약1–2cm,성공0이며고정예산유지. GPU33–34°C/약3GB씩,디스크540GB여유. 완료나최종성능으로해석하지않는다.
 
 commit2d5203f는평가에final_height_error_m/final_vz_m_s/final_angular_speed_rad_s/final_contact_all/final_supported/final_all_feet_in_radius를추가한다. diagnostics에root_xy/root_angular_velocity_b도추가. 제어·보상·종료논리는동일하고진행중학습프로세스는이미로드한기존코드대로실행된다. 자동최종평가가새commit의기록필드를저장한다. report는존재하는필드만위반수집계하며과거실행누락필드를추정하지않음. 마지막표본위반과전체hold실패원인은구분. py_compile/diff검사통과,실제새필드출력은자동평가완료후확인필요.
+
+## P2-02 완료: 네 seed 안정화 성공, 첫 착지 정밀성은 미달
+
+4개1600updates 및각64평가완료. A=P2-01모든seed0/64 → B=P2-02모든seed64/64. 유효비행/apex명령충족/네발재접촉전부64/64,최종높이·수직속도·각속도·목표반경·접촉상태·history위반전부0. 비행apex평균5.7/6.3/7.6/6.1cm,최종높이보정자세대비-1.30/-0.61/-0.37/-0.55cm. 작은평지명령개발집합에서의도약후안정화성과로범위제한. 정밀apex추종/외란/갭/최종시험주장안함. 모델자동승격없음.
+
+하지만첫접촉네발모두5cm내는A/B전seed0/64. B발별첫접촉오차최대값의episode평균13.1/21.1/7.0/10.4cm. 최종정렬과첫착지는다르다. 다음은P2-03 첫착지정밀화이고이후수평목표/제한착지면/갭확장. P1정적문제를다시끝없이최적화하지않는다.
+
+artifacts/p2-02-audit.jsonl의8run감사통과,4GPU실제compute프로세스없음/회수완료. result에4최종MP4등록. docs/p2-02-results,summary,height-diagnosis,figures생성. 종료조건추가기록의실제출력확인. scripts/experiment_report.py 및jump_trace_report.py configs/reports/p2-02.json로재생성. 현재학습worker없음,새P2-03검증준비중.
+
+src/parkour/first_touch.py 순수torch FirstTouch 모듈과tests/test_first_touch.py를추가했다. flight_seen 이후최초합력>5N의발중심XY를발별고정. 비행전/정확히5N은제외,두번째접촉/후속보정으로오차덮어쓰지않음,일부env reset격리.27단위검사통과. 아직시뮬레이터에연결하지않았고새정책학습은미실행이다.
+
+다음구현제안: 별도PrecisionJumpEnv가JumpEnv를상속하고scene.update를감싸각200Hz물리갱신직후FirstTouch.update를호출. 기존MotionDiagnostics도scene.update를감싸므로기존wrapper를먼저호출해순서를보존한다. localXY=body_pos-env_origin,targets는world기준이므로동일frame변환필수. parent __init__ stancecalibration후hook설치,reset시FirstTouch초기화. _pre_physics_step에서보상누적buffer0,각physics첫접촉만bonus누적. 최초비행latched이후만작동하므로기존사후진단stage>=1과대조가능하다. IsaacDirectRLEnv.step은physics scene.update4회→episodecounter증가→dones→rewards→reset→observations순서임을로컬코드확인했다.
+
+성공계약제안: 기존안정화성공 AND first_touch.within(.05). 기존안정화달성은별도latch해보고,새엄격성공과기존성공을혼동하지않는다. 목표밖첫착지후보정은새성공불가. 보상제안은기존v2를유지하고첫접촉위치bonus(예:2*exp(-error/.08),발별1회)를추가; 아직고정/실행하지않았으므로프로토콜을먼저확정하고검증할것. 명령분포는우선기존평지목표,새4seed고정예산비교. 공통첫접촉지표로기존모델과비교해야하며새성공률을기존성공률과동일계약처럼비교하지않는다. 합성정확/잘못된첫접촉·이후보정거부·reset검사,짧은학습/평가/200Hz일치검증후본학습. goal active 유지.
