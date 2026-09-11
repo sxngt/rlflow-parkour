@@ -1,0 +1,114 @@
+[
+  {
+    "run": "p2-15-flat-seed0",
+    "condition": "flat-train \u2192 flat-eval",
+    "seed": 0,
+    "mean_terminal_base_rise_m": 0.012716680765151978,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-15-flat-seed0",
+    "condition": "flat-train \u2192 deck-eval",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.013375869020819664,
+    "terminal_height_outside_tolerance": 16
+  },
+  {
+    "run": "p2-15-flat-seed1",
+    "condition": "flat-train \u2192 flat-eval",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.11237494647502899,
+    "terminal_height_outside_tolerance": 63
+  },
+  {
+    "run": "p2-15-flat-seed1",
+    "condition": "flat-train \u2192 deck-eval",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.10211755335330963,
+    "terminal_height_outside_tolerance": 64
+  },
+  {
+    "run": "p2-15-flat-seed2",
+    "condition": "flat-train \u2192 flat-eval",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.02263805642724037,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-15-flat-seed2",
+    "condition": "flat-train \u2192 deck-eval",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.023105639964342117,
+    "terminal_height_outside_tolerance": 2
+  },
+  {
+    "run": "p2-15-flat-seed3",
+    "condition": "flat-train \u2192 flat-eval",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.011301770806312561,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-15-flat-seed3",
+    "condition": "flat-train \u2192 deck-eval",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.036564700305461884,
+    "terminal_height_outside_tolerance": 16
+  },
+  {
+    "run": "p2-15-deck-seed0",
+    "condition": "deck-train \u2192 flat-eval",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.05822204053401947,
+    "terminal_height_outside_tolerance": 36
+  },
+  {
+    "run": "p2-15-deck-seed0",
+    "condition": "deck-train \u2192 deck-eval",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.04444550350308418,
+    "terminal_height_outside_tolerance": 18
+  },
+  {
+    "run": "p2-15-deck-seed1",
+    "condition": "deck-train \u2192 flat-eval",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.08406822383403778,
+    "terminal_height_outside_tolerance": 62
+  },
+  {
+    "run": "p2-15-deck-seed1",
+    "condition": "deck-train \u2192 deck-eval",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.10479876399040222,
+    "terminal_height_outside_tolerance": 64
+  },
+  {
+    "run": "p2-15-deck-seed2",
+    "condition": "deck-train \u2192 flat-eval",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.020400188863277435,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-15-deck-seed2",
+    "condition": "deck-train \u2192 deck-eval",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.018824834376573563,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-15-deck-seed3",
+    "condition": "deck-train \u2192 flat-eval",
+    "seed": 3,
+    "mean_terminal_base_rise_m": 0.05387967824935913,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-15-deck-seed3",
+    "condition": "deck-train \u2192 deck-eval",
+    "seed": 3,
+    "mean_terminal_base_rise_m": 0.05418995022773743,
+    "terminal_height_outside_tolerance": 0
+  }
+]

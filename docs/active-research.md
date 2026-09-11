@@ -91,3 +91,12 @@ P2-15 deck seed0/1 학습1600완료, same-terrain평가각0/64, validflight0 및
 seed0/1 학습4+평가8 모두완료. artifacts/p2-15-wave1-audit.jsonl 12감사통과. docs/p2-15-wave1-results.md/summary.json/height-diagnosis.json 및figures학습/trace 생성, 명세 artifacts/p2-15-wave1-report.json. 최종보고서가아닌부분결과임. 모든평가성공0. flat학습seed0은flat에서validflight64/64 및deck48/64; flatseed1과deckseed0/1은양쪽validflight0. offline flight_episode_count는진단전발무접촉으로validflight와구분.
 
 두번째묶음현재실행PID: deckseed2 1150396, deckseed3 1150580, flatseed2 1153273, flatseed3 1152558. 실제metrics증가확인. batch99332 유지; 중복실행금지. 최종전체8학습/16평가까지예산고정. 각영상result자동보존. 이번턴은완료12artifact감사와원본200Hz대조/부분보고서생성으로progress.
+
+
+### 최신: P2-15 전체 완료 및 64개 근접 구도 확인
+
+8개 학습과 16개 주요 평가가 모두 SUCCEEDED이며 실제 worker PID가 종료된 것을 확인했다. artifacts/p2-15-audit.jsonl 24개 감사 통과. configs/reports/p2-15.json으로 전체 results/summary/height-diagnosis와 두 figure를 생성했다. 성공 수(seed 0/1/2/3, 각 64회): flat→flat 0/0/10/17, flat→deck 0/0/11/0, deck→flat 0/0/0/48, deck→deck 0/0/0/48. deck seed3은 0/5/10cm 각16/16, 15cm는 비행 이동거리 부족으로0/16. 전체적인 학습 안정성이나 좁은 발판/갭 해결을 주장할 수 없다.
+
+사용자 최신 선호: 64개를 렌더링하되 16개 때와 같은 카메라 거리를 유지하고 바깥 로봇은 잘려도 된다. 기존 evaluation_video_envs=64, evaluation_camera_side=4 및 cross CLI에 이미 반영됨. deck seed3 최종 MP4 0.7초 프레임을 직접 확인했다. 모든64개가 화면 안에 들어온다는 뜻은 아니다. 주요16영상은 result에 저장되어 있으며 smoke2개도 별도로 존재한다.
+
+다음 연구 작업은 P2-15 유한 지지면의 첫 접촉 위치 검증과 실패 원인 종합, 이후 제한된 다음 학습 프로토콜 선정이다. P2-14 분석기의 지형 경계 검증 로직은 재사용할 수 있으나 +15cm 전용 manifest와 현재 혼합 거리 평가를 혼동하지 말 것. 현재 GPU 연구 worker는 모두 종료했으며 새 학습을 시작하지 않았다. 전체 연구 목표는 미완료다.
