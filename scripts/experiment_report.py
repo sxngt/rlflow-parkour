@@ -59,6 +59,12 @@ def summarize(entry):
 
   if 'by_distance' in r:
    row['by_distance']=r['by_distance']
+   row['launch_radius_m']=meta['config']['jump']['launch_radius_m']
+   origin=np.asarray(meta['stance_calibration']['root_state'][:2])
+   distances=[float(np.linalg.norm(np.asarray([record['launch_root_x_m'],record['launch_root_y_m']])-origin)) if record['launch_recorded'] else None for record in r['results']]
+   row['launch_displacement_m']=distances
+   row['recorded_launches_within_3cm']=sum(d is not None and d<=.03 for d in distances)
+   row['successful_trajectories_within_3cm']=sum(record['success'] and d is not None and d<=.03 for record,d in zip(r['results'],distances))
    for i,(sample,record) in enumerate(zip(first,r['results'])):
     if record['launch_recorded']:
      stages=np.flatnonzero(a['valid'][:,i]&(a['stage'][:,i]>=1))
@@ -152,9 +158,12 @@ def main():
   lines+=['','## 공통 지표 분리','','| 조건 | seed | 기존 안정화 달성 | 첫 접촉 네 발 반경 내 |','|---|---:|---:|---:|']
   for x in rows:lines.append(f"| {x['condition']} | {x['seed']} | {x.get('stabilized_once',x['successes'])}/{x['episodes']} | {x['first_touch_all_within']}/{x['episodes']} |")
  if any('by_distance' in x for x in rows):
-  lines+=['','## 거리별 평가','','| seed | 전방 목표 | 성공 | 출발 영역 | 실비행 이동 충족 | 첫 접촉 반경 | 안정화 |','|---:|---:|---:|---:|---:|---:|---:|']
+  lines+=['','## 출발 계약과 궤적 부분집합','','3cm 내 성공 궤적 수는 현재 실행에서의 부분집합이다. 다른 출발 반경으로 재실행한 평가를 대체하지 않는다.','','| 조건 | seed | 실행 출발 반경 | 3cm 내 출발 / 전체 | 3cm 내 성공 / 전체 |','|---|---:|---:|---:|---:|']
   for x in rows:
-   for distance,v in x.get('by_distance',{}).items():lines.append(f"| {x['seed']} | {100*float(distance):g} cm | {v['successes']}/{v['episodes']} | {v['launches_in_region']}/{v['episodes']} | {v['travel_met']}/{v['episodes']} | {v['first_touch_precise']}/{v['episodes']} | {v['stabilized']}/{v['episodes']} |")
+   if 'launch_radius_m' in x:lines.append(f"| {x['condition']} | {x['seed']} | {100*x['launch_radius_m']:g} cm | {x['recorded_launches_within_3cm']}/{x['episodes']} | {x['successful_trajectories_within_3cm']}/{x['episodes']} |")
+  lines+=['','## 거리별 평가','','| 조건 | seed | 전방 목표 | 성공 | 출발 영역 | 실비행 이동 충족 | 첫 접촉 반경 | 안정화 |','|---|---:|---:|---:|---:|---:|---:|---:|']
+  for x in rows:
+   for distance,v in x.get('by_distance',{}).items():lines.append(f"| {x['condition']} | {x['seed']} | {100*float(distance):g} cm | {v['successes']}/{v['episodes']} | {v['launches_in_region']}/{v['episodes']} | {v['travel_met']}/{v['episodes']} | {v['first_touch_precise']}/{v['episodes']} | {v['stabilized']}/{v['episodes']} |")
  if any('by_foot' in x for x in rows):
   lines+=['','## 공유 정책의 발별 평가','','| 조건 | seed | 이동 발 | 안정화 | 착지 | ≥20ms 전 발 무접촉 |','|---|---:|---|---:|---:|---:|']
   for x in rows:
