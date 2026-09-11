@@ -2,7 +2,7 @@
 
 2026-09-12 갱신. 사용자 중단 전까지 연구 goal active. 실제 PID·GPU·artifact로 상태를 재확인한다.
 
-## 현재 작업: P2-07 출발 영역 진단
+## 현재 작업: P2-07 평가 완료, 엄격 출발 조건 재평가 준비
 
 [사전 프로토콜](p2-07-protocol.md). P2-06과 동일한 설정에서 출발 반경만3→6cm로 변경했다. config 비교로 태그 외 다른 차이가 없음을 확인했다. source commit1cb2cf0. 각1024환경×24step×1600updates, 총157,286,400 신규step. 신규 정책 학습이며 전이 없음.
 
@@ -12,6 +12,8 @@
 | 1 | p2-07-zero-seed1 | 26781 |
 | 2 | p2-07-short-seed0 | 65499 |
 | 3 | p2-07-short-seed1 | 52191 |
+
+네 학습과 네 자동 평가는 모두 SUCCEEDED이며8run audit와원본좌표 대조를 통과했다. GPU compute PID 없음 확인. 위 session은 종료된 실행이며 재시작하지 않는다.
 
 zero는 제자리, short는0–5cm 학습. worker 제한3600초, 자동64개 고정 평가·16대 MP4·200Hz 진단. 평가0/5/10/15cm 각각16개, 범위 밖 명령은 전이 진단이다. 실행 도중 설정 변경·중복 실행 금지. PID는 새 턴에서 확인한다.
 
@@ -35,3 +37,9 @@ zero는 제자리, short는0–5cm 학습. worker 제한3600초, 자동64개 고
 ## 환경
 
 Isaac Python /mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh. .monitor-venv에는 NumPy 없음. 모니터링 http://203.241.249.48:18710/ . 단계·조건 태그 configs/research-tags.json. 장기 이력 [p0-status.md](p0-status.md). 실기·실제 갭·Planner는 아직 검증하지 않았다.
+
+## P2-07 확정 결과와 바로 다음 작업
+
+[p2-07-results.md](p2-07-results.md). 전4run 비행64/64. zero seed0/1 성공0/31, short seed0/1 성공16/16. short는0cm만성공하고5cm는정밀첫접촉·안정화16/16이나실비행이동0/16이다. 실제이동1.47–1.82cm로최소2cm미달. zero seed1은0cm15/16,5cm16/16이며3cm내성공부분집합31개. 다른run3cm내성공0개.
+
+다음은 추가 학습 전에 고정된 네 checkpoint를3cm 종료조건으로 재평가한다. scripts/evaluate.py는 현재 radius override가 없고 learning.restore는jump계약의일치를검사한다. 일반적인 계약검사를 무력화하지 말고 평가 전용의 명시적·기록되는 출발반경 override를 구현해야 한다. 허용 범위는 DirectedJumpEnv의더엄격한양수반경으로 제한할 수 있다. 학습재개에는 허용하지 않는다. 소스·원래학습계약·적용평가계약을 모두 남긴다. 새로운 평가 run 이름과 protocol을 정해4GPU에서실행한다. 이후 수평 추진 보상/학습을 판단한다. 아직 새학습 시작하지 않음.
