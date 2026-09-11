@@ -1,7 +1,9 @@
 """Fixed, complete first-episode evaluation, with optional original-frame MP4."""
 from __future__ import annotations
 import argparse
+import copy
 import json
+import math
 from pathlib import Path
 import sys
 import traceback
@@ -21,10 +23,16 @@ def main():
     p.add_argument("--video-envs", type=int, default=16)
     p.add_argument("--diagnostics", action="store_true")
     p.add_argument("--research-tag", action="append", default=[])
+    p.add_argument('--launch-radius', type=float, help='Evaluation-only tighter directed-jump launch radius in metres')
     args = p.parse_args()
     if args.baseline != "zero" and not args.checkpoint:
         p.error("policy evaluation requires checkpoint")
     config = json.loads(args.config.read_text())
+    if args.launch_radius is not None:
+        if (not args.checkpoint or config['task'] != 'a1_directed_jump_v5'
+                or not math.isfinite(args.launch_radius)
+                or not 0 < args.launch_radius <= config['jump']['launch_radius_m']):
+            p.error('Launch override requires a directed-jump checkpoint and a positive, no-larger radius')
     if args.research_tag:config["research_tags"] = args.research_tag
     manifest = development_scenarios(args.episodes, config["target_offset_m"], config.get('sequence'))
     if config.get('jump'):
@@ -53,6 +61,16 @@ def main():
             meta["checkpoint"] = {"path": str(args.checkpoint.resolve()), "sha256": sha256(args.checkpoint)}
             meta['checkpoint'].update(training_seed=data['config']['seed'], completed_iterations=data['completed_iterations'],
                                       total_environment_steps=data['total_environment_steps'])
+        if args.launch_radius is not None:
+            # Restore first under the original contract; training restore remains strict.
+            meta['checkpoint_training_config'] = copy.deepcopy(data['config'])
+            meta['evaluation_override'] = {'field': 'jump.launch_radius_m',
+                'from': config['jump']['launch_radius_m'], 'to': args.launch_radius}
+            config['jump']['launch_radius_m'] = args.launch_radius
+            env.jump['launch_radius_m'] = args.launch_radius
+            meta['config'] = config
+            atomic_json(args.out / 'config.json', config)
+            atomic_json(args.out / 'run.json', meta)
         alg.policy.eval()
         norm.eval()
         env.reset()

@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 ROOT=Path(__file__).resolve().parents[1]
 
 def summarize(entry):
- train=ROOT/'artifacts'/entry['run'];ev=train.with_name(train.name+'__final-evaluation')
+ train=ROOT/'artifacts'/entry['run'];ev=ROOT/'artifacts'/entry.get('evaluation_run',train.name+'__final-evaluation')
  meta=json.loads((ev/'run.json').read_text());r=json.loads((ev/'evaluation.json').read_text())
  d=json.loads((ev/'diagnostics.json').read_text());sc=json.loads((ev/'scenarios.json').read_text())
  metrics=[json.loads(s) for s in (train/'metrics.jsonl').read_text().splitlines()]

@@ -1,0 +1,47 @@
+{
+  "title": "P2-07 · 3cm 출발 조건 재평가",
+  "report": "p2-07-strict",
+  "protocol": "p2-07-strict-evaluation-protocol.md",
+  "description": "고정된6cm 학습 정책을3cm 출발 종료 조건에서 재평가한다. 추가 학습 없음.",
+  "success_label": "수평 도약 성공",
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "zero-3cm-eval",
+      "seed": 0,
+      "run": "p2-07-zero-seed0",
+      "updates": 1600,
+      "reused": true,
+      "evaluation_run": "p2-07-zero-seed0__strict-evaluation"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "zero-3cm-eval",
+      "seed": 1,
+      "run": "p2-07-zero-seed1",
+      "updates": 1600,
+      "reused": true,
+      "evaluation_run": "p2-07-zero-seed1__strict-evaluation"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "short-3cm-eval",
+      "seed": 0,
+      "run": "p2-07-short-seed0",
+      "updates": 1600,
+      "reused": true,
+      "evaluation_run": "p2-07-short-seed0__strict-evaluation"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "short-3cm-eval",
+      "seed": 1,
+      "run": "p2-07-short-seed1",
+      "updates": 1600,
+      "reused": true,
+      "evaluation_run": "p2-07-short-seed1__strict-evaluation"
+    }
+  ],
+  "trace_episode_index": 1,
+  "show_forward_trace": true
+}

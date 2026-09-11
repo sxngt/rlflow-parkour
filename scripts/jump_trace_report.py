@@ -13,7 +13,7 @@ def main():
  sample_index=spec.get('trace_episode_index',0);forward=spec.get('show_forward_trace',False)
  fig,axes=plt.subplots(3 if forward else 2,len(conditions),figsize=(10*len(conditions),10 if forward else 7),squeeze=False);details=[];scenario=None
  for entry in spec['runs']:
-  p=ROOT/'artifacts'/(entry['run']+'__final-evaluation');m=json.loads((p/'run.json').read_text());r=json.loads((p/'evaluation.json').read_text());manifest=json.loads((p/'scenarios.json').read_text())
+  p=ROOT/'artifacts'/entry.get('evaluation_run',entry['run']+'__final-evaluation');m=json.loads((p/'run.json').read_text());r=json.loads((p/'evaluation.json').read_text());manifest=json.loads((p/'scenarios.json').read_text())
   assert m['status']=='SUCCEEDED' and m['config'].get('jump')
   assert [x['scenario_id'] for x in r['results']]==[x['id'] for x in manifest['episodes']]
   if scenario is None:scenario=manifest['episodes'][sample_index]
