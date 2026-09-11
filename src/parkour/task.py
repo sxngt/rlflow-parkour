@@ -29,6 +29,7 @@ class FootholdCfg(DirectRLEnvCfg):
     success_radius_m = 0.035
     success_dwell_s = 0.2
     surface_height_m = 0.0
+    evaluation_support = None
     sim = sim_utils.SimulationCfg(dt=0.005, render_interval=4)
     scene = InteractiveSceneCfg(num_envs=256, env_spacing=2.5, replicate_physics=True)
     robot = UNITREE_A1_CFG.replace(prim_path="/World/envs/env_.*/Robot")
@@ -68,6 +69,20 @@ class FootholdEnv(DirectRLEnv):
         self.cfg.terrain.num_envs = self.cfg.scene.num_envs
         self.cfg.terrain.env_spacing = self.cfg.scene.env_spacing
         self.terrain = self.cfg.terrain.class_type(self.cfg.terrain)
+        support = self.cfg.evaluation_support
+        if support and support['mode'] != 'flat':
+            # Replace the ground before physics initialization. Moving its parent
+            # Xform alone did not move the plane collider in this Isaac version.
+            self.scene.stage.RemovePrim(self.cfg.terrain.prim_path)
+            ground = sim_utils.GroundPlaneCfg(physics_material=self.cfg.terrain.physics_material)
+            ground.func(self.cfg.terrain.prim_path, ground,
+                        translation=(0., 0., support['layout']['catch_floor_z_m']))
+            for surface in support['layout']['surfaces']:
+                block = sim_utils.CuboidCfg(size=tuple(surface['size_m']),
+                    collision_props=sim_utils.CollisionPropertiesCfg(),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(.3, .4, .5)))
+                block.func('/World/envs/env_0/Supports/' + surface['id'], block,
+                           translation=tuple(surface['center_m']))
         if self.cfg.surface_height_m > 0:
             height = self.cfg.surface_height_m
             block = sim_utils.CuboidCfg(

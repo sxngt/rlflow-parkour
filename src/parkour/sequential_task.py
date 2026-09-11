@@ -32,6 +32,17 @@ class SequentialEnv(FootholdEnv):
         self._calibrate()
 
     def _calibrate(self):
+        if self.cfg.evaluation_support:
+            import copy
+            reference = self.cfg.evaluation_support
+            if self.foot_names != reference['foot_names']:
+                raise ValueError('Reference calibration foot order differs from asset')
+            self.calibration = copy.deepcopy(reference['calibration'])
+            self.calibrated_root = torch.tensor(self.calibration['root_state'], device=self.device)
+            self.calibrated_joint_pos = torch.tensor(self.calibration['joint_positions'], device=self.device)
+            self.nominal_xy = torch.tensor(self.calibration['foot_xy_m'], device=self.device)
+            self.calibration['application'] = 'frozen flat reference; no terrain-specific recalibration'
+            return
         # Run actual default-position PD to static equilibrium before creating
         # targets. Calibration steps are setup cost, never counted as PPO samples.
         root = self.robot.data.default_root_state.clone()

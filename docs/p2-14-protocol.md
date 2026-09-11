@@ -34,3 +34,15 @@ A1 USD의 instance proxy 내부 collider를 조사했다. 네 발은 모두 Sphe
 범위 제한: 이는 새로 생성한 독립 장면의 검증이다. 로봇 calibration용 평면을 교체한 뒤 낡은 collider가 제거되는지, robot reset과 표면 접촉 판정이 올바른지는 아직 검증하지 않았다. 영상 없는 구현 probe이며 최종 정책 평가 영상이 아니다.
 
 시도 이력: 첫 `support-probe-v1`은 물리 통과했지만 artifact hash 색인이 빠져 표준 감사 실패. `support-probe-a1-v1`은 instance proxy 누락으로 asset 조회 실패. v2는 물리·감사 통과했으나 invisible collision bounds가 비어 있었다. v3는 설치된 USD BBoxCache의 keyword 인자 호환 문제로 실패. v4에서 위치 인자 및 invisible bounds 조회를 수정해 위 결과를 얻었다. 이전 기록을 덮어쓰지 않았다.
+
+## 로봇 장면 연결 및 초기 지지 검사
+
+평지 calibration을 저장한 성공 평가의 root/joint/foot XY를 모든 조건에서 고정한다. 별도 evaluation_support 인자로 환경을 생성하고 asset의 실제 foot 순서를 검증한다. 물리 시작 전에 TerrainImporter의 원래 ground prim을 제거하고 같은 경로에 z=-0.5m GroundPlane을 다시 생성한다. 발판은 환경 복제 전에 env_0 아래 생성한다. 이후 기존 reset은 고정 calibration 상태로 돌아간다. 학습 checkpoint restore 계약은 변경하지 않았다. terrain.json과 scenario manifest에 평가 조건 및 calibration 원본 hash를 남긴다.
+
+초기 구현은 ground의 상위 Xform만 이동했는데 `p2-14-robot-gap-v1`의 원시 발 높이 약 2cm와 정상 하중으로 숨은 지지를 발견했다. 이 장면의 정책 평가를 실행하지 않았으며 v1은 물리 검증 실패 기록으로 보존한다. prim 제거·재생성으로 수정한 `p2-14-robot-gap-v2`에서는 gap 중앙에 놓은 네 로봇 모두 약 0.08초에 실패하고 평균 0.07초의 발 무접촉을 기록했다. root 높이 변화는 약 2.9cm다. 종료가 빨랐으므로 포획 평면까지의 낙하를 관측한 것으로 주장하지 않는다.
+
+`p2-14-split-stance-v2`에서는 출발 발판의 네 로봇 모두 4초 동안 실패 없이 지지했다. 무접촉 시간 0초, root 높이 변화 약 7.8mm다. zero action은 학습된 정책이 아니며 task timeout은 이 검사에서는 예상된 결과다. 두 실행 artifact 감사 통과. 연속 지지면 중앙의 대응 검사 `p2-14-robot-bridge-v2`는 후속 확인 대상이다.
+
+정책 평가 CLI: --support-mode flat|continuous|split --support-calibration artifacts/p2-11-curriculum-seed0__final-evaluation/run.json. 모든 조건에서 +15cm 목표, 64개 높이 seed를 사용한다. --support-probe-offset .075는 zero baseline에서만 허용하는 구현 검사이고 실제 정책 비교에는 사용하지 않는다. 기존 성공 지표와 지지면 내부 접촉의 추가 분석은 분리해야 한다.
+
+추가 확인: robot-bridge-v2도 네 대 모두4초 지지, 무접촉0초, 실패0으로 통과했고 artifact 감사·worker 종료·GPU 회수를 확인했다. 현재 모든 probe 종료, 정책평가 미시작.

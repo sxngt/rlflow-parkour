@@ -43,6 +43,10 @@ def collect(evaluation, result_root=ROOT / 'result'):
         if digest(evaluation / name) != run['artifacts'][name]:
             raise ValueError('Evaluation metadata hash mismatch: ' + name)
     task, task_title = TASKS[run['config']['task']]
+    if run.get('evaluation_support'):
+        support = run['evaluation_support']
+        label = {'flat': '평지대조', 'continuous': '발별_연속지지면', 'split': '발별_분리지지면_갭6cm'}[support['mode']]
+        task_title = label + '_목표전이15cm_고정정책'
     model = run.get('checkpoint')
     seed, updates = 'NA', 0
     train_run = None
@@ -108,6 +112,11 @@ def collect(evaluation, result_root=ROOT / 'result'):
                         raise ValueError('Diagnostics hash mismatch')
                     shutil.copyfile(evaluation/'diagnostics.json',temp/'diagnostics.json')
                     record['diagnostics_file']='diagnostics.json'
+                if (evaluation/'terrain.json').exists():
+                    if digest(evaluation/'terrain.json') != run['artifacts'].get('terrain.json'):
+                        raise ValueError('Terrain manifest hash mismatch')
+                    shutil.copyfile(evaluation/'terrain.json', temp/'terrain.json')
+                    record['terrain_file'] = 'terrain.json'
                 if (evaluation/'first-frame.png').exists():
                     shutil.copyfile(evaluation/'first-frame.png', temp/'preview.png')
                 (temp/'manifest.json').write_text(json.dumps(record,ensure_ascii=False,indent=2)+'\n')

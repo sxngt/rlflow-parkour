@@ -83,7 +83,7 @@ def restore(data, config, alg, normalizer, env, training):
         env.generator.set_state(data["rng_scenario"])
 
 
-def make_env(config):
+def make_env(config, evaluation_support=None):
     from parkour.task import FootholdCfg, FootholdEnv
     if config['task'] in ('a1_flat_jump_v1','a1_flat_jump_shaped_v2','a1_flat_jump_precise_v3','a1_flat_jump_supported_v4','a1_directed_jump_v5'):
         from parkour.jump_task import JumpCfg,JumpEnv
@@ -114,4 +114,5 @@ def make_env(config):
     for key in ("target_offset_m", "surface_height_m", "success_radius_m", "success_dwell_s"):
         setattr(cfg, key, config[key])
     cfg.sim.device = "cuda:0"
+    cfg.evaluation_support = copy.deepcopy(evaluation_support)
     return env_type(cfg)

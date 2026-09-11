@@ -25,12 +25,38 @@ def main():
     p.add_argument("--diagnostics", action="store_true")
     p.add_argument("--research-tag", action="append", default=[])
     p.add_argument('--launch-radius', type=float, help='Evaluation-only tighter directed-jump launch radius in metres')
+    p.add_argument('--support-mode', choices=['flat', 'continuous', 'split'])
+    p.add_argument('--support-calibration', type=Path, help='Frozen flat evaluation run.json for support transfer')
+    p.add_argument('--support-probe-offset', type=float, choices=[.075], help='Zero-action geometry probe only: start feet above the gap')
     args = p.parse_args()
     if args.baseline != "zero" and not args.checkpoint:
         p.error("policy evaluation requires checkpoint")
     if args.video_envs < 1 or (args.video_camera_side is not None and args.video_camera_side < 1):
         p.error("Video robot count and camera side must be positive")
     config = json.loads(args.config.read_text())
+    support = None
+    if args.support_mode:
+        if not args.support_calibration or config['task'] != 'a1_directed_jump_v5':
+            p.error('Support transfer requires directed jump and a reference calibration')
+        reference = json.loads(args.support_calibration.read_text())
+        if reference['status'] != 'SUCCEEDED' or reference['config']['task'] != config['task']:
+            p.error('Reference must be a successful evaluation of the same task')
+        from parkour.support_geometry import build_support_layout
+        # Actual asset order is asserted by SequentialEnv before any policy step.
+        names = ['FL_foot', 'FR_foot', 'RL_foot', 'RR_foot']
+        support = {'mode': args.support_mode, 'foot_names': names,
+                   'calibration': reference['stance_calibration'],
+                   'reference_path': str(args.support_calibration.resolve()),
+                   'reference_sha256': sha256(args.support_calibration),
+                   'goal_forward_m': .15}
+        if args.support_mode != 'flat':
+            support['layout'] = build_support_layout(names, support['calibration']['foot_xy_m'], mode=args.support_mode)
+    elif args.support_calibration:
+        p.error('--support-calibration requires --support-mode')
+    if args.support_probe_offset is not None:
+        if not support or args.baseline != 'zero':
+            p.error('Support offset is restricted to zero-action geometry probes')
+        support['probe_initial_x_offset_m'] = args.support_probe_offset
     if args.launch_radius is not None:
         if (not args.checkpoint or config['task'] != 'a1_directed_jump_v5'
                 or not math.isfinite(args.launch_radius)
@@ -44,11 +70,20 @@ def main():
         if config['jump'].get('evaluation_forward_m') is not None:
             from parkour.scenarios import directed_jump_scenarios
             manifest=directed_jump_scenarios(args.episodes,config['jump'])
+    if support:
+        from parkour.scenarios import directed_jump_scenarios
+        specification = copy.deepcopy(config['jump'])
+        specification['evaluation_forward_m'] = [.15]
+        manifest = directed_jump_scenarios(args.episodes, specification)
+        manifest['evaluation_support'] = support
     manifest["task"] = config["task"]
     if config.get("sequence"):manifest["sequence_contract"] = config["sequence"]
     config["num_envs"] = args.episodes
     config["seed"] = 10000
     meta = begin_run(args.out, config, "evaluate")
+    if support:
+        meta['evaluation_support'] = support
+        atomic_json(args.out/'terrain.json', support)
     recorder = None
     try:
         launch_app(args.video)
@@ -56,7 +91,7 @@ def main():
         import torch
         from parkour.learning import make_env, make_algorithm, read_checkpoint, restore
         torch.manual_seed(10000)
-        env = make_env(config)
+        env = make_env(config, evaluation_support=support)
         alg, norm = make_algorithm(config, env)
         if args.checkpoint:
             data = read_checkpoint(args.checkpoint)
@@ -77,6 +112,12 @@ def main():
         alg.policy.eval()
         norm.eval()
         env.reset()
+        if args.support_probe_offset is not None:
+            root = env.calibrated_root.expand(env.num_envs, -1).clone()
+            root[:, :3] += env.scene.env_origins
+            root[:, 0] += args.support_probe_offset
+            env.robot.write_root_pose_to_sim(root[:, :7])
+            env.robot.write_root_velocity_to_sim(root[:, 7:])
         offsets = torch.tensor([episode["foot_offsets_xy_m"] for episode in manifest["episodes"]], device=env.device)
         if hasattr(env, 'set_sequence_offsets'):
             orders=None
@@ -182,7 +223,7 @@ def main():
         atomic_json(args.out / "evaluation.json", report)
         meta["evaluation"] = {key: value for key, value in report.items() if key != "results"}
         meta["artifacts"] = {file.name: sha256(file) for file in args.out.iterdir()
-                             if file.suffix in (".mp4", ".png") or file.name in ("evaluation.json", "scenarios.json", "replay.json", "diagnostics.json", "motion-trace.npz")}
+                             if file.suffix in (".mp4", ".png") or file.name in ("terrain.json", "evaluation.json", "scenarios.json", "replay.json", "diagnostics.json", "motion-trace.npz")}
         finish_run(args.out, meta)
     except BaseException as exc:
         if recorder and recorder.writer:

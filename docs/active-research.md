@@ -28,3 +28,14 @@ Isaac Python /mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh. 웹 http://203.241.249.4
 scripts/support_probe.py와 run_job의 support_probe kind를 추가했다. `artifacts/p2-14-support-probe-a1-v4`가 최종 유효 probe: 24/24 낙하 위치 검증, A1 발 collider 반지름 2cm·world scale 1 확인, artifact 감사 통과, 실제 worker 종료 및 GPU 회수 완료. USD contact/rest offset null은 zero가 아니라 미명시다. 상세 실패 시도와 범위는 p2-14-protocol 마지막 절에 기록했다. 모든 probe 종료 상태이며 현재 긴 학습 없음.
 
 다음 작업은 robot 평가 장면 연결이다. 기존 SequentialEnv calibration을 보존하면서 plane을 catch floor로 대체하고 유효한 tensor view/reset을 유지하는 방법을 구현·검증해야 한다. 독립 probe 통과를 해당 장면 검증으로 확대 해석하지 않는다. 그 후 사전 정의한 네 seed/세 지형 평가와 64개 근접구도 최종 영상을 생성한다. 이번 턴은 실제 물리 증거를 얻은 progress다.
+
+
+### 최신: 로봇 발판 환경 연결
+
+make_env(config, evaluation_support=None), FootholdCfg.evaluation_support 및 evaluate의 --support-mode/--support-calibration을 추가했다. frozen calibration은 p2-11 seed0 최종평가 run.json을 공통 사용하고 foot order를 실제 asset에 대조한다. 목표는 모든 episode +15cm로 평가 override한다. 학습 config/restore 계약은 그대로다. collect_results는 조건별 제목과 terrain.json hash/copy를 지원한다.
+
+중요: parent ground transform 이동만으로는 plane collider가 내려가지 않았다. robot-gap-v1에서 검출해 정책 평가 시작 전에 수정했다. 이제 physics 시작 전 Ground prim 전체를 제거하고 -.5m에 새로 생성한다. split-stance-v2 네 대 모두4초 지지, robot-gap-v2 네 대 모두0.08초 실패 및무접촉 관측, 두 artifact 감사통과. 연속 지지면 중앙 검사 robot-bridge-v2 실행 세션74644의 실제 상태를 확인할 것. 현재 정책 비교12개는 아직 시작하지 않았다.
+
+다음은 bridge-v2 정상지지 확인 후 source commit을 기준으로 기존P2-11 seed0–3 × flat/continuous/split ×64episodes 정책 평가, diagnostics200Hz 및 --video-envs64 --video-camera-side4 영상. 실제 발판 첫접촉 위치/내부영역 분석은 추가해야 하며 기존 success만으로 안전한 표면접촉을 단정하지 않는다. 필요하면 낮은높이 포획면과 낙하 종료조건을 별도 probe로 검증한다. 이번 턴은 로봇 장면의 숨은 평면 문제를 발견·수정한 progress다.
+
+추가 확인: robot-bridge-v2도 네 대 모두4초 지지, 무접촉0초, 실패0으로 통과했고 artifact 감사·worker 종료·GPU 회수를 확인했다. 현재 모든 probe 종료, 정책평가 미시작.
