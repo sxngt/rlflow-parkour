@@ -1,0 +1,4862 @@
+[
+  {
+    "foot": "GROUP",
+    "condition": "minibatches-32",
+    "seed": 0,
+    "run": "p2-13-minibatch-seed0",
+    "updates": 200,
+    "reused": false,
+    "episodes": 64,
+    "successes": 0,
+    "mean_contacts": 0.0,
+    "required_contacts": 4,
+    "placed": 0,
+    "failures": 0,
+    "timeouts": 64,
+    "flight_episodes": 0,
+    "diagnostic_means": {
+      "duration_s": 4.0,
+      "root_z_range_m": 0.016903791576623917,
+      "root_vz_abs_max_m_s": 0.15126778255216777,
+      "all_feet_air_time_s": 0.0,
+      "max_all_feet_air_duration_s": 0.0,
+      "under_three_contacts_fraction": 0.0,
+      "nonfoot_contact_fraction": 0.0,
+      "nonfoot_force_peak_N": 0.0,
+      "foot_normal_force_peak_N": 74.26830315589905,
+      "landing_50ms_impulse_max_Ns": 0.0,
+      "support_travel_total_m": 0.16148119373247027,
+      "supported_speed_peak_m_s": 0.7505945581942797,
+      "torque_abs_peak_Nm": 8.406304270029068,
+      "action_clip_fraction": 0.0
+    },
+    "terminal_stage_phase": {
+      "0:0": 64
+    },
+    "environment_steps": 39321600,
+    "attempt_environment_steps": 39321600,
+    "train_wall_seconds": 439.0012502670288,
+    "first_touch_all_within": 0,
+    "first_touch_samples": [
+      {
+        "scenario_id": "directed-jump-dev-20000",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20001",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20002",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20003",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20004",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20005",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20006",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20007",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20008",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20009",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20010",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20011",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20012",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20013",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20014",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20015",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20016",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20017",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20018",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20019",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20020",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20021",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20022",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20023",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20024",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20025",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20026",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20027",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20028",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20029",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20030",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20031",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20032",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20033",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20034",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20035",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20036",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20037",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20038",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20039",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20040",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20041",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20042",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20043",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20044",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20045",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20046",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20047",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20048",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20049",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20050",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20051",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20052",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20053",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20054",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20055",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20056",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20057",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20058",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20059",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20060",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20061",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20062",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20063",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      }
+    ],
+    "first_touch_200ms": {
+      "complete_episodes": 0,
+      "definition": "40 physics samples from first post-flight foot contact; incomplete windows excluded and counted."
+    },
+    "by_distance": {
+      "0.0": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      },
+      "0.05": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      },
+      "0.1": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      },
+      "0.15": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      }
+    },
+    "launch_radius_m": 0.03,
+    "launch_displacement_m": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "recorded_launches_within_3cm": 0,
+    "successful_trajectories_within_3cm": 0,
+    "first_touch_by_foot": {
+      "FL": {
+        "observed": 0,
+        "mean_error_m": null,
+        "within_radius": 0
+      },
+      "FR": {
+        "observed": 0,
+        "mean_error_m": null,
+        "within_radius": 0
+      },
+      "RL": {
+        "observed": 0,
+        "mean_error_m": null,
+        "within_radius": 0
+      },
+      "RR": {
+        "observed": 0,
+        "mean_error_m": null,
+        "within_radius": 0
+      }
+    },
+    "stabilized_once": 0,
+    "online_first_touch_all_within": 0,
+    "mean_terminal_base_rise_m": -0.014992298558354378,
+    "terminal_height_outside_tolerance": 0,
+    "apex_command_met": 0,
+    "terminal_stable_steps_histogram": {
+      "0": 64
+    },
+    "terminal_gate_violations": {
+      "height": 0,
+      "vertical_speed": 0,
+      "angular_speed": 0,
+      "foot_target": 49,
+      "contact_state": 0,
+      "support_history": 0
+    },
+    "first_touch_definition": "First >5N foot force at 200Hz after valid-flight stage, foot body-center XY; supplemental metric, not the original success gate.",
+    "valid_flights": 0,
+    "landed_episodes": 0,
+    "mean_flight_apex_rise_m": 0.0,
+    "nonfoot_collisions": 0
+  },
+  {
+    "foot": "GROUP",
+    "condition": "minibatches-32",
+    "seed": 1,
+    "run": "p2-13-minibatch-seed1",
+    "updates": 200,
+    "reused": false,
+    "episodes": 64,
+    "successes": 0,
+    "mean_contacts": 0.0,
+    "required_contacts": 4,
+    "placed": 0,
+    "failures": 0,
+    "timeouts": 64,
+    "flight_episodes": 64,
+    "diagnostic_means": {
+      "duration_s": 4.0,
+      "root_z_range_m": 0.13499569823034108,
+      "root_vz_abs_max_m_s": 1.1919826436787844,
+      "all_feet_air_time_s": 1.6717187500000001,
+      "max_all_feet_air_duration_s": 0.176015625,
+      "under_three_contacts_fraction": 0.5391015625,
+      "nonfoot_contact_fraction": 0.0,
+      "nonfoot_force_peak_N": 0.0,
+      "foot_normal_force_peak_N": 248.18148756027222,
+      "landing_50ms_impulse_max_Ns": 6.920993585586547,
+      "support_travel_total_m": 2.3101543821394444,
+      "supported_speed_peak_m_s": 2.5627850107848644,
+      "torque_abs_peak_Nm": 27.658590584993362,
+      "action_clip_fraction": 0.1457421875
+    },
+    "terminal_stage_phase": {
+      "0:0": 64
+    },
+    "environment_steps": 39321600,
+    "attempt_environment_steps": 39321600,
+    "train_wall_seconds": 449.77340173721313,
+    "first_touch_all_within": 0,
+    "first_touch_samples": [
+      {
+        "scenario_id": "directed-jump-dev-20000",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20001",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20002",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20003",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20004",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20005",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20006",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20007",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20008",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20009",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20010",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20011",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20012",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20013",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20014",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20015",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20016",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20017",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20018",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20019",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20020",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20021",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20022",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20023",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20024",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20025",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20026",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20027",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20028",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20029",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20030",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20031",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20032",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20033",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20034",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20035",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20036",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20037",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20038",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20039",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20040",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20041",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20042",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20043",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20044",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20045",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20046",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20047",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20048",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20049",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20050",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20051",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20052",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20053",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20054",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20055",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20056",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20057",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20058",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20059",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20060",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20061",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20062",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20063",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      }
+    ],
+    "first_touch_200ms": {
+      "complete_episodes": 0,
+      "definition": "40 physics samples from first post-flight foot contact; incomplete windows excluded and counted."
+    },
+    "by_distance": {
+      "0.0": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      },
+      "0.05": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      },
+      "0.1": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      },
+      "0.15": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      }
+    },
+    "launch_radius_m": 0.03,
+    "launch_displacement_m": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "recorded_launches_within_3cm": 0,
+    "successful_trajectories_within_3cm": 0,
+    "first_touch_by_foot": {
+      "FL": {
+        "observed": 0,
+        "mean_error_m": null,
+        "within_radius": 0
+      },
+      "FR": {
+        "observed": 0,
+        "mean_error_m": null,
+        "within_radius": 0
+      },
+      "RL": {
+        "observed": 0,
+        "mean_error_m": null,
+        "within_radius": 0
+      },
+      "RR": {
+        "observed": 0,
+        "mean_error_m": null,
+        "within_radius": 0
+      }
+    },
+    "stabilized_once": 0,
+    "online_first_touch_all_within": 0,
+    "mean_terminal_base_rise_m": -0.024487461894750595,
+    "terminal_height_outside_tolerance": 0,
+    "apex_command_met": 0,
+    "terminal_stable_steps_histogram": {
+      "0": 64
+    },
+    "terminal_gate_violations": {
+      "height": 0,
+      "vertical_speed": 64,
+      "angular_speed": 0,
+      "foot_target": 64,
+      "contact_state": 64,
+      "support_history": 64
+    },
+    "first_touch_definition": "First >5N foot force at 200Hz after valid-flight stage, foot body-center XY; supplemental metric, not the original success gate.",
+    "valid_flights": 0,
+    "landed_episodes": 0,
+    "mean_flight_apex_rise_m": 0.0,
+    "nonfoot_collisions": 0
+  },
+  {
+    "foot": "GROUP",
+    "condition": "minibatches-32",
+    "seed": 2,
+    "run": "p2-13-minibatch-seed2",
+    "updates": 200,
+    "reused": false,
+    "episodes": 64,
+    "successes": 0,
+    "mean_contacts": 0.0,
+    "required_contacts": 4,
+    "placed": 0,
+    "failures": 0,
+    "timeouts": 64,
+    "flight_episodes": 64,
+    "diagnostic_means": {
+      "duration_s": 4.0,
+      "root_z_range_m": 0.13581376220099628,
+      "root_vz_abs_max_m_s": 1.1747618597000837,
+      "all_feet_air_time_s": 1.060625,
+      "max_all_feet_air_duration_s": 0.125234375,
+      "under_three_contacts_fraction": 0.4524609375,
+      "nonfoot_contact_fraction": 0.0,
+      "nonfoot_force_peak_N": 0.0,
+      "foot_normal_force_peak_N": 456.9668288230896,
+      "landing_50ms_impulse_max_Ns": 8.360712394714355,
+      "support_travel_total_m": 4.813686713576317,
+      "supported_speed_peak_m_s": 3.7377131953835487,
+      "torque_abs_peak_Nm": 26.488940447568893,
+      "action_clip_fraction": 0.132421875
+    },
+    "terminal_stage_phase": {
+      "0:0": 64
+    },
+    "environment_steps": 39321600,
+    "attempt_environment_steps": 39321600,
+    "train_wall_seconds": 452.4733431339264,
+    "first_touch_all_within": 0,
+    "first_touch_samples": [
+      {
+        "scenario_id": "directed-jump-dev-20000",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20001",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20002",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20003",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20004",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20005",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20006",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20007",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20008",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20009",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20010",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20011",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20012",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20013",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20014",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20015",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20016",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20017",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20018",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20019",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20020",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20021",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20022",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20023",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20024",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20025",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20026",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20027",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20028",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20029",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20030",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20031",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20032",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20033",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20034",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20035",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20036",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20037",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20038",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20039",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20040",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20041",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20042",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20043",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20044",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20045",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20046",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20047",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20048",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20049",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20050",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20051",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20052",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20053",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20054",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20055",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20056",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20057",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20058",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20059",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20060",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20061",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20062",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20063",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      }
+    ],
+    "first_touch_200ms": {
+      "complete_episodes": 0,
+      "definition": "40 physics samples from first post-flight foot contact; incomplete windows excluded and counted."
+    },
+    "by_distance": {
+      "0.0": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      },
+      "0.05": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      },
+      "0.1": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      },
+      "0.15": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      }
+    },
+    "launch_radius_m": 0.03,
+    "launch_displacement_m": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "recorded_launches_within_3cm": 0,
+    "successful_trajectories_within_3cm": 0,
+    "first_touch_by_foot": {
+      "FL": {
+        "observed": 0,
+        "mean_error_m": null,
+        "within_radius": 0
+      },
+      "FR": {
+        "observed": 0,
+        "mean_error_m": null,
+        "within_radius": 0
+      },
+      "RL": {
+        "observed": 0,
+        "mean_error_m": null,
+        "within_radius": 0
+      },
+      "RR": {
+        "observed": 0,
+        "mean_error_m": null,
+        "within_radius": 0
+      }
+    },
+    "stabilized_once": 0,
+    "online_first_touch_all_within": 0,
+    "mean_terminal_base_rise_m": 0.0008039204403758049,
+    "terminal_height_outside_tolerance": 0,
+    "apex_command_met": 0,
+    "terminal_stable_steps_histogram": {
+      "0": 64
+    },
+    "terminal_gate_violations": {
+      "height": 0,
+      "vertical_speed": 27,
+      "angular_speed": 18,
+      "foot_target": 64,
+      "contact_state": 56,
+      "support_history": 64
+    },
+    "first_touch_definition": "First >5N foot force at 200Hz after valid-flight stage, foot body-center XY; supplemental metric, not the original success gate.",
+    "valid_flights": 0,
+    "landed_episodes": 0,
+    "mean_flight_apex_rise_m": 0.0,
+    "nonfoot_collisions": 0
+  },
+  {
+    "foot": "GROUP",
+    "condition": "minibatches-32",
+    "seed": 3,
+    "run": "p2-13-minibatch-seed3",
+    "updates": 200,
+    "reused": false,
+    "episodes": 64,
+    "successes": 0,
+    "mean_contacts": 0.0,
+    "required_contacts": 4,
+    "placed": 0,
+    "failures": 0,
+    "timeouts": 64,
+    "flight_episodes": 64,
+    "diagnostic_means": {
+      "duration_s": 4.0,
+      "root_z_range_m": 0.13169728964567184,
+      "root_vz_abs_max_m_s": 1.1486070435494184,
+      "all_feet_air_time_s": 1.327890625,
+      "max_all_feet_air_duration_s": 0.14046875,
+      "under_three_contacts_fraction": 0.4289453125,
+      "nonfoot_contact_fraction": 0.0,
+      "nonfoot_force_peak_N": 0.0,
+      "foot_normal_force_peak_N": 284.7467346191406,
+      "landing_50ms_impulse_max_Ns": 5.252665219306946,
+      "support_travel_total_m": 3.7977053187787533,
+      "supported_speed_peak_m_s": 2.7495250776410103,
+      "torque_abs_peak_Nm": 29.264001786708832,
+      "action_clip_fraction": 0.12352864583333333
+    },
+    "terminal_stage_phase": {
+      "0:0": 64
+    },
+    "environment_steps": 39321600,
+    "attempt_environment_steps": 39321600,
+    "train_wall_seconds": 445.43952989578247,
+    "first_touch_all_within": 0,
+    "first_touch_samples": [
+      {
+        "scenario_id": "directed-jump-dev-20000",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20001",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20002",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20003",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20004",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20005",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20006",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20007",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20008",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20009",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20010",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20011",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20012",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20013",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20014",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20015",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20016",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20017",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20018",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20019",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20020",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20021",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20022",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20023",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20024",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20025",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20026",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20027",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20028",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20029",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20030",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20031",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20032",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20033",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20034",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20035",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20036",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20037",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20038",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20039",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20040",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20041",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20042",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20043",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20044",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20045",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20046",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20047",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20048",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20049",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20050",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20051",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20052",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20053",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20054",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20055",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20056",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20057",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20058",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20059",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20060",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20061",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20062",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      },
+      {
+        "scenario_id": "directed-jump-dev-20063",
+        "errors_m": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "times_s": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "all_within": false
+      }
+    ],
+    "first_touch_200ms": {
+      "complete_episodes": 0,
+      "definition": "40 physics samples from first post-flight foot contact; incomplete windows excluded and counted."
+    },
+    "by_distance": {
+      "0.0": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      },
+      "0.05": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      },
+      "0.1": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      },
+      "0.15": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      }
+    },
+    "launch_radius_m": 0.03,
+    "launch_displacement_m": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "recorded_launches_within_3cm": 0,
+    "successful_trajectories_within_3cm": 0,
+    "first_touch_by_foot": {
+      "FL": {
+        "observed": 0,
+        "mean_error_m": null,
+        "within_radius": 0
+      },
+      "FR": {
+        "observed": 0,
+        "mean_error_m": null,
+        "within_radius": 0
+      },
+      "RL": {
+        "observed": 0,
+        "mean_error_m": null,
+        "within_radius": 0
+      },
+      "RR": {
+        "observed": 0,
+        "mean_error_m": null,
+        "within_radius": 0
+      }
+    },
+    "stabilized_once": 0,
+    "online_first_touch_all_within": 0,
+    "mean_terminal_base_rise_m": -0.03259442374110222,
+    "terminal_height_outside_tolerance": 0,
+    "apex_command_met": 0,
+    "terminal_stable_steps_histogram": {
+      "0": 64
+    },
+    "terminal_gate_violations": {
+      "height": 0,
+      "vertical_speed": 64,
+      "angular_speed": 4,
+      "foot_target": 64,
+      "contact_state": 64,
+      "support_history": 64
+    },
+    "first_touch_definition": "First >5N foot force at 200Hz after valid-flight stage, foot body-center XY; supplemental metric, not the original success gate.",
+    "valid_flights": 0,
+    "landed_episodes": 0,
+    "mean_flight_apex_rise_m": 0.0,
+    "nonfoot_collisions": 0
+  }
+]

@@ -39,5 +39,10 @@
     }
   ],
   "trace_episode_index": 3,
-  "show_forward_trace": true
+  "show_forward_trace": true,
+  "findings": [
+    "네seed 모두성공0/64이다. minibatch표본수와총gradient갱신횟수를P2-11에맞춰도성능회복이확인되지않았다.",
+    "P2-12와같은환경step에서num_mini_batches4→32만변경한결과이며새정책데이터수집횟수는200으로같다. 실패원인을단일요인으로확정하지않는다.",
+    "학습4+평가4artifact감사와원본진단대조를통과했다. result영상4개보존. 8192규모를현재제어연구의기본값으로채택하지않고기존유효정책을다음지형검증에사용한다."
+  ]
 }

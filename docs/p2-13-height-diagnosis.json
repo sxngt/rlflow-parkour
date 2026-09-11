@@ -1,0 +1,30 @@
+[
+  {
+    "run": "p2-13-minibatch-seed0",
+    "condition": "minibatches-32",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.014992298558354378,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-13-minibatch-seed1",
+    "condition": "minibatches-32",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.024487461894750595,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-13-minibatch-seed2",
+    "condition": "minibatches-32",
+    "seed": 2,
+    "mean_terminal_base_rise_m": 0.0008039204403758049,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-13-minibatch-seed3",
+    "condition": "minibatches-32",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.03259442374110222,
+    "terminal_height_outside_tolerance": 0
+  }
+]

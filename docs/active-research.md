@@ -10,20 +10,11 @@
 
 ## 현재 실행 / 다음 작업
 
-P2-13 minibatch 비교 시작, source481b041. configs/p2-13-minibatch.json, configs/reports/p2-13.json, docs/p2-13-protocol.md. P2-12에서num_mini_batches4→32만변경(태그제외). 새정책seed0–3,각8192환경×24step×200update. minibatch6144및총gradient갱신32000은P2-11과같지만정책데이터수집빈도는200으로다름. 커리큘럼101/151에4.5/3cm,checkpoint25마다,worker1800초.
+P2-13 학습4×200 및평가4완료. 모두성공0/64. docs/p2-13-results.md/summary.json. 학습4+평가4감사통과·원본진단대조통과·영상4개보존. num_mini_batches32로기존6144표본/32000gradient갱신을맞췄으나회복미확인. 8192를현재연구기본값으로채택하지않는다. source481b041.
 
-|GPU|run|session|
-|---|---|---|
-|0|p2-13-minibatch-seed0|80211|
-|1|p2-13-minibatch-seed1|48969|
-|2|p2-13-minibatch-seed2|70391|
-|3|p2-13-minibatch-seed3|74163|
+다음은기존P2-11 고정정책으로실제지지면제한/발판/갭경계검증. 아직P2-14코드나프로토콜없음. 현재terrain은task.py FootholdCfg.terrain plane, _setup_scene생성. SequentialEnv._calibrate300step은초기4발지지평형요구. 실제terrain추가시원래calibration과높이/좌표계계약을지키고빈공간에숨겨진평면이남지않는지검증할것. 정책restore기존계약을무조건완화하지말고환경변경을명시적평가프로토콜로분리한다. 발별출발/착지발판을쓸경우15cm는발목표이동이지몸전체폭15cm갭통과와같지않다. 최초지형은실현가능한geometry로정의하고갭폭/발판폭/접촉표면을manifest에남긴다. 모델선택편향방지위해기존네seed동일평가. 초기파일럿은종합파쿠르성능주장아님.
 
-종료후학습4+자동평가4 audit/GPU해제확인,experiment_report.py및jump_trace_report.py configs/reports/p2-13.json. 원본200Hz/커리큘럼전환확인,거리별성공·실패·학습시간을P2-12와P2-11에비교. 개선없으면병렬규모최적화무한반복하지말고기존유효정책으로실제발판/갭경계검증단계진행. result영상4개보존.
-
-P2-12완료:모두성공0/64·유효비행0/64·timeout64/64.학습약366–376초vsP2-11약1167–1212초였지만성공모델없으므로목표성능도달시간개선아님. 학습4+평가4감사통과,101/151반경전환확인,영상4개. docs/p2-12-results.md/summary.json 및flight-diagnosis.json.
-
-GPU profiling완료:단독1024/2048/4096/8192 step/s38495/64367/105392/146132.8192동시합456817.학습8+평가8감사통과·영상8개. docs/gpu-env-sweep-results.md/summary.json.공통동시구간실측/CPU병목분석은미완료. GPU완전활용주장금지.
+P2-11 성공48/17/51/51, P2-12·13모두0. 병렬규모최적화만무한반복하지말고실제불연속지형이라는원래범위진행. GPU프로파일원본및결과docs/gpu-env-sweep-results.md/summary.json.공통동시구간실측/CPU병목분석은미완료. GPU완전활용주장금지.
 
 ## 환경과 범위
 
