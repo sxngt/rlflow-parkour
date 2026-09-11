@@ -268,3 +268,12 @@ sourcee303428, docs/p2-20-protocol.md/configs/p2-20-deck.json. exploration.py Bo
 직전 카메라 설정 확인 턴은 연구 진행 측면에서는 no progress. 이번 턴은 실제 /proc PID가 살아 있음을 확인하고 동일 작업을 기다린 verified wait 후 검증을 수행했다. 네 seed의 checkpoint1000/1200 hash, 전체 기록의 loss 유한성과 실제 std 상한 준수를 확인했다. update1201에서 cap0.1, launch3cm, 거리0–15cm, reset_all=true를 모두 검증했다. 최신 상태: [{"run": "p2-20-deck-seed0", "pid": 1372183, "live": true, "iteration": 1269, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "training_successes": 74356}, {"run": "p2-20-deck-seed1", "pid": 1372176, "live": true, "iteration": 1271, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "training_successes": 20373}, {"run": "p2-20-deck-seed2", "pid": 1372162, "live": true, "iteration": 1293, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "training_successes": 11986}, {"run": "p2-20-deck-seed3", "pid": 1372175, "live": true, "iteration": 1270, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "training_successes": 15393}]
 
 학습 성공이 네 seed 모두 발생했지만 고정 평가군 성능은 아직 미검증. 기존 batch70012를 유지하며 최종1600/자동64개 평가·영상 완료 후 8 artifact 감사 및 configs/reports/p2-20.json의 세 보고서를 실행한다. GPU 약3GB/34–35도, 저장소535GB 여유. 중복 실행 금지. 전체 연구 목표는 미완료.
+
+
+### 최신: P2-20 완료 및 거리 부족 진단
+
+직전 턴은 실제 PID 확인 후 전환/체크포인트 검증으로 progress. 이번 턴은 동일 학습 PID를 기다려 1600 완료, 자동 평가 PID 1396619/1396612/1396223/1396823의 실행과 종료를 확인했다. 학습4+평가4 SUCCEEDED, artifacts/p2-20-audit.jsonl 8감사 통과. configs/reports/p2-20.json의 experiment_report/jump_trace_report/p2_15_support_report 완료. 새 scripts/p2_20_training_report.py로 완료1600개 metric·고정예산·finite loss·전체 std 상한을 검증하고 단계별 통계 생성. result4영상 hash/camera4/64개 및 seed0 0.8초 프레임 확인.
+
+최종 성공48/48/24/22, 유효비행64/64/64/64, 최초정밀64/64/64/64, 안정화64/64/40/45. 대조P2-18 성공0/0/0/33. seed3은 감소. 15cm는 전seed0/16이며 최초정밀/안정화는 모두16/16, 비행거리만 미달. 실제 평균11.26/8.13/9.47/6.12cm, 최소기준12cm. docs/p2-20-findings.md 판단 기록. 제한탐색은 후속 기준 후보, champion 승격/전체 연구 완료 아님.
+
+다음 구체 과제: P2-20 checkpoint800/1200 ×4 고정개발군 평가로 거리 능력 미획득/후반상실 분리. 새 사후 진단 프로토콜 작성 후 bounded checkpoint buffer/effective std 복원 확인, 기존 p2_16_checkpoints.py 패턴 재사용. 아직 다음 평가 미실행. raw std를 effective std로 보고하지 말 것. first_travel_reward 최종행0은 step 지급액이라 episode 무지급 근거가 아님.

@@ -1,0 +1,58 @@
+[
+  {
+    "run": "p2-18-deck-seed0",
+    "condition": "unbounded-std",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.025104790925979614,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-18-deck-seed1",
+    "condition": "unbounded-std",
+    "seed": 1,
+    "mean_terminal_base_rise_m": 0.009398272261023521,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-18-deck-seed2",
+    "condition": "unbounded-std",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.019871536642313004,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-18-deck-seed3",
+    "condition": "unbounded-std",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.014590023085474968,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-20-deck-seed0",
+    "condition": "bounded-std-schedule",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.04289574176073074,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-20-deck-seed1",
+    "condition": "bounded-std-schedule",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.02197175659239292,
+    "terminal_height_outside_tolerance": 5
+  },
+  {
+    "run": "p2-20-deck-seed2",
+    "condition": "bounded-std-schedule",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.03140731155872345,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-20-deck-seed3",
+    "condition": "bounded-std-schedule",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.05101156234741211,
+    "terminal_height_outside_tolerance": 0
+  }
+]

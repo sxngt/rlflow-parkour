@@ -1,0 +1,463 @@
+{
+  "rows": [
+    {
+      "experiment": "p2-18",
+      "seed": 0,
+      "updates": [
+        1,
+        400
+      ],
+      "episodes": 50033,
+      "successes": 0,
+      "valid_flights": 1162,
+      "failures": 3698,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-18",
+      "seed": 0,
+      "updates": [
+        401,
+        800
+      ],
+      "episodes": 49390,
+      "successes": 0,
+      "valid_flights": 642,
+      "failures": 1230,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-18",
+      "seed": 0,
+      "updates": [
+        801,
+        1200
+      ],
+      "episodes": 49247,
+      "successes": 0,
+      "valid_flights": 417,
+      "failures": 683,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-18",
+      "seed": 0,
+      "updates": [
+        1201,
+        1600
+      ],
+      "episodes": 49207,
+      "successes": 0,
+      "valid_flights": 358,
+      "failures": 503,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-18",
+      "seed": 1,
+      "updates": [
+        1,
+        400
+      ],
+      "episodes": 51161,
+      "successes": 0,
+      "valid_flights": 22898,
+      "failures": 5857,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-18",
+      "seed": 1,
+      "updates": [
+        401,
+        800
+      ],
+      "episodes": 50696,
+      "successes": 0,
+      "valid_flights": 50536,
+      "failures": 3158,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-18",
+      "seed": 1,
+      "updates": [
+        801,
+        1200
+      ],
+      "episodes": 51830,
+      "successes": 0,
+      "valid_flights": 51647,
+      "failures": 4411,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-18",
+      "seed": 1,
+      "updates": [
+        1201,
+        1600
+      ],
+      "episodes": 51473,
+      "successes": 0,
+      "valid_flights": 51280,
+      "failures": 4043,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-18",
+      "seed": 2,
+      "updates": [
+        1,
+        400
+      ],
+      "episodes": 49711,
+      "successes": 0,
+      "valid_flights": 993,
+      "failures": 2930,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-18",
+      "seed": 2,
+      "updates": [
+        401,
+        800
+      ],
+      "episodes": 49403,
+      "successes": 0,
+      "valid_flights": 590,
+      "failures": 1297,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-18",
+      "seed": 2,
+      "updates": [
+        801,
+        1200
+      ],
+      "episodes": 49217,
+      "successes": 0,
+      "valid_flights": 390,
+      "failures": 768,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-18",
+      "seed": 2,
+      "updates": [
+        1201,
+        1600
+      ],
+      "episodes": 49234,
+      "successes": 0,
+      "valid_flights": 311,
+      "failures": 629,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-18",
+      "seed": 3,
+      "updates": [
+        1,
+        400
+      ],
+      "episodes": 51599,
+      "successes": 0,
+      "valid_flights": 24107,
+      "failures": 6511,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-18",
+      "seed": 3,
+      "updates": [
+        401,
+        800
+      ],
+      "episodes": 50993,
+      "successes": 0,
+      "valid_flights": 50884,
+      "failures": 3990,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-18",
+      "seed": 3,
+      "updates": [
+        801,
+        1200
+      ],
+      "episodes": 50266,
+      "successes": 0,
+      "valid_flights": 49999,
+      "failures": 2371,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-18",
+      "seed": 3,
+      "updates": [
+        1201,
+        1600
+      ],
+      "episodes": 51184,
+      "successes": 0,
+      "valid_flights": 50670,
+      "failures": 3130,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 0,
+      "updates": [
+        1,
+        400
+      ],
+      "episodes": 50545,
+      "successes": 0,
+      "valid_flights": 15920,
+      "failures": 4685,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 0,
+      "updates": [
+        401,
+        800
+      ],
+      "episodes": 49550,
+      "successes": 0,
+      "valid_flights": 49510,
+      "failures": 1315,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 0,
+      "updates": [
+        801,
+        1200
+      ],
+      "episodes": 79954,
+      "successes": 50155,
+      "valid_flights": 79881,
+      "failures": 889,
+      "success_fraction": 0.6272981964629663
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 0,
+      "updates": [
+        1201,
+        1600
+      ],
+      "episodes": 116085,
+      "successes": 91019,
+      "valid_flights": 116085,
+      "failures": 3516,
+      "success_fraction": 0.7840720161950295
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 1,
+      "updates": [
+        1,
+        400
+      ],
+      "episodes": 50673,
+      "successes": 0,
+      "valid_flights": 4576,
+      "failures": 5187,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 1,
+      "updates": [
+        401,
+        800
+      ],
+      "episodes": 50022,
+      "successes": 0,
+      "valid_flights": 49840,
+      "failures": 2056,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 1,
+      "updates": [
+        801,
+        1200
+      ],
+      "episodes": 52823,
+      "successes": 9815,
+      "valid_flights": 52801,
+      "failures": 340,
+      "success_fraction": 0.18580921189633304
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 1,
+      "updates": [
+        1201,
+        1600
+      ],
+      "episodes": 83894,
+      "successes": 52213,
+      "valid_flights": 83894,
+      "failures": 3276,
+      "success_fraction": 0.6223687033637686
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 2,
+      "updates": [
+        1,
+        400
+      ],
+      "episodes": 51558,
+      "successes": 0,
+      "valid_flights": 25086,
+      "failures": 5856,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 2,
+      "updates": [
+        401,
+        800
+      ],
+      "episodes": 50122,
+      "successes": 0,
+      "valid_flights": 49783,
+      "failures": 2064,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 2,
+      "updates": [
+        801,
+        1200
+      ],
+      "episodes": 49897,
+      "successes": 3,
+      "valid_flights": 49855,
+      "failures": 1576,
+      "success_fraction": 6.012385514159168e-05
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 2,
+      "updates": [
+        1201,
+        1600
+      ],
+      "episodes": 85846,
+      "successes": 62664,
+      "valid_flights": 85845,
+      "failures": 1468,
+      "success_fraction": 0.7299582974163036
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 3,
+      "updates": [
+        1,
+        400
+      ],
+      "episodes": 49769,
+      "successes": 0,
+      "valid_flights": 1160,
+      "failures": 2585,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 3,
+      "updates": [
+        401,
+        800
+      ],
+      "episodes": 50830,
+      "successes": 0,
+      "valid_flights": 48757,
+      "failures": 4138,
+      "success_fraction": 0.0
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 3,
+      "updates": [
+        801,
+        1200
+      ],
+      "episodes": 54289,
+      "successes": 9922,
+      "valid_flights": 54287,
+      "failures": 1711,
+      "success_fraction": 0.18276262226233675
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 3,
+      "updates": [
+        1201,
+        1600
+      ],
+      "episodes": 72684,
+      "successes": 35334,
+      "valid_flights": 72680,
+      "failures": 3285,
+      "success_fraction": 0.4861317483902922
+    }
+  ],
+  "success_onsets": [
+    {
+      "experiment": "p2-18",
+      "seed": 0,
+      "first_success_update": null
+    },
+    {
+      "experiment": "p2-18",
+      "seed": 1,
+      "first_success_update": null
+    },
+    {
+      "experiment": "p2-18",
+      "seed": 2,
+      "first_success_update": null
+    },
+    {
+      "experiment": "p2-18",
+      "seed": 3,
+      "first_success_update": null
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 0,
+      "first_success_update": 803
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 1,
+      "first_success_update": 803
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 2,
+      "first_success_update": 1120
+    },
+    {
+      "experiment": "p2-20",
+      "seed": 3,
+      "first_success_update": 804
+    }
+  ],
+  "scope": "Training episodes under changing curriculum, sampled actions and evolving policy; not fixed-scenario evaluation. Curriculum resets can discard unfinished episodes. No causal attribution to a single schedule boundary."
+}
