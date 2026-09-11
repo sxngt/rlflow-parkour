@@ -146,7 +146,7 @@ def main():
             for distance in config['jump']['evaluation_forward_m']:
                 subset=[r for r in records if abs(r['goal_forward_m']-distance)<1e-6]
                 if subset:report['by_distance'][str(distance)]={'episodes':len(subset),'successes':sum(r['success'] for r in subset),
-                    'launches_in_region':sum(r['launch_in_region'] for r in subset),'travel_met':sum(r['travel_requirement_met'] for r in subset),
+                    'launches_in_region':sum(r['launch_in_region'] for r in subset),'travel_met':sum(r['distance_requirement_met'] for r in subset),
                     'first_touch_precise':sum(r['first_touch_all_within'] for r in subset),'stabilized':sum(r['stabilized_once'] for r in subset)}
         if 'active_foot' in records[0]:
             report['by_foot']={}

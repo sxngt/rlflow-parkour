@@ -38,6 +38,7 @@ class DirectedJumpEnv(PrecisionJumpEnv):
         m.update(goal_forward_m=self.goal_distance.clone(),launch_recorded=self.travel.launched.clone(),
             launch_in_region=self.travel.launch_ok.clone(),flight_touch_recorded=self.travel.touched.clone(),
             flight_forward_m=torch.where(self.travel.touched,self.travel.distance(),-1.).clone(),travel_requirement_met=self.travel.valid(self.goal_distance,self.jump['travel_tolerance_m']).clone(),
+            distance_requirement_met=self.travel.distance_met(self.goal_distance,self.jump['travel_tolerance_m']).clone(),
             precise_stabilized_once=self.precise_stabilized.clone())
         for axis,i in [('x',0),('y',1)]:
             m[f'launch_root_{axis}_m']=self.travel.launch_xy[:,i].clone()

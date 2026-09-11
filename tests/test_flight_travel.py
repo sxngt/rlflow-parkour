@@ -13,6 +13,7 @@ class TravelTests(unittest.TestCase):
   landing=launch.clone();landing[0,0]+=.2;landing[2,0]-=.1;landing[3,0]+=.13
   x.touch(torch.ones(4,dtype=torch.bool),landing)
   self.assertEqual(x.valid(torch.full((4,),.15),.03).tolist(),[False,False,False,True])
+  self.assertEqual(x.distance_met(torch.full((4,),.15),.03).tolist(),[True,False,False,True])
   x.touch(torch.ones(4,dtype=torch.bool),landing+1)
   self.assertTrue(torch.equal(x.touch_xy,landing))
   x.reset(torch.tensor([1]));self.assertFalse(x.launched[1]);self.assertTrue(x.launched[3])

@@ -19,6 +19,8 @@ class FlightTravel:
         new=event&self.launched&~self.touched
         self.touch_xy[new]=xy[new];self.touched|=new
     def distance(self):return self.touch_xy[:,0]-self.launch_xy[:,0]
-    def valid(self,command,tolerance):
+    def distance_met(self,command,tolerance):
         enough=(command<=1e-6)|(self.distance()>=(command-tolerance).clamp_min(0))
-        return self.launched&self.touched&self.launch_ok&enough
+        return self.launched&self.touched&enough
+    def valid(self,command,tolerance):
+        return self.launch_ok&self.distance_met(command,tolerance)
