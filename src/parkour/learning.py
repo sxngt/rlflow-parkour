@@ -60,6 +60,8 @@ def read_checkpoint(path):
 
 
 def restore(data, config, alg, normalizer, env, training):
+    from parkour.terrain_contract import assert_same_terrain
+    assert_same_terrain(data['config'], config)
     keys = ("task", "episode_seconds", "target_offset_m", "surface_height_m", "success_radius_m", "success_dwell_s", "runner")
     if any(data["config"][key] != config[key] for key in keys):
         raise ValueError("Checkpoint/task contract differs")
@@ -114,5 +116,6 @@ def make_env(config, evaluation_support=None):
     for key in ("target_offset_m", "surface_height_m", "success_radius_m", "success_dwell_s"):
         setattr(cfg, key, config[key])
     cfg.sim.device = "cuda:0"
-    cfg.evaluation_support = copy.deepcopy(evaluation_support)
+    from parkour.terrain_contract import training_support
+    cfg.support_contract = copy.deepcopy(evaluation_support) if evaluation_support is not None else training_support(config)
     return env_type(cfg)

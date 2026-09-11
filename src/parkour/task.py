@@ -29,7 +29,7 @@ class FootholdCfg(DirectRLEnvCfg):
     success_radius_m = 0.035
     success_dwell_s = 0.2
     surface_height_m = 0.0
-    evaluation_support = None
+    support_contract = None
     sim = sim_utils.SimulationCfg(dt=0.005, render_interval=4)
     scene = InteractiveSceneCfg(num_envs=256, env_spacing=2.5, replicate_physics=True)
     robot = UNITREE_A1_CFG.replace(prim_path="/World/envs/env_.*/Robot")
@@ -69,7 +69,7 @@ class FootholdEnv(DirectRLEnv):
         self.cfg.terrain.num_envs = self.cfg.scene.num_envs
         self.cfg.terrain.env_spacing = self.cfg.scene.env_spacing
         self.terrain = self.cfg.terrain.class_type(self.cfg.terrain)
-        support = self.cfg.evaluation_support
+        support = self.cfg.support_contract
         if support and support['mode'] != 'flat':
             # Replace the ground before physics initialization. Moving its parent
             # Xform alone did not move the plane collider in this Isaac version.

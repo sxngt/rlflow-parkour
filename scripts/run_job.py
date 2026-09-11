@@ -134,6 +134,9 @@ def main():
             command.extend(['--episodes',str(run['config']['evaluation_episodes'])])
         if run.get('config',{}).get('evaluation_diagnostics'):
             command.append('--diagnostics')
+        for field, flag in [('evaluation_video_envs', '--video-envs'), ('evaluation_camera_side', '--video-camera-side')]:
+            if run.get('config', {}).get(field):
+                command.extend([flag, str(run['config'][field])])
         evaluation = subprocess.run(command, cwd=ROOT)
         result['final_evaluation'] = {'path': str(evaluation_out), 'exit_code': evaluation.returncode}
         out.with_suffix('.supervisor.json').write_text(json.dumps(result, indent=2)+'\n')

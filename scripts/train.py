@@ -29,6 +29,8 @@ def main():
         raise ValueError("Positive iterations and num-envs required")
     from parkour.launch_curriculum import radius_for_update
     radius_for_update(config, 0)  # Validate the complete schedule before simulator startup.
+    from parkour.terrain_contract import training_support
+    support = training_support(config)
     meta = begin_run(args.out, config, "train")
     recorder = None
     try:
@@ -42,6 +44,11 @@ def main():
         torch.manual_seed(config["seed"])
         torch.set_num_threads(4)
         env = make_env(config)
+        if support:
+            from parkour.collision_contract import inspect_collision_contract
+            atomic_json(args.out/'terrain.json', support)
+            atomic_json(args.out/'collision-contract.json', inspect_collision_contract(env))
+            meta['terrain_contract'] = support
         env.reset()
         alg, norm = make_algorithm(config, env)
         completed, total_steps = 0, 0
@@ -147,6 +154,8 @@ def main():
                                     'learning_iterations':[completed+1,iteration+1]}
         meta["checkpoint"] = {"path": final.name, "sha256": sha256(final)}
         meta["total_environment_steps"] = total_steps
+        if support:
+            meta['artifacts'] = {name: sha256(args.out/name) for name in ('terrain.json', 'collision-contract.json')}
         finish_run(args.out, meta)
     except BaseException as exc:
         if recorder and recorder.writer:

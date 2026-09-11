@@ -32,9 +32,9 @@ class SequentialEnv(FootholdEnv):
         self._calibrate()
 
     def _calibrate(self):
-        if self.cfg.evaluation_support:
+        if self.cfg.support_contract:
             import copy
-            reference = self.cfg.evaluation_support
+            reference = self.cfg.support_contract
             if self.foot_names != reference['foot_names']:
                 raise ValueError('Reference calibration foot order differs from asset')
             self.calibration = copy.deepcopy(reference['calibration'])

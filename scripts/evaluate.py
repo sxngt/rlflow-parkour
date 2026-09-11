@@ -27,6 +27,7 @@ def main():
     p.add_argument('--launch-radius', type=float, help='Evaluation-only tighter directed-jump launch radius in metres')
     p.add_argument('--support-mode', choices=['flat', 'continuous', 'split', 'deck'])
     p.add_argument('--support-matched-material', action='store_true')
+    p.add_argument('--support-preserve-goals', action='store_true', help='Keep configured evaluation distances during a terrain override')
     p.add_argument('--support-calibration', type=Path, help='Frozen flat evaluation run.json for support transfer')
     p.add_argument('--support-probe-offset', type=float, choices=[.075], help='Zero-action geometry probe only: start feet above the gap')
     args = p.parse_args()
@@ -53,10 +54,14 @@ def main():
                    'goal_forward_m': .15}
         if args.support_mode != 'flat':
             support['layout'] = build_support_layout(names, support['calibration']['foot_xy_m'], mode=args.support_mode)
+        if args.support_preserve_goals:
+            support.pop('goal_forward_m')
     elif args.support_calibration:
         p.error('--support-calibration requires --support-mode')
     if args.support_matched_material and not support:
         p.error('--support-matched-material requires a support mode')
+    if args.support_preserve_goals and not support:
+        p.error('--support-preserve-goals requires a support mode')
     if args.support_probe_offset is not None:
         if not support or args.baseline != 'zero':
             p.error('Support offset is restricted to zero-action geometry probes')
@@ -74,11 +79,15 @@ def main():
         if config['jump'].get('evaluation_forward_m') is not None:
             from parkour.scenarios import directed_jump_scenarios
             manifest=directed_jump_scenarios(args.episodes,config['jump'])
-    if support:
+    if support and not args.support_preserve_goals:
         from parkour.scenarios import directed_jump_scenarios
         specification = copy.deepcopy(config['jump'])
         specification['evaluation_forward_m'] = [.15]
         manifest = directed_jump_scenarios(args.episodes, specification)
+        manifest['evaluation_support'] = support
+    if support is None and config.get('terrain_contract'):
+        from parkour.terrain_contract import training_support
+        support = training_support(config)
         manifest['evaluation_support'] = support
     manifest["task"] = config["task"]
     if config.get("sequence"):manifest["sequence_contract"] = config["sequence"]

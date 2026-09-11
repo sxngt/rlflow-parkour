@@ -35,7 +35,7 @@ def inspect_collision_contract(env):
                          'contact_offset': recorded_value(collision.GetContactOffsetAttr().Get()),
                          'rest_offset': recorded_value(collision.GetRestOffsetAttr().Get())})
     assert rows, 'No collision shapes inspected'
-    if env.cfg.evaluation_support.get('matched_material'):
+    if env.cfg.support_contract.get('matched_material'):
         surfaces = [r for r in rows if '/Supports/' in r['prim'] or '/World/Ground/' in r['prim']]
         assert surfaces, 'No support material inspected'
         for row in surfaces:
@@ -44,4 +44,4 @@ def inspect_collision_contract(env):
             assert material['restitution'] == 0 and material['friction_combine_mode'] == 'average', row
     return {'schema_version': 1, 'roots': roots, 'colliders': rows,
             'scope': 'Resolved USD binding in first/last environment and global ground. Null means unspecified; not a measured solver default.',
-            'matched_support_material': bool(env.cfg.evaluation_support.get('matched_material'))}
+            'matched_support_material': bool(env.cfg.support_contract.get('matched_material'))}

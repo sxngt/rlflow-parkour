@@ -46,7 +46,7 @@ def collect(evaluation, result_root=ROOT / 'result'):
     if run.get('evaluation_support'):
         support = run['evaluation_support']
         label = {'flat': '평지대조', 'continuous': '발별_연속지지면', 'split': '발별_분리지지면_갭6cm', 'deck': '단일발판_140x120cm'}[support['mode']]
-        task_title = label + '_목표전이15cm_고정정책'
+        task_title = label + ('_목표전이15cm_고정정책' if support.get('goal_forward_m') == .15 else '_목표거리별평가')
         if support.get('matched_material'):
             task_title += '_동일물리재질'
     model = run.get('checkpoint')

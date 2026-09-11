@@ -47,6 +47,10 @@ def audit(directory):
             assert digest(directory / name) == expected
     else:
         raise ValueError(f"Unsupported audit kind: {run['kind']}")
+    if run['kind'] == 'train' and run.get('config', {}).get('terrain_contract'):
+        for name in ('terrain.json', 'collision-contract.json'):
+            assert digest(directory/name) == run['artifacts'][name]
+        assert json.loads((directory/'terrain.json').read_text()) == run['config']['terrain_contract']
     return {"run": str(directory), "kind": run["kind"], "gpu_uuid": supervisor["gpu_uuid"], "audit": "passed"}
 
 
