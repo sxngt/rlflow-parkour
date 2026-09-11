@@ -366,3 +366,12 @@ sourcee303428, docs/p2-20-protocol.md/configs/p2-20-deck.json. exploration.py Bo
 최종성공0/0/0/8, 유효비행64/0/64/64, 최초정밀64/0/64/64, 안정화0/0/0/8. 기존48/48/24/22보다악화,최악발보상채택기각. docs/p2-22-findings.md. seed0/2/3의미안정화64/64/56 모두200ms내영역이탈/200ms기하유지부재. seed1은도약미습득.
 
 마지막400update훈련success/episode61543/87774,0/49190,44585/74514,47635/78399인데최종mean평가차이큼. 다음 P2-23 진단: P2-20+P2-22최종4seed각각sampledRNG20000/20001 총16평가, 기존mean8재사용. 동일64scenarios/정규화고정/effectiveclampedstd확인/추가학습0. 프로토콜부터작성;아직새평가미실행. 기존p2_19_evaluate.py 패턴활용,rawstd표금지. 보상추가변경전에행동샘플링차이분리. 전체목표미완료.
+
+
+### 최신: P2-23 제한분포 행동샘플링 진단 완료
+
+직전 턴은P2-22완료/채택기각으로 progress. 이번 턴 sourced4cc233, docs/p2-23-protocol.md, scripts/p2_23_evaluate.py batch85643로P2-20/P2-22×4seed×2sampledRNG=16평가 완료. 추가학습0. artifacts/p2-23-audit.jsonl16감사통과, result16영상hash/sample제목/camera4/64개 및샘플프레임확인. scripts/p2_23_report.py는기존mean8재사용+새16의scenario/checkpoint/설정/mode/RNG와실제복원clampedstd검증. docs/p2-23-results.md/summary.json/findings.md.
+
+P2-20 mean→sampled2: seed0 48→47/48,seed1 48→46/44,seed2 24→44/44,seed3 22→27/32. P2-22 seed0 0→40/38,seed1 0→0/0(유효비행0),seed2 0→39/40,seed3 8→46/36. 일부정책의작은행동잡음에따른안정화의존 확인,훈련평가차이전체원인확정아님. 기존P2-22기각유지.
+
+다음구체학습P2-24 후보: P2-20 기준마지막400update std상한0.1→0.05만변경(하한.05유지). 초기탐색/보상/지형/예산/목표유지. mean/sample차이줄이는지별도고정예산비교. 아직프로토콜/구현/학습미시작. 새config/smoke에서floor=cap검증후fresh4seed×1600,대조P2-20재사용. 전체목표미완료. 현재추가학습실행없음.
