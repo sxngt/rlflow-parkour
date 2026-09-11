@@ -6,6 +6,7 @@ from isaaclab_assets import UNITREE_A1_CFG
 from parkour.task import FootholdCfg,FootholdEnv
 from parkour.sequential_task import SequentialCfg,SequentialEnv
 from parkour.jump_events import jump_transition,apex_progress,landing_height_cost,landing_settle_cost
+from parkour.landing_precision import precision_reward
 
 @configclass
 class JumpCfg(SequentialCfg):
@@ -21,6 +22,8 @@ class JumpEnv(SequentialEnv):
     def __init__(self,cfg,render_mode=None):
         super().__init__(cfg,render_mode)
         self.jump=cfg.jump
+        if self.jump.get('landing_precision_mode', 'mean') not in ('mean', 'worst_after_landing_v1'):
+            raise ValueError('Unknown landing precision aggregation')
         self.nonfoot_ids=[i for i in range(len(self.contacts.body_names)) if i not in self.contact_ids]
         self.flight_seen=torch.zeros(self.num_envs,dtype=torch.bool,device=self.device)
         self.landed=torch.zeros_like(self.flight_seen)
@@ -94,7 +97,7 @@ class JumpEnv(SequentialEnv):
         settled=self.episode_length_buf*self.step_dt>=self.jump['settle_seconds']
         errors=self._errors()
         launch=2*self.robot.data.root_lin_vel_w[:,2].clamp(0,1.5)
-        precision=torch.exp(-(errors/.06).square()).mean(dim=1)-1
+        precision=precision_reward(errors,self.landed,self.jump.get('landing_precision_mode','mean'))
         dense=torch.where(self.flight_seen,precision,launch)*settled-.1
         dense-=.5*self.robot.data.projected_gravity_b[:,:2].square().sum(dim=1)
         dense-=.02*self.robot.data.root_ang_vel_b.square().sum(dim=1)

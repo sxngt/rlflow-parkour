@@ -1,0 +1,75 @@
+{
+  "title": "P2-22 · 착지 이후 최대 발 오차 기준 보상",
+  "report": "p2-22",
+  "protocol": "p2-22-protocol.md",
+  "description": "P2-20 대비 착지 이후 dense precision aggregation만 평균에서 최악 발로 변경한다.",
+  "success_label": "목표 도약 성공",
+  "trace_episode_index": 3,
+  "show_forward_trace": true,
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "mean-precision",
+      "seed": 0,
+      "run": "p2-20-deck-seed0",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "mean-precision",
+      "seed": 1,
+      "run": "p2-20-deck-seed1",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "mean-precision",
+      "seed": 2,
+      "run": "p2-20-deck-seed2",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "mean-precision",
+      "seed": 3,
+      "run": "p2-20-deck-seed3",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "worst-foot-after-landing",
+      "seed": 0,
+      "run": "p2-22-deck-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "worst-foot-after-landing",
+      "seed": 1,
+      "run": "p2-22-deck-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "worst-foot-after-landing",
+      "seed": 2,
+      "run": "p2-22-deck-seed2",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "worst-foot-after-landing",
+      "seed": 3,
+      "run": "p2-22-deck-seed3",
+      "updates": 1600,
+      "reused": false
+    }
+  ]
+}
