@@ -249,3 +249,7 @@ artifacts/p2-03-audit.jsonl의8run감사통과,4GPU실제compute프로세스없�
 본4run artifacts/p2-04-supported-seed{0,1,2,3} 시작,GPU index=seed,각1024×24×1600updates=39,321,600step. 총157,286,400신규. commit b05f157 실행. supervisor1800초/자동최종64평가영상진단180초. shell session52902/41050/25327/15989. 새턴은실제PID/메트릭관측으로진행하고같은run중복시작금지.
 
 완료후8run audit_artifacts.py감사, experiment_report.py와jump_trace_report.py configs/reports/p2-04.json. A는P2-03재사용4seed,B는P2-04새4seed;이번엔성공계약동일. 온라인firsttouch↔원본200Hz1e-5일치,첫착지와지지유지/수직진동을함께검사. 최종T1J-v4 MP4는result수집. P2-03대조군에P2-04태그override추가했고원본config불변. 자동승격없음. 정밀도약이여러seed에서검증되면다음은수평목표와제한착지면으로진행하며평지보상수정만반복하는것을최종목표로삼지않는다. goal active 유지.
+
+### P2-04 학습 중 모니터링 개선
+
+실제PID703256/703354/703436/703545가살아있고update301–310까지증가했다. 아직새성공0,고정설정유지. evaluator에first_touch_precise_episodes/stabilized_episodes/success_contract 요약만추가(행동·판정불변). 웹은과거정밀평가의results에서첫접촉/기존안정화/전체성공을별도로집계표시하고episode첫접촉열추가. 기존완주율표기는과제성공률로수정. 사용자지정서버18710기존배포체계유지,TS/Vite build통과, / 및기존P2-03평가run API200. 원본artifact변경없음. 새평가는추가요약필드도저장하므로완료후실제출력확인. goal active.

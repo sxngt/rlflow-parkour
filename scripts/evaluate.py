@@ -133,6 +133,10 @@ def main():
             report['landed_episodes']=sum(r['landed'] for r in records)
             report['mean_flight_apex_rise_m']=sum(r['flight_apex_rise_m'] for r in records)/count
             report['nonfoot_collisions']=sum(r['nonfoot_collision'] for r in records)
+        if 'first_touch_count' in records[0]:
+            report['first_touch_precise_episodes']=sum(r['first_touch_all_within'] for r in records)
+            report['stabilized_episodes']=sum(r['stabilized_once'] for r in records)
+            report['success_contract']='verified flight + precise first touch + final stabilization'
         if 'active_foot' in records[0]:
             report['by_foot']={}
             for foot in env.foot_names:

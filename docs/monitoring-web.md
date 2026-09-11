@@ -85,3 +85,9 @@ systemctl --user restart parkour-monitor-collector parkour-monitor-web
 ## Phase 태그와 동작 진단
 
 Phase·실험 단계·과제·목적을 조합해 실행·영상·원본 파일을 필터링한다. [태그 계약](research-phases.md), [첫 진단 결과](hopping-diagnosis-results.md). 새 진단 영상에는 25Hz 접촉력·접촉 상태·행동과 수직 속도를 기록하며, 정량 진단은 별도 200Hz NPZ로 계산한다. 기존 영상의 없는 채널을 채워 넣지는 않는다.
+
+## 첫 착지·안정화 분리 표시 (2026-09-12)
+
+정밀 도약 평가의 원본 episode 기록에서 네 발 첫 접촉 반경 충족 수와 기존 안정화 달성 수를 각각 표시한다. 전체 과제 성공과 별도 지표이며, 과제별 성공 계약 차이를 안내한다. episode 표에도 첫 접촉 충족 여부를 추가했다. 과거에 필드가 없던 과제는 기록 없음으로 표시한다. 기존의 포괄적 완주율 표기는 과제 성공률로 명확히 했다.
+
+향후 evaluate.py 출력에는 first_touch_precise_episodes/stabilized_episodes/success_contract 요약도 저장된다. 기존 artifact는 수정하지 않는다. 사용자 지정 연구실 서버18710의 기존 배포 흐름으로 적용했다. TypeScript/Vite build와페이지·기존정밀평가API HTTP200을확인했으며,별도브라우저QA는수행하지않았다.
