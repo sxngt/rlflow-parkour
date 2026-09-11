@@ -114,3 +114,10 @@ launch_curriculum.distance_for_update와 checkpoint 새 curriculum 계약 추가
 [{"run": "p2-16-deck-seed0", "status": "RUNNING", "pid": 1208366, "live": true, "iteration": 73, "distance_range": [0.0, 0.05], "steps": 1794048}, {"run": "p2-16-deck-seed1", "status": "RUNNING", "pid": 1208384, "live": true, "iteration": 74, "distance_range": [0.0, 0.05], "steps": 1818624}, {"run": "p2-16-deck-seed2", "status": "RUNNING", "pid": 1208383, "live": true, "iteration": 75, "distance_range": [0.0, 0.05], "steps": 1843200}, {"run": "p2-16-deck-seed3", "status": "RUNNING", "pid": 1208387, "live": true, "iteration": 74, "distance_range": [0.0, 0.05], "steps": 1818624}]
 
 현재 학습 중이며 재시작하지 말 것. 다음은 이 PID와 metrics 증가 감시, 종료 후 학습4+평가4 감사, configs/reports/p2-16.json으로 experiment_report.py와 jump_trace_report.py 실행. 기존 대조4개와 seed별/거리별 비교하고 지지면 진단도 추가한다. 각 final 평가64개 camera-side4, result와 step:p2-16-distance-curriculum 태그 자동 저장. GPU0–3 모두 사용자 자원 사용, 착수 전 유휴 확인, 디스크 여유536GB. 전체 연구 목표 미완료.
+
+
+### 최신: P2-16 체크포인트 및 모니터링 검증
+
+동일 batch96778의 네 PID 생존과 metrics 증가 확인. checkpoint100 모두 hash 정상, 현재까지 loss 유한. artifacts/p2-16-watch.jsonl에 관측 기록. API의 step:p2-16-distance-curriculum 검색에서 네 RUNNING 작업과 실제 거리 범위 metric 노출 확인. 실제 최근 상태: [{"run": "p2-16-deck-seed0", "pid": 1208366, "live": true, "iteration": 218}, {"run": "p2-16-deck-seed1", "pid": 1208384, "live": true, "iteration": 220}, {"run": "p2-16-deck-seed2", "pid": 1208383, "live": true, "iteration": 220}, {"run": "p2-16-deck-seed3", "pid": 1208387, "live": true, "iteration": 219}]
+
+scripts/p2_15_support_report.py에 선택적 report spec 인자를 추가했다. 기본 P2-15 실행 결과는 기존 MD/JSON과 byte 차이 없이 검증했다. 64개 평가의 거리별16개 구성도 float32 허용오차1e-7로 확인한다. P2-16 전체 완료 후 `python.sh scripts/p2_15_support_report.py configs/reports/p2-16.json`으로 첫 접촉 지지면 진단 생성 가능. 현재 미완료이므로 P2-16 결과 보고서는 아직 생성하지 않았다. 이번 턴은 분석 경로 확장/실제 기존 결과 대조/체크포인트 검증으로 progress. 학습 조건 변경 없음, 기존 batch를 계속 관찰할 것.

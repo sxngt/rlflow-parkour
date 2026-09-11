@@ -1,4 +1,6 @@
-"""Audit mixed-distance P2-15 first contacts against finite support geometry."""
+"""Audit mixed-distance first contacts against finite support geometry."""
+import argparse
+from collections import Counter
 import json
 from pathlib import Path
 import sys
@@ -11,14 +13,24 @@ from parkour.diagnostics import jump_first_touches
 
 
 def main():
-    spec = json.loads((ROOT / 'configs/reports/p2-15.json').read_text())
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('spec', nargs='?', type=Path, default=ROOT / 'configs/reports/p2-15.json')
+    args = parser.parse_args()
+    spec = json.loads(args.spec.read_text())
+    prefix = spec['report']
+    if Path(prefix).name != prefix:
+        raise ValueError('Report prefix must be a filename component')
     rows, paired, calibration, policies = [], None, None, {}
     for item in spec['runs']:
-        path = ROOT / 'artifacts' / item['evaluation_run']
+        path = ROOT / 'artifacts' / item.get('evaluation_run', item['run']+'__final-evaluation')
         meta = json.loads((path / 'run.json').read_text())
         report = json.loads((path / 'evaluation.json').read_text())
         scenarios = json.loads((path / 'scenarios.json').read_text())['episodes']
         assert meta['status'] == 'SUCCEEDED' and len(scenarios) == report['episodes'] == 64
+        distances = [r['goal_forward_m'] for r in report['results']]
+        rounded = [round(value, 2) for value in distances]
+        assert np.allclose(distances, rounded, atol=1e-7, rtol=0)
+        assert Counter(rounded) == {0.: 16, .05: 16, .1: 16, .15: 16}
         paired = scenarios if paired is None else paired
         assert paired == scenarios
         support = meta['evaluation_support']
@@ -62,15 +74,15 @@ def main():
     summary = {'rows': rows, 'calibration_sha256': calibration, 'policy_hashes': policies,
                'definition': 'First >5N post-flight sample at 200Hz; sphere center z=2±1cm and XY at least 2cm inside deck bounds. Flat has no XY bounds. Geometric inference, not contact-pair identity or sustained support.',
                'additional_training_steps': 0}
-    (ROOT / 'docs/p2-15-support-diagnosis.json').write_text(json.dumps(summary, indent=2)+'\n')
-    lines = ['# P2-15 최초 착지 지지면 진단', '',
+    (ROOT / f'docs/{prefix}-support-diagnosis.json').write_text(json.dumps(summary, indent=2)+'\n')
+    lines = [f'# {prefix.upper()} 최초 착지 지지면 진단', '',
              '거리 0/5/10/15cm × 높이 명령 16개의 동일 개발군을 사용한다. 원시 200Hz 최초 접촉 오차를 저장된 KPI와 1e-5m 이내로 대조했다.', '',
              '| 조건 | seed | 기존 성공 / 64 | 첫 접촉 네 발 투영 포함 | 성공과 포함 모두 |',
              '|---|---:|---:|---:|---:|']
     for row in rows:
         lines.append(f"| {row['condition']} | {row['seed']} | {row['successes']} | {row['all_first_spheres_contained']} | {row['success_and_contained']} |")
     lines += ['', '포함은 발 중심 높이 2±1cm 및 발판 가장자리에서 2cm 여유를 확인한 기하 진단이다. 실제 접촉 쌍이나 착지 이후 지지 지속을 보장하지 않는다. 평지에는 XY 경계가 없다. 이 진단은 기존 성공 정의를 소급 변경하지 않는다.', '']
-    (ROOT / 'docs/p2-15-support-diagnosis.md').write_text('\n'.join(lines))
+    (ROOT / f'docs/{prefix}-support-diagnosis.md').write_text('\n'.join(lines))
     print('\n'.join(lines))
 
 
