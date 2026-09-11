@@ -1,7 +1,8 @@
 # parkour
 
-사전 지도 기반 Planner–RL Tracker 사족 파쿠르 연구 플랫폼. 현재는 **A1의 보정된 자세에서 네 발을 순서대로 들어 목표에 놓는 T0S v2 PPO 파일럿** 단계다. 점프나 연속 파쿠르 성공을 의미하지 않는다.
+사전 지도 기반 Planner–RL Tracker 사족 파쿠르 연구 플랫폼. 현재는 **A1의 발별 단독 이동·3발 지지·착지 안정화(P1 Step 02a)를 비교한 파일럿** 단계다. 점프나 연속 파쿠르 성공을 의미하지 않는다.
 
+- [발별 단독 이동 최신 결과](docs/step02a-results.md)
 - [실행별 최종 평가 영상 목록](result/README.md)
 - [순차 발 디딤 과제 v2](docs/t0-sequential-v2.md)
 - [영상 보관·자동 평가 규칙](docs/result-archive.md)

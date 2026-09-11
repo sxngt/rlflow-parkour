@@ -1,0 +1,154 @@
+[
+  {
+    "foot": "FL",
+    "seed": 0,
+    "episodes": 64,
+    "successes": 0,
+    "placed": 64,
+    "failures": 0,
+    "timeouts": 64,
+    "terminal_foot_error_mean_m": {
+      "FL": 0.006821874178978685,
+      "FR": 0.05240266300136423,
+      "RL": 0.010406594474892715,
+      "RR": 0.05010948072423636
+    },
+    "terminal_all_feet_in_radius": 0,
+    "mean_contacts": 1.0,
+    "flight_episodes": 0,
+    "root_vz_rms": 0.04032058769234303,
+    "terminal_stage_phase": {
+      "4:1": 64
+    },
+    "diagnostic_means": {
+      "duration_s": 12.0,
+      "root_z_range_m": 0.04330315487459302,
+      "root_vz_abs_max_m_s": 0.359832338988781,
+      "all_feet_air_time_s": 0.001484375,
+      "max_all_feet_air_duration_s": 0.001484375,
+      "under_three_contacts_fraction": 0.006341145833333332,
+      "nonfoot_contact_fraction": 0.0,
+      "nonfoot_force_peak_N": 0.0,
+      "foot_normal_force_peak_N": 108.60923624038696,
+      "landing_50ms_impulse_max_Ns": 3.096664733886719,
+      "support_travel_total_m": 0.3586185951717198,
+      "supported_speed_peak_m_s": 1.8247654177248478,
+      "torque_abs_peak_Nm": 20.787510365247726,
+      "action_clip_fraction": 0.002170138888888889
+    }
+  },
+  {
+    "foot": "FR",
+    "seed": 0,
+    "episodes": 64,
+    "successes": 64,
+    "placed": 64,
+    "failures": 0,
+    "timeouts": 0,
+    "terminal_foot_error_mean_m": {
+      "FL": 0.019823218433979863,
+      "FR": 0.007298631087864499,
+      "RL": 0.014524393737798453,
+      "RR": 0.012027007043806177
+    },
+    "terminal_all_feet_in_radius": 64,
+    "mean_contacts": 1.0,
+    "flight_episodes": 0,
+    "root_vz_rms": 0.07109255295999384,
+    "terminal_stage_phase": {
+      "4:1": 64
+    },
+    "diagnostic_means": {
+      "duration_s": 0.9746874999999999,
+      "root_z_range_m": 0.026148864533752203,
+      "root_vz_abs_max_m_s": 0.19373586890287697,
+      "all_feet_air_time_s": 0.0,
+      "max_all_feet_air_duration_s": 0.0,
+      "under_three_contacts_fraction": 0.14374069940476192,
+      "nonfoot_contact_fraction": 0.0,
+      "nonfoot_force_peak_N": 0.0,
+      "foot_normal_force_peak_N": 114.14872801303864,
+      "landing_50ms_impulse_max_Ns": 2.7756570529937745,
+      "support_travel_total_m": 0.07264087977819145,
+      "supported_speed_peak_m_s": 1.928221309557557,
+      "torque_abs_peak_Nm": 15.968644097447395,
+      "action_clip_fraction": 0.006042618870464853
+    }
+  },
+  {
+    "foot": "RL",
+    "seed": 0,
+    "episodes": 64,
+    "successes": 0,
+    "placed": 64,
+    "failures": 0,
+    "timeouts": 64,
+    "terminal_foot_error_mean_m": {
+      "FL": 0.030787504610847487,
+      "FR": 0.01825571401595009,
+      "RL": 0.009236293704786503,
+      "RR": 0.03662362850736436
+    },
+    "terminal_all_feet_in_radius": 0,
+    "mean_contacts": 1.0,
+    "flight_episodes": 2,
+    "root_vz_rms": 0.04867359978907256,
+    "terminal_stage_phase": {
+      "4:1": 64
+    },
+    "diagnostic_means": {
+      "duration_s": 12.0,
+      "root_z_range_m": 0.03471751231700182,
+      "root_vz_abs_max_m_s": 0.428714357316494,
+      "all_feet_air_time_s": 0.005703125,
+      "max_all_feet_air_duration_s": 0.005703125,
+      "under_three_contacts_fraction": 0.034121093750000005,
+      "nonfoot_contact_fraction": 0.0,
+      "nonfoot_force_peak_N": 0.0,
+      "foot_normal_force_peak_N": 125.4198876619339,
+      "landing_50ms_impulse_max_Ns": 2.547210829257965,
+      "support_travel_total_m": 0.34557919623330235,
+      "supported_speed_peak_m_s": 1.0820645904168487,
+      "torque_abs_peak_Nm": 18.99005624651909,
+      "action_clip_fraction": 0.00208984375
+    }
+  },
+  {
+    "foot": "RR",
+    "seed": 0,
+    "episodes": 64,
+    "successes": 4,
+    "placed": 64,
+    "failures": 0,
+    "timeouts": 60,
+    "terminal_foot_error_mean_m": {
+      "FL": 0.013724930084712372,
+      "FR": 0.02653904967074712,
+      "RL": 0.0011075012855805955,
+      "RR": 0.012017395586858434
+    },
+    "terminal_all_feet_in_radius": 4,
+    "mean_contacts": 1.0,
+    "flight_episodes": 0,
+    "root_vz_rms": 0.04325544811648859,
+    "terminal_stage_phase": {
+      "4:1": 64
+    },
+    "diagnostic_means": {
+      "duration_s": 11.30625,
+      "root_z_range_m": 0.054657008266076446,
+      "root_vz_abs_max_m_s": 0.23794237384572625,
+      "all_feet_air_time_s": 0.0,
+      "max_all_feet_air_duration_s": 0.0,
+      "under_three_contacts_fraction": 0.020848524305555553,
+      "nonfoot_contact_fraction": 0.0,
+      "nonfoot_force_peak_N": 0.0,
+      "foot_normal_force_peak_N": 94.19670116901398,
+      "landing_50ms_impulse_max_Ns": 2.6491755294799804,
+      "support_travel_total_m": 0.11251730134245008,
+      "supported_speed_peak_m_s": 0.8476491197943687,
+      "torque_abs_peak_Nm": 15.171516984701157,
+      "action_clip_fraction": 0.0038888888888888888
+    }
+  }
+]

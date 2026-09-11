@@ -48,6 +48,17 @@ def main():
  lines+=['','## 해석 범위','',
   '발별 독립 학습 seed는 하나다. 발 간 결과 차이를 구조적 실행 가능성이나 통계적 우열로 단정하지 않는다. 단독 이동 성공은 4발 순차 이동이나 파쿠르 성공을 의미하지 않는다. 지지 조건은 lift/place 이벤트와 최종 안정화에 적용하며 모든 중간 시각의 3발 지지를 보장하는 제약은 아니다.',
   '', '최종 checkpoint를 사전 정의대로 평가했다. 실패와 영상도 보존하며 champion으로 자동 승격하지 않는다. 각 run의 정책·설정·계보·평가·200Hz NPZ는 `artifacts/p1-step02a-single-{fl,fr,rl,rr}-seed0` 및 `__final-evaluation`에 있다. 상세 제목의 최종 영상은 `result/`에 정리했다. 모니터링에서 `P1 / 02a·발별 단독 이동`과 발 조건 태그로 조회한다.']
+ lines+=['','## 이번 결과의 판단','',
+  '모든 조건에서 지정 발의 들기→착지는 64/64 완료했다. 안정화까지 성공한 횟수는 FL 0, FR 64, RL 0, RR 4였다. 순차 과제의 후반 단계 실패를 해당 발의 단독 이동 불능만으로 설명할 수 없다. 단독 정책과 순차 정책은 다르므로 순차 실행 가능성을 입증한 것은 아니다.',
+  '', '마지막 유효 표본의 발별 수평 오차 평균은 다음과 같다. 판정 반경은 각 발 2.5cm이며 평균값만으로 개별 episode 성공을 판정하지 않는다.','',
+  '| 이동 조건 | FL 오차 cm | FR 오차 cm | RL 오차 cm | RR 오차 cm | 네 발 모두 반경 내 |','|---|---:|---:|---:|---:|---:|']
+ for r in rows:
+  values=' | '.join(f'{v*100:.2f}' for v in r['terminal_foot_error_mean_m'].values())
+  lines.append(f"| {r['foot']} | {values} | {r['terminal_all_feet_in_radius']}/64 |")
+ lines+=['','FL 조건의 FR/RR 지지 발, RL 조건의 FL/RR 지지 발은 평균적으로 목표 반경을 벗어났다. RR 조건도 마지막 표본에서 네 발이 반경 내인 경우는 4/64였다. 이는 최종 발 위치 유지가 충족되지 않은 직접 관측이며 미끄러짐이라는 물리 원인을 확정하지 않는다.',
+  '', 'RL 조건에서는 2/64 episode에 20ms 이상 네 발 무접촉이 있었다. 이벤트 순간 3발 지지 조건만으로 전체 궤적의 hopping을 제거하지 못한다.',
+  '', '다음 비교 후보는 기존 보상을 대조군으로 두고 지지 발별 오차 및 최종 단계의 네 발 정렬 학습 신호를 명시한 보상이다. 현재의 지지 오차 평균은 개별 발 오차를 가릴 수 있지만, 보상 변경의 효과는 아직 검증하지 않았다. 추가 seed와 동일 예산 비교 후에 순차 연결을 시도한다.',
+  '', '학습 4건과 자동 평가 4건의 checkpoint·artifact hash, GPU UUID 격리·자원 회수 감사를 통과했다. 합성 상태 검사, 단위 검사 15개, 모니터링 검사 6개, 프론트 빌드도 통과했다. 최종 영상 4개는 result와 웹에 등록했다.']
  (ROOT/'docs/step02a-results.md').write_text('\n'.join(lines)+'\n');(ROOT/'docs/step02a-summary.json').write_text(json.dumps(rows,indent=2)+'\n')
  print(json.dumps(rows,indent=2))
 if __name__=='__main__':main()
