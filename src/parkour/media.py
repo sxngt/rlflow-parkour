@@ -42,7 +42,7 @@ class ParallelRecorder:
         env=self.env
         indices=torch.zeros(len(self.ids),4,device=env.device,dtype=torch.long)
         if hasattr(env,'stage'):
-            active=env.order[env.stage[self.ids].clamp_max(env.seq.get('sequence_length',4)-1)]
+            active=env.active_feet()[self.ids]
             indices[torch.arange(len(self.ids),device=env.device),active]=1
         self.markers.visualize(translations=env.targets[self.ids].reshape(-1,3),marker_indices=indices.flatten())
         frame=env.render()

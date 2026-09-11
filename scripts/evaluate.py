@@ -52,7 +52,10 @@ def main():
         env.reset()
         offsets = torch.tensor([episode["foot_offsets_xy_m"] for episode in manifest["episodes"]], device=env.device)
         if hasattr(env, 'set_sequence_offsets'):
-            env.set_sequence_offsets(offsets)
+            orders=None
+            if 'episode_order_indices' in manifest['episodes'][0]:
+                orders=torch.tensor([e['episode_order_indices'] for e in manifest['episodes']],device=env.device)
+            env.set_sequence_offsets(offsets,episode_orders=orders)
             meta['stance_calibration'] = env.calibration
         else:
             env.targets[:, :, :2] = env.scene.env_origins[:, None, :2] + env.nominal_xy + offsets
@@ -89,6 +92,8 @@ def main():
                     metrics = extras["terminal_metrics"]
                     records[index] = {"scenario_id": manifest["episodes"][index]["id"],
                         **{key: val[index].item() for key, val in metrics.items()}}
+                    if 'active_foot' in manifest['episodes'][index]:
+                        records[index]['active_foot']=manifest['episodes'][index]['active_foot']
                 done |= newly_done
                 if bool(done.all()):
                     break
@@ -118,6 +123,14 @@ def main():
         if 'completed_contacts' in records[0]:
             report['required_contacts'] = config.get('sequence',{}).get('sequence_length',4)
             report['mean_completed_contacts'] = sum(row['completed_contacts'] for row in records)/count
+        if 'active_foot' in records[0]:
+            report['by_foot']={}
+            for foot in env.foot_names:
+                subset=[r for r in records if r['active_foot']==foot]
+                if subset:
+                    report['by_foot'][foot]={'episodes':len(subset),'successes':sum(r['success'] for r in subset),
+                        'placed':sum(r['completed_contacts']==report['required_contacts'] for r in subset),
+                        'failures':sum(r['failure'] for r in subset),'timeouts':sum(r['timeout'] for r in subset)}
         atomic_json(args.out / "evaluation.json", report)
         meta["evaluation"] = {key: value for key, value in report.items() if key != "results"}
         meta["artifacts"] = {file.name: sha256(file) for file in args.out.iterdir()

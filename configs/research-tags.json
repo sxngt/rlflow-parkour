@@ -40,7 +40,9 @@
     "condition:alignment-c": "C · 전 단계 정렬 벌점",
     "step:02d-additional-budget": "02d · 추가 학습·회귀",
     "condition:budget-800": "누적 800 updates",
-    "condition:budget-1600": "누적 1600 updates"
+    "condition:budget-1600": "누적 1600 updates",
+    "step:02e-shared-tracker": "02e · 공유 Tracker",
+    "task:shared-single-foot": "공유 정책·네 발 단독 이동"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
@@ -72,6 +74,11 @@
       "phase:P1",
       "step:02c-continuous-alignment",
       "task:single-foot"
+    ],
+    "a1_t0_shared_single_foot_v7": [
+      "phase:P1",
+      "step:02e-shared-tracker",
+      "task:shared-single-foot"
     ]
   },
   "run_overrides": {

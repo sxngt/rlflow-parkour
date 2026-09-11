@@ -26,12 +26,19 @@ def summarize(entry):
       'attempt_environment_steps':len(metrics)*meta['config']['runner']['num_steps_per_env']*json.loads((train/'run.json').read_text())['config']['num_envs'],
       'train_wall_seconds':json.loads(train.with_suffix('.supervisor.json').read_text())['wall_seconds']}
  if r['required_contacts']==1:
-  active=['FL','FR','RL','RR'].index(entry['foot']);target=np.tile(np.array(meta['nominal_foot_xy_m']),(count,1,1))
-  target[:,active]+=np.array([s['foot_offsets_xy_m'][active] for s in sc['episodes']])
+  names=['FL','FR','RL','RR']
+  active=np.array([names.index(x['active_foot'].replace('_foot','')) for x in sc['episodes']]) if entry['foot']=='ALL' else np.full(count,names.index(entry['foot']))
+  target=np.tile(np.array(meta['nominal_foot_xy_m']),(count,1,1))
+  target[np.arange(count),active]+=np.array([x['foot_offsets_xy_m'][int(f)] for x,f in zip(sc['episodes'],active)])
   pos=np.array([a['foot_pos'][t,i,:,:2] for i,t in enumerate(last)])
   errors=np.linalg.norm(pos-target,axis=2)
   row['terminal_foot_error_mean_m']=dict(zip(['FL','FR','RL','RR'],errors.mean(axis=0).tolist()))
   row['terminal_all_feet_in_radius']=int((errors<=meta['config']['success_radius_m']).all(axis=1).sum())
+ if 'by_foot' in r:
+  row['by_foot']=r['by_foot']
+  for foot,values in row['by_foot'].items():
+   ids=[i for i,x in enumerate(r['results']) if x['active_foot']==foot]
+   values['flight_episodes']=sum(d['results'][i]['has_flight_20ms'] for i in ids)
  return row,metrics,sc['episodes']
 
 def main():
@@ -53,6 +60,10 @@ def main():
  lines=[f"# {spec['title']}",'',spec['description'],'',f"비교 전체 {total:,} 환경 step, 신규 {new:,}step. [사전 프로토콜]({spec['protocol']}).",'',
  '| 발 | 조건 | seed | 안정화 성공 | 필요 착지 완료 | 낙상 | 시간초과 | ≥20ms 전 발 무접촉 |','|---|---|---:|---:|---:|---:|---:|---:|']
  for x in rows:lines.append(f"| {x['foot']} | {x['condition']} | {x['seed']} | {x['successes']}/{x['episodes']} | {x['placed']}/{x['episodes']} | {x['failures']}/{x['episodes']} | {x['timeouts']}/{x['episodes']} | {x['flight_episodes']}/{x['episodes']} |")
+ if any('by_foot' in x for x in rows):
+  lines+=['','## 공유 정책의 발별 평가','','| 조건 | seed | 이동 발 | 안정화 | 착지 | ≥20ms 전 발 무접촉 |','|---|---:|---|---:|---:|---:|']
+  for x in rows:
+   for foot,v in x.get('by_foot',{}).items():lines.append(f"| {x['condition']} | {x['seed']} | {foot} | {v['successes']}/{v['episodes']} | {v['placed']}/{v['episodes']} | {v['flight_episodes']}/{v['episodes']} |")
  lines+=['',f'![학습 곡선](figures/{stem}-learning.png)','',
  '학습 곡선은 각 update의 종료 episode 통계다. 고정 평가 결과와 구분한다. 종료 단계는 마지막 유효 200Hz 표본이며 실제 완료 여부는 terminal metrics를 우선한다.','', '## 종료 단계','']
  for x in rows:lines.append(f"- {x['foot']} {x['condition']} seed {x['seed']}: `{x['terminal_stage_phase']}`")

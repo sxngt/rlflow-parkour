@@ -1,0 +1,40 @@
+{
+  "title": "P1 · Step 02e — 공유 단독 발 Tracker",
+  "report": "step02e",
+  "protocol": "step02e-protocol.md",
+  "description": "네 발이 공유하는 정책을 매 episode의 활성 발 균등 추출로 학습했다. 네 독립 seed, 각1024환경×1600updates. 개발 평가256개를 발별64개로 나누어 보고한다.",
+  "runs": [
+    {
+      "foot": "ALL",
+      "condition": "Shared",
+      "seed": 0,
+      "run": "p1-step02e-shared-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "ALL",
+      "condition": "Shared",
+      "seed": 1,
+      "run": "p1-step02e-shared-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "ALL",
+      "condition": "Shared",
+      "seed": 2,
+      "run": "p1-step02e-shared-seed2",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "ALL",
+      "condition": "Shared",
+      "seed": 3,
+      "run": "p1-step02e-shared-seed3",
+      "updates": 1600,
+      "reused": false
+    }
+  ]
+}

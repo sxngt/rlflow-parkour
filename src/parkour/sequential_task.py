@@ -20,6 +20,7 @@ class SequentialEnv(FootholdEnv):
         super().__init__(cfg, render_mode)
         self.seq = cfg.sequence
         self.order = torch.tensor([self.foot_names.index(name) for name in self.seq['foot_order']], device=self.device)
+        self.episode_order = self.order.expand(self.num_envs, -1).clone()
         self.stage = torch.zeros(self.num_envs, dtype=torch.long, device=self.device)
         self.phase = torch.zeros_like(self.stage)
         self.lift_count = torch.zeros_like(self.stage)
@@ -68,24 +69,34 @@ class SequentialEnv(FootholdEnv):
         self.robot.write_root_velocity_to_sim(root[:, 7:], env_ids)
         joints = self.calibrated_joint_pos.expand(len(env_ids), -1).clone()
         self.robot.write_joint_state_to_sim(joints, torch.zeros_like(joints), env_ids=env_ids)
+        self.episode_order[env_ids] = self.order
+        if self.seq.get('randomize_first_foot',False):
+            starts=torch.randint(4,(len(env_ids),),generator=self.generator,device=self.device)
+            self.episode_order[env_ids]=self.order[(starts[:,None]+torch.arange(4,device=self.device))%4]
         low, high = self.seq['forward_step_range_m']
         offsets = torch.rand(len(env_ids), 4, 2, generator=self.generator, device=self.device)
         offsets[:, :, 0] = low + (high-low) * offsets[:, :, 0]
         offsets[:, :, 1] = (offsets[:, :, 1]*2-1) * self.seq['lateral_step_m']
         self.set_sequence_offsets(offsets, env_ids)
 
-    def set_sequence_offsets(self, offsets, env_ids=None):
+    def set_sequence_offsets(self, offsets, env_ids=None, episode_orders=None):
         if env_ids is None:
             env_ids = self.robot._ALL_INDICES
+        if episode_orders is not None:
+            self.episode_order[env_ids] = episode_orders
         self.targets[env_ids, :, :2] = self.scene.env_origins[env_ids, None, :2] + self.nominal_xy
         self.targets[env_ids, :, 2] = self.scene.env_origins[env_ids, None, 2] + 0.02
         self.landing_goals[env_ids] = self.targets[env_ids]
         self.landing_goals[env_ids, :, :2] += offsets
-        self.targets[env_ids, self.order[0]] = self.landing_goals[env_ids, self.order[0]]
+        first=self.episode_order[env_ids,0]
+        self.targets[env_ids, first] = self.landing_goals[env_ids, first]
+
+    def active_feet(self):
+        return self.episode_order[self.indices,self.stage.clamp_max(self.seq.get("sequence_length",4)-1)]
 
     def _get_observations(self):
         basic = super()._get_observations()['policy']
-        active = self.order[self.stage.clamp_max(self.seq.get('sequence_length',4)-1)]
+        active = self.active_feet()
         return {'policy': torch.cat((basic, torch.nn.functional.one_hot(active, 4),
                 torch.nn.functional.one_hot(self.phase, 2), self.stage[:, None]/4,
                 (self.episode_length_buf[:, None]*self.step_dt/self.seq['settle_seconds']).clamp_max(1)), dim=1)}
@@ -93,7 +104,7 @@ class SequentialEnv(FootholdEnv):
     def _get_dones(self):
         forces = self.contacts.data.net_forces_w[:, self.contact_ids, 2]
         self.contact_on = torch.where(self.contact_on, forces > 2.0, forces > 5.0)
-        active = self.order[self.stage.clamp_max(self.seq.get('sequence_length',4)-1)]
+        active = self.active_feet()
         foot_z = self.robot.data.body_pos_w[self.indices, torch.tensor(self.foot_ids, device=self.device)[active], 2]
         surface = self.scene.env_origins[:, 2]
         contact = self.contact_on[self.indices, active]
@@ -116,7 +127,7 @@ class SequentialEnv(FootholdEnv):
         return terminated, (self.episode_length_buf >= self.max_episode_length) & ~terminated
 
     def _get_rewards(self):
-        active = self.order[self.stage.clamp_max(self.seq.get('sequence_length',4)-1)]
+        active = self.active_feet()
         desired = self.targets.clone()
         desired[self.indices, active, 2] += (self.phase == 0)*self.seq['lift_target_height_m']
         errors3d = (self.robot.data.body_pos_w[:, self.foot_ids] - desired).norm(dim=-1)
@@ -149,6 +160,6 @@ class SequentialEnv(FootholdEnv):
         self.grounded_seen[ids] = False
         self.lift_count[ids] = 0
         self.hold_steps[ids] = 0
-        next_feet = self.order[self.stage[ids]]
+        next_feet = self.episode_order[ids,self.stage[ids]]
         self.targets[ids, next_feet] = self.landing_goals[ids, next_feet]
         return reward

@@ -34,7 +34,7 @@ class StableSequentialEnv(SequentialEnv):
         return terminated,(self.episode_length_buf>=self.max_episode_length)&~terminated
 
     def _get_rewards(self):
-        active=self.order[self.stage.clamp_max(self.seq.get('sequence_length',4)-1)]
+        active=self.active_feet()
         desired=self.targets.clone()
         desired[self.indices,active,2]+=((self.phase==0)&(self.stage<4))*self.seq['lift_target_height_m']
         errors=(self.robot.data.body_pos_w[:,self.foot_ids]-desired).norm(dim=-1)
@@ -71,6 +71,6 @@ class StableSequentialEnv(SequentialEnv):
         self.phase[ids]=torch.where(self.stage[ids]==4,1,0)
         self.grounded_seen[ids]=False;self.lift_count[ids]=0;self.hold_steps[ids]=0
         moving=ids[self.stage[ids]<4]
-        next_feet=self.order[self.stage[moving]]
+        next_feet=self.episode_order[moving,self.stage[moving]]
         self.targets[moving,next_feet]=self.landing_goals[moving,next_feet]
         return reward

@@ -24,6 +24,14 @@ class ScenarioTests(unittest.TestCase):
                 self.assertEqual(len(xy), 2)
                 self.assertTrue(all(abs(value) <= 0.06 for value in xy))
 
+    def test_shared_foot_is_balanced_and_prefix_stable(self):
+        seq={'forward_step_range_m':[.04,.07],'lateral_step_m':.01,'randomize_first_foot':True}
+        a=development_scenarios(256,sequence=seq)['episodes']
+        from collections import Counter
+        self.assertEqual(set(Counter(x['active_foot'] for x in a).values()),{64})
+        self.assertEqual(a[:16],development_scenarios(16,sequence=seq)['episodes'])
+        for row in a:self.assertEqual(sorted(row['episode_order_indices']),[0,1,2,3])
+
     def test_reject_invalid_count(self):
         for count in (0, -1, 1001):
             with self.assertRaises(ValueError):

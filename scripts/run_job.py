@@ -130,6 +130,8 @@ def main():
         command = [sys.executable, str(ROOT/'scripts/run_job.py'), '--gpu', gpu, '--timeout', '180',
                    '--python', args.python, 'evaluate', '--config', str(out/'config.json'),
                    '--checkpoint', str(out/run['checkpoint']['path']), '--out', str(evaluation_out), '--video']
+        if run.get('config',{}).get('evaluation_episodes'):
+            command.extend(['--episodes',str(run['config']['evaluation_episodes'])])
         if run.get('config',{}).get('evaluation_diagnostics'):
             command.append('--diagnostics')
         evaluation = subprocess.run(command, cwd=ROOT)
