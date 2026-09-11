@@ -189,3 +189,9 @@ P2-02 구현 및 검증 완료, 본 학습4개 실행 중. 새task a1_flat_jump_
 본4run artifacts/p2-02-shaped-seed{0,1,2,3}, GPU index=seed. 각1024×24×1600updates=39,321,600step,총157,286,400신규. 현재shell tool session42486/7314/10665/2176;4run RUNNING 실제update7–12확인. 실행commit d720f20. supervisor1800초,최종64평가자동영상/진단180초. 기다리는 동안실제메트릭/프로세스확인하며중복실행하지말것.
 
 다음행동: 종료/자동평가/자원회수 후8run감사, configs/reports/p2-02.json로보고서생성. 명세는P2-01의4seed를재사용A로포함하고새4seed를B로비교(총314,572,800step,신규절반). 첫접촉/요구높이충족/최종높이를별도확인. 기존P2-01영상/원본config는변경하지않고catalog override에P2-02대조군태그추가. API runs/videos200확인. 보조지표는사후진단이며시험군주장안함. 모델승격없음. goal active 유지,사용자중단전까지연구계속.
+
+### P2-02 실행 중 보고서 보완
+
+실제 GPU worker PID666799/666892/666997/667095를 확인했다. 4run은 update238–242까지 진행 중이며 종료 episode의 apex 명령 충족은 증가했지만 성공은 아직0. 이것은 중간 학습 통계이며 최종 평가 결과가 아니다. 기존 session42486/7314/10665/2176을 유지하고 새 실행을 만들지 않는다.
+
+scripts/experiment_report.py의 jump 표에 조건명(A/B)과 마지막 유효 표본의 높이 범위 위반 수를 추가했다. docs/p2-01 결과를 다시 생성해 기존 높이 진단 수치와 일치 확인. scripts/jump_trace_report.py configs/reports/p2-02.json은 평가 완료 후 조건별 동일 대표 명령의 높이/발오차 궤적을 생성한다. 각episode의 valid 마지막 표본을 사용하므로 성공 조기 종료·auto-reset 데이터가 최종높이에 섞이지 않는다. 기존 p2_01_trace_report.py는 호환 실행기로 유지한다. P2-02 종료 후 report와 trace report를 모두 실행할 것.

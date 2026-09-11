@@ -1063,6 +1063,8 @@
         "all_within": false
       }
     ],
+    "mean_terminal_base_rise_m": -0.1010032519698143,
+    "terminal_height_outside_tolerance": 64,
     "apex_command_met": 0,
     "terminal_stable_steps_histogram": {
       "0": 64
@@ -2137,6 +2139,8 @@
         "all_within": false
       }
     ],
+    "mean_terminal_base_rise_m": -0.08159562945365906,
+    "terminal_height_outside_tolerance": 64,
     "apex_command_met": 11,
     "terminal_stable_steps_histogram": {
       "0": 64
@@ -3211,6 +3215,8 @@
         "all_within": false
       }
     ],
+    "mean_terminal_base_rise_m": -0.08164817094802856,
+    "terminal_height_outside_tolerance": 64,
     "apex_command_met": 11,
     "terminal_stable_steps_histogram": {
       "0": 64
@@ -4285,6 +4291,8 @@
         "all_within": false
       }
     ],
+    "mean_terminal_base_rise_m": -0.08758606016635895,
+    "terminal_height_outside_tolerance": 64,
     "apex_command_met": 12,
     "terminal_stable_steps_histogram": {
       "0": 64
