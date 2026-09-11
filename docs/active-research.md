@@ -384,3 +384,12 @@ P2-20 mean→sampled2: seed0 48→47/48,seed1 48→46/44,seed2 24→44/44,seed3 
 주요 scripts/p2_24_train.py batch79919 실행중, fresh4seed×1024×24×1600=추가157286400step,대조P2-20재사용. 최신 [{"run": "p2-24-deck-seed0", "pid": 1472939, "live": true, "iteration": 83}, {"run": "p2-24-deck-seed1", "pid": 1472947, "live": true, "iteration": 83}, {"run": "p2-24-deck-seed2", "pid": 1472940, "live": true, "iteration": 86}, {"run": "p2-24-deck-seed3", "pid": 1472926, "live": true, "iteration": 85}]
 
 다음401/801/1201전환(마지막cap.05)/checkpoint검증,1600후mean평가8artifact감사 및 configs/reports/p2-24.json 4보고서. 이후 최종4seed의sampledRNG20000/20001 총8평가를추가(프로토콜필수),P2-23의P2-20 sampled재사용하여mean/sample차이비교. helper p2_20_checkpoint_report.restored_distribution은1600cap.1하드코딩이므로P2-24에그대로쓰지말것; config일정의완료update-1에서cap검증하도록일반화하거나별도검증. 아직sampled실행스크립트미작성. 전체목표미완료,중복실행금지.
+
+
+### 최신: P2-24 후속 샘플링 평가 준비
+
+직전 턴은P2-24착수로progress. 이번 턴 현재실제학습PID확인 후후속 scripts/p2_24_sampled.py / p2_24_sampling_report.py작성. train4+mean4감사가통과해야sampled시작,현재RUNNING상태에서실행을거부하고새worker를생성하지않는것을검증. 본학습중복실행아님.
+
+restored_distribution은checkpoint설정의완료update-1로cap을계산하고floor도설정에서읽음. 기존P2-20 12checkpoint결과정확히동일+P2-24 smoke완료3 cap.05실제복원검증. script문법검사통과. 주요학습코드변경없음. 현재 [{"run": "p2-24-deck-seed0", "pid": 1472939, "live": true, "iteration": 211}, {"run": "p2-24-deck-seed1", "pid": 1472947, "live": true, "iteration": 210}, {"run": "p2-24-deck-seed2", "pid": 1472940, "live": true, "iteration": 215}, {"run": "p2-24-deck-seed3", "pid": 1472926, "live": true, "iteration": 213}]
+
+다음401/801/1201전환확인,1600+mean평가완료후8artifact감사/4보고서. 이어 python3 scripts/p2_24_sampled.py 실행(새8평가이름p2-24-p2-24-seedS-sampled-rngR),감사후Isaac python으로 scripts/p2_24_sampling_report.py. P2-23의P2-20sampled재사용. 후속아직실행안됨(사전실행거부시험만). batch79919유지. 전체목표미완료.

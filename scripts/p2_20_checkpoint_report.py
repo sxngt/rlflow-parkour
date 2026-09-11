@@ -5,24 +5,26 @@ from pathlib import Path
 import torch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'src'))
-from parkour.exploration import BoundedActorCritic
+from parkour.exploration import BoundedActorCritic, cap_for_update
 
 
 def restored_distribution(train, update):
     data = torch.load(train/f'checkpoint-{update:06d}.pt', map_location='cpu', weights_only=False)
     config = data['config']
+    assert update > 0 and data['completed_iterations'] == update
+    floor = config['exploration']['min_std']
     cfg = dict(config['runner']['policy'])
     assert cfg.pop('class_name') == 'ActorCritic'
     obs_dim = data['model']['actor.0.weight'].shape[1]
-    policy = BoundedActorCritic(obs_dim, obs_dim, 12, min_std=.05, max_std=.35, **cfg)
+    policy = BoundedActorCritic(obs_dim, obs_dim, 12, min_std=floor, max_std=cap_for_update(config, 0), **cfg)
     policy.load_state_dict(data['model'])
     policy.eval()
     policy.update_distribution(torch.zeros(1, obs_dim))
-    cap = {800: .35, 1200: .2, 1600: .1}[update]
+    cap = cap_for_update(config, update - 1)
     assert abs(float(policy.std_cap)-cap) < 1e-7
-    assert abs(float(policy.std_floor)-.05) < 1e-7
+    assert abs(float(policy.std_floor)-floor) < 1e-7
     std = policy.distribution.stddev.detach()
-    assert torch.isfinite(std).all() and float(std.min()) >= .05-1e-7 and float(std.max()) <= cap+1e-7
+    assert torch.isfinite(std).all() and float(std.min()) >= floor-1e-7 and float(std.max()) <= cap+1e-7
     return {'stored_cap': float(policy.std_cap), 'effective_std_min': float(std.min()),
             'effective_std_max': float(std.max()), 'effective_std_mean': float(std.mean())}
 
