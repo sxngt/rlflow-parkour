@@ -27,6 +27,9 @@ def main():
     config = json.loads(args.config.read_text())
     if args.research_tag:config["research_tags"] = args.research_tag
     manifest = development_scenarios(args.episodes, config["target_offset_m"], config.get('sequence'))
+    if config.get('jump'):
+        from parkour.scenarios import jump_scenarios
+        manifest=jump_scenarios(args.episodes,config['jump'])
     manifest["task"] = config["task"]
     if config.get("sequence"):manifest["sequence_contract"] = config["sequence"]
     config["num_envs"] = args.episodes
@@ -56,6 +59,8 @@ def main():
             if 'episode_order_indices' in manifest['episodes'][0]:
                 orders=torch.tensor([e['episode_order_indices'] for e in manifest['episodes']],device=env.device)
             env.set_sequence_offsets(offsets,episode_orders=orders)
+            if config.get('jump'):
+                env.required_apex[:]=torch.tensor([e['required_apex_m'] for e in manifest['episodes']],device=env.device)
             meta['stance_calibration'] = env.calibration
         else:
             env.targets[:, :, :2] = env.scene.env_origins[:, None, :2] + env.nominal_xy + offsets
@@ -121,8 +126,13 @@ def main():
                   "mean_episode_seconds": sum(row["length"] for row in records) * env.step_dt / count,
                   "results": records}
         if 'completed_contacts' in records[0]:
-            report['required_contacts'] = config.get('sequence',{}).get('sequence_length',4)
+            report['required_contacts'] = 4 if config.get('jump') else config.get('sequence',{}).get('sequence_length',4)
             report['mean_completed_contacts'] = sum(row['completed_contacts'] for row in records)/count
+        if 'valid_flight' in records[0]:
+            report['valid_flights']=sum(r['valid_flight'] for r in records)
+            report['landed_episodes']=sum(r['landed'] for r in records)
+            report['mean_flight_apex_rise_m']=sum(r['flight_apex_rise_m'] for r in records)/count
+            report['nonfoot_collisions']=sum(r['nonfoot_collision'] for r in records)
         if 'active_foot' in records[0]:
             report['by_foot']={}
             for foot in env.foot_names:

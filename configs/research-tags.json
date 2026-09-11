@@ -43,7 +43,9 @@
     "condition:budget-1600": "누적 1600 updates",
     "step:02e-shared-tracker": "02e · 공유 Tracker",
     "task:shared-single-foot": "공유 정책·네 발 단독 이동",
-    "step:p2-00-collision-contract": "P2-00 · 동적 접촉 계약"
+    "step:p2-00-collision-contract": "P2-00 · 동적 접촉 계약",
+    "step:p2-01-flat-jump": "P2-01 · 단일 도약",
+    "task:single-jump": "단일 도약·착지"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
@@ -85,6 +87,11 @@
       "phase:P2",
       "step:p2-00-collision-contract",
       "purpose:implementation-check"
+    ],
+    "a1_flat_jump_v1": [
+      "phase:P2",
+      "step:p2-01-flat-jump",
+      "task:single-jump"
     ]
   },
   "run_overrides": {

@@ -62,6 +62,8 @@ def restore(data, config, alg, normalizer, env, training):
     keys = ("task", "episode_seconds", "target_offset_m", "surface_height_m", "success_radius_m", "success_dwell_s", "runner")
     if any(data["config"][key] != config[key] for key in keys):
         raise ValueError("Checkpoint/task contract differs")
+    if data['config'].get('jump') != config.get('jump'):
+        raise ValueError('Checkpoint jump contract differs')
     if data['config'].get('sequence') != config.get('sequence'):
         raise ValueError('Checkpoint sequence contract differs')
     alg.policy.load_state_dict(data["model"])
@@ -80,7 +82,11 @@ def restore(data, config, alg, normalizer, env, training):
 
 def make_env(config):
     from parkour.task import FootholdCfg, FootholdEnv
-    if config['task'] in ('a1_t0_sequential_v2','a1_t0_sequential_stable_v3','a1_t0_single_foot_v4','a1_t0_single_foot_aligned_v5','a1_t0_single_foot_continuous_v6','a1_t0_shared_single_foot_v7'):
+    if config['task']=='a1_flat_jump_v1':
+        from parkour.jump_task import JumpCfg,JumpEnv
+        cfg,env_type=JumpCfg(),JumpEnv
+        cfg.sequence=copy.deepcopy(config['sequence']);cfg.jump=copy.deepcopy(config['jump'])
+    elif config['task'] in ('a1_t0_sequential_v2','a1_t0_sequential_stable_v3','a1_t0_single_foot_v4','a1_t0_single_foot_aligned_v5','a1_t0_single_foot_continuous_v6','a1_t0_shared_single_foot_v7'):
         from parkour.sequential_task import SequentialCfg, SequentialEnv
         if config['surface_height_m'] != 0:
             raise ValueError('Sequential v2 currently supports flat ground only')

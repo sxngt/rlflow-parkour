@@ -35,6 +35,7 @@ class MotionDiagnostics:
     def close(self,out,scenario_ids):
         self.env.scene.update=self.original_update
         arrays={k:np.stack([s[k] for s in self.samples]) for k in self.samples[0]}
+        if getattr(self.env,'contact_group_all',False):arrays['all_feet_task']=np.array(True)
         np.savez_compressed(out/'motion-trace.npz',**arrays)
         report=summarize(arrays,self.env.physics_dt,scenario_ids,self.env.foot_names)
         atomic_json(out/'diagnostics.json',report)
@@ -56,7 +57,7 @@ def summarize(a,dt,scenario_ids,foot_names):
             longest=streak=0
             for x in mask:streak=streak+1 if x else 0;longest=max(longest,streak)
             return longest*dt
-        active=a['active'][valid,i];other=np.arange(4)[None,:]!=active[:,None]
+        active=a['active'][valid,i];other=np.ones((len(active),4),dtype=bool) if bool(a.get('all_feet_task',False)) else np.arange(4)[None,:]!=active[:,None]
         # Motion only across consecutive supported samples; excludes swing displacement.
         supported=contact[1:]&contact[:-1]&other[1:]&other[:-1]
         travel=np.linalg.norm(np.diff(pos[:,:,:2],axis=0),axis=-1)
@@ -87,6 +88,6 @@ def summarize(a,dt,scenario_ids,foot_names):
         'maxima':{k:float(np.max([r[k] for r in results])) for k in keys},
         'definitions':{'flight':'No feet above 5N onset / 2N release hysteresis; continuous >=20ms. Does not exclude non-foot support.',
             'landing_50ms_impulse':'Integral of normal foot force for 50ms after contact onset; includes weight support; end-of-episode windows truncated.',
-            'support_travel':'XY path length summed over non-active feet supported at both adjacent physics samples; foot-center motion, not proven slip.',
+            'support_travel':('XY path length of all supported feet (grouped task).' if bool(a.get('all_feet_task',False)) else 'XY path length of non-active supported feet.')+' Consecutive physics samples; foot-center motion, not proven slip.',
             'scope':'All first episodes, includes initial settling, ends before auto-reset. Oracle simulated net contact forces, not physical sensor readings.'},
         'results':results}

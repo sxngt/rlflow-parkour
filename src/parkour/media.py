@@ -41,7 +41,9 @@ class ParallelRecorder:
         if step%2:return
         env=self.env
         indices=torch.zeros(len(self.ids),4,device=env.device,dtype=torch.long)
-        if hasattr(env,'stage'):
+        if getattr(env,'contact_group_all',False):
+            indices[:]=1
+        elif hasattr(env,'stage'):
             active=env.active_feet()[self.ids]
             indices[torch.arange(len(self.ids),device=env.device),active]=1
         self.markers.visualize(translations=env.targets[self.ids].reshape(-1,3),marker_indices=indices.flatten())
@@ -72,5 +74,8 @@ class ParallelRecorder:
                  'visible_env_ids':self.ids,'total_simulated_envs':self.env.num_envs,
                  'fps':25,'frame_count':self.frames,'video_start_sim_time_s':0.,'frame_dt_s':.04,
                  'resolution':[1280,720],'trace':self.trace,**metadata}
+        if hasattr(self.env,'phase_labels'):
+            payload['phase_labels']=self.env.phase_labels
+            payload['contact_group']='all_four'
         atomic_json(self.out/('replay.json' if self.name=='evaluation' else self.name+'-replay.json'),payload)
         return payload

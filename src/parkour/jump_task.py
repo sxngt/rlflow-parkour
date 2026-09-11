@@ -1,0 +1,105 @@
+"""P2 flat-ground commanded jump. New contact/flight contract, not P1 replay."""
+import copy
+import torch
+from isaaclab.utils import configclass
+from isaaclab_assets import UNITREE_A1_CFG
+from parkour.task import FootholdCfg,FootholdEnv
+from parkour.sequential_task import SequentialCfg,SequentialEnv
+from parkour.jump_events import jump_transition
+
+@configclass
+class JumpCfg(SequentialCfg):
+    observation_space=66
+    episode_length_s=4.
+    robot=copy.deepcopy(UNITREE_A1_CFG).replace(prim_path='/World/envs/env_.*/Robot')
+    robot.spawn.articulation_props.enabled_self_collisions=True
+    jump={}
+
+class JumpEnv(SequentialEnv):
+    contact_group_all=True
+    phase_labels={0:'도약 준비',1:'비행',2:'착지·안정화'}
+    def __init__(self,cfg,render_mode=None):
+        super().__init__(cfg,render_mode)
+        self.jump=cfg.jump
+        self.nonfoot_ids=[i for i in range(len(self.contacts.body_names)) if i not in self.contact_ids]
+        self.flight_seen=torch.zeros(self.num_envs,dtype=torch.bool,device=self.device)
+        self.landed=torch.zeros_like(self.flight_seen)
+        self.touched=torch.zeros(self.num_envs,4,dtype=torch.bool,device=self.device)
+        self.apex=torch.zeros(self.num_envs,device=self.device)
+        self.air_time=torch.zeros_like(self.apex)
+        self.required_apex=torch.zeros_like(self.apex)
+        self.flight_event=torch.zeros_like(self.flight_seen)
+        self.new_touch=torch.zeros_like(self.touched)
+
+    def set_sequence_offsets(self,offsets,env_ids=None,episode_orders=None):
+        super().set_sequence_offsets(offsets,env_ids,episode_orders)
+        if env_ids is None:env_ids=self.robot._ALL_INDICES
+        self.targets[env_ids]=self.landing_goals[env_ids]
+
+    def _reset_idx(self,env_ids):
+        if env_ids is None:env_ids=self.robot._ALL_INDICES
+        super()._reset_idx(env_ids)
+        for x in [self.flight_seen,self.landed,self.touched,self.apex,self.air_time,self.flight_event,self.new_touch]:x[env_ids]=0
+        low,high=self.jump['apex_range_m']
+        self.required_apex[env_ids]=low+(high-low)*torch.rand(len(env_ids),device=self.device,generator=self.generator)
+        offset=torch.zeros(len(env_ids),4,2,device=self.device)
+        self.set_sequence_offsets(offset,env_ids)
+
+    def _pre_physics_step(self,actions):
+        super()._pre_physics_step(actions)
+        self.actions[self.episode_length_buf*self.step_dt<self.jump['settle_seconds']]=0
+
+    def _get_observations(self):
+        base=FootholdEnv._get_observations(self)['policy']
+        rise=self.robot.data.root_pos_w[:,2]-self.scene.env_origins[:,2]-self.calibrated_root[2]
+        clock=(self.episode_length_buf*self.step_dt/self.jump['settle_seconds']).clamp_max(1)
+        return {'policy':torch.cat([base,torch.nn.functional.one_hot(self.phase,3),
+            (self.required_apex-rise)[:,None],clock[:,None]],dim=1)}
+
+    def _get_dones(self):
+        spec=self.jump
+        history=self.contacts.data.net_forces_w_history.norm(dim=-1)
+        feet_history=history[:,:,self.contact_ids]
+        force=self.contacts.data.net_forces_w[:,self.contact_ids].norm(dim=-1)
+        self.contact_on=torch.where(self.contact_on,force>2,force>5)
+        self.nonfoot_collision=history[:,:,self.nonfoot_ids].amax(dim=(1,2))>5
+        height=self.robot.data.root_pos_w[:,2]-self.scene.env_origins[:,2]
+        rise=height-self.calibrated_root[2]
+        vz=self.robot.data.root_lin_vel_w[:,2]
+        settled=self.episode_length_buf*self.step_dt>=spec['settle_seconds']
+        air_samples=(feet_history<2).all(dim=2)
+        air_window=air_samples.all(dim=1)
+        supported=(feet_history>2).all(dim=(1,2))
+        self.air_time+=air_samples.sum(dim=1)*self.physics_dt*settled
+        self.failure=self.nonfoot_collision|(height<.13)|(self.robot.data.projected_gravity_b[:,2]>-.5)|((self.robot.data.root_pos_w[:,:2]-self.scene.env_origins[:,:2]).norm(dim=1)>.6)
+        # Only post-confirmation, pre-touch flight heights qualify for apex success.
+        self.apex=torch.where(self.flight_seen&~self.landed&air_window,torch.maximum(self.apex,rise),self.apex)
+        values=jump_transition(self.flight_seen,self.landed,self.touched,self.contact_on,air_window,settled,rise,vz,
+            self._errors(),self.apex,self.required_apex,self.robot.data.root_ang_vel_b.norm(dim=1),rise,supported,
+            self.failure,self.hold_steps,self.step_dt,spec)
+        self.flight_seen,self.landed,self.touched,self.hold_steps,self.flight_event,self.new_touch,self.success=values
+        self.apex=torch.where(self.flight_event,torch.maximum(self.apex,rise),self.apex)
+        self.phase=torch.where(self.landed,2,torch.where(self.flight_seen,1,0))
+        self.stage=self.phase.clone()
+        term=self.success|self.failure
+        return term,(self.episode_length_buf>=self.max_episode_length)&~term
+
+    def _get_rewards(self):
+        settled=self.episode_length_buf*self.step_dt>=self.jump['settle_seconds']
+        errors=self._errors()
+        launch=2*self.robot.data.root_lin_vel_w[:,2].clamp(0,1.5)
+        precision=torch.exp(-(errors/.06).square()).mean(dim=1)-1
+        dense=torch.where(self.flight_seen,precision,launch)*settled-.1
+        dense-=.5*self.robot.data.projected_gravity_b[:,:2].square().sum(dim=1)
+        dense-=.02*self.robot.data.root_ang_vel_b.square().sum(dim=1)
+        dense-=.002*(self.actions-self.previous_actions).square().sum(dim=1)
+        dense-=.00002*self.robot.data.applied_torque.square().sum(dim=1)
+        reward=dense*self.step_dt+3*self.flight_event.float()+self.new_touch.sum(dim=1)+8*self.success.float()-10*self.failure.float()
+        error=errors.mean(dim=1);self.error_sum+=error;self.sample_count+=1;self.reward_sum+=reward
+        self.extras['terminal_metrics']={'success':self.success.clone(),'failure':self.failure.clone(),'timeout':self.reset_time_outs.clone(),
+          'length':self.episode_length_buf.clone(),'mean_error_m':(self.error_sum/self.sample_count.clamp_min(1)).clone(),
+          'final_error_m':error.clone(),'return':self.reward_sum.clone(),'completed_contacts':self.touched.sum(dim=1).clone(),
+          'valid_flight':self.flight_seen.clone(),'landed':self.landed.clone(),'flight_apex_rise_m':self.apex.clone(),
+          'required_apex_m':self.required_apex.clone(),'air_time_s':self.air_time.clone(),
+          'nonfoot_collision':self.nonfoot_collision.clone(),'final_stable_steps':self.hold_steps.clone()}
+        return reward

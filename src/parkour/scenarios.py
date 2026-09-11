@@ -22,3 +22,14 @@ def development_scenarios(count=64, offset_m=0.06, sequence=None):
             episode['active_foot']=names[order[0]]
     return {"schema_version": 1, "split": "development", "task": "a1_t0_sequential_v2" if sequence else "a1_t0_foothold_v1",
             "target_offset_m": offset_m, "episodes": episodes}
+
+
+def jump_scenarios(count,spec):
+    if count<1 or count>1000:raise ValueError('Invalid episode count')
+    episodes=[]
+    for i in range(count):
+        rng=random.Random(20000+i)
+        episodes.append({'id':f'jump-dev-{20000+i}','seed':20000+i,
+            'foot_offsets_xy_m':[[0.,0.] for _ in range(4)],
+            'required_apex_m':rng.uniform(*spec['apex_range_m'])})
+    return {'schema_version':1,'split':'development','task':'a1_flat_jump_v1','episodes':episodes}
