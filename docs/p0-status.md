@@ -288,3 +288,8 @@ FlightTravel 모듈: 첫flight_event에서env-localrootXY를저장하고calibrat
 P2-05 네 seed 모두 성공0/64. 유효 비행은 seed1만64/64이고 첫 접촉 정밀1/64, 안정화0/64다. 나머지는 유효 비행0/64. 모두 timeout이며 출발 영역 위반 종료가 아니다. 보고서·원본200Hz 좌표 대조 및8개 run audit 완료. 평가영상4개 result/보존, GPU 회수 확인. [전체 결과](p2-05-results.md).
 
 P2-06은 같은 보상·계약에서 학습 목표를 제자리 또는0–5cm로 제한하는 두 조건×두 seed 비교다. 총157,286,400 신규step,1600updates/run. 사전 프로토콜과 source commit c3f094b를 고정하고 GPU0/1 zero, GPU2/3 short로 시작했다. 현재 상태와 후속 절차는 [active-research.md](active-research.md). 새로운 성능 달성이나 champion 승격을 주장하지 않는다.
+
+
+## P2-06 완료 / P2-07 착수 · 2026-09-12
+
+P2-06 제자리/0–5cm×두 seed 모두 비행0/64·성공0/64. 8개 실행 감사 및 영상4개 보존, GPU 회수 완료. 원본 상승1.26–2.46cm. [결과](p2-06-results.md). P2-07은 동일 설정의 출발 반경만6cm로 변경한 진단이다. 기존3cm 성공과 직접 동등 비교하지 않고3cm 내 launch 부분집합도 별도 집계한다. source1cb2cf0,4개×1600updates 시작. 현재 절차는 [인계](active-research.md).

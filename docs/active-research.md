@@ -1,40 +1,37 @@
 # 현재 연구 인계
 
-2026-09-12 갱신. 실제 worker·GPU 및 artifact로 상태를 다시 확인한다. 사용자가 중단할 때까지 연구 goal은 active다.
+2026-09-12 갱신. 사용자 중단 전까지 연구 goal active. 실제 PID·GPU·artifact로 상태를 재확인한다.
 
-## 현재 작업: P2-06 학습 거리 범위
+## 현재 작업: P2-07 출발 영역 진단
 
-[P2-06 사전 프로토콜](p2-06-protocol.md). DirectedJumpEnv와 보상·성공 기준을 유지하고 학습 거리만 제자리 / 0–5cm로 비교한다. 각 조건 seed0/1, 각각1024환경 ×24step ×1600updates. 총157,286,400 신규step. 네 run 모두 신규 학습이다.
+[사전 프로토콜](p2-07-protocol.md). P2-06과 동일한 설정에서 출발 반경만3→6cm로 변경했다. config 비교로 태그 외 다른 차이가 없음을 확인했다. source commit1cb2cf0. 각1024환경×24step×1600updates, 총157,286,400 신규step. 신규 정책 학습이며 전이 없음.
 
 | GPU | 실행 | shell session |
 |---|---|---|
-| 0 | p2-06-zero-seed0 | 42659 |
-| 1 | p2-06-zero-seed1 | 61387 |
-| 2 | p2-06-short-seed0 | 15729 |
-| 3 | p2-06-short-seed1 | 59082 |
+| 0 | p2-07-zero-seed0 | 53438 |
+| 1 | p2-07-zero-seed1 | 26781 |
+| 2 | p2-07-short-seed0 | 65499 |
+| 3 | p2-07-short-seed1 | 52191 |
 
-학습 source commit c3f094b. 각 supervisor 제한3600초, 종료 후64개 고정 평가·200Hz 진단·16대 MP4가 자동 실행된다. 실제 PID와 step 증가를 확인하고 중복 실행하지 않는다. 평가 거리는0/5/10/15cm 각각16개로 유지한다. 학습 범위 밖 거리는 전이 진단으로 분리한다.
+zero는 제자리, short는0–5cm 학습. worker 제한3600초, 자동64개 고정 평가·16대 MP4·200Hz 진단. 평가0/5/10/15cm 각각16개, 범위 밖 명령은 전이 진단이다. 실행 도중 설정 변경·중복 실행 금지. PID는 새 턴에서 확인한다.
 
-## 직전 결과: P2-05
+## 직전 결과
 
-[결과](p2-05-results.md). 4개 seed 모두0/64 성공. seed1은 유효 비행·출발 영역64/64, 첫 접촉 정밀1/64, 안정화0/64. 나머지는 유효 비행0/64다. 모두 timeout이며 출발 영역 위반 종료가 아니다. 20ms 전 발 무접촉은 모두64/64지만 유효 비행의 상승 높이·속도 조건과 구분해야 한다.
+[P2-06 결과](p2-06-results.md): 네 실행 모두 유효 비행0/64, 성공0/64. 50Hz 제어 경계의 최대 상승1.26–2.46cm로3cm 비행 조건 미달. 원본 전체 기록은 p2-06-flight-gates.json. 학습4개·평가4개 감사 통과(artifacts/p2-06-audit.jsonl), GPU compute PID 없음 확인, result/평가영상4개 보존. 학습 거리 범위만 줄여서는 회복되지 않았다.
 
-원본200Hz 첫 접촉 및 launch/first-touch root XY 대조 통과. 학습4개·평가4개 audit 통과, artifacts/p2-05-audit.jsonl. result/에 상세 제목의 평가 영상4개 보존. 종료 후 GPU compute PID가 없음을 확인했다. 모델 승격 없음.
+[P2-05](p2-05-results.md)는0–15cm 학습 네 seed 모두 성공0/64. seed1만 유효 비행·출발 영역64/64, 첫 접촉 정밀1/64, 안정화0/64. 세 seed 최대 상승1.55–2.80cm.
 
-P2-04는 동일 초기 자세·평지 제자리 정밀 도약을 네 seed 각각64/64 성공했다. P2-05 실패로 수평 목표 일반화는 아직 달성하지 못했다. P1 정적 발 디딤의 재현성 한계도 해결했다고 표현하지 않는다.
+[P2-04 출발 위치 사후 진단](p2-04-launch-region-retrospective.md): 기존 성공 정책은 비행 확인 시 몸체 이동4.18–5.06cm로3cm 출발 영역을 모두 벗어났다. P2-04의 원래 성공 기준은 유지하며 새로운 제약을 만족한 것으로 간주하지 않는다. P2-05 seed1은3cm 안에서 유효 비행을 했으므로 불가능한 조건이라고도 단정하지 않는다.
 
-## 완료 후
+## 완료 후 필수 절차
 
-1. 실제 worker 종료·GPU 회수 및8개 run 감사.
-2. Isaac Python으로 scripts/experiment_report.py configs/reports/p2-06.json 및 scripts/jump_trace_report.py configs/reports/p2-06.json 실행.
-3. 거리별 유효 비행·출발·실제 이동·첫 접촉·안정화 분리. 원본 기록 대조 assertion이 실패하면 원인을 조사한다.
-4. zero의0cm, short의0/5cm 결과를 먼저 판정한다. 두 seed의 탐색적 비교이며 효과를 확정하지 않는다.
-5. 결과에 따라 커리큘럼/전이 또는 출발·비행 보상 계약 진단을 고정 예산으로 설계하고 지속한다. result/영상·모니터링 태그·인계 갱신, 자동 승격 없음.
+1. 실제 worker 종료·GPU 회수와8개 run 감사.
+2. Isaac Python으로 scripts/experiment_report.py configs/reports/p2-07.json 및 scripts/jump_trace_report.py configs/reports/p2-07.json.
+3. scripts/flight_gate_report.py로 원본 비행 조건 보조 진단. 이 도구는 failure·already-seen·출발 제약을 모두 복원하는 것이 아니다.
+4. 원본 첫 접촉/launch/first-touch root 좌표 대조.6cm 성공 중 보정 출발점으로부터3cm 내 launch인 부분집합을 별도 집계. 이는3cm 종료 조건으로 재실행한 평가를 대체하지 않는다. 성공 기준 완화를 동일 기준 성능 개선이라고 표현하지 않는다.
+5. 조건별0cm/5cm 평가를 우선하며 두 seed 탐색적 비교라는 한계를 남긴다. 결과에 따라 수평 이동·실제 지지면 도입 또는 비행 전 보상 유인을 조사한다. 모델 자동 승격 없음.
+6. 상세 제목 result/영상·웹 태그·README·본 인계 갱신. P2-06과P2-07 성공률은 계약이 다르므로 그대로 합치지 않는다.
 
 ## 환경
 
-Isaac Python: /mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh. .monitor-venv에는 NumPy가 없다. 모니터링 http://203.241.249.48:18710/ . 새 phase/step/condition 태그는 configs/research-tags.json에 등록됐다. 전체 이력은 [p0-status.md](p0-status.md).
-
-추가 원인 분석: [P2-05 비행 조건 진단](p2-05-flight-diagnosis.md). 세 실패 seed는50Hz 경계 최대 상승이1.55–2.80cm로3cm 기준 미달이다. 20ms 공중 이력과 양의 상승속도는 관측됐다. scripts/flight_gate_report.py로 원본200Hz에서 재생성 가능하며 실패/출발 조건 전체를 재구성하는 도구는 아니다.
-
-중요한 추가 근거: [P2-04 출발 위치 사후 진단](p2-04-launch-region-retrospective.md). 기존 성공 정책은 비행 확인 시점 몸체 이동4.18–5.06cm로3cm 출발 영역을 전부 벗어난다. P2-06 zero도 기존 과제의 완전한 반복은 아니다. P2-05 seed1은3cm 내 비행64/64이므로 불가능한 조건이라고 단정하지 않는다. 현재 실험은 유지하고 zero 실패 시 출발 제약을 별도 비교하는 후보를 고려한다.
+Isaac Python /mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh. .monitor-venv에는 NumPy 없음. 모니터링 http://203.241.249.48:18710/ . 단계·조건 태그 configs/research-tags.json. 장기 이력 [p0-status.md](p0-status.md). 실기·실제 갭·Planner는 아직 검증하지 않았다.
