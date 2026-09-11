@@ -1,0 +1,58 @@
+[
+  {
+    "run": "p2-17-deck-seed0",
+    "condition": "distance-only12",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.018314197659492493,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-17-deck-seed1",
+    "condition": "distance-only12",
+    "seed": 1,
+    "mean_terminal_base_rise_m": 0.010780117474496365,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-17-deck-seed2",
+    "condition": "distance-only12",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.012004995718598366,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-17-deck-seed3",
+    "condition": "distance-only12",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.012666571885347366,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-18-deck-seed0",
+    "condition": "coupled-first-touch12",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.025104790925979614,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-18-deck-seed1",
+    "condition": "coupled-first-touch12",
+    "seed": 1,
+    "mean_terminal_base_rise_m": 0.009398272261023521,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-18-deck-seed2",
+    "condition": "coupled-first-touch12",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.019871536642313004,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-18-deck-seed3",
+    "condition": "coupled-first-touch12",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.014590023085474968,
+    "terminal_height_outside_tolerance": 0
+  }
+]

@@ -1,0 +1,165 @@
+{
+  "rows": [
+    {
+      "seed": 0,
+      "updates": [
+        1,
+        400
+      ],
+      "episodes": 50033,
+      "valid_flights": 1162,
+      "successes": 0
+    },
+    {
+      "seed": 0,
+      "updates": [
+        401,
+        800
+      ],
+      "episodes": 49390,
+      "valid_flights": 642,
+      "successes": 0
+    },
+    {
+      "seed": 0,
+      "updates": [
+        801,
+        1200
+      ],
+      "episodes": 49247,
+      "valid_flights": 417,
+      "successes": 0
+    },
+    {
+      "seed": 0,
+      "updates": [
+        1201,
+        1600
+      ],
+      "episodes": 49207,
+      "valid_flights": 358,
+      "successes": 0
+    },
+    {
+      "seed": 1,
+      "updates": [
+        1,
+        400
+      ],
+      "episodes": 51161,
+      "valid_flights": 22898,
+      "successes": 0
+    },
+    {
+      "seed": 1,
+      "updates": [
+        401,
+        800
+      ],
+      "episodes": 50696,
+      "valid_flights": 50536,
+      "successes": 0
+    },
+    {
+      "seed": 1,
+      "updates": [
+        801,
+        1200
+      ],
+      "episodes": 51830,
+      "valid_flights": 51647,
+      "successes": 0
+    },
+    {
+      "seed": 1,
+      "updates": [
+        1201,
+        1600
+      ],
+      "episodes": 51473,
+      "valid_flights": 51280,
+      "successes": 0
+    },
+    {
+      "seed": 2,
+      "updates": [
+        1,
+        400
+      ],
+      "episodes": 49711,
+      "valid_flights": 993,
+      "successes": 0
+    },
+    {
+      "seed": 2,
+      "updates": [
+        401,
+        800
+      ],
+      "episodes": 49403,
+      "valid_flights": 590,
+      "successes": 0
+    },
+    {
+      "seed": 2,
+      "updates": [
+        801,
+        1200
+      ],
+      "episodes": 49217,
+      "valid_flights": 390,
+      "successes": 0
+    },
+    {
+      "seed": 2,
+      "updates": [
+        1201,
+        1600
+      ],
+      "episodes": 49234,
+      "valid_flights": 311,
+      "successes": 0
+    },
+    {
+      "seed": 3,
+      "updates": [
+        1,
+        400
+      ],
+      "episodes": 51599,
+      "valid_flights": 24107,
+      "successes": 0
+    },
+    {
+      "seed": 3,
+      "updates": [
+        401,
+        800
+      ],
+      "episodes": 50993,
+      "valid_flights": 50884,
+      "successes": 0
+    },
+    {
+      "seed": 3,
+      "updates": [
+        801,
+        1200
+      ],
+      "episodes": 50266,
+      "valid_flights": 49999,
+      "successes": 0
+    },
+    {
+      "seed": 3,
+      "updates": [
+        1201,
+        1600
+      ],
+      "episodes": 51184,
+      "valid_flights": 50670,
+      "successes": 0
+    }
+  ],
+  "scope": "Stochastic training rollouts and changing curriculum; not fixed deterministic evaluation or independent seeds."
+}
