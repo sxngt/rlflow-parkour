@@ -13,7 +13,7 @@ from datetime import datetime, timezone, timedelta
 from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
-TASKS = {'a1_flat_jump_shaped_v2': ('T1J-v2', '평지_단일도약_높이명령보상_착지자세'), 'a1_flat_jump_v1': ('T1J-v1', '평지_단일도약_비행확인_착지안정화'), 'a1_t0_shared_single_foot_v7': ('T0F-v7', '공유정책_네발단독이동_착지안정화'), 'a1_t0_foothold_v1': ('T0-v1', '정적_목표접촉'),
+TASKS = {'a1_flat_jump_precise_v3': ('T1J-v3', '평지_단일도약_최초접촉정밀성_착지안정화'), 'a1_flat_jump_shaped_v2': ('T1J-v2', '평지_단일도약_높이명령보상_착지자세'), 'a1_flat_jump_v1': ('T1J-v1', '평지_단일도약_비행확인_착지안정화'), 'a1_t0_shared_single_foot_v7': ('T0F-v7', '공유정책_네발단독이동_착지안정화'), 'a1_t0_foothold_v1': ('T0-v1', '정적_목표접촉'),
          'a1_t0_sequential_v2': ('T0S-v2', '순차_발디딤_4회'),
          'a1_t0_single_foot_continuous_v6': ('T0F-v6', '단독발이동_전단계네발정렬벌점'),
          'a1_t0_single_foot_aligned_v5': ('T0F-v5', '단독발이동_최종네발정렬벌점'),
