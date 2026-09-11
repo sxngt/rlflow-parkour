@@ -107,3 +107,13 @@ A는 FL/RL 모두 seed0 안정화 0/64, seed1 64/64. 모든 A 착지 64/64. B �
 `docs/step02b-results.md`, summary JSON, 학습 그림에 결과 기록. `artifacts/p1-step02b-*` 학습 6건·최종 평가 6건, 상세 제목 MP4 6개를 result에 보존. 태그 P1 / 02b·최종 네 발 정렬 / A·B / FL·RL로 검색. 재사용 A0는 registry override로 이번 비교에도 연결하고 원본 artifact는 변경하지 않았다.
 
 신규 12run hash·계보·UUID·GPU 회수 감사 통과. 단위16개/모니터링6개/합성 상태 검사 통과. 모든 작업 종료 후 GPU compute 프로세스 없음. champion 승격은 하지 않았으며 다음 실험은 미실행.
+
+## 상시 연구 목표 활성화 · Step 02c 및 02d 인계
+
+사용자가 잠든 동안 중단 지시 전까지 계속 연구하라고 명시했다. goal active이며 실험→평가→다음 판단을 지속한다. 자동 champion 승격은 하지 않고 원본·영상·실패를 보존한다.
+
+02c C(v6)는 B(v5)의 정렬 비용을 전 단계에 적용했으나 FL seed1 착지9/64, 나머지 착지0/64, 모두 안정화0/64. 신규4학습·4평가 감사 통과, 영상4개 result 저장. C도 채택하지 않았다. 보고서 docs/step02c-results.md와명세configs/reports/step02c.json. 코드6f02321.
+
+02d는 기존A(v4)의 FL/RL seed0/1을 800 checkpoint에서추가800updates재개 중이다. GPU0 FL0, GPU1 RL0, GPU2 FL1, GPU3 RL1. run artifacts/p1-step02d-a-{fl,rl}-seed{0,1}, launcher로그 같은접두. 원본seed0은02a single, seed1은02b A. 신규run끝update1600, 추가예산78,643,200step. 프로토콜docs/step02d-protocol.md, report명세configs/reports/step02d.json, 고정commit4f8383c.
+
+다음행동: 네run과자동평가·MP4·result완료까지확인, scripts/audit_artifacts.py감사, Isaac python으로scripts/experiment_report.py configs/reports/step02d.json실행. 결과분석후다음실험을계속진행. 보고서 helper는attempt_environment_steps와누적environment_steps를분리해재개예산중복계산을피한다. 아직02d결과를보고하지않음.
