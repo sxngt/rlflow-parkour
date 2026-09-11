@@ -375,3 +375,12 @@ sourcee303428, docs/p2-20-protocol.md/configs/p2-20-deck.json. exploration.py Bo
 P2-20 mean→sampled2: seed0 48→47/48,seed1 48→46/44,seed2 24→44/44,seed3 22→27/32. P2-22 seed0 0→40/38,seed1 0→0/0(유효비행0),seed2 0→39/40,seed3 8→46/36. 일부정책의작은행동잡음에따른안정화의존 확인,훈련평가차이전체원인확정아님. 기존P2-22기각유지.
 
 다음구체학습P2-24 후보: P2-20 기준마지막400update std상한0.1→0.05만변경(하한.05유지). 초기탐색/보상/지형/예산/목표유지. mean/sample차이줄이는지별도고정예산비교. 아직프로토콜/구현/학습미시작. 새config/smoke에서floor=cap검증후fresh4seed×1600,대조P2-20재사용. 전체목표미완료. 현재추가학습실행없음.
+
+
+### 최신: P2-24 마지막 탐색 상한 축소 학습 시작
+
+직전 턴은P2-23진단완료로progress. 이번 턴 source4bf8d8e, docs/p2-24-protocol.md/configs/p2-24-deck.json. P2-20 대비마지막400update(1201–1600) stdcap .1→.05만변경, floor .05유지. config태그외단일차이검증. floor=cap분포/logprob/entropy/buffer복원/경계검사통과. 64env3update축소cap일정 .35/.2/.05 실제검증과최종64평가·영상완료,2artifact감사 artifacts/p2-24-smoke-audit.jsonl. 기존실행코드는변경없음.
+
+주요 scripts/p2_24_train.py batch79919 실행중, fresh4seed×1024×24×1600=추가157286400step,대조P2-20재사용. 최신 [{"run": "p2-24-deck-seed0", "pid": 1472939, "live": true, "iteration": 83}, {"run": "p2-24-deck-seed1", "pid": 1472947, "live": true, "iteration": 83}, {"run": "p2-24-deck-seed2", "pid": 1472940, "live": true, "iteration": 86}, {"run": "p2-24-deck-seed3", "pid": 1472926, "live": true, "iteration": 85}]
+
+다음401/801/1201전환(마지막cap.05)/checkpoint검증,1600후mean평가8artifact감사 및 configs/reports/p2-24.json 4보고서. 이후 최종4seed의sampledRNG20000/20001 총8평가를추가(프로토콜필수),P2-23의P2-20 sampled재사용하여mean/sample차이비교. helper p2_20_checkpoint_report.restored_distribution은1600cap.1하드코딩이므로P2-24에그대로쓰지말것; config일정의완료update-1에서cap검증하도록일반화하거나별도검증. 아직sampled실행스크립트미작성. 전체목표미완료,중복실행금지.
