@@ -83,7 +83,7 @@ def collect(evaluation, result_root=ROOT / 'result'):
               'checkpoint':model, 'task':run['config']['task'], 'seed':seed, 'updates':updates,
               'video':video_name, 'video_episode':episode, 'aggregate':{k:v for k,v in report.items() if k!='results'},
               'video_layout':replay.get('layout','single'), 'video_episodes':visible_episodes,
-              'selection':'fixed 4x4 grid; not selected for success' if parallel else 'first fixed development scenario; not selected for success', 'date_kst':date}
+              'selection':'fixed render-enabled grid; camera may crop outer robots; not selected for success' if parallel else 'first fixed development scenario; not selected for success', 'date_kst':date}
     with (result_root / '.index.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         if folder.exists():
