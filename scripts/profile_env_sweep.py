@@ -45,15 +45,21 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--gpu',default='0')
     parser.add_argument('--sizes',nargs='+',type=int,default=[1024,2048,4096,8192])
+    parser.add_argument('--label',default='solo')
+    parser.add_argument('--skip-final-evaluation',action='store_true')
     args=parser.parse_args()
+    if not args.label or any(c not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_' for c in args.label):
+        parser.error('Label must be alphanumeric, hyphen or underscore')
     for size in args.sizes:
         config=ROOT/f'configs/profiling/env-{size}.json'
-        out=ROOT/f'artifacts/gpu-env-sweep-n{size}-solo'
+        out=ROOT/f'artifacts/gpu-env-sweep-n{size}-{args.label}'
         if not config.exists() or out.exists():
             raise ValueError(f'Missing config or existing output: {out}')
         telemetry=out.with_suffix('.host-profile.jsonl')
         with telemetry.open('x') as f:
             command=[sys.executable,str(ROOT/'scripts/run_job.py'),'--gpu',args.gpu,'--timeout','600','train','--config',str(config),'--out',str(out),'--seed','0']
+            if args.skip_final_evaluation:
+                command.insert(command.index('train'),'--skip-final-evaluation')
             proc=subprocess.Popen(command,cwd=ROOT,start_new_session=True)
             try:
                 while proc.poll() is None:

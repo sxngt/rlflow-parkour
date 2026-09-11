@@ -9,3 +9,7 @@ P2-11 종료 및 고정 평가 후 수행한다. 현재 비교 실험의 환경 
 GPU UUID·VRAM peak·utilization·전력, worker 및 자식 프로세스 CPU/RSS, 호스트 RAM·I/O·디스크 여유를 실행 구간 전체에서 주기 수집한다. 순간 snapshot으로 peak를 주장하지 않는다. PPO rollout/update 구간별 시간도 가능하면 분리해 GPU 유휴 원인을 검사한다. GPU/호스트 모니터의 샘플 주기와 누락 여부를 함께 기록한다.
 
 각 실행은 phase:P0, step:gpu-env-sweep, purpose:profiling 태그로 구분한다. 기존 supervisor의 종료·lease·자동평가 정책을 확인하여 학습 측정 구간과 평가/렌더링 구간이 섞이지 않게 한다. 실행별 자동 평가영상은 result에 보존하며, 프로파일링용 미수렴 정책임을 제목/설명에 명시한다.
+
+## 네 GPU 동시 측정 결정
+
+단독100update 결과8192환경이약146132step/s로가장높고, 학습중2초표본VRAM최대5341MiB였다. 호스트가용RAM도최소약178.75GiB였다. 네GPU각8192환경독립실행을같은seed0·100update설정으로검사한다. label concurrent-gpu0~3, 자동평가는전체학습종료후별도실행하여조기종료GPU의렌더링이남은학습에간섭하지않게한다. 각GPU독립샘플러가2초주기로수집하므로동시모니터링호출부하가단독보다증가한다. 최종보고서에이를제한으로기록한다.
