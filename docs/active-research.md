@@ -10,18 +10,9 @@
 
 ## 현재 실행 / 다음 작업
 
-단독측정1024/2048/4096/8192 모두학습100+평가완료. warmup20제외step/s38495/64367/105392/146132,2초표본학습peakVRAM3085/3431/4061/5341MiB. 학습4+평가4감사통과. docs/gpu-env-sweep-protocol.md.
+모든profiling학습8개와평가8개종료·감사통과. GPU별8192동시 처리량113419/114704/114231/114462step/s,합456817(개별구간합,동기화makespan과다름). 단독8192는146132. 평균GPU약28%,표본VRAM약5.2GiB. docs/gpu-env-sweep-results.md/summary.json 및 scripts/gpu_profile_report.py. .host-profile.jsonl 원본에CPU/RSS/I/O포함. 추가과제:공통동시구간처리량을표본진행으로집계하고CPU병목분석. 순간snapshot이나VRAM만으로완전활용주장금지.
 
-8192환경4GPU동시측정시작, source e09ecf2. label concurrent-gpu0~3. 각seed0,100updates,별도독립정책. --skip-final-evaluation으로전체학습종료전렌더링간섭제외. scripts/profile_env_sweep.py wrapper와run_job.py worker의PID실제확인하여중복실행금지.
-
-|GPU|session|driver log|
-|---|---|---|
-|0|62981|artifacts/gpu-env-sweep-concurrent-gpu0-driver.log|
-|1|98410|artifacts/gpu-env-sweep-concurrent-gpu1-driver.log|
-|2|77817|artifacts/gpu-env-sweep-concurrent-gpu2-driver.log|
-|3|56817|artifacts/gpu-env-sweep-concurrent-gpu3-driver.log|
-
-출력 artifacts/gpu-env-sweep-n8192-concurrent-gpuN. .host-profile.jsonl 2초GPU+CPU시간/RSS/I/O/호스트메모리/디스크,training_iteration/status. 종료후학습4audit하고전체GPU해제확인후각checkpoint-000100.pt 평가·영상(16개기본)을 별도 __final-evaluation에실행해야한다. 동일config configs/profiling/env-8192.json, seed0. 이후집계보고서작성:개별step/s,합계,단독대비slowdown,전체동시구간의실측진행량,VRAM/CPU/RAM/I/O. sampler4개호출부하차이제한표시. 각표본training_status=RUNNING이며iteration20이후인구간으로학습집계,초기화/평가분리. 최종연구배치규모는아직미확정이며PPO batch변화의학습효과별도검증필요.
+다음제어실험은총환경step을P2-11과맞춰8192환경×24step×200updates로검토한다(각39,321,600step).6/4.5/3cm커리큘럼경계100/150으로변경하면노출step비율동일. PPO batch8배·optimizerupdate수1/8의학습효과를명시적으로비교해야하며성능향상미검증. 아직P2-12 config/protocol/실행없음. 사전프로토콜작성후seed0–3실행하고원래1024조건과같은고정64평가·result영상. 실제갭·발판단계진행이라는원래목표유지.
 
 ## 환경과 범위
 
