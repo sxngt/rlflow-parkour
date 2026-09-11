@@ -1,35 +1,36 @@
 # 현재 연구 인계
 
-## 현재 작업: P2-08 완료, 다음 거리 확장 실험 준비
+사용자가 중단할 때까지 연구 goal은 active다. 실제 프로세스·GPU·artifact를 확인하고, 이전 상태만으로 중복 실행하지 않는다.
 
-사용자 중단 전까지 goal active. [프로토콜](p2-08-protocol.md). P2-07 short의5cm 비행 이동1.47–1.82cm 부족을 개선하기 위한 보상0/4 비교. 두 조건 모두0–5cm학습·6cm출발·나머지성공기준동일. 최초몸체재접촉시한번만4*exp(-abs(실비행거리-명령)/.03). 실패·출발영역위반에는0,나중에회복해도재지급없음.
+## 현재: P2-09 수평 명령 범위 확장
 
-| GPU | run | session |
+[사전 프로토콜](p2-09-protocol.md). P2-08 travel의 보상·성공 기준을 유지하고 학습 거리만0–5cm에서0–15cm로 확장했다. 설정 비교로 거리와 태그 외 차이가 없음을 확인했다. 새 정책 네 seed, 전이 없음. source4b20205.
+
+| GPU | 실행 | session |
 |---|---|---|
-| 0 | p2-08-control-seed0 | 다음 실제 PID 확인 |
-| 1 | p2-08-control-seed1 | 다음 실제 PID 확인 |
-| 2 | p2-08-travel-seed0 | 다음 실제 PID 확인 |
-| 3 | p2-08-travel-seed1 | 다음 실제 PID 확인 |
+| 0 | p2-09-expanded-seed0 | 25440 |
+| 1 | p2-09-expanded-seed1 | 81318 |
+| 2 | p2-09-expanded-seed2 | 1050 |
+| 3 | p2-09-expanded-seed3 | 22516 |
 
-각1024환경×24step×1600updates, 총157,286,400신규step. worker3600초. 자동64평가·16로봇MP4·200Hz진단. configs/p2-08-{control,travel}.json, report configs/reports/p2-08.json. 실행중기준변경/중복실행금지. 현재메인학습시작됨.
+각1024환경×24step×1600updates, 총157,286,400 신규step. worker 제한3600초. 자동64개 평가·16로봇 MP4·200Hz 진단. configs/p2-09-expanded.json 및 configs/reports/p2-09.json. 학습 중 설정·예산을 바꾸지 않는다. GPU는 UUID로 할당한다.
 
-검증:34개단위검사(artifacts/p2-08-unit-tests.log),8env합성착지의1회지급검사(p2-08-travel-state-check.log),64env2update3072step+자동평가영상,2run감사(p2-08-implementation-audit.jsonl)통과. 합성teleport검사는정책성능아님. main전GPUcompute없음확인. source bcd4f45 + 합성검사추가commit.
+## 종료 후
 
-완료후8run감사→experiment_report.py/jump_trace_report.py configs/reports/p2-08.json→원본좌표대조→거리별성과/회귀분석→result영상/웹태그/인계갱신.6cm결과를3cm성공으로간주하지않고필요시전모델--launch-radius .03 재평가. 자동champion승격없음. 평가에서첫실비행보상값은현재terminal_metrics에있지만evaluation.json의선별필드에는없음; 성능은거리·접촉·안정화로검증.
+1. 네 학습과 네 자동 평가의 종료·GPU 회수·hash를 audit_artifacts.py로 검사한다.
+2. Isaac Python으로 experiment_report.py와 jump_trace_report.py에 configs/reports/p2-09.json을 전달한다. 원본 첫 접촉·launch/first-touch root XY 대조를 통과해야 한다.
+3.0/5cm 유지와10/15cm 개선을 거리별로 구분한다. P2-08과 비교는 공통 seed0/1을 먼저 보고 seed2/3은 추가 재현성으로 보고한다.
+4. 네 모델 모두 --launch-radius .03으로 엄격 재평가한다. 별도 출력 경로·태그·report spec의 evaluation_run을 지정한다. 성공한 모델만 고르지 않는다.
+5. result 영상·웹 태그·현재 인계·README를 갱신한다. 실패 시 단계적 거리 커리큘럼 또는 명시적인 전이를 검토하며 동일 예산을 무한 연장하지 않는다. champion 자동 승격 없음.
 
 ## 직전 결과
 
-P2-07은6cm에서모든정책비행64/64. zero성공0/31, short16/16. short는0cm만성공. 3cm재평가에서도zero seed1만0cm15/16·5cm16/16성공유지,다른세모델0. 단일seed전이이며일반수평Tracker완성아님. docs/p2-07-results.md 및 p2-07-strict-results.md에전체기록. 평가override는checkpoint원계약restore검사후평가에만적용하며기록된다.
+[P2-08](p2-08-results.md): 동일6cm 출발 조건에서5cm 성공은 대조군0/16씩, 비행거리 보상군16/16·14/16. 보상군 제자리는16/16·10/16으로 seed1 안정화 회귀가 있다.10/15cm는 모두 실패했다.
 
-## 환경
+[3cm 재평가](p2-08-strict-results.md)에서도 보상군의 위 성공이 유지됐다. 대조군은 모두0/64. 원본 좌표 대조,8개 학습/평가 및4개 엄격 평가 감사 통과. 평가영상 총8개 보존. P2-09 시작 전 GPU compute PID 없음 확인.
 
-IsaacPython /mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh. .monitor-venv NumPy없음. 웹 http://203.241.249.48:18710/ .4GPUUUID할당run_job.py. 전체이력p0-status.md. 실제갭·Planner·실기아직미검증.
+비행거리 보상은 첫 몸체 재접촉에 한 번만4*exp(-abs(거리-명령)/.03) 지급하며 실패·출발 위반에는0이다. 반복 접촉으로 재지급하지 않는다.34개 단위 검사와8환경 합성 착지 검사 및 짧은 학습·평가·영상 경로를 P2-08에서 검증했다. 합성 teleport 검사는 정책 성능이 아니다.
 
+## 환경과 범위
 
-## P2-08 완료 결과 (이 문단이 위 실행중 기록보다 최신)
-
-네 main학습 및 네 final-evaluation 모두완료,8run감사·원본좌표대조통과.6cm에서대조성공16/16,보상32/24(각64평가). 보상군0cm16/16과10/16,5cm16/16과14/16. 대조5cm모두0/16.10/15cm전부실패. seed1제자리안정화회귀가있어모든능력향상이라고주장하지않는다. result영상4개보존. docs/p2-08-results.md.
-
-추가학습없이전4모델의3cm strict-evaluation도완료. 대조0/0,보상32/24로보상군성공유지. artifacts/p2-08-strict-audit.jsonl, docs/p2-08-strict-results.md. strict재평가영상4개보존. 기존모델승격없음. 모든학습은종료됐으므로중복재시작하지않는다.
-
-다음은0–5cm능력의seed확인과0–15cm명령범위확장. 후보:동일travel보상4에서0–15cm신규학습,4seed고정예산,0/5cm회귀와10/15cm성공평가. 아직새프로토콜/새학습없음. 성공범위가작으므로실제발판·갭성공을아직주장하지않으며향후실제geometry도입이필수다. 원본첫접촉정밀·실비행거리·출발·안정화기준유지. P2-08시작당시session들은모두종료됐고재평가도완료상태를확인한뒤다음작업으로진행한다.
+Isaac Python /mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh. .monitor-venv에는 NumPy가 없다. 웹 http://203.241.249.48:18710/ . 실제 갭·발판·연속 Planner·센서 적응·실기는 아직 검증하지 않았다. 평지의 목표 도약 성공을 파쿠르 완성으로 주장하지 않는다.
