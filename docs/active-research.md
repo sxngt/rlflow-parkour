@@ -2,7 +2,7 @@
 
 사용자가 중단할 때까지 연구 goal은 active다. 실제 프로세스·GPU·artifact를 확인하고, 이전 상태만으로 중복 실행하지 않는다.
 
-## 현재: P2-10 · 3cm 출발 직접 학습
+## 현재: P2-10 완료, 다음 커리큘럼 설계 필요
 
 [프로토콜](p2-10-protocol.md). P2-09와 출발 범위0.06→0.03 및 태그 외 설정이 같음을 assert했다. 새 정책 seed0–3, 전이 없음. source f8f5264.
 
@@ -15,7 +15,11 @@
 
 각1024환경×24step×1600updates. 총157,286,400 신규step. worker3600초. 자동64개 평가·16로봇 MP4·200Hz 진단. configs/p2-10-strict.json 및 configs/reports/p2-10.json. 중간 결과로 예산·설정을 바꾸지 않는다.
 
-## 종료 후
+## 완료 결과와 다음 작업
+
+네 학습1600 및 네 평가 정상 종료. 모두 성공0/64·유효비행0/64·timeout64/64. raw 비행 진단상 모든 episode가 몸체 상승3cm 미달. docs/p2-10-results.md, docs/p2-10-flight-diagnosis.md/json 참조. 8개 artifact 감사 통과, 영상4개 보존. 다음은 P2-09에서 획득한 비행 능력을 이용하는 명시적 전이 또는6→3cm 조건 커리큘럼을 구현·검증할 것. 아직 다음 학습을 실행하지 않았다.
+
+## 기존 종료 후 절차(보고서 생성까지 완료)
 
 1. 네 학습 및 네 자동 평가 실제 PID 종료·GPU 해제 확인, audit_artifacts.py로 hash 검사.
 2. Isaac Python으로 experiment_report.py 및 jump_trace_report.py configs/reports/p2-10.json 실행. 원본 launch/first-touch 좌표 대조를 통과해야 한다.

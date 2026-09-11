@@ -1,0 +1,30 @@
+[
+  {
+    "run": "p2-10-strict-seed0",
+    "condition": "strict",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.001558466348797083,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-10-strict-seed1",
+    "condition": "strict",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.04486622288823128,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-10-strict-seed2",
+    "condition": "strict",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.07551012933254242,
+    "terminal_height_outside_tolerance": 48
+  },
+  {
+    "run": "p2-10-strict-seed3",
+    "condition": "strict",
+    "seed": 3,
+    "mean_terminal_base_rise_m": 0.01141105592250824,
+    "terminal_height_outside_tolerance": 0
+  }
+]
