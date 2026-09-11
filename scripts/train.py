@@ -67,7 +67,8 @@ def main():
             started = time.perf_counter()
             successes, failures, episodes, errors = 0, 0, 0, []
             completed_contacts = []
-            jump_flights,jump_landings=0,0
+            jump_flights,jump_landings,jump_apex_met=0,0,0
+            jump_apices=[]
             with torch.inference_mode():
                 for _ in range(steps_per_iteration):
                     actions = alg.act(obs, obs)
@@ -89,6 +90,8 @@ def main():
                         if 'valid_flight' in metrics:
                             jump_flights+=int(metrics['valid_flight'][dones].sum())
                             jump_landings+=int(metrics['landed'][dones].sum())
+                            jump_apices.extend(metrics['flight_apex_rise_m'][dones].tolist())
+                            jump_apex_met+=int((metrics['valid_flight'][dones] & (metrics['flight_apex_rise_m'][dones]>=metrics['required_apex_m'][dones])).sum())
                         if 'completed_contacts' in metrics:
                             completed_contacts.extend(metrics['completed_contacts'][dones].tolist())
                 alg.compute_returns(obs)
@@ -103,6 +106,8 @@ def main():
                    "losses": {k: float(v) for k, v in losses.items()}}
             if config.get('jump'):
                 row['valid_flights']=jump_flights;row['landed_episodes']=jump_landings
+                row['apex_command_met']=jump_apex_met
+                row['mean_flight_apex_rise_m']=sum(jump_apices)/len(jump_apices) if jump_apices else None
             if completed_contacts:
                 row['mean_completed_contacts'] = sum(completed_contacts)/len(completed_contacts)
             metrics_file.write(json.dumps(row, allow_nan=False) + "\n")

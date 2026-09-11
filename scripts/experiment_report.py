@@ -36,6 +36,8 @@ def summarize(entry):
   first=jump_first_touches(a,meta['nominal_foot_xy_m'],sc['episodes'],meta['config']['jump']['landing_radius_m'])
   row['first_touch_all_within']=sum(x['all_within'] for x in first)
   row['first_touch_samples']=first
+  row['apex_command_met']=sum(x['valid_flight'] and x['flight_apex_rise_m']>=x['required_apex_m'] for x in r['results'])
+  row['terminal_stable_steps_histogram']=dict(sorted(Counter(str(x['final_stable_steps']) for x in r['results']).items()))
   row['first_touch_definition']='First >5N foot force at 200Hz after valid-flight stage, foot body-center XY; supplemental metric, not the original success gate.'
  for key in ['valid_flights','landed_episodes','mean_flight_apex_rise_m','nonfoot_collisions']:
   if key in r:row[key]=r[key]
@@ -80,9 +82,9 @@ def main():
  '| 발 | 조건 | seed | 안정화 성공 | 필요 착지 완료 | 낙상 | 시간초과 | ≥20ms 전 발 무접촉 |','|---|---|---:|---:|---:|---:|---:|---:|---:|']
  for x in rows:lines.append(f"| {x['foot']} | {x['condition']} | {x['seed']} | {x['successes']}/{x['episodes']} | {x['placed']}/{x['episodes']} | {x['failures']}/{x['episodes']} | {x['timeouts']}/{x['episodes']} | {x['flight_episodes']}/{x['episodes']} |")
  if any('valid_flights' in x for x in rows):
-  lines+=['','## 도약 계약 지표','','| seed | 유효 비행 | 비행 후 재접촉 | 최종 안정화 | 비발 접촉 종료 | 평균 비행 apex 상승 | 네 발 첫 접촉 반경 내 |','|---:|---:|---:|---:|---:|---:|---:|']
+  lines+=['','## 도약 계약 지표','','| seed | 유효 비행 | 비행 후 재접촉 | 최종 안정화 | 비발 접촉 종료 | 평균 비행 apex 상승 | 높이 명령 충족 | 네 발 첫 접촉 반경 내 |','|---:|---:|---:|---:|---:|---:|---:|---:|']
   for x in rows:
-   if 'valid_flights' in x:lines.append(f"| {x['seed']} | {x['valid_flights']}/{x['episodes']} | {x['landed_episodes']}/{x['episodes']} | {x['successes']}/{x['episodes']} | {x['nonfoot_collisions']} | {100*x['mean_flight_apex_rise_m']:.2f} cm | {x['first_touch_all_within']}/{x['episodes']} |")
+   if 'valid_flights' in x:lines.append(f"| {x['seed']} | {x['valid_flights']}/{x['episodes']} | {x['landed_episodes']}/{x['episodes']} | {x['successes']}/{x['episodes']} | {x['nonfoot_collisions']} | {100*x['mean_flight_apex_rise_m']:.2f} cm | {x['apex_command_met']}/{x['episodes']} | {x['first_touch_all_within']}/{x['episodes']} |")
  if any('by_foot' in x for x in rows):
   lines+=['','## 공유 정책의 발별 평가','','| 조건 | seed | 이동 발 | 안정화 | 착지 | ≥20ms 전 발 무접촉 |','|---|---:|---|---:|---:|---:|']
   for x in rows:
