@@ -2,38 +2,29 @@
 
 사용자가 중단할 때까지 연구 goal은 active다. 실제 프로세스·GPU·artifact를 확인하고, 이전 상태만으로 중복 실행하지 않는다.
 
-## 현재: P2-10 완료, 다음 커리큘럼 설계 필요
+## 현재: P2-11 출발 범위 커리큘럼 학습 중
 
-[프로토콜](p2-10-protocol.md). P2-09와 출발 범위0.06→0.03 및 태그 외 설정이 같음을 assert했다. 새 정책 seed0–3, 전이 없음. source f8f5264.
+프로토콜 docs/p2-11-protocol.md, config configs/p2-11-curriculum.json, 보고서 configs/reports/p2-11.json. source96d059f. 새 정책 네 seed(전이 없음), 총157,286,400step, 각1024환경×24step×1600updates.
 
-| GPU | 실행 | session |
+| GPU | run | session |
 |---|---|---|
-|0|p2-10-strict-seed0|46120|
-|1|p2-10-strict-seed1|77802|
-|2|p2-10-strict-seed2|63931|
-|3|p2-10-strict-seed3|91065|
+|0|p2-11-curriculum-seed0|77745|
+|1|p2-11-curriculum-seed1|67965|
+|2|p2-11-curriculum-seed2|40922|
+|3|p2-11-curriculum-seed3|49443|
 
-각1024환경×24step×1600updates. 총157,286,400 신규step. worker3600초. 자동64개 평가·16로봇 MP4·200Hz 진단. configs/p2-10-strict.json 및 configs/reports/p2-10.json. 중간 결과로 예산·설정을 바꾸지 않는다.
+1–800update6cm,801–1200은4.5cm,1201–1600은3cm. 경계에서 모든 env reset, 미완료episode 통계 제외. final config 반경은3cm이고 평가에서는 schedule을 적용하지 않는다. checkpoint에 완료update·다음반경·전환계약 저장, restore시검사. 학습 metrics에 launch_radius_m 및 curriculum_reset_all 기록.
 
-## 완료 결과와 다음 작업
+37개 단위 검사 통과. 첫 smoke는 inference tensor 외부 reset 오류로실패하여 보존했다. 수정후 p2-11-smoke-fixed 3updates(6→4.5→3), checkpoint1에서 p2-11-resume-check 2updates(4.5→3) 성공. 두 자동평가·영상 포함4artifact감사통과. checkpoint상태3cm확인. 검증은 성능 결과가 아니다.
 
-네 학습1600 및 네 평가 정상 종료. 모두 성공0/64·유효비행0/64·timeout64/64. raw 비행 진단상 모든 episode가 몸체 상승3cm 미달. docs/p2-10-results.md, docs/p2-10-flight-diagnosis.md/json 참조. 8개 artifact 감사 통과, 영상4개 보존. 다음은 P2-09에서 획득한 비행 능력을 이용하는 명시적 전이 또는6→3cm 조건 커리큘럼을 구현·검증할 것. 아직 다음 학습을 실행하지 않았다.
+## 종료 후
 
-## 기존 종료 후 절차(보고서 생성까지 완료)
+실제PID종료 및GPU해제확인, 학습4+평가4 audit. IsaacPython scripts/experiment_report.py와 scripts/jump_trace_report.py configs/reports/p2-11.json 실행. 801/1201반경전환과reset기록을 확인한다. 원본200Hz launch/first-touch좌표 대조. P2-10 및 P2-09-strict와 같은3cm 평가에서 거리별·seed별 비교. result영상·웹태그·문서갱신. 자동champion승격없음. 실패시동일예산무한연장금지.
 
-1. 네 학습 및 네 자동 평가 실제 PID 종료·GPU 해제 확인, audit_artifacts.py로 hash 검사.
-2. Isaac Python으로 experiment_report.py 및 jump_trace_report.py configs/reports/p2-10.json 실행. 원본 launch/first-touch 좌표 대조를 통과해야 한다.
-3. P2-09-strict와 같은3cm 평가조건에서 거리별·seed별 비교. 제자리/5cm 능력 유지와10/15cm 개선 및 출발·비행거리·첫 접촉·안정화 실패를 분리.
-4. result 영상·웹 태그·문서 갱신. 실패하면 출발 조건 커리큘럼/명시적 전이 등 검토, 같은 예산 무한 연장 금지. champion 자동 승격 없음.
+## 직전 P2-10
 
-## 직전 결과 P2-09
-
-6cm 학습/평가 성공은 seed0/1/2/3:63/64·50/64·62/64·55/64. 15cm는 모두16/16,10cm는16/16·16/16·16/16·7/16. 제자리는15/16·2/16·14/16·16/16으로 회귀가 있다. 모든 거리의 첫 접촉 정밀도와 비행거리 조건은 모두 통과했고 실패는 안정화였다.
-
-3cm 실제 재평가 성공32/64·18/64·33/64·32/64. 15cm는 모두 출발 범위 위반으로0/16. 5cm는 모두16/16 유지.10cm는 seed0/2만16/16. 15cm 비행 확인 시 calroot 대비 XY 이동은 seed별 약4.89–4.92,5.12–5.25,4.58–4.64,5.09–5.12cm. 이는 정확한 이륙 순간이나 순수 지면 이동량이 아니다.
-
-학습4+기본평가4+엄격평가4 감사와 원본200Hz 좌표 대조 통과. 영상8개 보존. 결과 docs/p2-09-results.md 및 docs/p2-09-strict-results.md. P2-10 시작 전 GPU compute PID 없음 확인.
+모두1600학습/64평가종료, 성공0/64·유효비행0/64·timeout64/64. 제어경계몸체상승3cm모두미달(각seed최대약1.66/2.10/2.07/2.20cm). 비접촉window와상승속도는있었음. docs/p2-10-results.md 및 flight-diagnosis.md/json. 8artifact감사통과·영상4개보존. P2-09-strict는성공32/18/33/32였고15cm모두출발범위위반. 직접엄격조건학습의다른실패양상이다.
 
 ## 환경과 범위
 
-Isaac Python /mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh. .monitor-venv에는 NumPy가 없다. 웹 http://203.241.249.48:18710/ . 실제 갭·발판·연속 Planner·센서 적응·실기는 아직 검증하지 않았다. 평지의 목표 도약 성공을 파쿠르 완성으로 주장하지 않는다.
+Isaac Python /mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh. 웹 http://203.241.249.48:18710/ . GPU4장시작전compute PID없음확인. 실제갭·발판·Planner·센서적응·실기미검증. 평지목표도약을파쿠르완성으로주장하지않는다.
