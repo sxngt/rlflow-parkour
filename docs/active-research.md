@@ -249,3 +249,22 @@ sourcee303428, docs/p2-20-protocol.md/configs/p2-20-deck.json. exploration.py Bo
 주요 scripts/p2_20_train.py batch70012 실행중. fresh4seed각1024×24×1600,추가157286400step. P2-18결합보상/나머지계약유지,대조P2-18재사용. 현재 [{"run": "p2-20-deck-seed0", "pid": 1372183, "live": true, "iteration": 73, "std_cap": 0.35}, {"run": "p2-20-deck-seed1", "pid": 1372176, "live": true, "iteration": 73, "std_cap": 0.35}, {"run": "p2-20-deck-seed2", "pid": 1372162, "live": true, "iteration": 74, "std_cap": 0.35}, {"run": "p2-20-deck-seed3", "pid": 1372175, "live": true, "iteration": 74, "std_cap": 0.35}]
 
 다음동일PID관찰,401거리/801거리+cap.2/1201반경+cap.1확인 및훈련중successes유무검사. 종료후8artifact감사와configs/reports/p2-20.json으로3종보고서. sampled후속평가에서effective std는raw model std가아닌복원된clamp분포를사용할것. 이전p2_19_report.py의raw std표를이모델에그대로적용금지. 전체연구미완료. 이번턴구현/검증/새학습시작으로progress.
+
+
+### 최신: P2-20 첫 거리 전환 검증
+
+동일실제PID를확인한verified wait. update401거리0–10cm/launch6cm/reset_all=true/std_cap.35 네seed검증. checkpoint300네hash정상,모든기록std상한준수. 최신 [{"run": "p2-20-deck-seed0", "pid": 1372183, "live": true, "iteration": 434, "transition401_verified": true, "training_successes": 0}, {"run": "p2-20-deck-seed1", "pid": 1372176, "live": true, "iteration": 434, "transition401_verified": true, "training_successes": 0}, {"run": "p2-20-deck-seed2", "pid": 1372162, "live": true, "iteration": 434, "transition401_verified": true, "training_successes": 0}, {"run": "p2-20-deck-seed3", "pid": 1372175, "live": true, "iteration": 433, "transition401_verified": true, "training_successes": 0}]
+다음801의거리0–15cm/launch4.5cm/cap.2 전환,1201cap.1 및3cm. batch70012유지,중복실행금지. 관측artifacts/p2-20-watch.jsonl.
+
+
+### 최신: P2-20 cap0.20 전환 검증
+
+동일PID를 확인한 verified wait 후 update801의std_cap.2 및실제std_max<=.2000001,거리0–15cm/launch4.5cm/reset_all=true 네seed검증. checkpoint800네hash정상. 최신 [{"run": "p2-20-deck-seed0", "pid": 1372183, "live": true, "iteration": 842, "transition801_verified": true, "checkpoint800_hash_ok": true, "training_successes": 541}, {"run": "p2-20-deck-seed1", "pid": 1372176, "live": true, "iteration": 840, "transition801_verified": true, "checkpoint800_hash_ok": true, "training_successes": 223}, {"run": "p2-20-deck-seed2", "pid": 1372162, "live": true, "iteration": 846, "transition801_verified": true, "checkpoint800_hash_ok": true, "training_successes": 0}, {"run": "p2-20-deck-seed3", "pid": 1372175, "live": true, "iteration": 837, "transition801_verified": true, "checkpoint800_hash_ok": true, "training_successes": 26}]
+다음1201의cap.1/3cm전환과최종평가. batch70012유지,중복실행금지.
+
+
+### 최신: P2-20 마지막 탐색 상한 전환 검증
+
+직전 카메라 설정 확인 턴은 연구 진행 측면에서는 no progress. 이번 턴은 실제 /proc PID가 살아 있음을 확인하고 동일 작업을 기다린 verified wait 후 검증을 수행했다. 네 seed의 checkpoint1000/1200 hash, 전체 기록의 loss 유한성과 실제 std 상한 준수를 확인했다. update1201에서 cap0.1, launch3cm, 거리0–15cm, reset_all=true를 모두 검증했다. 최신 상태: [{"run": "p2-20-deck-seed0", "pid": 1372183, "live": true, "iteration": 1269, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "training_successes": 74356}, {"run": "p2-20-deck-seed1", "pid": 1372176, "live": true, "iteration": 1271, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "training_successes": 20373}, {"run": "p2-20-deck-seed2", "pid": 1372162, "live": true, "iteration": 1293, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "training_successes": 11986}, {"run": "p2-20-deck-seed3", "pid": 1372175, "live": true, "iteration": 1270, "transition1201_verified": true, "checkpoint1200_hash_ok": true, "training_successes": 15393}]
+
+학습 성공이 네 seed 모두 발생했지만 고정 평가군 성능은 아직 미검증. 기존 batch70012를 유지하며 최종1600/자동64개 평가·영상 완료 후 8 artifact 감사 및 configs/reports/p2-20.json의 세 보고서를 실행한다. GPU 약3GB/34–35도, 저장소535GB 여유. 중복 실행 금지. 전체 연구 목표는 미완료.
