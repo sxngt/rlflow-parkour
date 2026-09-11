@@ -1,6 +1,6 @@
 # P2-14: 실제 지지면 전이 파일럿
 
-상태: 기하 manifest 구현. 시뮬레이터 연결·물리 검증·정책 평가는 아직 수행하지 않았다.
+상태: 기하 manifest 및 독립 물리 낙하 probe 완료. 로봇 평가 장면 연결·정책 평가는 아직 수행하지 않았다.
 
 ## 질문과 고정 조건
 
@@ -24,3 +24,13 @@ P2-11 seed 0–3의 최종 1600-update checkpoint를 모두 고정한다. 추가
 완주, 유효 비행, 최초 접촉 위치/오차, 실제 비행 이동, 안정화, 비발 충돌, 지지면 이탈을 보고한다. 접촉력만으로 표면 ID를 확정하지 않고 접촉 위치·geometry 또는 지원되는 contact-pair 자료를 함께 확인한다. 기존 성공 정의와 지지면 내부 접촉 조건을 별도로 기록한다.
 
 각 실행에 checkpoint hash, terrain manifest/hash, 원래 calibration, scenario seed, 200Hz 진단, phase:p2 및 step:p2-14-support 태그를 보존한다. 영상은 64개 렌더 활성화와 camera-side 4를 사용하고, result 제목에 평지/연속/분리 지지면과 seed를 명시한다. 실패 영상도 보존한다. 지형에서 실패하면 본 결과를 토대로 지형 커리큘럼을 다음 실험으로 사전 정의한다.
+
+## 물리 검증 기록
+
+`artifacts/p2-14-support-probe-a1-v4`에서 연속/분리 조건의 네 발 출발·중간·착지 위치에 반지름 1cm sphere 24개를 200Hz로 2초간 낙하시켰다. 24개 모두 기대 높이 ±5mm 및 최종 속도 0.02m/s 미만 조건을 통과했다. 분리 지지면의 중간 probe 4개는 중심 z=-0.49m에 도달했고, 나머지는 z=0.01m에 머물렀다. 중간 trace 저장은 20Hz이며 로봇의 200Hz 접촉 진단과 다르다. artifact hash 감사와 worker 종료·GPU 회수 확인을 통과했다.
+
+A1 USD의 instance proxy 내부 collider를 조사했다. 네 발은 모두 Sphere이며 반지름 0.01999999955m, local transform identity, world 축 배율 [1,1,1]이다. local bounds는 ±2cm다. contact/rest offset은 명시된 USD 값이 없어 null로 기록했고, 이를 0이라고 가정하지 않는다. 발판 가장자리 여유의 초기 기하 기준으로 2cm를 사용할 수 있지만 실제 solver 접촉 범위는 별도 검증해야 한다.
+
+범위 제한: 이는 새로 생성한 독립 장면의 검증이다. 로봇 calibration용 평면을 교체한 뒤 낡은 collider가 제거되는지, robot reset과 표면 접촉 판정이 올바른지는 아직 검증하지 않았다. 영상 없는 구현 probe이며 최종 정책 평가 영상이 아니다.
+
+시도 이력: 첫 `support-probe-v1`은 물리 통과했지만 artifact hash 색인이 빠져 표준 감사 실패. `support-probe-a1-v1`은 instance proxy 누락으로 asset 조회 실패. v2는 물리·감사 통과했으나 invisible collision bounds가 비어 있었다. v3는 설치된 USD BBoxCache의 keyword 인자 호환 문제로 실패. v4에서 위치 인자 및 invisible bounds 조회를 수정해 위 결과를 얻었다. 이전 기록을 덮어쓰지 않았다.

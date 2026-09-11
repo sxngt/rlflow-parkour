@@ -36,7 +36,7 @@ def main():
     p.add_argument("--timeout", type=float, default=1800)
     p.add_argument('--skip-final-evaluation', action='store_true', help='Opt out for debug/profiling training runs')
     p.add_argument("--python", default="/mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh")
-    p.add_argument("kind", choices=["train", "evaluate", "collision_probe"])
+    p.add_argument("kind", choices=["train", "evaluate", "collision_probe", "support_probe"])
     p.add_argument("worker_args", nargs=argparse.REMAINDER)
     args = p.parse_args()
     gpus = query_gpus()
