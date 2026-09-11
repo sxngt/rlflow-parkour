@@ -361,6 +361,70 @@
       "task:single-jump",
       "purpose:comparison",
       "condition:jump-base"
+    ],
+    "p2-02-shaped-seed0": [
+      "phase:P2",
+      "step:p2-02-jump-shaping",
+      "step:p2-03-first-landing",
+      "task:single-jump",
+      "purpose:comparison",
+      "condition:jump-shaped"
+    ],
+    "p2-02-shaped-seed0__final-evaluation": [
+      "phase:P2",
+      "step:p2-02-jump-shaping",
+      "step:p2-03-first-landing",
+      "task:single-jump",
+      "purpose:comparison",
+      "condition:jump-shaped"
+    ],
+    "p2-02-shaped-seed1": [
+      "phase:P2",
+      "step:p2-02-jump-shaping",
+      "step:p2-03-first-landing",
+      "task:single-jump",
+      "purpose:comparison",
+      "condition:jump-shaped"
+    ],
+    "p2-02-shaped-seed1__final-evaluation": [
+      "phase:P2",
+      "step:p2-02-jump-shaping",
+      "step:p2-03-first-landing",
+      "task:single-jump",
+      "purpose:comparison",
+      "condition:jump-shaped"
+    ],
+    "p2-02-shaped-seed2": [
+      "phase:P2",
+      "step:p2-02-jump-shaping",
+      "step:p2-03-first-landing",
+      "task:single-jump",
+      "purpose:comparison",
+      "condition:jump-shaped"
+    ],
+    "p2-02-shaped-seed2__final-evaluation": [
+      "phase:P2",
+      "step:p2-02-jump-shaping",
+      "step:p2-03-first-landing",
+      "task:single-jump",
+      "purpose:comparison",
+      "condition:jump-shaped"
+    ],
+    "p2-02-shaped-seed3": [
+      "phase:P2",
+      "step:p2-02-jump-shaping",
+      "step:p2-03-first-landing",
+      "task:single-jump",
+      "purpose:comparison",
+      "condition:jump-shaped"
+    ],
+    "p2-02-shaped-seed3__final-evaluation": [
+      "phase:P2",
+      "step:p2-02-jump-shaping",
+      "step:p2-03-first-landing",
+      "task:single-jump",
+      "purpose:comparison",
+      "condition:jump-shaped"
     ]
   },
   "note": "Phase is work classification, not a completion claim. Explicit run research_tags override task defaults. Legacy annotations are derived without changing original artifacts."

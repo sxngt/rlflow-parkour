@@ -105,6 +105,9 @@ def main():
   lines+=['','## 도약 계약 지표','','| 조건 | seed | 유효 비행 | 비행 후 재접촉 | 최종 안정화 | 비발 접촉 종료 | 평균 비행 apex 상승 | 높이 명령 충족 | 네 발 첫 접촉 반경 내 | 최종 높이 범위 밖 |','|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|']
   for x in rows:
    if 'valid_flights' in x:lines.append(f"| {x['condition']} | {x['seed']} | {x['valid_flights']}/{x['episodes']} | {x['landed_episodes']}/{x['episodes']} | {x['successes']}/{x['episodes']} | {x['nonfoot_collisions']} | {100*x['mean_flight_apex_rise_m']:.2f} cm | {x['apex_command_met']}/{x['episodes']} | {x['first_touch_all_within']}/{x['episodes']} | {x['terminal_height_outside_tolerance']}/{x['episodes']} |")
+ if any('stabilized_once' in x for x in rows):
+  lines+=['','## 공통 지표 분리','','| 조건 | seed | 기존 안정화 달성 | 첫 접촉 네 발 반경 내 |','|---|---:|---:|---:|']
+  for x in rows:lines.append(f"| {x['condition']} | {x['seed']} | {x.get('stabilized_once',x['successes'])}/{x['episodes']} | {x['first_touch_all_within']}/{x['episodes']} |")
  if any('by_foot' in x for x in rows):
   lines+=['','## 공유 정책의 발별 평가','','| 조건 | seed | 이동 발 | 안정화 | 착지 | ≥20ms 전 발 무접촉 |','|---|---:|---|---:|---:|---:|']
   for x in rows:
