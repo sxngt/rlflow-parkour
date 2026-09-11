@@ -277,3 +277,14 @@ sourcee303428, docs/p2-20-protocol.md/configs/p2-20-deck.json. exploration.py Bo
 최종 성공48/48/24/22, 유효비행64/64/64/64, 최초정밀64/64/64/64, 안정화64/64/40/45. 대조P2-18 성공0/0/0/33. seed3은 감소. 15cm는 전seed0/16이며 최초정밀/안정화는 모두16/16, 비행거리만 미달. 실제 평균11.26/8.13/9.47/6.12cm, 최소기준12cm. docs/p2-20-findings.md 판단 기록. 제한탐색은 후속 기준 후보, champion 승격/전체 연구 완료 아님.
 
 다음 구체 과제: P2-20 checkpoint800/1200 ×4 고정개발군 평가로 거리 능력 미획득/후반상실 분리. 새 사후 진단 프로토콜 작성 후 bounded checkpoint buffer/effective std 복원 확인, 기존 p2_16_checkpoints.py 패턴 재사용. 아직 다음 평가 미실행. raw std를 effective std로 보고하지 말 것. first_travel_reward 최종행0은 step 지급액이라 episode 무지급 근거가 아님.
+
+
+### 최신: P2-20 중간 진단 완료 및 P2-21 시작
+
+직전 턴은 P2-20 완료/분석으로 progress. 이번 턴은 checkpoint800/1200 ×4 평가 완료, artifacts/p2-20-checkpoint-audit.jsonl 8감사 및 result8영상 hash 확인. source aa67145, batch75118 정상 종료. docs/p2-20-checkpoint-results.md/summary.json. 성공800→1200→1600: seed0 48→48→48, seed1 0→20→48, seed2 16→32→24, seed3 16→0→22. 조사한 세 시점 모두15cm성공0. 모든12 checkpoint의 BoundedActorCritic 실제 복원과 cap .35/.2/.1/effective std 검증 완료.
+
+다음 P2-21 source8236019, configs/p2-21-deck.json, docs/p2-21-protocol.md. P2-20 대비 후반 update801–1600 목표 거리 상한만15→20cm로 확장, 다른 학습/탐색/성공판정은 동일함을 config 비교로 확인. 최종 평가0/5/10/15cm 기존64개 그대로. fresh4seed×1024×24×1600, 추가157286400step. 대조 P2-20 재사용, configs/reports/p2-21.json.
+
+64env3update 축소거리/launch/cap 일정 smoke와 최종평가·영상 완료, 2artifact감사 artifacts/p2-21-smoke-audit.jsonl 통과. 실제20cm/reset/finite loss 및 평가 scenario equality 확인. resume코드는 변경 없으며 이번에 새 resume시험은 하지 않음. 주요 scripts/p2_21_train.py batch59110 실행중, 상태 [{"run": "p2-21-deck-seed0", "pid": 1406069, "live": true, "iteration": 78}, {"run": "p2-21-deck-seed1", "pid": 1406060, "live": true, "iteration": 77}, {"run": "p2-21-deck-seed2", "pid": 1406061, "live": true, "iteration": 80}, {"run": "p2-21-deck-seed3", "pid": 1406043, "live": true, "iteration": 79}]
+
+다음 같은 PID 관찰,401/801의 실제거리20cm/cap.2/reset 및1201cap.1/반경3cm 검증. 1600 종료 후8artifact감사 및 configs/reports/p2-21.json 세보고서/영상hash/거리별분석. 20cm성능 주장 금지(현재 평가0–15cm). 저장535GB여유. 전체 목표 미완료, 중복 실행 금지.
