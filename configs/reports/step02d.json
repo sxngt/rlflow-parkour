@@ -1,0 +1,68 @@
+{
+  "title": "P1 · Step 02d — 추가 학습 및 회귀",
+  "report": "step02d",
+  "protocol": "step02d-protocol.md",
+  "description": "기존 A(v4)의 동일 seed 정책을800→1600updates까지 episode 경계에서 재개했다. 독립 seed 추가가 아닌 대응 예산 실험이다. 신규 step만 별도 집계한다.",
+  "runs": [
+    {
+      "foot": "FL",
+      "condition": "A800",
+      "seed": 0,
+      "run": "p1-step02a-single-fl-seed0",
+      "reused": true
+    },
+    {
+      "foot": "FL",
+      "condition": "A1600",
+      "seed": 0,
+      "run": "p1-step02d-a-fl-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "FL",
+      "condition": "A800",
+      "seed": 1,
+      "run": "p1-step02b-a-fl-seed1",
+      "reused": true
+    },
+    {
+      "foot": "FL",
+      "condition": "A1600",
+      "seed": 1,
+      "run": "p1-step02d-a-fl-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "RL",
+      "condition": "A800",
+      "seed": 0,
+      "run": "p1-step02a-single-rl-seed0",
+      "reused": true
+    },
+    {
+      "foot": "RL",
+      "condition": "A1600",
+      "seed": 0,
+      "run": "p1-step02d-a-rl-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "RL",
+      "condition": "A800",
+      "seed": 1,
+      "run": "p1-step02b-a-rl-seed1",
+      "reused": true
+    },
+    {
+      "foot": "RL",
+      "condition": "A1600",
+      "seed": 1,
+      "run": "p1-step02d-a-rl-seed1",
+      "updates": 1600,
+      "reused": false
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "title": "P1 · Step 02c — 정렬 비용 적용 시점 비교",
+  "report": "step02c",
+  "protocol": "step02c-protocol.md",
+  "description": "A=기존 보상, B=최종 단계 전용 정렬 비용, C=모든 단계 정렬 비용. 각 발·조건 2개 학습 seed, 각 1024환경×800updates. A/B는 이전 원본 재사용.",
+  "runs": [
+    {
+      "foot": "FL",
+      "condition": "A",
+      "seed": 0,
+      "run": "p1-step02a-single-fl-seed0",
+      "reused": true
+    },
+    {
+      "foot": "FL",
+      "condition": "A",
+      "seed": 1,
+      "run": "p1-step02b-a-fl-seed1",
+      "reused": true
+    },
+    {
+      "foot": "FL",
+      "condition": "B",
+      "seed": 0,
+      "run": "p1-step02b-b-fl-seed0",
+      "reused": true
+    },
+    {
+      "foot": "FL",
+      "condition": "B",
+      "seed": 1,
+      "run": "p1-step02b-b-fl-seed1",
+      "reused": true
+    },
+    {
+      "foot": "FL",
+      "condition": "C",
+      "seed": 0,
+      "run": "p1-step02c-c-fl-seed0",
+      "reused": false
+    },
+    {
+      "foot": "FL",
+      "condition": "C",
+      "seed": 1,
+      "run": "p1-step02c-c-fl-seed1",
+      "reused": false
+    },
+    {
+      "foot": "RL",
+      "condition": "A",
+      "seed": 0,
+      "run": "p1-step02a-single-rl-seed0",
+      "reused": true
+    },
+    {
+      "foot": "RL",
+      "condition": "A",
+      "seed": 1,
+      "run": "p1-step02b-a-rl-seed1",
+      "reused": true
+    },
+    {
+      "foot": "RL",
+      "condition": "B",
+      "seed": 0,
+      "run": "p1-step02b-b-rl-seed0",
+      "reused": true
+    },
+    {
+      "foot": "RL",
+      "condition": "B",
+      "seed": 1,
+      "run": "p1-step02b-b-rl-seed1",
+      "reused": true
+    },
+    {
+      "foot": "RL",
+      "condition": "C",
+      "seed": 0,
+      "run": "p1-step02c-c-rl-seed0",
+      "reused": false
+    },
+    {
+      "foot": "RL",
+      "condition": "C",
+      "seed": 1,
+      "run": "p1-step02c-c-rl-seed1",
+      "reused": false
+    }
+  ]
+}

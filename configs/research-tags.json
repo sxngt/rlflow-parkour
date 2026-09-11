@@ -37,7 +37,10 @@
     "condition:alignment-a": "A · 기존 보상",
     "condition:alignment-b": "B · 최종 정렬 벌점",
     "step:02c-continuous-alignment": "02c · 전 단계 정렬",
-    "condition:alignment-c": "C · 전 단계 정렬 벌점"
+    "condition:alignment-c": "C · 전 단계 정렬 벌점",
+    "step:02d-additional-budget": "02d · 추가 학습·회귀",
+    "condition:budget-800": "누적 800 updates",
+    "condition:budget-1600": "누적 1600 updates"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
@@ -98,42 +101,50 @@
     ],
     "p1-step02a-single-fl-seed0": [
       "condition:alignment-a",
+      "condition:budget-800",
       "condition:foot-fl",
       "phase:P1",
       "purpose:comparison",
       "step:02a-single-foot",
       "step:02b-final-alignment",
       "step:02c-continuous-alignment",
+      "step:02d-additional-budget",
       "task:single-foot"
     ],
     "p1-step02a-single-fl-seed0__final-evaluation": [
       "condition:alignment-a",
+      "condition:budget-800",
       "condition:foot-fl",
       "phase:P1",
       "purpose:comparison",
       "step:02a-single-foot",
       "step:02b-final-alignment",
       "step:02c-continuous-alignment",
+      "step:02d-additional-budget",
       "task:single-foot"
     ],
     "p1-step02a-single-rl-seed0": [
       "condition:alignment-a",
+      "condition:budget-800",
       "condition:foot-rl",
       "phase:P1",
       "purpose:comparison",
       "step:02a-single-foot",
       "step:02b-final-alignment",
       "step:02c-continuous-alignment",
+      "step:02d-additional-budget",
       "task:single-foot"
     ],
     "p1-step02a-single-rl-seed0__final-evaluation": [
       "condition:alignment-a",
+      "condition:budget-800",
       "condition:foot-rl",
       "phase:P1",
       "purpose:comparison",
       "step:02a-single-foot",
       "step:02b-final-alignment",
       "step:02c-continuous-alignment",
+      "step:02d-additional-budget",
       "task:single-foot"
     ],
     "p1-step02b-b-fl-seed0": [
@@ -156,20 +167,24 @@
     ],
     "p1-step02b-a-fl-seed1": [
       "condition:alignment-a",
+      "condition:budget-800",
       "condition:foot-fl",
       "phase:P1",
       "purpose:comparison",
       "step:02b-final-alignment",
       "step:02c-continuous-alignment",
+      "step:02d-additional-budget",
       "task:single-foot"
     ],
     "p1-step02b-a-fl-seed1__final-evaluation": [
       "condition:alignment-a",
+      "condition:budget-800",
       "condition:foot-fl",
       "phase:P1",
       "purpose:comparison",
       "step:02b-final-alignment",
       "step:02c-continuous-alignment",
+      "step:02d-additional-budget",
       "task:single-foot"
     ],
     "p1-step02b-b-fl-seed1": [
@@ -210,20 +225,24 @@
     ],
     "p1-step02b-a-rl-seed1": [
       "condition:alignment-a",
+      "condition:budget-800",
       "condition:foot-rl",
       "phase:P1",
       "purpose:comparison",
       "step:02b-final-alignment",
       "step:02c-continuous-alignment",
+      "step:02d-additional-budget",
       "task:single-foot"
     ],
     "p1-step02b-a-rl-seed1__final-evaluation": [
       "condition:alignment-a",
+      "condition:budget-800",
       "condition:foot-rl",
       "phase:P1",
       "purpose:comparison",
       "step:02b-final-alignment",
       "step:02c-continuous-alignment",
+      "step:02d-additional-budget",
       "task:single-foot"
     ],
     "p1-step02b-b-rl-seed1": [
