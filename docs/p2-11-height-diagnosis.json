@@ -1,0 +1,30 @@
+[
+  {
+    "run": "p2-11-curriculum-seed0",
+    "condition": "curriculum",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.04888627678155899,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-11-curriculum-seed1",
+    "condition": "curriculum",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.013277913443744183,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-11-curriculum-seed2",
+    "condition": "curriculum",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.0032684244215488434,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-11-curriculum-seed3",
+    "condition": "curriculum",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.006677211262285709,
+    "terminal_height_outside_tolerance": 0
+  }
+]
