@@ -318,3 +318,12 @@ sourcee303428, docs/p2-20-protocol.md/configs/p2-20-deck.json. exploration.py Bo
 성공0/12/44/48, 유효비행64/64/64/64, 최초정밀64/64/64/64, 안정화0/18/44/64. P2-20 성공48/48/24/22. 평균35.5→26으로악화하여상한확장채택기각. seed2만15cm8/16성공,해당거리이동충족16/16/평균13.20cm. 다른seed15cm모두0. 성공사례지지면투영모두확인. docs/p2-21-findings.md.
 
 다음 구체 작업: 기존200Hz trace로 최초착지 후 발별목표영역이탈 진단. 안정화실패seed0/1/2 64/46/20개의최종행모두 feet_in_radius=false,contact/support/vz/omega는통과. 최초정밀은모두64라서후속목표유지문제근거. 종료시점만으로원인확정금지. P2-20/21 matched scenarios 비교해이탈시점/오차/지지중발중심이동/최대유지구간분석. 실제미끄러짐판정아님. 추가학습아직미실행,무조건거리sweep금지. 전체목표미완료.
+
+
+### 최신: P2-21 착지 이후 발 목표 유지 진단 완료
+
+직전 턴은P2-21 완료/분석으로 progress. 이번 턴은 scripts/post_landing_report.py를 작성해 configs/reports/p2-21.json의512episode 원본200Hz기록 분석. docs/p2-21-post-landing.md/json 및figures/p2-21-post-landing.png 생성. 최초접촉KPI1e-5m대조/pairedscenarios/200Hz/validmask, 연속구간공집합·단일·분리·정확200ms synthetic검사 통과. 그림동일scenario0 첫0.6초공통축; 전체진단JSON보존.
+
+안정화실패P2-20 43개 + P2-21 130개=173개 모두 접촉완료후200ms안에영역이탈 관찰, 이후200ms 네발기하유지구간없음. 모두RR이탈. P2-21 실패seed0/1/2 RR최종평균5.80/5.40/5.25cm. 8실행진단발순서FL/FR/RL/RR와동결target/terrain계약일치. 코드robot/contact순서assert/원래jointarray행동연결확인, 순서오류증거없음(동역학대칭성보장아님). 50Hz판정재현/미끄러짐원인확정아님.
+
+다음구체과제: P2-20 기준에서 착지후 dense precision의mean aggregation만worst-foot aggregation으로 바꾼 단일변경 고정예산 비교. 모든발동등,특정RR가중금지. 최초접촉/거리/성공조건유지. 새protocol/설정엄격계약/보상단위검사/짧은smoke후주요학습. 아직구현·학습미착수, 전체목표미완료. 현재실행GPU학습없음.
