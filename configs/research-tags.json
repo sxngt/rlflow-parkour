@@ -60,7 +60,10 @@
     "condition:distance-short": "학습 거리 · 0–5cm",
     "step:p2-07-launch-region": "P2-07 · 출발 영역 진단",
     "condition:launch-6cm": "출발 반경 · 6cm",
-    "condition:launch-3cm-evaluation": "재평가 출발 반경 · 3cm"
+    "condition:launch-3cm-evaluation": "재평가 출발 반경 · 3cm",
+    "step:p2-08-travel-reward": "P2-08 · 비행거리 보상",
+    "condition:travel-reward-control": "비행거리 보상 · 0",
+    "condition:travel-reward-travel": "비행거리 보상 · 4"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [

@@ -1,5 +1,18 @@
 """Single-flight root displacement; excludes walking before the launch latch."""
 import torch
+import math
+
+class TravelLandingReward:
+    """One reward at the first recorded body touchdown, never after correction."""
+    def __init__(self,count,device):
+        self.paid=torch.zeros(count,dtype=torch.bool,device=device)
+    def reset(self,ids):self.paid[ids]=False
+    def collect(self,travel,command,failure,weight,scale):
+        if not math.isfinite(weight) or weight<0 or not math.isfinite(scale) or scale<=0:
+            raise ValueError('Travel reward requires nonnegative weight and positive scale')
+        new=travel.touched&~self.paid
+        self.paid|=travel.touched
+        return new*travel.launch_ok*(~failure)*weight*torch.exp(-(travel.distance()-command).abs()/scale)
 
 class FlightTravel:
     def __init__(self,count,device):

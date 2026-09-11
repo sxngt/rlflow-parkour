@@ -1,0 +1,43 @@
+{
+  "title": "P2-08 · 최초 착지 비행거리 보상",
+  "report": "p2-08",
+  "protocol": "p2-08-protocol.md",
+  "description": "동일6cm 출발 계약·0–5cm 학습에서 비행거리 첫 착지 보상0/4를 비교한다.",
+  "success_label": "수평 도약 성공",
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "control",
+      "seed": 0,
+      "run": "p2-08-control-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "control",
+      "seed": 1,
+      "run": "p2-08-control-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "travel",
+      "seed": 0,
+      "run": "p2-08-travel-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "travel",
+      "seed": 1,
+      "run": "p2-08-travel-seed1",
+      "updates": 1600,
+      "reused": false
+    }
+  ],
+  "trace_episode_index": 1,
+  "show_forward_trace": true
+}
