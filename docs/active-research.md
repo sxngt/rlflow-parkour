@@ -126,3 +126,13 @@ scripts/p2_15_support_report.py에 선택적 report spec 인자를 추가했다.
 ### 최신: P2-16 첫 거리 전환 검증
 
 이번 턴은 동일한 네 실제 PID(1208366/1208384/1208383/1208387)를 확인한 verified wait 후, update401 전환 증거를 확보했다. 모든 seed에서 train_forward_range_m=[0,0.1], launch_radius_m=0.06, curriculum_reset_all=true를 검증했다. checkpoint400도 네 hash 일치. 최근 진행420/425/422/426, 모두 실제 PID 생존. artifacts/p2-16-watch.jsonl에 기록. 학습/평가를 재시작하지 않았으며 batch96778 계속 실행 중. 다음 전환 검사는 update801의 거리0–15cm와 launch반경4.5cm, 그 다음1201의3cm다. 아직 최종 성능 결과 없음.
+
+
+### 최신 확인: P2-16 계속 실행
+동일 네 PID를 관찰한 verified wait. checkpoint500 네 hash 통과, 최근100update loss 모두 유한, GPU34°C. 최근 상태 [{"run": "p2-16-deck-seed0", "pid": 1208366, "live": true, "iteration": 642}, {"run": "p2-16-deck-seed1", "pid": 1208384, "live": true, "iteration": 638}, {"run": "p2-16-deck-seed2", "pid": 1208383, "live": true, "iteration": 631}, {"run": "p2-16-deck-seed3", "pid": 1208387, "live": true, "iteration": 671}]
+다음은 update801 거리0–15cm/launch4.5cm 전환 확인. batch96778 계속 실행 중이며 중복 실행 금지.
+
+
+### 최신: P2-16 update801 전환 검증
+
+동일 네 PID를 확인하며 기다린 후 모든 seed의 update801에서 목표거리[0,0.15], launch반경0.045, curriculum_reset_all=true를 검증했다. checkpoint800 hash 네 개도 일치한다. 최근 update seed0/1/2/3=835/814/805/858, 모두 실제 PID 생존. 원시 관측은 artifacts/p2-16-watch.jsonl. batch96778 유지, 다음은1201의3cm 반경 전환과 최종1600 이후 자동평가. 이 턴은 verified wait와 전환 검증이며 최종 성능 결과는 아직 없다.
