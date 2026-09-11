@@ -215,3 +215,15 @@ src/parkour/first_touch.py 순수torch FirstTouch 모듈과tests/test_first_touc
 다음구현제안: 별도PrecisionJumpEnv가JumpEnv를상속하고scene.update를감싸각200Hz물리갱신직후FirstTouch.update를호출. 기존MotionDiagnostics도scene.update를감싸므로기존wrapper를먼저호출해순서를보존한다. localXY=body_pos-env_origin,targets는world기준이므로동일frame변환필수. parent __init__ stancecalibration후hook설치,reset시FirstTouch초기화. _pre_physics_step에서보상누적buffer0,각physics첫접촉만bonus누적. 최초비행latched이후만작동하므로기존사후진단stage>=1과대조가능하다. IsaacDirectRLEnv.step은physics scene.update4회→episodecounter증가→dones→rewards→reset→observations순서임을로컬코드확인했다.
 
 성공계약제안: 기존안정화성공 AND first_touch.within(.05). 기존안정화달성은별도latch해보고,새엄격성공과기존성공을혼동하지않는다. 목표밖첫착지후보정은새성공불가. 보상제안은기존v2를유지하고첫접촉위치bonus(예:2*exp(-error/.08),발별1회)를추가; 아직고정/실행하지않았으므로프로토콜을먼저확정하고검증할것. 명령분포는우선기존평지목표,새4seed고정예산비교. 공통첫접촉지표로기존모델과비교해야하며새성공률을기존성공률과동일계약처럼비교하지않는다. 합성정확/잘못된첫접촉·이후보정거부·reset검사,짧은학습/평가/200Hz일치검증후본학습. goal active 유지.
+
+## P2-03 첫 착지 정밀화 구현 및 본 학습 시작
+
+PrecisionJumpEnv(별도task a1_flat_jump_precise_v3)를구현했다. scene.update wrapper가원래update후200Hz힘/발위치를읽고FirstTouch에저장. 세계좌표발/목표를동일env-localXY로변환. 첫접촉bonus=2*exp(-error/.08),발별1회/episode최대8,실패표본추가보상0. 기존v2보상유지하되+8성공은기존hold AND네발첫접촉≤5cm에만지급한다. 잘못된첫접촉후보정은새성공불가,기존stabilized_once는별도latch. first_touch_error_{fl,fr,rl,rr}_m 미접촉은-1.66차원관측은그대로라모든과거사건을관측하는Markov상태라고주장하지않음.
+
+단위27개,합성시뮬레이터scripts/check_precision_jump.py PASS: 서기거부/잘못된firsttouch후안정화성공거부/실제physics접촉읽기/bonus1회/정확한첫접촉hold. artifacts/p2-03-precision-state-check.log. 구현확인64env×2updates 및64평가/영상/진단/2run감사PASS(artifacts/p2-03-precise-implementation-check, __final-evaluation). 짧은정책유효비행0/성공0이므로report에서온라인firsttouch와원본일치는누락값만검증. 본학습평가에서양성접촉일치추가검증필요.
+
+본학습4run시작: artifacts/p2-03-precise-seed{0,1,2,3},GPU index=seed. 각1024×24×1600업데이트39,321,600step,총157,286,400신규. 실행commit f80700a. supervisor1800초,최종64평가영상/진단자동. shell session83363/49250/59692/24997. 시작후실제PID/메트릭확인필요. 실행중설정수정/중복재시작금지.
+
+configs/reports/p2-03.json은A=P2-02재사용4seed,B=P2-03새4seed. 새성공계약차이를제목/표에명시하고공통첫접촉비율·stabilized_once로비교한다. report helper는발별온라인firsttouch와사후200Hz오차1e-5m이내일치assert. count누락은-1/None매칭. 이전A의첫접촉은모두실패(전seed0/64)지만기존안정화64/64였다. 따라서새B0성공을A64와동일기준처럼해석하면안됨.
+
+다음은실행상태관측→자동평가/회수→8run감사→experiment_report.py와jump_trace_report.py configs/reports/p2-03.json→실패분석/후속학습. 최종영상은T1J-v3상세제목result등록. P2-02대조군에catalog override로P2-03태그추가,원본config불변. goal active 유지.
