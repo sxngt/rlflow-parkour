@@ -1,0 +1,139 @@
+{
+  "title": "P2-25 · 학습 거리와 후반 탐색의 조합",
+  "report": "p2-25",
+  "protocol": "p2-25-protocol.md",
+  "description": "기존15/20cm × 최종std0.1/0.05 조건 중20cm/0.05를 추가하는 탐색적비교. 기존세조건은재사용한다.",
+  "success_label": "목표 도약 성공",
+  "trace_episode_index": 3,
+  "show_forward_trace": true,
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "15cm-std010",
+      "seed": 0,
+      "run": "p2-20-deck-seed0",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "15cm-std010",
+      "seed": 1,
+      "run": "p2-20-deck-seed1",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "15cm-std010",
+      "seed": 2,
+      "run": "p2-20-deck-seed2",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "15cm-std010",
+      "seed": 3,
+      "run": "p2-20-deck-seed3",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "20cm-std010",
+      "seed": 0,
+      "run": "p2-21-deck-seed0",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "20cm-std010",
+      "seed": 1,
+      "run": "p2-21-deck-seed1",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "20cm-std010",
+      "seed": 2,
+      "run": "p2-21-deck-seed2",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "20cm-std010",
+      "seed": 3,
+      "run": "p2-21-deck-seed3",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "15cm-std005",
+      "seed": 0,
+      "run": "p2-24-deck-seed0",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "15cm-std005",
+      "seed": 1,
+      "run": "p2-24-deck-seed1",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "15cm-std005",
+      "seed": 2,
+      "run": "p2-24-deck-seed2",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "15cm-std005",
+      "seed": 3,
+      "run": "p2-24-deck-seed3",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "20cm-std005",
+      "seed": 0,
+      "run": "p2-25-deck-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "20cm-std005",
+      "seed": 1,
+      "run": "p2-25-deck-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "20cm-std005",
+      "seed": 2,
+      "run": "p2-25-deck-seed2",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "20cm-std005",
+      "seed": 3,
+      "run": "p2-25-deck-seed3",
+      "updates": 1600,
+      "reused": false
+    }
+  ]
+}
