@@ -36,6 +36,13 @@ def summarize(entry):
   first=jump_first_touches(a,meta['nominal_foot_xy_m'],sc['episodes'],meta['config']['jump']['landing_radius_m'])
   row['first_touch_all_within']=sum(x['all_within'] for x in first)
   row['first_touch_samples']=first
+  if 'first_touch_count' in r['results'][0]:
+   row['stabilized_once']=sum(x['stabilized_once'] for x in r['results'])
+   row['online_first_touch_all_within']=sum(x['first_touch_all_within'] for x in r['results'])
+   for sample,record in zip(first,r['results']):
+    for foot,error in zip(['fl','fr','rl','rr'],sample['errors_m']):
+     actual=record[f'first_touch_error_{foot}_m']
+     assert (actual==-1 if error is None else abs(actual-error)<1e-5),'Online first touch differs from raw physics trace'
   terminal_rise=np.array([a['root_z'][t,i] for i,t in enumerate(last)])-meta['stance_calibration']['root_state'][2]
   row['mean_terminal_base_rise_m']=float(terminal_rise.mean())
   row['terminal_height_outside_tolerance']=int((np.abs(terminal_rise)>meta['config']['jump']['final_height_error_max_m']).sum())
@@ -115,6 +122,8 @@ def main():
  lines+=['','## 범위·재현','',
  '개발 조건의 탐색적 실험이다. 평가 episode 수와 독립 학습 seed 수를 구분하며 최종 시험 결과로 주장하지 않는다. 같은 발의 평가 시나리오가 동일함을 확인했다. 설정·checkpoint·원본200Hz NPZ는 artifacts, 최종16대병렬영상은 result에 보존한다. 재사용 대조군 원본은 변경하지 않는다.','',
  f"실행 목록 및 보고서 명세: `{args.spec}`. 이 보고서는 `scripts/experiment_report.py`로 재생성한다."]
+ if spec.get('success_label'):
+  lines=[line.replace('안정화 성공',spec['success_label']).replace('최종 안정화 |',spec['success_label']+' |') for line in lines]
  (ROOT/f'docs/{stem}-results.md').write_text('\n'.join(lines)+'\n');(ROOT/f'docs/{stem}-summary.json').write_text(json.dumps(rows,indent=2)+'\n')
  print(json.dumps([{k:x[k] for k in ['foot','condition','seed','successes','placed','flight_episodes']} for x in rows],indent=2))
 if __name__=='__main__':main()

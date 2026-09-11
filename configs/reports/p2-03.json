@@ -1,0 +1,73 @@
+{
+  "title": "P2-03 · 첫 착지 정밀화",
+  "report": "p2-03",
+  "protocol": "p2-03-protocol.md",
+  "description": "A는기존안정화성공, B는첫착지반경까지요구하는새성공이므로성공률직접비교금지. 공통첫접촉지표를비교한다.",
+  "success_label": "과제별 성공(계약 다름)",
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "A",
+      "seed": 0,
+      "run": "p2-02-shaped-seed0",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "A",
+      "seed": 1,
+      "run": "p2-02-shaped-seed1",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "A",
+      "seed": 2,
+      "run": "p2-02-shaped-seed2",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "A",
+      "seed": 3,
+      "run": "p2-02-shaped-seed3",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "B",
+      "seed": 0,
+      "run": "p2-03-precise-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "B",
+      "seed": 1,
+      "run": "p2-03-precise-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "B",
+      "seed": 2,
+      "run": "p2-03-precise-seed2",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "B",
+      "seed": 3,
+      "run": "p2-03-precise-seed3",
+      "updates": 1600,
+      "reused": false
+    }
+  ]
+}
