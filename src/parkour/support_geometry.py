@@ -11,8 +11,8 @@ import math
 def build_support_layout(foot_names, foot_xy, *, mode, travel_m=0.15,
                          pad_length_m=0.09, pad_width_m=0.12,
                          thickness_m=0.10, catch_floor_z_m=-0.5):
-    if mode not in ('continuous', 'split'):
-        raise ValueError('Support mode must be continuous or split')
+    if mode not in ('continuous', 'split', 'deck'):
+        raise ValueError('Support mode must be continuous, split or deck')
     dimensions = (travel_m, pad_length_m, pad_width_m, thickness_m)
     if any(not math.isfinite(v) or v <= 0 for v in dimensions):
         raise ValueError('Dimensions must be finite and positive')
@@ -39,6 +39,13 @@ def build_support_layout(foot_names, foot_xy, *, mode, travel_m=0.15,
                 'normal': [0., 0., 1.], 'top_z_m': 0.,
                 'bounds_xy_m': [cx-length/2, cx+length/2,
                                 y-pad_width_m/2, y+pad_width_m/2]})
+    if mode == 'deck':
+        cx = sum(p[0] for p in foot_xy)/4 + travel_m/2
+        cy = sum(p[1] for p in foot_xy)/4
+        surfaces = [{'id': 'shared_deck', 'foot': 'all', 'role': 'shared',
+                     'center_m': [cx, cy, -thickness_m/2],
+                     'size_m': [1.4, 1.2, thickness_m], 'normal': [0., 0., 1.],
+                     'top_z_m': 0., 'bounds_xy_m': [cx-.7, cx+.7, cy-.6, cy+.6]}]
     # Neighbouring feet must not accidentally bridge the intended holes.
     for i, a in enumerate(surfaces):
         for b in surfaces[i+1:]:

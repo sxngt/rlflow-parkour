@@ -25,7 +25,7 @@ def main():
     p.add_argument("--diagnostics", action="store_true")
     p.add_argument("--research-tag", action="append", default=[])
     p.add_argument('--launch-radius', type=float, help='Evaluation-only tighter directed-jump launch radius in metres')
-    p.add_argument('--support-mode', choices=['flat', 'continuous', 'split'])
+    p.add_argument('--support-mode', choices=['flat', 'continuous', 'split', 'deck'])
     p.add_argument('--support-calibration', type=Path, help='Frozen flat evaluation run.json for support transfer')
     p.add_argument('--support-probe-offset', type=float, choices=[.075], help='Zero-action geometry probe only: start feet above the gap')
     args = p.parse_args()

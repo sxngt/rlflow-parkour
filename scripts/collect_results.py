@@ -45,7 +45,7 @@ def collect(evaluation, result_root=ROOT / 'result'):
     task, task_title = TASKS[run['config']['task']]
     if run.get('evaluation_support'):
         support = run['evaluation_support']
-        label = {'flat': '평지대조', 'continuous': '발별_연속지지면', 'split': '발별_분리지지면_갭6cm'}[support['mode']]
+        label = {'flat': '평지대조', 'continuous': '발별_연속지지면', 'split': '발별_분리지지면_갭6cm', 'deck': '단일발판_140x120cm'}[support['mode']]
         task_title = label + '_목표전이15cm_고정정책'
     model = run.get('checkpoint')
     seed, updates = 'NA', 0

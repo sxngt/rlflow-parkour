@@ -7,6 +7,14 @@ class SupportGeometryTest(unittest.TestCase):
     names = ['FL', 'FR', 'RL', 'RR']
     feet = [[.114, .16], [.114, -.16], [-.258, .16], [-.258, -.16]]
 
+    def test_shared_deck_covers_stance_and_targets_but_is_finite(self):
+        deck = build_support_layout(self.names, self.feet, mode='deck')
+        self.assertEqual(len(deck['surfaces']), 1)
+        for x, y in self.feet:
+            self.assertTrue(support_ids_at_xy(deck, x, y))
+            self.assertTrue(support_ids_at_xy(deck, x+.15, y))
+        self.assertFalse(support_ids_at_xy(deck, 2., 0.))
+
     def test_real_holes_and_matched_targets(self):
         bridge = build_support_layout(self.names, self.feet, mode='continuous')
         split = build_support_layout(self.names, self.feet, mode='split')

@@ -46,3 +46,7 @@ A1 USD의 instance proxy 내부 collider를 조사했다. 네 발은 모두 Sphe
 정책 평가 CLI: --support-mode flat|continuous|split --support-calibration artifacts/p2-11-curriculum-seed0__final-evaluation/run.json. 모든 조건에서 +15cm 목표, 64개 높이 seed를 사용한다. --support-probe-offset .075는 zero baseline에서만 허용하는 구현 검사이고 실제 정책 비교에는 사용하지 않는다. 기존 성공 지표와 지지면 내부 접촉의 추가 분석은 분리해야 한다.
 
 추가 확인: robot-bridge-v2도 네 대 모두4초 지지, 무접촉0초, 실패0으로 통과했고 artifact 감사·worker 종료·GPU 회수를 확인했다. 현재 모든 probe 종료, 정책평가 미시작.
+
+## 추가 진단: 넓은 단일 발판 (정책 결과 확인 전 고정)
+
+작은 지지면에서 전부 실패한 후, geometry 구현과 지지 영역 크기의 영향을 구분하기 위해 deck 조건을 추가한다. 이전 세 조건을 변경하지 않는다. 발판 크기는 1.4×1.2m, 두께10cm, 윗면z=0, 중심은 초기 네발 평균XY에서 +x7.5cm다. 같은 catch floor -.5m와 고정 calibration을 사용한다. 네 P2-11 checkpoint 각각 같은64높이seed/+15cm목표로 평가하고 학습은 하지 않는다. videos64/camera-side4, diagnostics200Hz, step:p2-14-support 및 terrain:deck. 추가진단으로 명시하고 원래세조건의 사전비교와 구분한다.
