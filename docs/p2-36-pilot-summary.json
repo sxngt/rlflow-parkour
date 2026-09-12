@@ -1,0 +1,24 @@
+{
+  "evaluations": [
+    {
+      "evaluation": "p2-36-initial-seed2-regression",
+      "successes": 64,
+      "archive": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000000__p2-36-initial-seed2-regression/manifest.json",
+      "video_and_events_verified": true
+    },
+    {
+      "evaluation": "p2-36-profile-seed2-chain",
+      "successes": 0,
+      "archive": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000060__p2-36-profile-seed2-chain/manifest.json",
+      "video_and_events_verified": true
+    },
+    {
+      "evaluation": "p2-36-profile-seed2-regression",
+      "successes": 64,
+      "archive": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000060__p2-36-profile-seed2-regression/manifest.json",
+      "video_and_events_verified": true
+    }
+  ],
+  "new_pilot_training_steps": 1496064,
+  "interpretation": "implementation gates passed; pilot chain course0/64 first hop64/64; regression64/64; not main performance"
+}

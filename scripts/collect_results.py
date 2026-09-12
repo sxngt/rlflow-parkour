@@ -67,7 +67,9 @@ def collect(evaluation, result_root=ROOT / 'result'):
         task_title = run['config']['sequence']['foot_order'][0].replace('_foot','')+'_'+task_title
     if run['config']['task'] == 'a1_directed_jump_v5' and train_run:
         jump = train_run['config']['jump']
-        if 'train_forward_choices_m' in jump:
+        if train_run['config'].get('retention_training'):
+            task_title += '_혼합0·15cm'
+        elif 'train_forward_choices_m' in jump:
             task_title += '_이산학습거리' + '·'.join(f'{100*d:g}' for d in jump['train_forward_choices_m']) + 'cm'
         else:
             low, high = jump['train_forward_range_m']
@@ -80,6 +82,8 @@ def collect(evaluation, result_root=ROOT / 'result'):
         mode += f"_행동샘플링-RNG{action_evaluation['seed']}"
     date = datetime.fromtimestamp(run['finished_unix_s'], timezone(timedelta(hours=9))).strftime('%Y-%m-%d')
     title = f'A1 | {task} {task_title.replace("_", " ")} | {mode} seed {seed} | {updates} updates | 개발군 {report["episodes"]} episodes'
+    if train_run and train_run['config'].get('retention_training'):
+        title += ' | 학습 step: 연속 도약 50% + 단일 목표 0·15cm 50%'
     folder_name = f'{date}__A1__{task}__seed-{seed}__updates-{updates:06d}__{evaluation.name}'
     result_root.mkdir(parents=True, exist_ok=True)
     folder = result_root / folder_name
