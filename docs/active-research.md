@@ -787,3 +787,10 @@ scripts/p2_31_train.py 실행시작session96480,log artifacts/p2-31-main-batch.l
 scripts/p2_31_evaluate.py 작성(아직실행안함):각새모델continuous회귀+split15×64,총8추가jobs. configs/reports/p2-31-primary/regression/retention.json 각12행(원본P2274/재사용P229fixed4/새mixed4). 코드기준20→8commands수정및출력모두spec연결검증. 각report신규학습4개만budget계상,대조군과조건별학습량800동일임을説明に維持。
 
 다음同一本batch완료/native감사→追加8評価→3spec보고서+goal_exposure。代表P230動画視覚検収も残る。全体目標未完了。
+
+
+### 최신: P2-30 대표 영상 확인 / P2-31 진행
+
+이전턴부모검증/평가명세는progress. 이번P231batch PID1725396 live,새4run119~126update관측. P230남은대표시각검수로mixedseed1/3원본MP4의0.8초프레임ffmpeg추출후직접확인. 중앙로봇/발판렌더링및camera4유지,전체영상육안검수주장아님. artifacts/p2-30-mixed-seed1-review-0p8s.png,seed3동일파일보존. P230findings검수상태갱신.
+
+다음동일P231batch업데이트증가/완료확인→4학습/4native감사→scripts/p2_31_evaluate.py8평가→3spec분석. 전체목표미완료.
