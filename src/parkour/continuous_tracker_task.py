@@ -201,7 +201,11 @@ class ContinuousTrackerEnv(FootholdEnv):
         reward+=self.cfg.gap_jump_bonus*self.new_gap_credit
         if self.cfg.body_progress_weight:
             from parkour.body_progress import progress_reward
-            reward+=progress_reward(self.body_progress_before,self.robot.data.root_pos_w,self.body_waypoint,self.cfg.body_progress_weight)
+            progress=progress_reward(self.body_progress_before,self.robot.data.root_pos_w,self.body_waypoint,self.cfg.body_progress_weight)
+            if self.cfg.motion_control and self.cfg.motion_control.get('cap_progress_reward'):
+                from parkour.motion_control import capped_progress
+                progress=capped_progress(progress,self.cfg.body_progress_weight,self.cfg.motion_control['target_speed_mps'],self.step_dt)
+            reward+=progress
         self.error_sum+=self.current_error.mean(dim=1);self.sample_count+=1;self.reward_sum+=reward
         self.extras['terminal_metrics']={'success':self.success.clone(),'failure':self.failure.clone(),'timeout':self.reset_time_outs.clone(),
             'length':self.episode_length_buf.clone(),'mean_error_m':(self.error_sum/self.sample_count.clamp_min(1)).clone(),

@@ -48,3 +48,5 @@ See docs/p3-45-motion-realism.md and docs/p3-46-controlled-discrete.md. Four P34
 
 ## Latest active work 2026-09-13: P348/P349/P350/P351
 P347finished;easymean6.30/16,medium0/16,allfullfailures. P348easyGPU0session59737/mediumGPU1session11513 stilltrainingto2400. P349candidate assaysfinishedaudited;P350shortprefixmediumpassed,otherprefixconditionsrejected,see docs/p3-48-49-continuation.md. PersistentP351driverPID2479788 waitsP348thenruns2capability-gatedsuccessorsGPU2/3; do not duplicate. Full runtimePlannerstillnotimplemented. No further permission needed for authorizedresearch.
+
+P352easy1700 frozen16gaps64/64success but6.195s travel;24gaptransferfailsat15. Medium1700 reaches4. See docs/p3-52-53-discrete-speed.md. P353pairedspeed-comparisondriverPID2484961 waits P348GPU0/1finalrelease;P351driver2479788 usesGPU2/3. These reservations must not conflict with new manual long jobs. CandidateP349/P350driverscompleted. P353smoke64/64butnospeedimprovementclaim.

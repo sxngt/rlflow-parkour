@@ -12,3 +12,8 @@ class MotionTests(unittest.TestCase):
     def test_invalid(self):
         self.assertIsNone(validate_motion({}))
         with self.assertRaises(ValueError):validate_motion({'motion_control':{}})
+    def test_positive_progress_cap_keeps_backward_penalty(self):
+        from parkour.motion_control import capped_progress
+        r=torch.tensor([-.5,0.,.1,.9])
+        actual=capped_progress(r,10.,1.8,.02)
+        self.assertTrue(torch.allclose(actual,torch.tensor([-.5,0.,.1,.36])))

@@ -138,7 +138,9 @@
     "step:p3-48-discrete-continuation": "P3-48 · 불연속 코스 추가 학습",
     "step:p3-49-physical-candidates": "P3-49 · 4스텝 후보 물리 rollout 검증",
     "step:p3-50-prefix-rollouts": "P3-50 · 주행 상태 재현과 후보 분기",
-    "step:p3-51-long-discrete-curriculum": "P3-51 · 능력 기반 장거리 불연속 커리큘럼"
+    "step:p3-51-long-discrete-curriculum": "P3-51 · 능력 기반 장거리 불연속 커리큘럼",
+    "step:p3-52-discrete-capability": "P3-52 · 불연속 코스 능력 평가",
+    "step:p3-53-speed-progress-balance": "P3-53 · 속도와 전진 보상 균형 비교"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
