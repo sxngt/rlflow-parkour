@@ -9,7 +9,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def commands(seed, modes=('flat', 'continuous', 'split'), matched=False):
+def commands(seed, modes=('deck', 'continuous', 'split'), matched=False):
     training = f'artifacts/p2-25-deck-seed{seed}'
     for mode in modes:
         out = f'artifacts/p2-26-{"material-" if matched else ""}{mode}-seed{seed}'
@@ -19,7 +19,7 @@ def commands(seed, modes=('flat', 'continuous', 'split'), matched=False):
                '--episodes', '64', '--diagnostics', '--video', '--video-envs', '64',
                '--video-camera-side', '4', '--support-mode', mode,
                '--support-calibration', 'artifacts/p2-11-curriculum-seed0__final-evaluation/run.json',
-               '--research-tag', 'phase:P2', '--research-tag', 'step:p2-26-support',
+               '--research-tag', 'phase:P2', '--research-tag', 'step:p2-26-support-transfer',
                '--research-tag', 'terrain:'+mode, '--research-tag', 'purpose:fixed-policy-transfer'] + (
                    ['--support-matched-material', '--research-tag', 'step:p2-26-material'] if matched else [])
 
