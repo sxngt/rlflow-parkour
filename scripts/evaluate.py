@@ -27,6 +27,7 @@ def main():
     p.add_argument('--action-seed', type=int, default=20000)
     p.add_argument("--research-tag", action="append", default=[])
     p.add_argument('--launch-radius', type=float, help='Evaluation-only tighter directed-jump launch radius in metres')
+    p.add_argument('--evaluation-forward-m', nargs='+', type=float, help='Explicit evaluation-only distances on continuous support')
     p.add_argument('--support-mode', choices=['flat', 'continuous', 'split', 'deck'])
     p.add_argument('--support-matched-material', action='store_true')
     p.add_argument('--support-preserve-goals', action='store_true', help='Keep configured evaluation distances during a terrain override')
@@ -93,6 +94,15 @@ def main():
         from parkour.terrain_contract import training_support
         support = training_support(config)
         manifest['evaluation_support'] = support
+    distance_change = None
+    if args.evaluation_forward_m is not None:
+        if not args.checkpoint or args.support_mode != 'continuous' or args.support_probe_offset is not None:
+            p.error('Distance override requires a checkpoint and explicit continuous support')
+        from parkour.evaluation_distance import distance_override
+        manifest, distance_change = distance_override(config, support, args.evaluation_forward_m, args.episodes)
+        support = copy.deepcopy(support)
+        support.pop('goal_forward_m', None)
+        manifest['evaluation_support'] = support
     manifest["task"] = config["task"]
     if config.get("sequence"):manifest["sequence_contract"] = config["sequence"]
     config["num_envs"] = args.episodes
@@ -101,6 +111,7 @@ def main():
     if support:
         meta['evaluation_support'] = support
         atomic_json(args.out/'terrain.json', support)
+    if distance_change is not None:meta["evaluation_distance_override"] = distance_change
     recorder = None
     try:
         launch_app(args.video)
