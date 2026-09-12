@@ -638,3 +638,10 @@ continuous/split fork smoke각64env3update+auto평가/영상정상완료(34960/2
 이전 구도 확인 턴은 설정/실제 batch 확인 및 인계 갱신으로 progress. 이번에는 p2_15_support_report.py에 spec evaluation_distances_m(기본 기존 혼합거리)와 split landing 지지면 판정을 추가했다. split은 고정 landing 목표와 같은 거리인 경우에만 판정하며 다른 목표는 거절한다. 기존 P227 16행의 모든 rows/정책hash/보정hash 동일, P228 8행 512episode 최초 발 투영 포함 판정과 정확 일치 확인. artifacts/p2-29-support-report-validation.json 및 validation 로그/spec 보존. 기존 보고서를 덮어쓰지 않고 별도 validation prefix 사용.
 
 본 batch PID1608853 live, 첫 네 run metrics iteration345~352까지 관측. GPU0~3 VRAM약3.1GB/온도33~34도, 디스크532GB여유. 아직 본학습 완료/성공률 결론 없음. 다음 동일 batch를 재확인하여 완료 후 p2_29_evaluate.py의 사전 감사 gate를 통과해 교차/회귀 실행. 보고서 4종은 primary/regression 두 spec에 적용. 전체 목표 미완료.
+
+
+### 최신: P2-29 본학습 초기화 감사
+
+이전 턴은 보고서 구현·기존 실제 평가 대조로 progress. 본 batch PID1608853 live 재확인. scripts/audit_policy_fork.py 추가: locally trusted cp0/부모hash, 정책·critic·normalizer exact tensor 복사(std cap/floor 새설정), optimizer state empty 및 초기 LR, config 허용변경, 계보/초기0계수, 기록된 모든 update의 새step 및 탐색cap 일정을 검사한다. 완료 감사와 구분하는 scope를 출력하며 live metrics의 미완성 마지막 줄은 제외한다. 실제 첫4run 감사 통과, artifacts/p2-29-initial-forks-audit.jsonl/log(session44779 exit0). snapshot update480~489, 401부터cap.05 확인. rng 독립성/최종성능을 이 감사로 증명한다고 주장하지 않는다.
+
+앞턴 보고서 validation 임시산출물4개는 artifacts/p2-29-report-validation-*-support-diagnosis.{json,md}로 이동해 보존. 본 batch는 재실행하지 않는다. 다음 첫native평가/둘째묶음 진행 확인, 둘째묶음에도 초기화 감사 적용 후 최종 artifact 감사 및 p2_29_evaluate.py. 전체 목표 미완료.
