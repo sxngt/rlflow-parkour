@@ -1103,3 +1103,14 @@ scripts/p2_38_evaluate.py(commitb11d06a) 추가:8모델×chain/deck-regression/c
 ### 최신: P2-38 두번째 묶음 초기 복사 검증
 
 이전첫묶음완료/둘째실행은progress. 같은IsaacPID1907667/1907791/1908071/1908378실제생존확인. scripts/audit_policy_fork.py session98558exit0,第二묶음初期4복사모두passed artifacts/p2-38-second-wave-initialization-audit.jsonl. 초기확인56~81update후45초verifiedwait 및동일PID재확인. batch29971유지/再始動無. 다음같은第二묶음800/native완료→全8geometry/학습감사→scripts/p2_38_evaluate.py追加24→scripts/p2_38_report.py32평가比較. 전체목표미완료.
+
+
+### 최신: P2-38 본학습 8개 완료 / 추가 평가 24개 실행
+
+이전 모니터링 요청은 배포된 pagination의 현재 API 응답 검증으로 처리했다. 연구 재개 시 기존 두번째 학습 PID가 종료됐고 training batch 최종 네 seed exit_code=0, GPU 4장 유휴를 확인했다. 재시작하지 않았다.
+
+전체 8개 학습의 완료 상태·800 update·누적 step·과제 회계·1024 환경별 실제 지지면 배치를 scripts/p2_38_report.training으로 검증했다. artifacts/p2-38-all-training-completed-audit.json, 총 신규 157286400 step. Native 2-hop 성공 수(각64)는 seed0 deck64/continuous64, seed1 4/42, seed2 61/63, seed3 0/0. 회귀군 결과 전 우열·승격 결론은 보류한다.
+
+scripts/p2_38_evaluate.py 실행 session39782, log artifacts/p2-38-evaluation-batch.log. 시작 게이트에서 8학습 및 native8 artifact 감사 통과. GPU별 seed를 배치해 추가24평가 실행 중이며 첫 실제 Isaac PID1918848/1918849/1918862/1918863 확인. 영상64환경/camera_side4, 200Hz 진단, result 제목/phase태그 경로 유지. 저장소 여유526GB.
+
+다음은 동일 session39782/PID 확인 후 추가24 종료 → scripts/p2_38_report.py의 전체32 모델·동일시나리오·영상 hash 감사 → paired 비교와 실패 분석/영상 검수. 전체 목표는 미완료이며 같은 평가를 중복 실행하지 않는다.
