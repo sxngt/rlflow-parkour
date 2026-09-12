@@ -1139,3 +1139,12 @@ scripts/p2_38_evaluate.py 실행 session39782, log artifacts/p2-38-evaluation-ba
 기존 hardcoded2목표를 config기반 sampling/목표별 step·draw/영상제목으로 바꿨다. validation은 기존2목표 또는 정확4목표만허용, resume변경거부. 지지면 검사는 설정의 모든단일목표 확인. 회계감사는 모든거리/배열길이/chain15cm외 정확step일치 검사 강화. 기본 python unittest는 rsl_rl미설치로2error; Isaac python에서 chain5/support2 모두통과. 런타임 sampling/restore검증은 아직 남음.
 
 GPU전체유휴 확인후64env12update smoke시작: session92600, artifacts/p2-39-coverage-training-smoke, log동명-launch.log. GPU0,seed2/P231cp800fork,timeout600. 다음동일session/PID확인→완료artifact/거리별노출/초기복사검사→2update재개 및 기존2목표 runtime회귀→1024env60update profile→본학습착수. 기존학습/평가P238는모두terminal. 전체목표미완료.
+
+
+### 최신: P2-39 smoke/재개/기존 목표 회귀 완료, 1024 프로파일링 시작
+
+이전 계약구현/smoke실행은 progress. session92600 최종exit0, 새 네거리64환경12update18,432step 완료. 단일 거리별노출1786/2517/2877/2036 합9216, chain[8477,739]. 초기복사감사 session63410 exit0, artifacts/p2-39-smoke-initialization-audit.jsonl.
+
+재개 session17191 exit0 (artifacts/p2-39-coverage-training-resume,13~14update/3072step), 기존2목표 회귀 session7376 exit0(artifacts/p2-39-endpoint-regression-smoke,12update/18432step). 두 작업 자동평가 및 result보관까지종료. 세학습 회계 artifacts/p2-39-smoke-resume-accounting-audit.jsonl 모두통과. 이전P238continuous64smoke와 새2목표smoke의12개행 single거리step/resetdraw/task-hopstep/tasksuccess 각각정확일치(artifacts/p2-39-endpoint-smoke-comparison.json), 전체물리bitwise주장아님.
+
+1024환경60update profile 시작 session22798, artifacts/p2-39-coverage-profile-seed2/GPU0/P231seed2cp800fork, log동명-launch.log, timeout600. 아직본학습 없음. 다음 동일profilePID/session확인→완료geometry/노출/초기복사/시간측정 및 자동평가archive 감사. smoke/resume/endpoint의평가3개chain200Hz/영상hash 감사도필요. 통과후같은부모4seed800update 본학습launcher 준비/실행. 전체목표미완료.
