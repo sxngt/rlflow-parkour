@@ -1175,3 +1175,10 @@ scripts/p2_39_report.py 준비:같은부모/거리외설정동일,전체지지�
 추가평가 최초launcher가 사전검사에서종료: scripts/p2_39_evaluate.py 복사수정시 ==8→==20의광역치환이800을2000으로변경한오류. artifacts/p2-39-evaluation-batch.log의AssertionError보존. GPU평가job생성전실패였고학습실패아님. protocol800으로수정(commitd68d8d7), 재실행session85688/log artifacts/p2-39-evaluation-batch-retry1.log. 동일평가경로는아직없었으므로새12job으로실행. 이후종료/실패시동일handle먼저확인,중복실행금지.
 
 다음session85688/실제PID확인→12완료→scripts/p2_39_report.py 전체32감사→paired성과/실패/영상분석. 원본실패launcher로그유지,최종보고서아직없음. 전체목표미완료.
+
+
+### 최신: P2-39 전체32 평가 완료 / 네 거리 확장 기각
+
+이전 추가평가실행은progress. 같은session85688 최종exit0, report20723 exit0, 전체8예산/배치 및32평가archive 검증통과. docs/p2-39-comparison.json/md,findings.md생성. native첫/둘째도약진단 artifacts/p2-39-native-{first,second}-hop-diagnosis.json. 새조건chain64/0/0/0,continuous64/48/46/16,split모두0. 대조보다악화되어채택/승격안함. seed1~3첫도약64개씩모두착지/안정화는통과하나비행거리부족,둘째진입없음.
+
+다음 실제목표별rollout노출/거리분포·보상진단과대표영상육안검수→후속protocol. reset15확률1/2→1/4변화와중간목표추가의혼재를분리할필요. P239모든세션terminal/새학습없음. 전체목표미완료.
