@@ -1,0 +1,537 @@
+{
+  "rows": [
+    {
+      "env": 3,
+      "prep_drift_m": 0.003998578601865321,
+      "launch_distance_m": 0.04304753439292113,
+      "launch_dx_m": 0.02998065948486328,
+      "launch_dy_m": -0.030890941619873047,
+      "end_vz_m_s": 0.7424702048301697,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 6,
+      "prep_drift_m": 0.003991813469603862,
+      "launch_distance_m": 0.04335246959141289,
+      "launch_dx_m": 0.030365943908691406,
+      "launch_dy_m": -0.030941009521484375,
+      "end_vz_m_s": 0.7426146268844604,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 5,
+      "prep_drift_m": 0.0021982581906798493,
+      "launch_distance_m": 0.045258740351174276,
+      "launch_dx_m": 0.034374237060546875,
+      "launch_dy_m": -0.029440879821777344,
+      "end_vz_m_s": 0.7395463585853577,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 10,
+      "prep_drift_m": 0.0024034454755140103,
+      "launch_distance_m": 0.045127976023710735,
+      "launch_dx_m": 0.034337520599365234,
+      "launch_dy_m": -0.029282569885253906,
+      "end_vz_m_s": 0.7500714063644409,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 13,
+      "prep_drift_m": 0.0024021800963602404,
+      "launch_distance_m": 0.04512842934378345,
+      "launch_dx_m": 0.034334659576416016,
+      "launch_dy_m": -0.029286623001098633,
+      "end_vz_m_s": 0.7501314878463745,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 14,
+      "prep_drift_m": 0.0023191887348449347,
+      "launch_distance_m": 0.04508463057569425,
+      "launch_dx_m": 0.0341343879699707,
+      "launch_dy_m": -0.029452800750732422,
+      "end_vz_m_s": 0.7402100563049316,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 24,
+      "prep_drift_m": 0.0023909622331126958,
+      "launch_distance_m": 0.045113333768540965,
+      "launch_dx_m": 0.034334540367126465,
+      "launch_dy_m": -0.02926349639892578,
+      "end_vz_m_s": 0.7495279312133789,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 26,
+      "prep_drift_m": 0.002644958918529687,
+      "launch_distance_m": 0.04527645955328198,
+      "launch_dx_m": 0.03434789180755615,
+      "launch_dy_m": -0.029498815536499023,
+      "end_vz_m_s": 0.7505393624305725,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 27,
+      "prep_drift_m": 0.002408432135744257,
+      "launch_distance_m": 0.04517518726920803,
+      "launch_dx_m": 0.03421521186828613,
+      "launch_dy_m": -0.029497742652893066,
+      "end_vz_m_s": 0.7407023906707764,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 30,
+      "prep_drift_m": 0.0021224592674328907,
+      "launch_distance_m": 0.04515887996389321,
+      "launch_dx_m": 0.03429543972015381,
+      "launch_dy_m": -0.02937936782836914,
+      "end_vz_m_s": 0.739798367023468,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 33,
+      "prep_drift_m": 0.0023987450119050046,
+      "launch_distance_m": 0.045086522928756846,
+      "launch_dx_m": 0.034287095069885254,
+      "launch_dy_m": -0.029277801513671875,
+      "end_vz_m_s": 0.7494230270385742,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 41,
+      "prep_drift_m": 0.002636183620264898,
+      "launch_distance_m": 0.038050990544878094,
+      "launch_dx_m": 0.02951192855834961,
+      "launch_dy_m": -0.024019241333007812,
+      "end_vz_m_s": 0.832271158695221,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 44,
+      "prep_drift_m": 0.002638666751324226,
+      "launch_distance_m": 0.038054458768596235,
+      "launch_dx_m": 0.029511451721191406,
+      "launch_dy_m": -0.024025321006774902,
+      "end_vz_m_s": 0.832501232624054,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 47,
+      "prep_drift_m": 0.0023115092294037354,
+      "launch_distance_m": 0.04500580078758486,
+      "launch_dx_m": 0.03401327133178711,
+      "launch_dy_m": -0.02947235107421875,
+      "end_vz_m_s": 0.7403489947319031,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 58,
+      "prep_drift_m": 0.002589394028695492,
+      "launch_distance_m": 0.04499467832028968,
+      "launch_dx_m": 0.034005165100097656,
+      "launch_dy_m": -0.0294647216796875,
+      "end_vz_m_s": 0.7487953901290894,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 60,
+      "prep_drift_m": 0.0024221805206463254,
+      "launch_distance_m": 0.04510223117176039,
+      "launch_dx_m": 0.03428840637207031,
+      "launch_dy_m": -0.029300451278686523,
+      "end_vz_m_s": 0.7495127320289612,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 62,
+      "prep_drift_m": 0.0021551963475464372,
+      "launch_distance_m": 0.04520102432932239,
+      "launch_dx_m": 0.034302711486816406,
+      "launch_dy_m": -0.02943563461303711,
+      "end_vz_m_s": 0.7392750978469849,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 0,
+      "prep_drift_m": 0.0030015950343232276,
+      "launch_distance_m": 0.04620398493282517,
+      "launch_dx_m": 0.036286354064941406,
+      "launch_dy_m": -0.02860260009765625,
+      "end_vz_m_s": 0.7450999617576599,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 1,
+      "prep_drift_m": 0.003021867109356873,
+      "launch_distance_m": 0.046151494189397124,
+      "launch_dx_m": 0.036334991455078125,
+      "launch_dy_m": -0.028455734252929688,
+      "end_vz_m_s": 0.7446175813674927,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 2,
+      "prep_drift_m": 0.003005243491965093,
+      "launch_distance_m": 0.04618148767791682,
+      "launch_dx_m": 0.036240577697753906,
+      "launch_dy_m": -0.028624296188354492,
+      "end_vz_m_s": 0.7460139393806458,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 8,
+      "prep_drift_m": 0.0028703710107481047,
+      "launch_distance_m": 0.046155241625311094,
+      "launch_dx_m": 0.03621673583984375,
+      "launch_dy_m": -0.028612136840820312,
+      "end_vz_m_s": 0.7436209917068481,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 9,
+      "prep_drift_m": 0.003031767175651829,
+      "launch_distance_m": 0.04605300042115241,
+      "launch_dx_m": 0.036344051361083984,
+      "launch_dy_m": -0.028284072875976562,
+      "end_vz_m_s": 0.7445391416549683,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 11,
+      "prep_drift_m": 0.0033088888829777567,
+      "launch_distance_m": 0.04629709978537254,
+      "launch_dx_m": 0.035144805908203125,
+      "launch_dy_m": -0.03013741970062256,
+      "end_vz_m_s": 0.7504439949989319,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 12,
+      "prep_drift_m": 0.002982092355541525,
+      "launch_distance_m": 0.045985673628063474,
+      "launch_dx_m": 0.0361785888671875,
+      "launch_dy_m": -0.028386473655700684,
+      "end_vz_m_s": 0.7461990714073181,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 15,
+      "prep_drift_m": 0.0028970471016982247,
+      "launch_distance_m": 0.04602576654734228,
+      "launch_dx_m": 0.036295413970947266,
+      "launch_dy_m": -0.02830219268798828,
+      "end_vz_m_s": 0.7447394728660583,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 16,
+      "prep_drift_m": 0.0028187363789651497,
+      "launch_distance_m": 0.04619022234291194,
+      "launch_dx_m": 0.03635430335998535,
+      "launch_dy_m": -0.028493881225585938,
+      "end_vz_m_s": 0.7432413697242737,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 17,
+      "prep_drift_m": 0.002719568319068126,
+      "launch_distance_m": 0.04591377536815443,
+      "launch_dx_m": 0.0359797477722168,
+      "launch_dy_m": -0.028522491455078125,
+      "end_vz_m_s": 0.7430211305618286,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 19,
+      "prep_drift_m": 0.00301340947881815,
+      "launch_distance_m": 0.046076924789771746,
+      "launch_dx_m": 0.03635859489440918,
+      "launch_dy_m": -0.028304338455200195,
+      "end_vz_m_s": 0.7439602017402649,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 20,
+      "prep_drift_m": 0.0028500049349442064,
+      "launch_distance_m": 0.04599909854429838,
+      "launch_dx_m": 0.036100149154663086,
+      "launch_dy_m": -0.02850782871246338,
+      "end_vz_m_s": 0.7435392737388611,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 21,
+      "prep_drift_m": 0.002906949155257774,
+      "launch_distance_m": 0.04594909631457708,
+      "launch_dx_m": 0.03625988960266113,
+      "launch_dy_m": -0.028223037719726562,
+      "end_vz_m_s": 0.7458534836769104,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 22,
+      "prep_drift_m": 0.003015654972567468,
+      "launch_distance_m": 0.04602634058789189,
+      "launch_dx_m": 0.03630208969116211,
+      "launch_dy_m": -0.02829456329345703,
+      "end_vz_m_s": 0.7452678084373474,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 23,
+      "prep_drift_m": 0.0032430196870243838,
+      "launch_distance_m": 0.04622071581794404,
+      "launch_dx_m": 0.03499102592468262,
+      "launch_dy_m": -0.030199050903320312,
+      "end_vz_m_s": 0.7515621781349182,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 25,
+      "prep_drift_m": 0.0030378576829131502,
+      "launch_distance_m": 0.04606533686280456,
+      "launch_dx_m": 0.03635597229003906,
+      "launch_dy_m": -0.028288841247558594,
+      "end_vz_m_s": 0.7443233132362366,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 28,
+      "prep_drift_m": 0.002987458777767444,
+      "launch_distance_m": 0.04598863037763396,
+      "launch_dx_m": 0.03618431091308594,
+      "launch_dy_m": -0.028383970260620117,
+      "end_vz_m_s": 0.746418297290802,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 31,
+      "prep_drift_m": 0.0026978857337412302,
+      "launch_distance_m": 0.04588258499607845,
+      "launch_dx_m": 0.035959601402282715,
+      "launch_dy_m": -0.028497695922851562,
+      "end_vz_m_s": 0.7429138422012329,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 32,
+      "prep_drift_m": 0.0028227151300542863,
+      "launch_distance_m": 0.046201196624200816,
+      "launch_dx_m": 0.03625345230102539,
+      "launch_dy_m": -0.028639793395996094,
+      "end_vz_m_s": 0.744015634059906,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 34,
+      "prep_drift_m": 0.0030372766671307493,
+      "launch_distance_m": 0.04606098870277495,
+      "launch_dx_m": 0.03634953498840332,
+      "launch_dy_m": -0.0282900333404541,
+      "end_vz_m_s": 0.7443931698799133,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 35,
+      "prep_drift_m": 0.0028177691215432537,
+      "launch_distance_m": 0.04623495735774117,
+      "launch_dx_m": 0.0363084077835083,
+      "launch_dy_m": -0.028624653816223145,
+      "end_vz_m_s": 0.7441709041595459,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 36,
+      "prep_drift_m": 0.002908934936985666,
+      "launch_distance_m": 0.046184938450187146,
+      "launch_dx_m": 0.03627610206604004,
+      "launch_dy_m": -0.028584837913513184,
+      "end_vz_m_s": 0.7440072298049927,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 38,
+      "prep_drift_m": 0.0030165483321520237,
+      "launch_distance_m": 0.04612117830320627,
+      "launch_dx_m": 0.03634536266326904,
+      "launch_dy_m": -0.028393268585205078,
+      "end_vz_m_s": 0.7445403933525085,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 39,
+      "prep_drift_m": 0.0029532263729415945,
+      "launch_distance_m": 0.046089654242417274,
+      "launch_dx_m": 0.03630721569061279,
+      "launch_dy_m": -0.028390884399414062,
+      "end_vz_m_s": 0.7441782355308533,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 42,
+      "prep_drift_m": 0.0034041542067506526,
+      "launch_distance_m": 0.046470795370822264,
+      "launch_dx_m": 0.03544473648071289,
+      "launch_dy_m": -0.030053377151489258,
+      "end_vz_m_s": 0.751523494720459,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 43,
+      "prep_drift_m": 0.003305061719098014,
+      "launch_distance_m": 0.046294935172905366,
+      "launch_dx_m": 0.035131216049194336,
+      "launch_dy_m": -0.03014993667602539,
+      "end_vz_m_s": 0.7502163648605347,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 45,
+      "prep_drift_m": 0.003292577919234143,
+      "launch_distance_m": 0.04624935827290368,
+      "launch_dx_m": 0.035060882568359375,
+      "launch_dy_m": -0.03016185760498047,
+      "end_vz_m_s": 0.750977098941803,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 46,
+      "prep_drift_m": 0.003327063401246525,
+      "launch_distance_m": 0.04628645085785743,
+      "launch_dx_m": 0.0350954532623291,
+      "launch_dy_m": -0.030178546905517578,
+      "end_vz_m_s": 0.7508878707885742,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 49,
+      "prep_drift_m": 0.0027834909116713955,
+      "launch_distance_m": 0.04606938645848924,
+      "launch_dx_m": 0.036126136779785156,
+      "launch_dy_m": -0.028588294982910156,
+      "end_vz_m_s": 0.7432043552398682,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 51,
+      "prep_drift_m": 0.0030315751418988077,
+      "launch_distance_m": 0.04611550211146564,
+      "launch_dx_m": 0.0363469123840332,
+      "launch_dy_m": -0.028382062911987305,
+      "end_vz_m_s": 0.7443515062332153,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 53,
+      "prep_drift_m": 0.0028203077812502904,
+      "launch_distance_m": 0.04619139644721356,
+      "launch_dx_m": 0.03626298904418945,
+      "launch_dy_m": -0.02861189842224121,
+      "end_vz_m_s": 0.7437542676925659,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 54,
+      "prep_drift_m": 0.0029876603062654297,
+      "launch_distance_m": 0.045998819778328065,
+      "launch_dx_m": 0.036191463470458984,
+      "launch_dy_m": -0.028391361236572266,
+      "end_vz_m_s": 0.7465084195137024,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 57,
+      "prep_drift_m": 0.0033127754954980215,
+      "launch_distance_m": 0.04629160279426515,
+      "launch_dx_m": 0.035002708435058594,
+      "launch_dy_m": -0.030293941497802734,
+      "end_vz_m_s": 0.7494036555290222,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    },
+    {
+      "env": 63,
+      "prep_drift_m": 0.0029710997464100736,
+      "launch_distance_m": 0.04612612464463716,
+      "launch_dx_m": 0.036240577697753906,
+      "launch_dy_m": -0.028534889221191406,
+      "end_vz_m_s": 0.7444620132446289,
+      "launch_gate_failure": true,
+      "nonfoot_collision": false
+    }
+  ],
+  "ranges": {
+    "prep_drift_m": {
+      "min": 0.0021224592674328907,
+      "max": 0.003998578601865321
+    },
+    "launch_distance_m": {
+      "min": 0.038050990544878094,
+      "max": 0.046470795370822264
+    },
+    "launch_dx_m": {
+      "min": 0.029511451721191406,
+      "max": 0.03635859489440918
+    },
+    "launch_dy_m": {
+      "min": -0.030941009521484375,
+      "max": -0.024019241333007812
+    },
+    "end_vz_m_s": {
+      "min": 0.7392750978469849,
+      "max": 0.832501232624054
+    }
+  },
+  "scope": "fixed parent hold-last course evaluation; launch gate sampled at confirmed-flight event, not last supported instant"
+}
