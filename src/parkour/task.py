@@ -30,6 +30,7 @@ class FootholdCfg(DirectRLEnvCfg):
     success_dwell_s = 0.2
     surface_height_m = 0.0
     support_contract = None
+    support_assignment = None
     sim = sim_utils.SimulationCfg(dt=0.005, render_interval=4)
     scene = InteractiveSceneCfg(num_envs=256, env_spacing=2.5, replicate_physics=True)
     robot = UNITREE_A1_CFG.replace(prim_path="/World/envs/env_.*/Robot")
@@ -77,7 +78,7 @@ class FootholdEnv(DirectRLEnv):
             ground = sim_utils.GroundPlaneCfg(physics_material=self.cfg.terrain.physics_material)
             ground.func(self.cfg.terrain.prim_path, ground,
                         translation=(0., 0., support['layout']['catch_floor_z_m']))
-            for surface in support['layout']['surfaces']:
+            for surface in ([] if self.cfg.support_assignment else support['layout']['surfaces']):
                 block = sim_utils.CuboidCfg(size=tuple(surface['size_m']),
                     collision_props=sim_utils.CollisionPropertiesCfg(),
                     physics_material=self.cfg.terrain.physics_material if support.get('matched_material') else None,
@@ -91,8 +92,18 @@ class FootholdEnv(DirectRLEnv):
                 visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.3, 0.4, 0.5)),
             )
             block.func("/World/envs/env_0/Support", block, translation=(0., 0., height / 2))
-        self.scene.clone_environments(copy_from_source=False)
-        if self.device == "cpu":
+        self.scene.clone_environments(copy_from_source=bool(self.cfg.support_assignment))
+        if self.cfg.support_assignment:
+            for group in self.cfg.support_assignment['groups']:
+                for index in range(group['env_start'], group['env_stop']):
+                    for surface in group['layout']['surfaces']:
+                        block = sim_utils.CuboidCfg(size=tuple(surface['size_m']),
+                            collision_props=sim_utils.CollisionPropertiesCfg(),
+                            physics_material=self.cfg.terrain.physics_material,
+                            visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(.3, .4, .5)))
+                        block.func(f'/World/envs/env_{index}/Supports/' + surface['id'], block,
+                                   translation=tuple(surface['center_m']))
+        if self.device == "cpu" or self.cfg.support_assignment:
             self.scene.filter_collisions(global_prim_paths=["/World/Ground"])
         light = sim_utils.DomeLightCfg(intensity=2500.0)
         light.func("/World/Light", light)

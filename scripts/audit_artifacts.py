@@ -51,6 +51,11 @@ def audit(directory):
         for name in ('terrain.json', 'collision-contract.json'):
             assert digest(directory/name) == run['artifacts'][name]
         assert json.loads((directory/'terrain.json').read_text()) == run['config']['terrain_contract']
+    if run['kind'] == 'train' and run.get('config', {}).get('support_assignment'):
+        for name in ('support-assignment.json', 'support-inspection.json'):
+            assert digest(directory/name) == run['artifacts'][name]
+        inspected = json.loads((directory/'support-inspection.json').read_text())
+        assert inspected['inspected_environments'] == run['config']['num_envs']
     return {"run": str(directory), "kind": run["kind"], "gpu_uuid": supervisor["gpu_uuid"], "audit": "passed"}
 
 

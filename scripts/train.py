@@ -54,6 +54,10 @@ def main():
             atomic_json(args.out/'terrain.json', support)
             atomic_json(args.out/'collision-contract.json', inspect_collision_contract(env))
             meta['terrain_contract'] = support
+        if env.cfg.support_assignment:
+            from parkour.support_inspection import inspect_support_assignment
+            atomic_json(args.out/'support-assignment.json', env.cfg.support_assignment)
+            atomic_json(args.out/'support-inspection.json', inspect_support_assignment(env))
         env.reset()
         alg, norm = make_algorithm(config, env)
         completed, total_steps = 0, 0
@@ -252,6 +256,9 @@ def main():
         meta["total_environment_steps"] = total_steps
         if support:
             meta['artifacts'] = {name: sha256(args.out/name) for name in ('terrain.json', 'collision-contract.json')}
+            if env.cfg.support_assignment:
+                for name in ('support-assignment.json', 'support-inspection.json'):
+                    meta['artifacts'][name] = sha256(args.out/name)
         finish_run(args.out, meta)
     except BaseException as exc:
         if recorder and recorder.writer:

@@ -66,6 +66,8 @@ def read_checkpoint(path):
 
 
 def restore(data, config, alg, normalizer, env, training):
+    from parkour.support_assignment import assert_same_support_assignment
+    assert_same_support_assignment(data['config'], config)
     from parkour.chain_training import assert_same_chain_training
     assert_same_chain_training(data['config'], config)
     if data['config'].get('exploration') != config.get('exploration'):
@@ -126,6 +128,10 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
         raise ValueError('Unknown task contract')
     cfg.seed = config["seed"]
     cfg.scene.num_envs = config["num_envs"]
+    if retention and config.get('support_assignment') is not None:
+        from parkour.support_assignment import support_assignment
+        cfg.support_assignment = support_assignment(config)
+        cfg.scene.replicate_physics = False
     cfg.episode_length_s = config["episode_seconds"]
     for key in ("target_offset_m", "surface_height_m", "success_radius_m", "success_dwell_s"):
         setattr(cfg, key, config[key])

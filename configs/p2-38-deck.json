@@ -1,0 +1,281 @@
+{
+  "schema_version": 1,
+  "task": "a1_directed_jump_v5",
+  "seed": 0,
+  "num_envs": 1024,
+  "iterations": 800,
+  "episode_seconds": 8.0,
+  "target_offset_m": 0.06,
+  "surface_height_m": 0.0,
+  "success_radius_m": 0.05,
+  "success_dwell_s": 0.08,
+  "runner": {
+    "num_steps_per_env": 24,
+    "save_interval": 100,
+    "empirical_normalization": true,
+    "logger": "tensorboard",
+    "policy": {
+      "class_name": "ActorCritic",
+      "init_noise_std": 0.35,
+      "actor_hidden_dims": [
+        128,
+        128
+      ],
+      "critic_hidden_dims": [
+        128,
+        128
+      ],
+      "activation": "elu"
+    },
+    "algorithm": {
+      "class_name": "PPO",
+      "value_loss_coef": 1.0,
+      "use_clipped_value_loss": true,
+      "clip_param": 0.2,
+      "entropy_coef": 0.005,
+      "num_learning_epochs": 5,
+      "num_mini_batches": 4,
+      "learning_rate": 0.001,
+      "schedule": "adaptive",
+      "gamma": 0.99,
+      "lam": 0.95,
+      "desired_kl": 0.01,
+      "max_grad_norm": 1.0
+    }
+  },
+  "sequence": {
+    "foot_order": [
+      "FL_foot",
+      "FR_foot",
+      "RL_foot",
+      "RR_foot"
+    ],
+    "forward_step_range_m": [
+      0.0,
+      0.0
+    ],
+    "lateral_step_m": 0.0,
+    "sequence_length": 4
+  },
+  "research_tags": [
+    "phase:P2",
+    "step:p2-38-support-mixture",
+    "condition:deck"
+  ],
+  "evaluation_diagnostics": true,
+  "jump": {
+    "settle_seconds": 0.3,
+    "apex_range_m": [
+      0.04,
+      0.06
+    ],
+    "flight_min_rise_m": 0.03,
+    "flight_min_vz_m_s": 0.2,
+    "landing_radius_m": 0.05,
+    "final_hold_seconds": 0.2,
+    "final_vz_max_m_s": 0.15,
+    "final_angular_speed_max_rad_s": 1.0,
+    "final_height_error_max_m": 0.06,
+    "apex_progress_weight": 3.0,
+    "landing_height_weight": 0.5,
+    "first_touch_reward_weight": 2.0,
+    "first_touch_reward_scale_m": 0.08,
+    "landing_vz_weight": 2.0,
+    "landing_support_weight": 1.0,
+    "evaluation_forward_m": [
+      0.15
+    ],
+    "launch_radius_m": 0.03,
+    "travel_tolerance_m": 0.03,
+    "travel_reward_weight": 12.0,
+    "travel_reward_scale_m": 0.03,
+    "travel_reward_mode": "coupled_first_touch_v1",
+    "travel_precision_scale_m": 0.05,
+    "train_forward_range_m": [
+      0.15,
+      0.15
+    ]
+  },
+  "terrain_contract": {
+    "schema_version": 1,
+    "mode": "deck",
+    "matched_material": true,
+    "foot_names": [
+      "FL_foot",
+      "FR_foot",
+      "RL_foot",
+      "RR_foot"
+    ],
+    "calibration": {
+      "physics_steps": 300,
+      "root_state": [
+        -0.04720878601074219,
+        0.0022640228271484375,
+        0.277654767036438,
+        0.999968945980072,
+        -0.0018939899746328592,
+        -0.006792317610234022,
+        0.0035308287478983402,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "joint_positions": [
+        0.11046929657459259,
+        -0.10680407285690308,
+        0.10644455254077911,
+        -0.10452435165643692,
+        0.9094340205192566,
+        0.9054018259048462,
+        0.9633494019508362,
+        0.9663541316986084,
+        -1.6527284383773804,
+        -1.6473263502120972,
+        -1.6828137636184692,
+        -1.6745795011520386
+      ],
+      "foot_xy_m": [
+        [
+          0.11318397521972656,
+          0.1624736785888672
+        ],
+        [
+          0.11574077606201172,
+          -0.1567840576171875
+        ],
+        [
+          -0.2577667236328125,
+          0.1582355499267578
+        ],
+        [
+          -0.2575645446777344,
+          -0.15825939178466797
+        ]
+      ],
+      "foot_normal_force_N": [
+        39.01641845703125,
+        37.77352523803711,
+        28.474130630493164,
+        27.736160278320312
+      ]
+    },
+    "reference_path": "artifacts/p2-11-curriculum-seed0__final-evaluation/run.json",
+    "reference_sha256": "ae9b6a5489470941d07f99b43e4688aa028c41395e2552449000f99c0fb993ef",
+    "layout": {
+      "schema_version": 1,
+      "frame": "environment_local",
+      "mode": "deck",
+      "target_travel_m": 0.15,
+      "gap_width_m": 0.0,
+      "catch_floor_z_m": -0.5,
+      "surfaces": [
+        {
+          "id": "shared_deck",
+          "foot": "all",
+          "role": "shared",
+          "center_m": [
+            0.003398370742797849,
+            0.0014164447784423828,
+            -0.05
+          ],
+          "size_m": [
+            1.4,
+            1.2,
+            0.1
+          ],
+          "normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "top_z_m": 0.0,
+          "bounds_xy_m": [
+            -0.6966016292572021,
+            0.7033983707427978,
+            -0.5985835552215576,
+            0.6014164447784424
+          ]
+        }
+      ],
+      "landing_targets": [
+        {
+          "foot": "FL_foot",
+          "position_m": [
+            0.2631839752197266,
+            0.1624736785888672,
+            0.0
+          ]
+        },
+        {
+          "foot": "FR_foot",
+          "position_m": [
+            0.26574077606201174,
+            -0.1567840576171875,
+            0.0
+          ]
+        },
+        {
+          "foot": "RL_foot",
+          "position_m": [
+            -0.1077667236328125,
+            0.1582355499267578,
+            0.0
+          ]
+        },
+        {
+          "foot": "RR_foot",
+          "position_m": [
+            -0.10756454467773438,
+            -0.15825939178466797,
+            0.0
+          ]
+        }
+      ],
+      "contact_margin_m": null,
+      "contact_margin_note": "Foot collision geometry must be measured before declaring usable contact area",
+      "scope": "Per-foot support transfer; not a whole-body gap-width claim"
+    },
+    "foot_projection_radius_m": 0.02
+  },
+  "evaluation_video_envs": 64,
+  "evaluation_camera_side": 4,
+  "exploration": {
+    "kind": "bounded_gaussian_v1",
+    "min_std": 0.05,
+    "stages": [
+      {
+        "start_update": 0,
+        "max_std": 0.1
+      },
+      {
+        "start_update": 400,
+        "max_std": 0.05
+      }
+    ]
+  },
+  "chain_training": {
+    "schema_version": 1,
+    "hops": 2,
+    "forward_per_hop_m": 0.15,
+    "hop_seconds": 4.0,
+    "settle_command": "default"
+  },
+  "retention_training": {
+    "schema_version": 1,
+    "single_fraction": 0.5,
+    "single_goal_choices_m": [
+      0.0,
+      0.15
+    ],
+    "assignment": "fixed_env_id_chain_first"
+  },
+  "support_assignment": {
+    "schema_version": 1,
+    "single_mode": "deck",
+    "assignment": "fixed_env_id_chain_first",
+    "replicate_physics": false
+  }
+}

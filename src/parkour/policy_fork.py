@@ -6,6 +6,8 @@ from parkour.terrain_contract import training_support
 
 
 def validate_fork_configs(parent, target):
+    from parkour.support_assignment import support_assignment
+    support_assignment(parent); support_assignment(target)
     from parkour.chain_training import validate_chain_training
     validate_chain_training(parent); validate_chain_training(target)
     training_support(parent); training_support(target)
@@ -13,6 +15,7 @@ def validate_fork_configs(parent, target):
     if a['task']!='a1_directed_jump_v5' or b['task']!=a['task']:
         raise ValueError('Fork supports directed-jump policies only')
     for c in (a,b):
+        c.pop('support_assignment', None)
         c.pop('retention_training', None)  # Strictly validated above; new task mixture is a fork.
         if c.pop('chain_training', None) is not None:
             c['episode_seconds'] = 4.  # Only the validated eight-second chain is normalized.
