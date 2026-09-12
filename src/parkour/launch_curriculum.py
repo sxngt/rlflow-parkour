@@ -28,6 +28,11 @@ def radius_for_update(config, update):
 
 
 def checkpoint_state(config, completed):
+    if config.get('contact_curriculum') is not None:
+        from parkour.contact_curriculum import radius_for_update as contact_radius
+        return {'kind':'contact_precision_v1','completed_updates':completed,
+                'next_contact_radius_m':contact_radius(config,completed),
+                'transition_contract':'reset_all_at_update_boundary; incomplete_episodes_discarded'}
     if config.get('jump', {}).get('distance_curriculum') is not None:
         return {'kind': 'launch_and_distance_by_update_v1', 'completed_updates': completed,
                 'next_rollout_radius_m': radius_for_update(config, completed),

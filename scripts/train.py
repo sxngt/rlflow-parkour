@@ -32,6 +32,8 @@ def main():
     from parkour.launch_curriculum import radius_for_update, distance_for_update
     radius_for_update(config, 0)  # Validate the complete schedule before simulator startup.
     distance_for_update(config, 0)
+    from parkour.contact_curriculum import radius_for_update as contact_radius_for_update
+    contact_radius_for_update(config,0)
     from parkour.terrain_contract import training_support
     support = training_support(config)
     meta = begin_run(args.out, config, "train")
@@ -111,6 +113,12 @@ def main():
             if exploration_cap is not None:
                 alg.policy.std_cap.fill_(exploration_cap)
             transition = False
+            contact_radius=contact_radius_for_update(config,iteration)
+            if contact_radius is not None and env.cfg.success_radius_m!=contact_radius:
+                env.cfg.success_radius_m=contact_radius
+                with torch.inference_mode():
+                    raw,_=env.reset();obs=norm(raw['policy'])
+                transition=True
             next_radius = radius_for_update(config, iteration)
             next_distance = distance_for_update(config, iteration)
             if next_radius != active_radius or next_distance != active_distance:
@@ -222,6 +230,9 @@ def main():
                            task_episodes=task_episodes.tolist(), task_successes=task_successes.tolist(),
                            task_reward_sums=task_rewards.tolist(), single_goal_environment_steps=single_goal_steps.tolist(),
                            single_goal_reset_draws=(env.single_goal_draw_counts - single_draws_before).tolist())
+            if contact_radius is not None:
+                row.update(training_contact_radius_m=contact_radius,strict_evaluation_contact_radius_m=config['success_radius_m'],
+                           contact_curriculum_reset_all=transition)
             if exploration_cap is not None:
                 effective=alg.policy.std.detach().clamp(min=alg.policy.std_floor,max=alg.policy.std_cap)
                 row.update(exploration_std_cap=exploration_cap, exploration_std_min=float(effective.min()),

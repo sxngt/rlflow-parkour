@@ -43,6 +43,8 @@ def main():
     p.add_argument('--map-goal-forward-m', type=float, help='Select a geometric stance path from the support map to a forward goal')
     p.add_argument('--gap-travel-m', type=float, default=.5, help='Foot translation for disjoint whole-platform gap evaluation')
     p.add_argument('--video-camera-mode',choices=['parallel','follow'])
+    p.add_argument('--shared-course-level',choices=['easy','medium','hard'])
+    p.add_argument('--shared-course-seed',type=int,default=101)
     p.add_argument('--support-mode', choices=['flat', 'continuous', 'split', 'deck', 'course', 'full-gap'])
     p.add_argument('--support-matched-material', action='store_true')
     p.add_argument('--independent-support-clones', action='store_true', help='P2-38 all-deck scene construction validation only')
@@ -126,6 +128,11 @@ def main():
         from parkour.terrain_contract import training_support
         support = training_support(config)
         manifest['evaluation_support'] = support
+    if args.shared_course_level is not None:
+        if config['task']!='a1_continuous_tracker_v1' or args.support_mode:
+            p.error('Shared-course evaluation override requires continuous Tracker')
+        from parkour.shared_evaluation import override_course
+        support=override_course(support,args.shared_course_level,args.shared_course_seed)
     if config['task']=='a1_continuous_tracker_v1':
         if args.support_mode or args.chain_hops is not None or args.map_goal_forward_m is not None:
             p.error('Continuous Tracker uses its explicit shared-course contract, not legacy runtime adapters')
@@ -232,6 +239,9 @@ def main():
     if support:
         meta['evaluation_support'] = support
         atomic_json(args.out/'terrain.json', support)
+    if args.shared_course_level is not None:
+        meta['shared_course_override']={'level':args.shared_course_level,'geometry_seed':args.shared_course_seed,
+            'scope':'Frozen policy, evaluation-only geometry; training configuration unchanged'}
     if distance_change is not None:meta["evaluation_distance_override"] = distance_change
     recorder = None
     try:

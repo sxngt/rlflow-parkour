@@ -82,6 +82,7 @@
     "step:p3-17-shared-terrain": "P3-17 · 공유 경사·회전 지형",
     "step:p3-18-continuous-tracker": "P3-18 · 연속 앞뒤 접촉 Tracker",
     "step:p3-19-long-scenarios": "P3-19 · 10구간 장거리 시나리오",
+    "step:p3-20-long-contact-curriculum": "P3-20 · 긴 코스 접촉 정밀도 커리큘럼",
     "difficulty:easy": "난이도 · 쉬움",
     "difficulty:medium": "난이도 · 중간",
     "difficulty:hard": "난이도 · 어려움"
