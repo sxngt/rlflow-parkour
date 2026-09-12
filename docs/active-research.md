@@ -622,3 +622,19 @@ zero split probe session51362정상종료,artifacts/p2-29-zero-split-support 감
 continuous/split fork smoke각64env3update+auto평가/영상정상완료(34960/24983),4artifact감사통과. 실제cp0의부모model(std_cap제외)/normalizer전tensor동일/optimizer빈값/counters0,cp3신규4608step/동일계보/cap.1→.05→.05검증. splitresume3→4/5(59852)완료/누적7680step/계보보존/별도감사통과. docs/p2-29-fork-validation.md. 본학습아직없음.
 
 다음평가전용명시거리override구현:config의학습jump계약을restore용으로유지한채scenario생성만[0,.05,.1,.15]로바꾸고manifest/meta에저장. split학습모델의회귀는continuous override에서만허용/목표영역가용성검증. 현재--support-preserve-goals는원래config15only이므로충분하지않음. 그후8run순서균형배치/parentseed0,1,3 p227continuous/seed2retry1,각800update/총157286400step. eval15cm각2지형+continuous혼합거리회귀、fullspec작성. 모든smoke후본학습. 전체목표미완료.
+
+
+### 최신: P2-29 본학습 시작 및 영상 구도 확인
+
+평가 거리 override 구현 commit46778eb, 66개 테스트 통과. 실제 p2-29-regression-smoke에서 학습 config 15cm 유지/평가 0·5·10·15cm 시나리오 일치 및 감사 통과. 배치/primary·regression manifest commit0a050d4. p2_29_train.py PID1608853 실행 중임을 확인했으며 중복 실행하지 않음. 최초 네 작업 continuous seed0/2, split seed1/3의 실제 train worker 존재 확인. 전체 8개 run의 완료나 성능은 아직 확인하지 않음.
+
+사용자 영상 구도 요청 재확인: 64개 렌더링 환경, camera_side=4로 기존 16개 구도 유지; 외곽 일부가 잘려도 중앙 개체 동작이 보이도록 유지. 두 학습 config 및 교차/회귀 평가 스크립트에 이미 반영됨.
+
+다음: 실행 중 batch 상태 확인, p2_15_support_report.py의 단일 15cm 시나리오 및 split 지원 확장 후 primary/회귀 평가·감사·영상·보고서 완료. 기존 보고서 계산 규약 유지. 전체 연구 목표 미완료.
+
+
+### 최신: P2-29 보고서 지원 및 실행 확인
+
+이전 구도 확인 턴은 설정/실제 batch 확인 및 인계 갱신으로 progress. 이번에는 p2_15_support_report.py에 spec evaluation_distances_m(기본 기존 혼합거리)와 split landing 지지면 판정을 추가했다. split은 고정 landing 목표와 같은 거리인 경우에만 판정하며 다른 목표는 거절한다. 기존 P227 16행의 모든 rows/정책hash/보정hash 동일, P228 8행 512episode 최초 발 투영 포함 판정과 정확 일치 확인. artifacts/p2-29-support-report-validation.json 및 validation 로그/spec 보존. 기존 보고서를 덮어쓰지 않고 별도 validation prefix 사용.
+
+본 batch PID1608853 live, 첫 네 run metrics iteration345~352까지 관측. GPU0~3 VRAM약3.1GB/온도33~34도, 디스크532GB여유. 아직 본학습 완료/성공률 결론 없음. 다음 동일 batch를 재확인하여 완료 후 p2_29_evaluate.py의 사전 감사 gate를 통과해 교차/회귀 실행. 보고서 4종은 primary/regression 두 spec에 적용. 전체 목표 미완료.

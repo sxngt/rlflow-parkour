@@ -1,4 +1,4 @@
-"""Audit mixed-distance first contacts against finite support geometry."""
+"""Audit paired-distance first contacts against finite support geometry."""
 import argparse
 from collections import Counter
 import json
@@ -20,6 +20,12 @@ def main():
     prefix = spec['report']
     if Path(prefix).name != prefix:
         raise ValueError('Report prefix must be a filename component')
+    expected_distances = spec.get('evaluation_distances_m', [0., .05, .1, .15])
+    if (not expected_distances or len(set(expected_distances)) != len(expected_distances)
+            or not all(np.isfinite(d) and d >= 0 for d in expected_distances)
+            or 64 % len(expected_distances)):
+        raise ValueError('Expected distances must be distinct, finite, nonnegative and divide 64 episodes')
+    expected_counts = Counter({float(d): 64 // len(expected_distances) for d in expected_distances})
     rows, paired, calibration, policies = [], None, None, {}
     for item in spec['runs']:
         path = ROOT / 'artifacts' / item.get('evaluation_run', item['run']+'__final-evaluation')
@@ -30,11 +36,13 @@ def main():
         distances = [r['goal_forward_m'] for r in report['results']]
         rounded = [round(value, 2) for value in distances]
         assert np.allclose(distances, rounded, atol=1e-7, rtol=0)
-        assert Counter(rounded) == {0.: 16, .05: 16, .1: 16, .15: 16}
+        assert Counter(rounded) == expected_counts
         paired = scenarios if paired is None else paired
         assert paired == scenarios
         support = meta['evaluation_support']
-        assert support['mode'] in ('flat', 'deck', 'continuous') and support['matched_material']
+        assert support['mode'] in ('flat', 'deck', 'continuous', 'split') and support['matched_material']
+        if support['mode'] == 'split':
+            assert np.allclose(distances, support['goal_forward_m'], atol=1e-7, rtol=0), 'Split landing-pad diagnosis requires landing goals'
         calibration = calibration or support['reference_sha256']
         assert calibration == support['reference_sha256']
         policies.setdefault(item['run'], meta['checkpoint']['sha256'])
@@ -60,9 +68,10 @@ def main():
                 index = int(np.argmin(np.abs(trace['time'] - time)))
                 x, y, z = trace['foot_pos'][index, i, foot]
                 contained = abs(z - .02) <= .01
-                if support['mode'] in ('deck', 'continuous'):
+                if support['mode'] in ('deck', 'continuous', 'split'):
                     surface = support['layout']['surfaces'][0] if support['mode'] == 'deck' else next(
-                        s for s in support['layout']['surfaces'] if s['foot'] == support['foot_names'][foot])
+                        s for s in support['layout']['surfaces'] if s['foot'] == support['foot_names'][foot]
+                        and s['role'] == ('landing' if support['mode'] == 'split' else 'bridge'))
                     x0, x1, y0, y1 = surface['bounds_xy_m']
                     contained &= x0+.02 <= x <= x1-.02 and y0+.02 <= y <= y1-.02
                 inside.append(bool(contained))
@@ -74,11 +83,11 @@ def main():
                      'all_first_spheres_contained': sum(all(d['contained_per_foot']) for d in details),
                      'by_distance': report['by_distance'], 'details': details})
     summary = {'rows': rows, 'calibration_sha256': calibration, 'policy_hashes': policies,
-               'definition': 'First >5N post-flight sample at 200Hz; sphere center z=2±1cm and XY at least 2cm inside the expected support bounds (shared deck or named continuous foot pad). Flat has no XY bounds. Geometric inference, not contact-pair identity or sustained support.',
+               'definition': 'First >5N post-flight sample at 200Hz; sphere center z=2±1cm and XY at least 2cm inside the expected support bounds (shared deck or named continuous bridge / split landing foot pad). Flat has no XY bounds. Geometric inference, not contact-pair identity or sustained support.',
                'additional_training_steps': 0}
     (ROOT / f'docs/{prefix}-support-diagnosis.json').write_text(json.dumps(summary, indent=2)+'\n')
     lines = [f'# {prefix.upper()} 최초 착지 지지면 진단', '',
-             '거리 0/5/10/15cm × 높이 명령 16개의 동일 개발군을 사용한다. 원시 200Hz 최초 접촉 오차를 저장된 KPI와 1e-5m 이내로 대조했다.', '',
+             f"거리 {'/'.join(f'{d*100:g}' for d in expected_distances)}cm × 높이 명령 {64 // len(expected_distances)}개의 동일 개발군을 사용한다. 원시 200Hz 최초 접촉 오차를 저장된 KPI와 1e-5m 이내로 대조했다.", '',
              '| 조건 | seed | 기존 성공 / 64 | 첫 접촉 네 발 투영 포함 | 성공과 포함 모두 |',
              '|---|---:|---:|---:|---:|']
     for row in rows:
