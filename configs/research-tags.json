@@ -147,7 +147,13 @@
     "step:p3-57-online-planner": "P3-57 · 비동기 온라인 발 디딤 계획",
     "step:p3-58-full-horizon": "P3-58 · 네 착지 물리 검증·계획 지연",
     "step:p3-59-actor-diagnostics": "P3-59 · 정책 출력 포화 진단",
-    "step:p3-60-long-discrete-curriculum": "P3-60 · 24갭 중급·단계적 난이도 비교"
+    "step:p3-60-long-discrete-curriculum": "P3-60 · 24갭 중급·단계적 난이도 비교",
+    "step:p3-61-feasibility-data": "P3-61 · 고정 Tracker·새 지도 후보 성공 데이터",
+    "step:p3-62-medium-clearance-exploration": "P3-62 · 중급 후속 도약 높이·탐색 비교",
+    "step:p3-63-discrete-curriculum-stage2": "P3-63 · 24갭 난이도 2단계·동일 총예산",
+    "step:p3-64-feasibility-baseline": "P3-64 · 지도 단위 검증·성공 평가기 기준선",
+    "step:p3-65-selected-follow-illustration": "P3-65 · 선택 근거 명시·성공 사례 추적 재실행",
+    "step:p3-66-stronger-online-integration": "P3-66 · 26.5cm 갭·온라인 계획과 고정 계획"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
@@ -684,6 +690,133 @@
       "step:p3-48-discrete-continuation",
       "difficulty:medium",
       "purpose:evaluation"
+    ],
+    "p3-61-r2-seed3-air1": [
+      "phase:P3",
+      "step:p3-61-feasibility-data",
+      "purpose:physical-rollout-labels"
+    ],
+    "p3-61-r2-seed2-air3": [
+      "phase:P3",
+      "step:p3-61-feasibility-data",
+      "purpose:physical-rollout-labels"
+    ],
+    "p3-61-r2-seed3-air2": [
+      "phase:P3",
+      "step:p3-61-feasibility-data",
+      "purpose:physical-rollout-labels"
+    ],
+    "p3-61-r2-seed2-air0": [
+      "phase:P3",
+      "step:p3-61-feasibility-data",
+      "purpose:physical-rollout-labels"
+    ],
+    "p3-61-easy-seed2": [
+      "phase:P3",
+      "step:p3-61-feasibility-data"
+    ],
+    "p3-61-r2-seed3-air3": [
+      "phase:P3",
+      "step:p3-61-feasibility-data",
+      "purpose:physical-rollout-labels"
+    ],
+    "p3-61-r2-easy-seed3": [
+      "phase:P3",
+      "step:p3-61-feasibility-data",
+      "purpose:fixed-policy-map-evaluation"
+    ],
+    "p3-61-r2-seed101-air1": [
+      "phase:P3",
+      "step:p3-61-feasibility-data",
+      "purpose:physical-rollout-labels"
+    ],
+    "p3-61-r2-seed2-air2": [
+      "phase:P3",
+      "step:p3-61-feasibility-data",
+      "purpose:physical-rollout-labels"
+    ],
+    "p3-61-r2-seed2-air1": [
+      "phase:P3",
+      "step:p3-61-feasibility-data",
+      "purpose:physical-rollout-labels"
+    ],
+    "p3-61-r2-seed3-air0": [
+      "phase:P3",
+      "step:p3-61-feasibility-data",
+      "purpose:physical-rollout-labels"
+    ],
+    "p3-61-r2-easy-seed101": [
+      "phase:P3",
+      "step:p3-61-feasibility-data",
+      "purpose:fixed-policy-map-evaluation"
+    ],
+    "p3-61-r2-seed101-air0": [
+      "phase:P3",
+      "step:p3-61-feasibility-data",
+      "purpose:physical-rollout-labels"
+    ],
+    "p3-61-r2-seed101-air2": [
+      "phase:P3",
+      "step:p3-61-feasibility-data",
+      "purpose:physical-rollout-labels"
+    ],
+    "p3-61-r2-seed101-air3": [
+      "phase:P3",
+      "step:p3-61-feasibility-data",
+      "purpose:physical-rollout-labels"
+    ],
+    "p3-61-r2-easy-seed2": [
+      "phase:P3",
+      "step:p3-61-feasibility-data",
+      "purpose:fixed-policy-map-evaluation"
+    ],
+    "p3-58-full-planner": [
+      "phase:P3",
+      "step:p3-58-full-horizon"
+    ],
+    "p3-58-r2-planner": [
+      "phase:P3",
+      "step:p3-58-full-horizon"
+    ],
+    "p3-58-r2-executor": [
+      "phase:P3",
+      "step:p3-58-full-horizon"
+    ],
+    "p3-58-full-executor": [
+      "phase:P3",
+      "step:p3-58-full-horizon"
+    ],
+    "p3-58-r2-follow-playback": [
+      "phase:P3",
+      "step:p3-58-full-horizon"
+    ],
+    "p3-59-medium-actor": [
+      "phase:P3",
+      "step:p3-59-actor-diagnostics"
+    ],
+    "p3-59-easy-actor": [
+      "phase:P3",
+      "step:p3-59-actor-diagnostics"
+    ],
+    "p3-66-planner": [
+      "phase:P3",
+      "step:p3-66-stronger-online-integration"
+    ],
+    "p3-66-executor": [
+      "phase:P3",
+      "step:p3-66-stronger-online-integration"
+    ],
+    "p3-66-control": [
+      "phase:P3",
+      "step:p3-66-stronger-online-integration"
+    ],
+    "p3-66-online-playback": [
+      "phase:P3",
+      "step:p3-66-stronger-online-integration"
+    ],
+    "p3-66-control-playback": [
+      "phase:P3",
+      "step:p3-66-stronger-online-integration"
     ]
   },
   "note": "Phase is work classification, not a completion claim. Explicit run research_tags override task defaults. Legacy annotations are derived without changing original artifacts."

@@ -95,6 +95,10 @@ class FollowRecorder:
         self.env,self.out,self.name=env,out,name;self.ids=[env_index];self.frames=0;self.trace=[]
         for i,path in enumerate(env.scene.env_prim_paths):
             if i!=env_index:UsdGeom.Imageable(env.scene.stage.GetPrimAtPath(path)).MakeInvisible()
+        # Nonzero clones inherit env0 visibility unless explicitly overridden.
+        UsdGeom.Imageable(env.scene.stage.GetPrimAtPath(env.scene.env_prim_paths[env_index])).MakeVisible()
+        followed=UsdGeom.Imageable(env.scene.stage.GetPrimAtPath(env.scene.env_prim_paths[env_index]+'/Robot'))
+        if followed.ComputeVisibility()==UsdGeom.Tokens.invisible:raise RuntimeError('Followed robot is invisible')
         env.render_mode='rgb_array';env.cfg.viewer.resolution=(1280,720)
         self.eye=None;self.look=None;self.yaw=None
         self._camera()

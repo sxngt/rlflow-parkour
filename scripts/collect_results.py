@@ -156,7 +156,7 @@ def collect(evaluation, result_root=ROOT / 'result'):
               'checkpoint':model, 'action_evaluation':action_evaluation, 'task':run['config']['task'], 'seed':seed, 'updates':updates,
               'video':video_name, 'video_episode':episode, 'aggregate':{k:v for k,v in report.items() if k!='results'},
               'video_layout':replay.get('layout','single'), 'video_episodes':visible_episodes,
-              'selection':'fixed render-enabled grid; camera may crop outer robots; not selected for success' if parallel else 'first fixed development scenario; not selected for success', 'date_kst':date}
+              'selection':'fixed render-enabled grid; camera may crop outer robots; not selected for success' if parallel else replay.get('selection','first fixed development scenario; not selected for success'), 'date_kst':date}
     with (result_root / '.index.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         if folder.exists():
@@ -222,7 +222,7 @@ def collect(evaluation, result_root=ROOT / 'result'):
                     text += f'- 이 영상: `{episode["scenario_id"]}`, **{outcome}**, simulator {episode["length"]*0.02:.2f}초'
                     if completed is not None:text += f', 순차 접촉 **{completed}/{report.get("required_contacts",4)}회**'
                     text += '\n'
-                text += '- 영상 선정: 고정 시나리오/구역. 대표 성공 사례로 선별하지 않음.\n'
+                text += '- 영상 선정: '+record['selection']+'\n'
                 text += f'- 원본 기록: [{evaluation.name}]({quote(os.path.relpath(evaluation, folder))})\n'
                 text += '- 파일: `evaluation.json` 전체 평가, `replay.json` 시간·목표·실제 발·행동, `manifest.json` 출처·hash.\n\n'
                 text += 'T0/T0S는 평지의 초기 제어 과제이며 점프·연속 파쿠르 성능을 뜻하지 않습니다.\n'

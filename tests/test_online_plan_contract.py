@@ -12,3 +12,10 @@ class AdmissionTests(unittest.TestCase):
   self.assertEqual(admission(self.p,self.pending,100,[1.09,2.,.3],[5,4])[0],'stale_state_or_contact')
   self.assertEqual(admission(self.p,self.pending,100,[1.,2.,.3],[6,4])[0],'stale_state_or_contact')
   self.assertEqual(admission(self.p,self.pending,100,[float('nan'),2.,.3],[5,4])[0],'invalid_predicted_state')
+
+ def test_same_position_with_wrong_orientation_is_stale(self):
+  self.p.update(predicted_quaternion=[1.,0.,0.,0.],predicted_joint_position=[0.]*12,predicted_velocity=[1.,0.,0.])
+  actual={'quaternion':[0.,0.,0.,1.],'joint_position':[0.]*12,'velocity':[1.,0.,0.]}
+  self.assertEqual(admission(self.p,self.pending,100,[1.,2.,.3],[5,4],actual)[0],'stale_orientation')
+  actual['quaternion']=[1.,0.,0.,0.];actual['joint_position'][0]=.2
+  self.assertEqual(admission(self.p,self.pending,100,[1.,2.,.3],[5,4],actual)[0],'stale_joint_state')

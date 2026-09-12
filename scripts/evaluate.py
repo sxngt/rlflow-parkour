@@ -50,6 +50,8 @@ def main():
     p.add_argument('--map-goal-forward-m', type=float, help='Select a geometric stance path from the support map to a forward goal')
     p.add_argument('--gap-travel-m', type=float, default=.5, help='Foot translation for disjoint whole-platform gap evaluation')
     p.add_argument('--video-camera-mode',choices=['parallel','follow'])
+    p.add_argument('--video-follow-env-index',type=int,default=0)
+    p.add_argument('--video-selection-reason',default='')
     p.add_argument('--shared-course-level',choices=['easy','medium','hard'])
     p.add_argument('--shared-course-seed',type=int,default=101)
     p.add_argument('--shared-course-transfers',type=int,choices=[*range(10,41),60])
@@ -76,6 +78,8 @@ def main():
         p.error('Thesis teacher is a separate frozen mean-policy probe')
     if args.baseline != "zero" and not args.checkpoint and not args.thesis_policy:
         p.error("policy evaluation requires checkpoint")
+    if not 0<=args.video_follow_env_index<args.episodes:p.error('Follow index must belong to the evaluated environments')
+    if args.video_follow_env_index and not args.video_selection_reason:p.error('Nondefault follow index requires an explicit selection reason')
     if args.video_envs < 1 or (args.video_camera_side is not None and args.video_camera_side < 1):
         p.error("Video robot count and camera side must be positive")
     config = json.loads(args.config.read_text())
@@ -431,12 +435,14 @@ def main():
             from parkour.media import ParallelRecorder
             if (args.video_camera_mode or config.get('evaluation_camera_mode'))=='follow':
                 from parkour.media import FollowRecorder
-                recorder=FollowRecorder(env,args.out)
+                recorder=FollowRecorder(env,args.out,env_index=args.video_follow_env_index)
             else:
                 recorder = ParallelRecorder(env,args.out,count=args.video_envs,camera_side=args.video_camera_side)
         if diagnostics and config['task']=='a1_continuous_tracker_v1' and args.checkpoint and not (args.four_step_candidate_probe or args.thesis_policy or args.terminal_policy or args.terminal_pose_hold):
             from parkour.planner_states import PlannerStateRecorder
-            planner_state_recorder=PlannerStateRecorder(env,config,sha256(args.checkpoint))
+            state_config=dict(config)
+            if meta.get('evaluation_support'):state_config['terrain_contract']=meta['evaluation_support']
+            planner_state_recorder=PlannerStateRecorder(env,state_config,sha256(args.checkpoint))
         with torch.inference_mode():
             for step in range(env.max_episode_length + 1):
                 if planner_state_recorder is not None:planner_state_recorder.capture(step,done)
@@ -497,7 +503,7 @@ def main():
         if not bool(done.all()) or any(record is None for record in records):
             raise RuntimeError("Evaluation incomplete; missing scenario results")
         if recorder:
-            recorder.close(episode=records[0], episodes=[records[i] for i in recorder.ids],
+            recorder.close(episode=records[recorder.ids[0]], selection=args.video_selection_reason or 'fixed first environment; not selected for success', episodes=[records[i] for i in recorder.ids],
                            recording_kind=('single_robot_follow_evaluation' if (args.video_camera_mode or config.get('evaluation_camera_mode'))=='follow' else 'parallel_evaluation'),
                            video_stop_rule=('followed first episode only; recording ends on its termination' if (args.video_camera_mode or config.get('evaluation_camera_mode'))=='follow' else 'last visible first episode; subsequent auto-resets shown but excluded from metrics'))
             recorder = None
@@ -569,7 +575,7 @@ def main():
                 target['minimum_travel_motion_seconds']=target.get('minimum_travel_motion_seconds',10.)
                 report['demo_eligible_scenario_ids']=[r['scenario_id'] for r in records if r['success'] and r['length']*env.step_dt>=target['minimum_actual_seconds'] and r.get('travel_motion_seconds',0)>=target['minimum_travel_motion_seconds'] and r.get('completed_surface_transfers',0)>=target['surface_transfers'] and r.get('travel_measured_jump_count',0)>=target['minimum_measured_jumps']]
                 report['demo_target']=target
-                report['followed_video_demo_eligible']=records[0]['scenario_id'] in report['demo_eligible_scenario_ids']
+                report['followed_video_demo_eligible']=records[args.video_follow_env_index]['scenario_id'] in report['demo_eligible_scenario_ids']
         if 'completed_contacts' in records[0]:
             report['required_contacts'] = 4 if config.get('jump') else config.get('sequence',{}).get('sequence_length',4)
             report['mean_completed_contacts'] = sum(row['completed_contacts'] for row in records)/count

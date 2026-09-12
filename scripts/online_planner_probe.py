@@ -29,7 +29,10 @@ def main():
   from parkour.planner_states import PlannerStateRecorder,restore_airborne_state
   from parkour.candidate_plan import install_candidates
   torch.set_num_threads(args.threads)
-  env=make_env(config);alg,norm=make_algorithm(config,env)
+  support=source.get('evaluation_support')
+  env=make_env(config,evaluation_support=support);alg,norm=make_algorithm(config,env)
+  state_config=dict(config)
+  if support:state_config['terrain_contract']=support;meta['evaluation_support']=support
   checkpoint=Path(source['checkpoint']['path']);digest=sha256(checkpoint)
   if digest!=source['checkpoint']['sha256']:raise ValueError('Checkpoint mismatch')
   restore(read_checkpoint(checkpoint),config,alg,norm,env,False);alg.policy.eval();norm.eval()
@@ -48,7 +51,7 @@ def main():
     response={'id':request['id'],'activation_step':request['activation_step'],'accepted':False}
     try:
      with torch.inference_mode():
-      restore_airborne_state(env,request['payload'],0,config,digest)
+      restore_airborne_state(env,request['payload'],0,state_config,digest)
       raw=env._get_observations()['policy']
      failed=torch.zeros(env.num_envs,dtype=torch.bool,device=env.device)
      with torch.inference_mode():
@@ -58,6 +61,8 @@ def main():
       if bool(failed.any()):raise ValueError('Committed prefix fails before activation')
       predicted_root=(env.robot.data.root_pos_w[4]-env.scene.env_origins[4]).cpu().tolist()
       predicted_target=env.progress.target[4].cpu().tolist()
+      predicted_articulation={'predicted_quaternion':env.robot.data.root_quat_w[4].cpu().tolist(),
+        'predicted_joint_position':env.robot.data.joint_pos[4].cpu().tolist(),'predicted_velocity':env.robot.data.root_lin_vel_w[4].cpu().tolist()}
       start_surface=int(env.progress.target.max())+1
       contract=install_candidates(env,start_surface);raw=env._get_observations()['policy']
       plans=env.candidate_plan.clone();cost=torch.zeros(env.num_envs,device=env.device)
@@ -81,7 +86,7 @@ def main():
       # Carry the existing plan unless a candidate improves the measured objective.
       if float(costs[4]-costs[winner])<.002:winner=4
       response.update(accepted=True,candidate_id=winner,costs=costs.cpu().tolist(),
-        predicted_root=predicted_root,predicted_target=predicted_target,
+        predicted_root=predicted_root,predicted_target=predicted_target,**predicted_articulation,
         start_surface=start_surface,plan=plans[winner].cpu().tolist(),contract=contract,
         physical_branch_seconds=(branch_step+1)*env.step_dt,prefix_seconds=request['lead_steps']*env.step_dt,
         full_horizon=args.full_horizon,horizon_reached=reached.cpu().tolist(),switch_cost_margin=.002)
@@ -94,7 +99,7 @@ def main():
     if time.monotonic()>deadline:raise RuntimeError('Planner startup timeout')
     time.sleep(.05)
    if not args.fixed_plan and json.loads((args.mailbox/'ready.json').read_text())['checkpoint_sha256']!=digest:raise ValueError('Planner policy mismatch')
-   raw,_=env.reset();raw=raw['policy'];recorder=PlannerStateRecorder(env,config,digest)
+   raw,_=env.reset();raw=raw['policy'];recorder=PlannerStateRecorder(env,state_config,digest)
    from concurrent.futures import ThreadPoolExecutor
    io=ThreadPoolExecutor(max_workers=1);writes=[]
    pending=None;request_id=0;last_request=-100;trace=[];compute=[];lateness=[]
@@ -111,7 +116,7 @@ def main():
        if not proposal['accepted']:event['rejection']=proposal['rejection']
        else:
         from parkour.online_plan_contract import admission
-        reason,err=admission(proposal,pending,step,(env.robot.data.root_pos_w[0]-env.scene.env_origins[0]).cpu().tolist(),env.progress.target[0].cpu().tolist())
+        reason,err=admission(proposal,pending,step,(env.robot.data.root_pos_w[0]-env.scene.env_origins[0]).cpu().tolist(),env.progress.target[0].cpu().tolist(),{'quaternion':env.robot.data.root_quat_w[0].cpu().tolist(),'joint_position':env.robot.data.joint_pos[0].cpu().tolist(),'velocity':env.robot.data.root_lin_vel_w[0].cpu().tolist()})
         event['prediction_error_m']=err
         if reason:
          event['rejection']=reason

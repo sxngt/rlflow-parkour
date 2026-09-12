@@ -12,12 +12,12 @@ def lane(item):
  gpu,arm=item
  smoke=wait_result('p3-60-'+arm+'-smoke__final-evaluation',time.monotonic()+600);check(smoke)
  out=ROOT/('artifacts/p3-60-'+arm)
- subprocess.run([sys.executable,'scripts/run_job.py','--gpu',str(gpu),'--timeout','3600','train','--config','configs/p3-60-'+arm+'.json','--fork-from','artifacts/p3-51-discrete-easy/checkpoint-001200.pt','--out',str(out)],cwd=ROOT,check=True)
- native=check(Path(str(out)+'__final-evaluation'))
+ if not out.exists():subprocess.run([sys.executable,'scripts/run_job.py','--gpu',str(gpu),'--timeout','3600','train','--config','configs/p3-60-'+arm+'.json','--fork-from','artifacts/p3-51-discrete-easy/checkpoint-001200.pt','--out',str(out)],cwd=ROOT,check=True)
+ native=check(wait_result(out.name+'__final-evaluation',time.monotonic()+4500))
  transfer=None
  if arm=='bridge':
   target=ROOT/'artifacts/p3-60-bridge-full-medium-transfer'
-  subprocess.run([sys.executable,'scripts/run_job.py','--gpu',str(gpu),'--timeout','360','evaluate','--config',str(out/'config.json'),'--checkpoint',str(out/'checkpoint-001200.pt'),'--shared-course-level','medium','--shared-course-seed','1','--shared-course-transfers','24','--episodes','64','--video','--out',str(target)],cwd=ROOT,check=True)
+  subprocess.run([sys.executable,'scripts/run_job.py','--gpu',str(gpu),'--timeout','360','evaluate','--config',str(out/'config.json'),'--checkpoint',str(out/'checkpoint-001200.pt'),'--shared-course-level','medium','--shared-course-seed','1','--shared-course-transfers','24','--episodes','64','--diagnostics','--video','--out',str(target)],cwd=ROOT,check=True)
   transfer=check(target)
  return {'arm':arm,'native':native,'full_medium_transfer':transfer}
 def main():

@@ -20,7 +20,10 @@ def main():
   from parkour.planner_states import restore_airborne_state
   from parkour.candidate_plan import install_candidates
   torch.set_num_threads(4)
-  env=make_env(config);alg,norm=make_algorithm(config,env)
+  support=source.get('evaluation_support')
+  env=make_env(config,evaluation_support=support);alg,norm=make_algorithm(config,env)
+  state_config=dict(config)
+  if support:state_config['terrain_contract']=support;meta['evaluation_support']=support
   import carb.settings
   settings=carb.settings.get_settings();previous_rate_limit=settings.get('/app/runLoops/main/rateLimitEnabled')
   if args.uncapped_kit_loop:settings.set_bool('/app/runLoops/main/rateLimitEnabled',False)
@@ -29,7 +32,7 @@ def main():
   restore(data,config,alg,norm,env,False);alg.policy.eval();norm.eval()
   payload=json.loads((args.source/'planner-states.json').read_text())
   if not 0<=args.snapshot_index<len(payload['states']):raise ValueError('No requested clean airborne snapshot')
-  readback=restore_airborne_state(env,payload,args.snapshot_index,config,sha256(checkpoint))
+  readback=restore_airborne_state(env,payload,args.snapshot_index,state_config,sha256(checkpoint))
   env.planner_rollout_only=args.lean
   initial_step=payload['states'][args.snapshot_index]['control_step']
   # Preserve the current airborne landing; branch only later contact goals.

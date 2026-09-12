@@ -43,6 +43,14 @@ def begin_run(out, config, kind):
         destination = out / "source-snapshot" / name
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(root / name, destination)
+    # Run later lazy imports from the recorded package snapshot. Editing the
+    # workspace while Isaac starts must not change this attempt's task/media code.
+    package_root = out.resolve() / "source-snapshot" / "src" / "parkour"
+    package = sys.modules.get("parkour")
+    preloaded = sorted(name for name in sys.modules if name == "parkour" or name.startswith("parkour."))
+    if package is not None:
+        package.__path__ = [str(package_root)]
+    sys.path.insert(0, str(package_root.parent))
     atomic_json(out / "config.json", config)
     revision = subprocess.run(["git", "rev-parse", "--verify", "HEAD"], cwd=root, capture_output=True, text=True)
     meta = {
@@ -50,6 +58,7 @@ def begin_run(out, config, kind):
         "started_unix_s": time.time(), "config": config, "research_tags": config.get("research_tags", []), "source_hashes": sources,
         "gpu_uuid": os.environ.get("CUDA_VISIBLE_DEVICES"),
         "physics_device": "cuda:0", "graphics_host_index": os.environ.get("PARKOUR_GRAPHICS_GPU"),
+        "source_execution": {"lazy_package_import_root": str(package_root), "preloaded_modules": preloaded},
         "git_commit": revision.stdout.strip() if revision.returncode == 0 else None,
     }
     atomic_json(out / "run.json", meta)

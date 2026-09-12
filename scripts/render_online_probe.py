@@ -15,7 +15,7 @@ def main():
   import torch
   from parkour.learning import make_env
   from parkour.media import FollowRecorder
-  env=make_env(c);env.reset();rec=FollowRecorder(env,a.out)
+  env=make_env(c,evaluation_support=source.get('evaluation_support'));env.reset();rec=FollowRecorder(env,a.out)
   frames=json.loads((a.source/'state-playback.json').read_text())['frames']
   for row in frames:
    if row['step']%2:continue
