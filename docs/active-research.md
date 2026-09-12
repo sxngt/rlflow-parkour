@@ -1209,3 +1209,12 @@ weighted재개 session5253/GPU2/artifacts/p2-40-weighted-training-resume. worker
 scripts/p2_40_train.py(commitf9ba7c3) 준비:4파일럿학습/평가archive게이트,새제목1:1:1:3/태그,대조P239coverage와목표가중치외설정동일검사,같은P231부모4seed800. 아직게이트실행/본학습없음.
 
 profile1024env60update 시작 session81923/GPU0/artifacts/p2-40-weighted-profile-seed2,log동명-launch.log. 다음동일session/PID→完了회계/geometry/初期복사/처리량/자동평가→scripts/p2_40_train.pyゲート実行후本학습. 전체목표미완료.
+
+
+### 최신: P240 profile/전체착수게이트 통과, 본학습4개 시작
+
+이전smoke회계/재개/profile실행은progress. profilePID1955857확인후동일session81923최종exit0. 초기복사session71291exit0 artifacts/p2-40-profile-initialization-audit.jsonl, 60/1,474,560step회계통과. summary artifacts/p2-40-profile-summary.json: worker96.974초/update42.646초/기타54.327초,update34,577step/s,worker15,206step/s. single거리노출85684/122620/130395/398581 합737280.
+
+scripts/p2_40_evaluate.py準備:32참조(기존P239uniform16/새P240weighted16중native4재사용),새12job. dryrun artifacts/p2-40-evaluation-plan-dry-run.json,800gate/기존16경로확인. 실제후속평가실행아직없음. P240최종paired report코드아직필요.
+
+scripts/p2_40_train.py실행으로4검증학습/4평가200Hz 및영상hash/64camera4/가중치제목·태그/同부모·가중치외설정/대조예산ゲート通過, artifacts/p2-40-training-gates.json. 本학습batchsession64470,log artifacts/p2-40-training-batch.log. 실제IsaacPIDseed0=1957802,seed1=1957777,seed2=1957795,seed3=1957794. 1024env800update/각GPU1run/원P231부모,새총78,643,200step. 다음同PID進行→checkpoint0복사감사→800/native4완료→후속12→대조16포함최종32감사/실패/영상. 전체목표미완료.
