@@ -933,3 +933,10 @@ scripts/p2_34_evaluate.py작성:4seed×2조건×4평가군=32유일결과참조,
 이전분석코드준비는progress. collect_results.py에chain-events.json hash검증/원자복사,manifest file/hash 및README링크추가. 기존archive에다시실행해도영상유지,이벤트충돌거부. p233seed1검증후12개완료영상archive에backfill완료(session15231exit0). 원본run/artifact변경없음.
 
 동일4workerlive재확인후45초verifiedwait. 현재chain1=519,chain3=520,single0=544,single2=540/800. 동일batchsession65779계속,재시작/설정변경없음. 저장소530GB. 다음첫묶음완료→자동평가→둘째조건시작확인. 전체목표미완료.
+
+
+### 최신: P2-34 첫 완료 결과 / 두 번째 조건 시작
+
+이전archive보강은progress. 동일첫묶음worker생존확인후45초단위verifiedwait3회. 700checkpoint4개hash통과 artifacts/p2-34-first-wave-checkpoint700-audit.json. single0/2학습800및native평가완료,4artifact감사 artifacts/p2-34-first-completed-audit.jsonl passed. 둘다deck단일15×64=64성공. 아직코스비교결과아님.
+
+최근chain1=790진행,chain3학습800완료/자동평가PID1801667진행. 두번째조건chain0학습PID1801536시작확인. batchsession65779유지. 다음각native평가완료및새single1/single3/chain2실제시작확인;첫묶음chain결과해석과두번째초기화감사. 전체목표미완료.
