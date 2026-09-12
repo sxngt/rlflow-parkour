@@ -95,10 +95,13 @@ def collect(evaluation, result_root=ROOT / 'result'):
             task_title += f'_학습거리{100*low:g}–{100*high:g}cm'
     if 'purpose:profiling' in run.get('research_tags', run['config'].get('research_tags', [])):
         task_title += '_처리량측정용_미수렴정책'
-    mode = {'policy':'PPO', 'zero':'기본자세_대조군', 'shuffled-target':'PPO_목표셔플'}[run['baseline']]
+    mode = {'policy':'PPO', 'zero':'기본자세_대조군', 'shuffled-target':'PPO_목표셔플', 'thesis-velocity':'졸업연구_기존PPO_추가학습0'}[run['baseline']]
     action_evaluation = run.get('action_evaluation', {'mode': 'mean'})
     if action_evaluation['mode'] == 'sampled':
         mode += f"_행동샘플링-RNG{action_evaluation['seed']}"
+    if run.get('teacher_policy'):
+        seed=run['teacher_policy']['training_seed']
+        task_title+='_'+str(run['teacher_policy']['command_forward_m_s'])+'mps_보행전이검사'
     date = datetime.fromtimestamp(run['finished_unix_s'], timezone(timedelta(hours=9))).strftime('%Y-%m-%d')
     title = f'A1 | {task} {task_title.replace("_", " ")} | {mode} seed {seed} | {updates} updates | 개발군 {report["episodes"]} episodes'
     if train_run and train_run['config'].get('retention_training'):
@@ -132,7 +135,7 @@ def collect(evaluation, result_root=ROOT / 'result'):
         suffix = '__' + hashlib.sha256(video_name.encode('utf-8')).hexdigest()[:12] + '.mp4'
         prefix = video_name[:-4].encode('utf-8')[:240-len(suffix.encode())].decode('utf-8', errors='ignore')
         video_name = prefix + suffix
-    record = {'research_tags':run.get('research_tags',run['config'].get('research_tags',[])), 'title':title, 'evaluation_run':evaluation.name, 'training_run':Path(model['path']).parent.name if model else None,
+    record = {'teacher_policy':run.get('teacher_policy'),'research_tags':run.get('research_tags',run['config'].get('research_tags',[])), 'title':title, 'evaluation_run':evaluation.name, 'training_run':Path(model['path']).parent.name if model else None,
               'source_evaluation':os.path.relpath(evaluation, result_root), 'source_video_sha256':expected,
               'checkpoint':model, 'action_evaluation':action_evaluation, 'task':run['config']['task'], 'seed':seed, 'updates':updates,
               'video':video_name, 'video_episode':episode, 'aggregate':{k:v for k,v in report.items() if k!='results'},

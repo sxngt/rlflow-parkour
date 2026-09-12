@@ -16,6 +16,9 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--config", type=Path, default=Path("configs/t0-ppo.json"))
     p.add_argument("--checkpoint", type=Path)
+    p.add_argument('--thesis-policy',type=Path)
+    p.add_argument('--thesis-source',type=Path,default=Path('../master-thesis'))
+    p.add_argument('--thesis-speed',type=float,default=.5)
     p.add_argument("--baseline", choices=["zero", "policy", "shuffled-target"], default="policy")
     p.add_argument("--out", type=Path, required=True)
     p.add_argument("--episodes", type=int, default=64)
@@ -60,11 +63,15 @@ def main():
         p.error('Chain evaluation requires matched support, policy mean and original launch radius; two hops require deck or course')
     if args.action_mode == 'sampled' and args.baseline != 'policy':
         p.error('Sampled action diagnosis requires the policy baseline')
-    if args.baseline != "zero" and not args.checkpoint:
+    if args.thesis_policy and (args.checkpoint or args.baseline!='policy' or args.action_mode!='mean'):
+        p.error('Thesis teacher is a separate frozen mean-policy probe')
+    if args.baseline != "zero" and not args.checkpoint and not args.thesis_policy:
         p.error("policy evaluation requires checkpoint")
     if args.video_envs < 1 or (args.video_camera_side is not None and args.video_camera_side < 1):
         p.error("Video robot count and camera side must be positive")
     config = json.loads(args.config.read_text())
+    if args.thesis_policy and config['task']!='a1_continuous_tracker_v1':
+        p.error('Thesis teacher probe requires the new continuous course contract')
     if config.get('chain_training') is not None and args.chain_hops is None:
         args.chain_hops = config['chain_training']['hops']
         args.chain_settle_mode = config['chain_training']['settle_command']
@@ -298,6 +305,12 @@ def main():
             meta['config'] = config
             atomic_json(args.out / 'config.json', config)
             atomic_json(args.out / 'run.json', meta)
+        teacher=None
+        if args.thesis_policy:
+            from parkour.thesis_teacher import ThesisVelocityTeacher
+            teacher=ThesisVelocityTeacher(env,args.thesis_policy,args.thesis_source,args.thesis_speed)
+            meta['teacher_policy']=teacher.metadata
+            meta['model_profile']={'source':'external_user_thesis_policy','policy_parameters':teacher.metadata['policy_parameter_count']}
         alg.policy.eval()
         norm.eval()
         from parkour.evaluation_action import sample_action
@@ -332,7 +345,7 @@ def main():
             env.targets[:, :, :2] = env.scene.env_origins[:, None, :2] + env.nominal_xy + offsets
         atomic_json(args.out / "scenarios.json", manifest)
         meta["scenario_sha256"] = sha256(args.out / "scenarios.json")
-        meta["baseline"] = args.baseline
+        meta["baseline"] = "thesis-velocity" if teacher is not None else args.baseline
         meta["nominal_foot_xy_m"] = env.nominal_xy.tolist()
         if args.restore_transition:
             if args.chain_hops not in range(2,9) or args.transition_states or args.action_mode != 'mean':
@@ -378,7 +391,9 @@ def main():
                 recorder = ParallelRecorder(env,args.out,count=args.video_envs,camera_side=args.video_camera_side)
         with torch.inference_mode():
             for step in range(env.max_episode_length + 1):
-                if args.baseline == "zero":
+                if teacher is not None:
+                    action=teacher.act()
+                elif args.baseline == "zero":
                     action = torch.zeros(env.num_envs, 12, device=env.device)
                 else:
                     policy_obs = raw.clone()
@@ -432,6 +447,8 @@ def main():
                   "mean_final_error_m": sum(row["final_error_m"] for row in records) / count,
                   "mean_episode_seconds": sum(row["length"] for row in records) * env.step_dt / count,
                   "results": records}
+        if teacher is not None:
+            meta['teacher_policy']['action_clip_fraction']=teacher.clipped/max(1,teacher.total)
         if config['task']=='a1_continuous_tracker_v1':
             report.update(success_contract='continuous_front_rear_targets_v1 + final shared-platform support and stabilization',
                 success_wilson95=None,success_interval_note='Fixed course and initial state replicas, not independent terrain samples',
