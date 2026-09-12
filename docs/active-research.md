@@ -715,3 +715,14 @@ fixed/mixed64env3update smoke(session9750/89744)둘다학습·native평가·영�
 혼합resume3→4/5(session89693)학습+auto평가정상,계보동일·신규3072/누적7680step,2감사 artifacts/p2-30-smoke-resume-audit.jsonl. 원래동일조건resume규약유지.
 
 source d1fec6a scripts/p2_30_train.py 균형8run배치. 본학습시작session68047,log artifacts/p2-30-main-batch.log. 부모P229splitseedS cp800,각P230fixed/mixedseedS cp800계획. seed0/2fixed먼저,seed1/3mixed먼저. 재시작/중복실행금지,현재실제PID확인필요. 다음본학습초기화/목표별계상확인,평가배치/primary회귀spec작성(프로토콜기준split0/15×32 native,continuous0/5/10/15×16,split15×64각8;부모split0/15×32새평가4필요). 전체목표미완료.
+
+
+### 최신: P2-30 평가 배치·보고서 명세 및 본학습 초기화 확인
+
+이전턴통합검증/본학습시작은progress. 본batch PID1674488 live,첫fixed0/2 mixed1/3 업데이트188~191관측. actualfork감사4통과 artifacts/p2-30-first-fork-audit.jsonl/log(session68119exit0). 모든관측update 목표별step합24576/resetdraw합종료수일치. 혼합step비율은reset균등과달라별도보고필요.
+
+scripts/p2_30_evaluate.py 작성(아직실행안함):seed별parent split0/15×32새평가→fixed continuous혼합회귀→fixedsplit15→mixedcontinuous혼합회귀→mixedsplit15,총20jobs. native8평가는train자동경로. 실행전각8training/native+parent감사,기존출력거절. configs/reports/p2-30-primary/regression/retention.json각12행(부모4+새8),부모regression/retention기존P229재사용,newstep합8run만. 20command모두spec에연결검사.
+
+평가distance_override split지원추가:expected_goal_surface로각목표2cm여유단일표면가용성검사,0/.15허용/.05/.1거절。기존학습config불변. unit75통과(session24173),artifacts/p2-30-evaluation-unit-tests.log. 실제split override실행은본batch완료후parent평가가첫검증이므로시나리오동일성/거리별분모반드시확인.
+
+다음동일본batch진행확인/둘째초기화감사/전체완료후p2_30_evaluate.py. 본학습완료전중복실행금지. 전체목표미완료.

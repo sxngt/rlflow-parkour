@@ -16,3 +16,13 @@ class EvaluationDistanceTest(unittest.TestCase):
         for distances in ([.2],[float('nan')],[.1,.1],[-.1],[]):
             with self.assertRaises(ValueError):distance_override(config,support,distances,64)
         with self.assertRaises(ValueError):distance_override(config,config['terrain_contract'],[0,.05],64)
+
+    def test_split_zero_and_fifteen_override_without_gap_goals(self):
+        config=json.loads((ROOT/'configs/p2-29-split.json').read_text())
+        original=copy.deepcopy(config)
+        manifest,change=distance_override(config,config['terrain_contract'],[0.,.15],64)
+        self.assertEqual(config,original)
+        self.assertEqual(change['to'],[0.,.15])
+        self.assertEqual(sum(s['goal_forward_m']==0 for s in manifest['episodes']),32)
+        for values in ([.05],[.1],[0.,.05,.15]):
+            with self.assertRaises(ValueError):distance_override(config,config['terrain_contract'],values,64)

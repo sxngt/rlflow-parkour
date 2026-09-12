@@ -1,0 +1,131 @@
+{
+  "title": "P2-30 primary",
+  "report": "p2-30-primary",
+  "protocol": "p2-30-protocol.md",
+  "description": "Same split parent, fixed15 versus uniform discrete0/15; seed-paired comparison; parent training reused.",
+  "success_label": "목표 도약 성공",
+  "evaluation_distances_m": [
+    0.0,
+    0.15
+  ],
+  "show_forward_trace": true,
+  "trace_episode_index": 3,
+  "runs": [
+    {
+      "run": "p2-29-split-seed0",
+      "evaluation_run": "p2-30-parent-seed0-split-mixed",
+      "foot": "GROUP",
+      "condition": "parent",
+      "seed": 0,
+      "updates": 800,
+      "reused": true
+    },
+    {
+      "run": "p2-30-fixed-seed0",
+      "evaluation_run": "p2-30-fixed-seed0__final-evaluation",
+      "foot": "GROUP",
+      "condition": "fixed",
+      "seed": 0,
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-29-split-seed0"
+    },
+    {
+      "run": "p2-30-mixed-seed0",
+      "evaluation_run": "p2-30-mixed-seed0__final-evaluation",
+      "foot": "GROUP",
+      "condition": "mixed",
+      "seed": 0,
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-29-split-seed0"
+    },
+    {
+      "run": "p2-29-split-seed1",
+      "evaluation_run": "p2-30-parent-seed1-split-mixed",
+      "foot": "GROUP",
+      "condition": "parent",
+      "seed": 1,
+      "updates": 800,
+      "reused": true
+    },
+    {
+      "run": "p2-30-fixed-seed1",
+      "evaluation_run": "p2-30-fixed-seed1__final-evaluation",
+      "foot": "GROUP",
+      "condition": "fixed",
+      "seed": 1,
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-29-split-seed1"
+    },
+    {
+      "run": "p2-30-mixed-seed1",
+      "evaluation_run": "p2-30-mixed-seed1__final-evaluation",
+      "foot": "GROUP",
+      "condition": "mixed",
+      "seed": 1,
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-29-split-seed1"
+    },
+    {
+      "run": "p2-29-split-seed2",
+      "evaluation_run": "p2-30-parent-seed2-split-mixed",
+      "foot": "GROUP",
+      "condition": "parent",
+      "seed": 2,
+      "updates": 800,
+      "reused": true
+    },
+    {
+      "run": "p2-30-fixed-seed2",
+      "evaluation_run": "p2-30-fixed-seed2__final-evaluation",
+      "foot": "GROUP",
+      "condition": "fixed",
+      "seed": 2,
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-29-split-seed2"
+    },
+    {
+      "run": "p2-30-mixed-seed2",
+      "evaluation_run": "p2-30-mixed-seed2__final-evaluation",
+      "foot": "GROUP",
+      "condition": "mixed",
+      "seed": 2,
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-29-split-seed2"
+    },
+    {
+      "run": "p2-29-split-seed3",
+      "evaluation_run": "p2-30-parent-seed3-split-mixed",
+      "foot": "GROUP",
+      "condition": "parent",
+      "seed": 3,
+      "updates": 800,
+      "reused": true
+    },
+    {
+      "run": "p2-30-fixed-seed3",
+      "evaluation_run": "p2-30-fixed-seed3__final-evaluation",
+      "foot": "GROUP",
+      "condition": "fixed",
+      "seed": 3,
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-29-split-seed3"
+    },
+    {
+      "run": "p2-30-mixed-seed3",
+      "evaluation_run": "p2-30-mixed-seed3__final-evaluation",
+      "foot": "GROUP",
+      "condition": "mixed",
+      "seed": 3,
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-29-split-seed3"
+    }
+  ]
+}

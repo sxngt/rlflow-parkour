@@ -27,7 +27,7 @@ def main():
     p.add_argument('--action-seed', type=int, default=20000)
     p.add_argument("--research-tag", action="append", default=[])
     p.add_argument('--launch-radius', type=float, help='Evaluation-only tighter directed-jump launch radius in metres')
-    p.add_argument('--evaluation-forward-m', nargs='+', type=float, help='Explicit evaluation-only distances on continuous support')
+    p.add_argument('--evaluation-forward-m', nargs='+', type=float, help='Explicit evaluation-only distances on continuous/split support')
     p.add_argument('--support-mode', choices=['flat', 'continuous', 'split', 'deck'])
     p.add_argument('--support-matched-material', action='store_true')
     p.add_argument('--support-preserve-goals', action='store_true', help='Keep configured evaluation distances during a terrain override')
@@ -96,8 +96,8 @@ def main():
         manifest['evaluation_support'] = support
     distance_change = None
     if args.evaluation_forward_m is not None:
-        if not args.checkpoint or args.support_mode != 'continuous' or args.support_probe_offset is not None:
-            p.error('Distance override requires a checkpoint and explicit continuous support')
+        if not args.checkpoint or args.support_mode not in ('continuous','split') or args.support_probe_offset is not None:
+            p.error('Distance override requires a checkpoint and explicit continuous/split support')
         from parkour.evaluation_distance import distance_override
         manifest, distance_change = distance_override(config, support, args.evaluation_forward_m, args.episodes)
         support = copy.deepcopy(support)

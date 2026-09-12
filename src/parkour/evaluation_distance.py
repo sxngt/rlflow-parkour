@@ -5,15 +5,14 @@ from parkour.scenarios import directed_jump_scenarios
 
 
 def distance_override(config, support, distances, episodes):
-    if config['task']!='a1_directed_jump_v5' or not support or support['mode']!='continuous':
-        raise ValueError('Distance override currently requires explicit continuous support')
+    if config['task']!='a1_directed_jump_v5' or not support or support['mode'] not in ('continuous','split'):
+        raise ValueError('Distance override currently requires explicit continuous or split support')
     if not distances or len(set(distances))!=len(distances) or not all(math.isfinite(d) and d>=0 for d in distances):
         raise ValueError('Distances must be distinct finite nonnegative values')
-    for name,(x,y) in zip(support['foot_names'],support['calibration']['foot_xy_m']):
-        pad=next(s for s in support['layout']['surfaces'] if s['foot']==name)
-        x0,x1,y0,y1=pad['bounds_xy_m']
-        if not (y0+.02<=y<=y1-.02 and all(x0+.02<=x+d<=x1-.02 for d in distances)):
-            raise ValueError('Evaluation target foot projection leaves support')
+    from parkour.support_geometry import expected_goal_surface
+    for i,xy in enumerate(support['calibration']['foot_xy_m']):
+        for distance in distances:
+            expected_goal_surface(support,i,xy,distance)
     jump=copy.deepcopy(config['jump']);jump['evaluation_forward_m']=list(distances)
     manifest=directed_jump_scenarios(episodes,jump)
     override={'from':config['jump']['evaluation_forward_m'],'to':list(distances),
