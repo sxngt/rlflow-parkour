@@ -11,10 +11,10 @@ import io
 import json
 import os
 from pathlib import Path
-import signal
 import subprocess
 import sys
 import time
+from process_group import stop_process_group
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -90,15 +90,10 @@ def main():
     except KeyboardInterrupt:
         interrupted = True
     finally:
-        if proc.poll() is None:
-            os.killpg(proc.pid, signal.SIGTERM)
-            try:
-                proc.wait(timeout=10)
-            except subprocess.TimeoutExpired:
-                os.killpg(proc.pid, signal.SIGKILL)
-                proc.wait()
+        cleanup = stop_process_group(proc)
         time.sleep(1)
         remaining = [row for row in compute_processes() if row["pid"] in observed_pids]
+        resource_released = not remaining and not cleanup['remaining_processes']
         # Reconcile a worker killed before it could write a terminal state.
         run_file = out / "run.json"
         run = json.loads(run_file.read_text()) if run_file.exists() else {}
@@ -112,7 +107,8 @@ def main():
         result = {"gpu_uuid": gpu, "graphics_host_index": gpus[gpu], "command": command,
                   "exit_code": proc.returncode, "timed_out": timed_out, "interrupted": interrupted,
                   "wall_seconds": time.time() - started, "worker_pids": sorted(observed_pids),
-                  "remaining_gpu_processes": remaining, "resource_released": not remaining,
+                  "remaining_gpu_processes": remaining, "resource_released": resource_released,
+                  "process_cleanup": cleanup,
                   "worker_status": run.get("status", "LOST")}
         out.with_suffix(".supervisor.json").write_text(json.dumps(result, indent=2) + "\n")
         log.close()
@@ -120,12 +116,12 @@ def main():
         fcntl.flock(lease, fcntl.LOCK_UN)
         lease.close()
     print(json.dumps(result), flush=True)
-    if proc.returncode == 0 and run.get('kind') == 'evaluate' and run.get('status') == 'SUCCEEDED' and not remaining and (out/'evaluation.mp4').exists():
+    if proc.returncode == 0 and run.get('kind') == 'evaluate' and run.get('status') == 'SUCCEEDED' and resource_released and (out/'evaluation.mp4').exists():
         archive = subprocess.run([sys.executable, str(ROOT/'scripts/collect_results.py'), str(out)], cwd=ROOT)
         if archive.returncode:
             print('Evaluation completed, but result/ collection failed; rerun collect_results.py.', file=sys.stderr)
             return 1
-    if proc.returncode == 0 and run.get('kind') == 'train' and run.get('status') == 'SUCCEEDED' and not remaining and not args.skip_final_evaluation:
+    if proc.returncode == 0 and run.get('kind') == 'train' and run.get('status') == 'SUCCEEDED' and resource_released and not args.skip_final_evaluation:
         evaluation_out = out.with_name(out.name + '__final-evaluation')
         command = [sys.executable, str(ROOT/'scripts/run_job.py'), '--gpu', gpu, '--timeout', '180',
                    '--python', args.python, 'evaluate', '--config', str(out/'config.json'),
@@ -143,7 +139,7 @@ def main():
         if evaluation.returncode:
             print('Training succeeded; final evaluation/archive needs attention.', file=sys.stderr)
             return 1
-    return 0 if proc.returncode == 0 and run.get("status") == "SUCCEEDED" and not remaining and not timed_out and not interrupted else 1
+    return 0 if proc.returncode == 0 and run.get("status") == "SUCCEEDED" and resource_released and not timed_out and not interrupted else 1
 
 
 if __name__ == "__main__":

@@ -550,3 +550,12 @@ source3e66b5a scripts/p2_27_retry_seed2.py는기록step0/체크포인트없음/�
 full configs/reports/p2-27.json seed2 run을retry1로명시갱신(infrastructure_attempt원본연결). scripts/p2_27_cross_evaluate.py와stage_report도seed2 retry1경로대조. 완료된0/1/3그대로. 다음seed2새PID401/801/1201/1600,기본평가후cross --seeds2만실행(기존3seed중복금지),전체4보고서및16+원본실패회수감사. original batch39983는실패종료예상(확인필요),새batch40871가현재유효학습. 추가재시도없음.
 
 운영결함:run_job timeout시wrapper종료만확인해worker가남음. 향후소유프로세스회수경로를독립테스트로수정할것. 현재retry는정상학습중이므로재시작하지않음. 전체목표미완료.
+
+
+### 최신: worker 잔존 종료 처리 수정·회귀검증
+
+직전seed2복구턴progress. 이번턴seed2 retry PID1556210 실제live/237update확인. scripts/process_group.py 및run_job수정:wrapper종료와무관하게해당PGID+session의전체살아있는그룹SIGTERM→10초→SIGKILL→5초검증. resource_released는GPU및CPU그룹잔존모두반영,자동평가와정상반환게이트도반영. 이미실행중인retry supervisor는교체안함.
+
+실제프로세스단위3회귀검증+전체61unit통과. synthetic worker 실제run_job timeout session57819는의도대로exit1/FAILED이며,supervisor SIGTERM/SIGKILL/그룹잔존0/resource_released=true 확인. artifacts/cleanup-timeout-regression.* 및 docs/worker-cleanup-regression.md. GPUcompute없는합성검증이므로Isaac GPU해제시험으로과장금지. 다른세션프로세스보존확인.
+
+다음seed2 retry401/801/1201/1600관측,기본평가/cross --seeds2(다른3seed이미완료),full16행4보고서/전체감사. originalbatch39983터미널상태필요시확인. 새batch40871 계속유지,추가재시도없음. 전체목표미완료.
