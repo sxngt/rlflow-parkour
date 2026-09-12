@@ -1061,3 +1061,11 @@ src/parkour/support_assignment.py 순수strict계약추가:optional config suppo
 scripts/evaluate.py --independent-support-clones 추가(commit e9541f4),explicitall-deck+configsupportassignmentdeck만허용하는learningmake_env경로. 평가시supportplan/전체USD검사/hash및scene_construction메타저장. 같은A초기cp0로64deck15scenarios를replicateFalse独立생성과기존replicated생성비교: sessions64892/72134둘다exit0,64/64와모든episode필드정확일치 docs/p2-38-construction-comparison.json. chain/200Hz감사 artifacts/p2-38-construction-evaluation-audit.json passed. 한seed한고정목표평가의일치이며모든물리상황bitwise동일주장아님. 두result영상존재;추가보관hash검증다음.
 
 현재1024env×60update파일럿2개실행중: Bsession38849,경로artifacts/p2-38-continuous-profile-seed2/GPU0; Asession44464 artifacts/p2-38-deck-profile-seed2/GPU1. launchlog각경로-launch.log,run_jobtimeout600초는이종초기화프로파일링포함한상한. 원P231seed2cp800새fork,본학습아님. 다음실제PID/session확인→초기화비용/메모리/전체1024geometry검사/60완료회계→파일럿최종평가→본학습게이트결정。전체목표미완료.
+
+### 최신: P2-38 1024프로파일링 완료 / 파일럿평가4개 시작
+
+이전64smoke/재개/초기비교는progress. 실제profilePID1893907/1893993생존확인,같은sessions38849/44464각exit0. 两조건60update/1474560step완료、全1024USD검사+회계 artifacts/p2-38-profile-audit.jsonl passed. Achain[717604,19676]/single737280, Bchain[717290,19990]/single737280. sampled전체코스A1/B0이며최종평가성과아님.
+
+docs/p2-38-profile-summary.json: workerA75.2035s/B98.0668s,update총42.54/42.07s,update구간34663/35047step/s,전체worker19608/15036step/s;nonupdate32.66/55.99s는초기화만이아닌검사/저장/종료등포함. nvidia-smi샘플peakworker2965/2971MiB. 메인프로세스liveRSS/HWM스냅샷 artifacts/p2-38-profile-host-memory.json(A약4.4GB/B4.8GB,전체host합계아님).
+
+scripts/p2_38_pilot_evaluate.py(commit a730885) 두조건×chain/regression4작업,GPU0~3,명시적override64/진단/64rendercamera4/상세result태그. completedprofile게이트/중복방지후session87245시작 log artifacts/p2-38-pilot-evaluation-batch.log. 다음동일session/PID확인→4평가완료/시나리오/模型영상hash검증→모든P238착수게이트総括→새8본학습launcher구현/실행(아직本학습없음). 初期생성비교2영상保管hash검증도남음。전체목표미완료.
