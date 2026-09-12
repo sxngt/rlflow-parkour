@@ -16,6 +16,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--config", type=Path, default=Path("configs/t0-ppo.json"))
     p.add_argument("--checkpoint", type=Path)
+    p.add_argument('--terminal-policy',type=Path,help='Explicit final-stance RL checkpoint; composite evaluation only')
     p.add_argument('--thesis-policy',type=Path)
     p.add_argument('--thesis-source',type=Path,default=Path('../master-thesis'))
     p.add_argument('--thesis-speed',type=float,default=.5)
@@ -72,6 +73,8 @@ def main():
     if args.video_envs < 1 or (args.video_camera_side is not None and args.video_camera_side < 1):
         p.error("Video robot count and camera side must be positive")
     config = json.loads(args.config.read_text())
+    if args.terminal_policy and (not args.checkpoint or config['task']!='a1_continuous_tracker_v1' or args.baseline!='policy' or args.action_mode!='mean' or args.thesis_policy):
+        p.error('Terminal policy requires mean continuous policy evaluation')
     if args.thesis_policy and config['task']!='a1_continuous_tracker_v1':
         p.error('Thesis teacher probe requires the new continuous course contract')
     if config.get('chain_training') is not None and args.chain_hops is None:
@@ -372,6 +375,11 @@ def main():
             env._apply_planned_target_height(env.robot._ALL_INDICES)
         raw = env._get_observations()["policy"]
         done = torch.zeros(env.num_envs, dtype=torch.bool, device=env.device)
+        terminal_policy=None
+        if args.terminal_policy:
+            from parkour.terminal_policy import TerminalPolicy
+            terminal_policy=TerminalPolicy(args.terminal_policy,config,env)
+            meta['terminal_policy']=terminal_policy.metadata
         if args.chain_hops is not None:
             env.evaluation_done = done
         reward_audit = None
@@ -412,6 +420,8 @@ def main():
                     normalized = norm(policy_obs)
                     action = (sample_action(alg.policy, normalized, action_rng) if args.action_mode == 'sampled'
                               else alg.policy.act_inference(normalized))
+                if terminal_policy is not None:
+                    action=terminal_policy.apply(raw,action,step,done)
                 if recorder and not bool(done[recorder.ids].all()):
                     recorder.capture(step,finished=done)
                 raw_dict, reward, term, trunc, extras = env.step(action)
@@ -423,6 +433,9 @@ def main():
                     metrics = extras["terminal_metrics"]
                     records[index] = {"scenario_id": manifest["episodes"][index]["id"],
                         **{key: val[index].item() for key, val in metrics.items()}}
+                    if terminal_policy is not None:
+                        records[index]['terminal_policy_used']=bool(terminal_policy.latched[index])
+                        records[index]['terminal_policy_handoff_time_s']=float(terminal_policy.steps[index])*env.step_dt if terminal_policy.latched[index] else None
                     if 'active_foot' in manifest['episodes'][index]:
                         records[index]['active_foot']=manifest['episodes'][index]['active_foot']
                 done |= newly_done
@@ -466,6 +479,7 @@ def main():
                 required_final_index=len(support['layout']['surfaces'])-1,
                 evaluation_scope='Frozen thesis velocity policy; does not consume scripted foothold targets' if teacher is not None else 'Scripted contact buffer; not autonomous map planning')
             report['pair_contact_quorum']=env.cfg.pair_contact_quorum
+            if terminal_policy is not None:report['terminal_policy']=terminal_policy.metadata
             report['planned_gap_count']=support['layout'].get('planned_gap_count')
             report['planned_gap_widths_m']=[g['projected_top_gap_m'] for g in support['layout'].get('gap_locations',[])]
             report['initial_rear_target']=env.cfg.initial_rear_target

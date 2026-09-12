@@ -9,6 +9,7 @@ type CourseReport = {
   mean_active_motion_seconds?: number;
   mean_travel_motion_seconds?: number;
   planned_gap_count?: number | null; planned_gap_widths_m?: number[];
+  terminal_policy?: {contract: string};
   completed_hops_histogram?: Record<string, number>;
   chain_contract?: {hops: number; absolute_forward_targets_m?: number[]; step_lengths_m?: number[];
     progress_criterion?: string; spacing_contract?: string; root_boundary?: {version: string}};
@@ -16,6 +17,7 @@ type CourseReport = {
 export function CourseEvaluation({report}: {report: CourseReport}) {
   if (report.required_final_index != null) return <section className="panel">
     <h2>공유 발판 긴 코스 평가</h2>
+    {report.terminal_policy && <p>실행 구성: 주행 RL + 종점 안정화 RL 정책 연결 · 단일 정책 평가와 별도</p>}
     <p><strong>{report.successes}/{report.episodes}회 완주</strong> · 목표 {report.required_final_index}구간</p>
     {report.planned_gap_count!=null && <p>설계된 갭 {report.planned_gap_count}곳 · 실제 비행 횟수는 아래 계측값으로 확인합니다.</p>}
     <p>평균 완료 구간 {report.mean_completed_surface_transfers?.toFixed(2)} · 실제 점프 {report.mean_measured_jump_count?.toFixed(2)}회 · 실제 episode {report.mean_episode_seconds?.toFixed(2)}초</p>

@@ -75,6 +75,7 @@ def collect(evaluation, result_root=ROOT / 'result'):
         task_title += '_관측이력8프레임' if history['mode']=='stack' else '_동일입력크기·이력이없는대조군'
     if run.get('transition_restore'):
         task_title = '저장착지복원_후속도약만_전체코스평가아님_' + task_title
+    if run.get('terminal_policy'):task_title += '_종점RL정책연결'
     model = run.get('checkpoint')
     if run.get('chain_contract'):
         task_title += f"_리셋없는{run['chain_contract']['hops']}회도약_안정화후재도약"
@@ -142,7 +143,7 @@ def collect(evaluation, result_root=ROOT / 'result'):
         suffix = '__' + hashlib.sha256(video_name.encode('utf-8')).hexdigest()[:12] + '.mp4'
         prefix = video_name[:-4].encode('utf-8')[:240-len(suffix.encode())].decode('utf-8', errors='ignore')
         video_name = prefix + suffix
-    record = {'teacher_policy':run.get('teacher_policy'),'research_tags':run.get('research_tags',run['config'].get('research_tags',[])), 'title':title, 'evaluation_run':evaluation.name, 'training_run':Path(model['path']).parent.name if model else None,
+    record = {'terminal_policy':run.get('terminal_policy'),'teacher_policy':run.get('teacher_policy'),'research_tags':run.get('research_tags',run['config'].get('research_tags',[])), 'title':title, 'evaluation_run':evaluation.name, 'training_run':Path(model['path']).parent.name if model else None,
               'source_evaluation':os.path.relpath(evaluation, result_root), 'source_video_sha256':expected,
               'checkpoint':model, 'action_evaluation':action_evaluation, 'task':run['config']['task'], 'seed':seed, 'updates':updates,
               'video':video_name, 'video_episode':episode, 'aggregate':{k:v for k,v in report.items() if k!='results'},
