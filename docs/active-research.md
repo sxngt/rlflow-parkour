@@ -491,3 +491,12 @@ sourcebd8bd54 scripts/p2_27_train.py batch39983(출력 artifacts/p2-27-main-batc
 scripts/p2_15_support_report.py continuous명시지원:발별기대pad의XY경계+2cm여유검사,flat/deck경로유지. 실제continuous smoke원본대조실행,기존P224모든row수치정확일치(정의문구만일반화). scripts/experiment_report.py/jump_trace_report.py/post_landing_report.py는공통spec사용. 보고서smoke증거artifacts/p2-27-smoke-check-support-diagnosis.*.
 
 최신실제프로세스 [{"seed": 0, "pid": 1522303, "live": true, "iteration": 179, "log_mtime": 1789172845.0453389}, {"seed": 1, "pid": 1522214, "live": true, "iteration": 183, "log_mtime": 1789172845.1253374}, {"seed": 2, "pid": 1522215, "live": true, "iteration": null, "log_mtime": 1789172688.9121442}, {"seed": 3, "pid": 1522200, "live": true, "iteration": 183, "log_mtime": 1789172845.3813326}]. seed2 PID1522215는시뮬레이터Starting simulation단계로metrics미생성,약2분20초CPU사용중(14core규모)/GPU약2GB. 아직실제프로세스살아있으므로초기화지연으로기록하고임의중복재시작하지않음. 다른3seed진행중. 다음동일PID/CPU시간/log/metric증가확인,401전환및cp검증. batch39983유지,전체목표미완료.
+
+
+### 최신: P2-27 세 seed의401전환 및 seed2초기화정체조사
+
+직전턴교차평가준비는progress. 이번턴동일PID확인/verified wait후seed0/1/3의401목표0–10cm/reset_all=true/반경6cm/cap.35,모든loss유한및checkpoint100/200/300/400해시확인. 최신 [{"seed": 0, "pid": 1522303, "iteration": 437, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"seed": 1, "pid": 1522214, "iteration": 447, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"seed": 3, "pid": 1522200, "iteration": 443, "transition401_verified": true, "checkpoint400_hash_ok": true}].
+
+seed2 PID1522215는metrics/checkpoint미생성이고Starting simulation단계로로그정체. 실제CPU작동하며 /proc thread 두표본91초간carb.tasking CPU ticks지속증가를확인: artifacts/p2-27-seed2-threads.json 및 thread-deltas.json. gdb스택조회는ptrace_scope1로거절;sudo -n도password required. 보안설정변경/비밀번호요청/정상worker중단안함. deadlock원인확정금지. 기존run_job1800초timeout계약유지하며실제종료전중복재시작금지. 해당초기화손실은인프라시간으로계상할것.
+
+다음seed2동일PID및지표진입여부/감독자실제상태확인,정상3seed801/1201전환. seed2가실제timeout종료한다면원본FAILED/로그를보존하고GPU해제를검증한뒤학습step0부터같은seed/설정새attempt의제한적재시도검토(성능실패seed교체와구분). 아직재시도없음. batch39983유지,전체목표미완료.
