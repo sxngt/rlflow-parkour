@@ -72,6 +72,8 @@ def read_checkpoint(path):
 
 
 def restore(data, config, alg, normalizer, env, training):
+    if data['config'].get('bound_reward_scope','all') != config.get('bound_reward_scope','all'):
+        raise ValueError('Checkpoint bound reward scope differs; not a resume')
     if data['config'].get('contact_target_mode','point') != config.get('contact_target_mode','point'):
         raise ValueError('Checkpoint contact target mode differs; not a resume')
     from parkour.support_assignment import assert_same_support_assignment
@@ -148,6 +150,8 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
     elif config['task']=='a1_continuous_tracker_v1':
         from parkour.continuous_tracker_task import ContinuousTrackerCfg,ContinuousTrackerEnv
         cfg,env_type=ContinuousTrackerCfg(),ContinuousTrackerEnv
+        cfg.bound_reward_scope=config.get('bound_reward_scope','all')
+        if cfg.bound_reward_scope not in ('all','travel_only'):raise ValueError('Invalid bound reward scope')
         cfg.contact_target_mode=config.get('contact_target_mode','point')
         if cfg.contact_target_mode not in ('point','surface_region'):raise ValueError('Invalid contact target mode')
         if cfg.contact_target_mode=='surface_region' and config.get('contact_curriculum') is not None:

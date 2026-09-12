@@ -133,6 +133,7 @@ def main():
                 transition = True
             successes, failures, episodes, errors = 0, 0, 0, []
             completed_contacts = []
+            terminal_transfers,terminal_jumps,terminal_seconds=[],[],[]
             jump_flights,jump_landings,jump_apex_met=0,0,0
             jump_apices=[]
             if hasattr(env, 'chain'):
@@ -190,6 +191,10 @@ def main():
                         failures += int(metrics["failure"][dones].sum())
                         episodes += int(dones.sum())
                         errors.extend(metrics["final_error_m"][dones].tolist())
+                        if 'completed_surface_transfers' in metrics:
+                            terminal_transfers.extend(metrics['completed_surface_transfers'][dones].tolist())
+                            terminal_jumps.extend(metrics['measured_jump_count'][dones].tolist())
+                            terminal_seconds.extend((metrics['length'][dones]*env.step_dt).tolist())
                         if 'valid_flight' in metrics:
                             jump_flights+=int(metrics['valid_flight'][dones].sum())
                             jump_landings+=int(metrics['landed'][dones].sum())
@@ -238,6 +243,12 @@ def main():
                 row.update(exploration_std_cap=exploration_cap, exploration_std_min=float(effective.min()),
                            exploration_std_max=float(effective.max()),exploration_std_mean=float(effective.mean()))
             if hasattr(env,'progress'):
+                from collections import Counter
+                row['terminal_surface_transfer_histogram']=dict(Counter(map(str,terminal_transfers)))
+                row['terminal_mean_surface_transfers']=sum(terminal_transfers)/len(terminal_transfers) if terminal_transfers else None
+                row['terminal_mean_measured_jumps']=sum(terminal_jumps)/len(terminal_jumps) if terminal_jumps else None
+                row['terminal_mean_episode_seconds']=sum(terminal_seconds)/len(terminal_seconds) if terminal_seconds else None
+                row['contact_target_mode']=env.cfg.contact_target_mode
                 row['live_mean_front_accepted_index']=float(env.progress.accepted[:,0].float().mean())
                 row['live_mean_rear_accepted_index']=float(env.progress.accepted[:,1].float().mean())
                 row['required_final_index']=env.progress.target_count-1

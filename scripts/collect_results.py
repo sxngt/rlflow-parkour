@@ -52,6 +52,7 @@ def collect(evaluation, result_root=ROOT / 'result'):
         if support['mode']=='shared-course':
             layout=support['layout'];level={'easy':'쉬움','medium':'중간','hard':'어려움'}.get(layout.get('level'),'개발')
             task_title=f"{level}_{len(layout['surfaces'])-1}구간_경사·회전_스크립트목표_자율계획아님"
+            task_title += '_안전접촉영역' if report.get('contact_target_mode')=='surface_region' else '_점반경6cm'
         if support.get('matched_material'):
             task_title += '_기본재질·구간별마찰설정' if support.get('surface_material_overrides') else '_동일물리재질'
     if run.get('chain_contract',{}).get('progress_criterion')=='mapped_contact_v1':
@@ -189,6 +190,10 @@ def collect(evaluation, result_root=ROOT / 'result'):
                 text += f'- 전체 개발군: **{report["successes"]}/{report["episodes"]} 성공**, 평균 최종 발 오차 **{report["mean_final_error_m"]*100:.2f} cm**\n'
                 if 'mean_completed_contacts' in report:
                     text += f'- 평균 순차 접촉 완료: **{report["mean_completed_contacts"]:.2f}/{report.get("required_contacts",4)}회**\n'
+                if 'required_final_index' in report:
+                    text += f'- 긴 코스: 평균 **{report["mean_completed_surface_transfers"]:.2f}/{report["required_final_index"]}구간**, 실제 비행 점프 **{report["mean_measured_jump_count"]:.2f}회**, episode **{report["mean_episode_seconds"]:.2f}초**\n'
+                    text += '- 접촉 판정: '+('노출된 선택 발판의 안전 영역. 6cm 점 정밀도 결과와 별도.' if report.get('contact_target_mode')=='surface_region' else '지정 점의 6cm 반경 및 선택 발판 접촉.')+'\n'
+                    text += '- 영상의 동적 긴 코스 데모 조건: '+('충족' if report.get('followed_video_demo_eligible') else '미충족')+'\n'
                 if parallel:
                     text += f'- 이 영상: **{len(visible_episodes)}개 로봇 병렬**, 보이는 로봇의 첫 episode 성공 **{sum(e["success"] for e in visible_episodes)}/{len(visible_episodes)}**.\n'
                     text += '- 4×4 구역을 카메라로 관찰합니다. 종료 후 자동 reset된 로봇의 후속 episode는 화면에 보일 수 있지만 평가 지표에서 제외합니다.\n'

@@ -1,5 +1,6 @@
 """Explicit policy initialization for a new terrain experiment, never a resume."""
 import copy
+import math
 import torch
 from parkour.exploration import cap_for_update
 from parkour.terrain_contract import training_support
@@ -47,6 +48,11 @@ def validate_continuous_fork(parent, target):
         raise ValueError('Continuous fork cannot change task')
     a,b=copy.deepcopy(parent),copy.deepcopy(target)
     for config in (a,b):
+        learning_rate=config['runner']['algorithm'].pop('learning_rate')
+        if not isinstance(learning_rate,(int,float)) or not math.isfinite(learning_rate) or not 0<learning_rate<=.01:
+            raise ValueError('Invalid explicit fork learning rate')
+        if config.pop('bound_reward_scope','all') not in ('all','travel_only'):
+            raise ValueError('Invalid bound reward scope')
         mode=config.pop('contact_target_mode','point')
         if mode not in ('point','surface_region'):
             raise ValueError('Invalid contact target mode')
@@ -98,6 +104,9 @@ def initialize_fork(data, config, alg, normalizer):
     return {'contract':'policy_critic_normalizer_copy; fresh_optimizer_rng_curriculum; new_episode_boundary',
             'parent_contact_target_mode':data['config'].get('contact_target_mode','point'),
             'contact_target_mode':config.get('contact_target_mode','point'),
+            'parent_bound_reward_scope':data['config'].get('bound_reward_scope','all'),
+            'bound_reward_scope':config.get('bound_reward_scope','all'),
+            'initial_learning_rate':alg.learning_rate,
             'parent_completed_iterations':data['completed_iterations'],
             'parent_environment_steps':data['total_environment_steps'],
             'initial_completed_iterations':0,'initial_environment_steps':0,

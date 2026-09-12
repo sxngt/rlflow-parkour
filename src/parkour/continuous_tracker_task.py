@@ -11,6 +11,7 @@ from parkour.shared_terrain import scripted_pair_targets
 @configclass
 class ContinuousTrackerCfg(FootholdCfg):
     contact_target_mode='point'
+    bound_reward_scope='all'
     pair_contact_quorum='both'
     initial_rear_target='own_stance'
     bound_reward_per_second=0.
@@ -139,7 +140,8 @@ class ContinuousTrackerEnv(FootholdEnv):
         dense=2.*(torch.exp(-self.current_error/.25).mean(dim=1)-1.)-.1
         if self.cfg.bound_reward_per_second:
             from parkour.bounding_style import bounding_mask
-            dense+=self.cfg.bound_reward_per_second*bounding_mask(self.contact_on)
+            terminal=(self.progress.target==self.progress.target_count-1).all(dim=1) if self.cfg.bound_reward_scope=='travel_only' else None
+            dense+=self.cfg.bound_reward_per_second*bounding_mask(self.contact_on,terminal)
         dense-=.0001*self.robot.data.applied_torque.square().sum(dim=1)
         dense-=.01*(self.actions-self.previous_actions).square().sum(dim=1)
         reward=dense*self.step_dt+2.*self.accept_events.sum(dim=1)+5.*self.success-5.*self.failure

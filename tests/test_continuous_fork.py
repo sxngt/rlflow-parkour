@@ -19,7 +19,10 @@ class ContinuousForkTest(unittest.TestCase):
         self.target['exploration']['stages']=[{'start_update':0,'max_std':.25}]
 
     def test_generated_difficulty_and_schedules_allowed(self):
+        self.target['runner']['algorithm']['learning_rate']=.00005
         validate_fork_configs(self.parent,self.target)
+        self.target['runner']['algorithm']['learning_rate']=0
+        with self.assertRaises(ValueError):validate_fork_configs(self.parent,self.target)
 
     def test_region_is_explicit_new_success_contract(self):
         self.target['contact_target_mode']='surface_region'
@@ -27,6 +30,12 @@ class ContinuousForkTest(unittest.TestCase):
         self.target.pop('contact_curriculum')
         validate_fork_configs(self.parent,self.target)
         self.target['contact_target_mode']='anything'
+        with self.assertRaises(ValueError):validate_fork_configs(self.parent,self.target)
+
+    def test_only_declared_terminal_reward_scope_can_change(self):
+        self.target['bound_reward_scope']='travel_only'
+        validate_fork_configs(self.parent,self.target)
+        self.target['bound_reward_scope']='anything'
         with self.assertRaises(ValueError):validate_fork_configs(self.parent,self.target)
 
     def test_incompatible_contracts_and_unversioned_geometry_rejected(self):
