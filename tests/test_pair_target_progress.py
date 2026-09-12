@@ -30,3 +30,10 @@ class PairProgressTest(unittest.TestCase):
         p.update(yes);p.update(yes);p.update(torch.zeros_like(yes));p.update(yes)
         self.assertEqual(p.target.tolist(),[[1,0]])
         with self.assertRaises(ValueError):p.update(torch.ones(1,4))
+    def test_either_quorum_requires_one_contiguous_valid_contact(self):
+        p=PairTargetProgress(1,4,'cpu',quorum='either',initial_rear_pending=True)
+        contact=torch.tensor([[True,False,False,False]])
+        for _ in range(3):r=p.update(contact)
+        self.assertEqual(p.accepted.tolist(),[[1,-1]])
+        self.assertEqual(p.target.tolist(),[[2,0]])
+        self.assertTrue(r['accepted_now'][0,0]);self.assertFalse(r['sequence_completed'][0])

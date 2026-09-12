@@ -76,6 +76,8 @@ def restore(data, config, alg, normalizer, env, training):
     assert_same_support_assignment(data['config'], config)
     from parkour.chain_training import assert_same_chain_training
     assert_same_chain_training(data['config'], config)
+    if data['config'].get('pair_contact_quorum','both') != config.get('pair_contact_quorum','both'):
+        raise ValueError('Checkpoint contact quorum differs')
     if data['config'].get('initial_rear_target','own_stance') != config.get('initial_rear_target','own_stance'):
         raise ValueError('Checkpoint initial rear target contract differs')
     if data['config'].get('action_limit',1.) != config.get('action_limit',1.):
@@ -145,6 +147,8 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
         from parkour.continuous_tracker_task import ContinuousTrackerCfg,ContinuousTrackerEnv
         cfg,env_type=ContinuousTrackerCfg(),ContinuousTrackerEnv
         cfg.scene.env_spacing=14.
+        cfg.pair_contact_quorum=config.get('pair_contact_quorum','both')
+        if cfg.pair_contact_quorum not in ('both','either'):raise ValueError('Invalid pair quorum')
         cfg.initial_rear_target=config.get('initial_rear_target','own_stance')
         if cfg.initial_rear_target not in ('own_stance','front_stance'):raise ValueError('Invalid initial rear target')
         cfg.bound_reward_per_second=float(config.get('bound_reward_per_second',0.))

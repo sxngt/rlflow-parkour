@@ -461,6 +461,8 @@ def main():
                 mean_rear_accepted_index=sum(r['rear_accepted_index'] for r in records)/count,
                 required_final_index=len(support['layout']['surfaces'])-1,
                 evaluation_scope='Frozen thesis velocity policy; does not consume scripted foothold targets' if teacher is not None else 'Scripted contact buffer; not autonomous map planning')
+            report['pair_contact_quorum']=env.cfg.pair_contact_quorum
+            report['initial_rear_target']=env.cfg.initial_rear_target
             report['contact_body_names']=env.contacts.body_names
             report['evaluation_contact_radius_m']=env.cfg.success_radius_m
             report['mean_measured_jump_count']=sum(r.get('measured_jump_count',0) for r in records)/count
