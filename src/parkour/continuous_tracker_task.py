@@ -16,6 +16,7 @@ class ContinuousTrackerCfg(FootholdCfg):
     initial_rear_target='own_stance'
     bound_reward_per_second=0.
     body_progress_weight=0.
+    body_progress_reference='pair_midpoint'
     observation_space=105
     episode_length_s=12.
     action_scale=.5
@@ -39,6 +40,7 @@ class ContinuousTrackerEnv(FootholdEnv):
         self.plan=torch.tensor(self.target_script['positions_m'],device=self.device)
         self.surface_rotations=torch.tensor([s['rotation_local_to_world'] for s in self.layout['surfaces']],device=self.device)
         self.surface_centers=torch.tensor([s['top_center_m'] for s in self.layout['surfaces']],device=self.device)
+        self.gap_surfaces=torch.tensor([s.get('scenario_role')=='gap_landing' for s in self.layout['surfaces']],device=self.device)
         self.surface_normals=torch.tensor([s['normal'] for s in self.layout['surfaces']],device=self.device)
         self.surface_halves=torch.tensor([s['usable_half_extents_m'] for s in self.layout['surfaces']],device=self.device)
         self.surface_box_centers=torch.tensor([s['center_m'] for s in self.layout['surfaces']],device=self.device)
@@ -75,6 +77,11 @@ class ContinuousTrackerEnv(FootholdEnv):
             from parkour.body_progress import waypoint
             self.body_progress_before.copy_(self.robot.data.root_pos_w)
             self.body_waypoint.copy_(waypoint(self.targets,self.stance_offset))
+            if self.cfg.body_progress_reference=='gap_landing':
+                from parkour.body_progress import gap_landing_waypoint
+                self.body_waypoint.copy_(gap_landing_waypoint(self.targets,self.stance_offset,
+                    self.progress.target[:,0],self.progress.accepted[:,0],self.gap_surfaces,
+                    self.surface_centers,self.scene.env_origins,self.calibrated_root[2]))
     def _sync_targets(self):
         pair=torch.arange(2,device=self.device)[None,:].expand(self.num_envs,-1)
         self.targets=self.plan[pair,self.progress.target].reshape(self.num_envs,4,3)+self.scene.env_origins[:,None,:]

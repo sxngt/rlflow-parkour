@@ -133,6 +133,7 @@ def main():
                 transition = True
             successes, failures, episodes, errors = 0, 0, 0, []
             completed_contacts = []
+            input_action_clips=torch.zeros((),dtype=torch.long,device=env.device)
             terminal_transfers,terminal_jumps,terminal_seconds=[],[],[]
             jump_flights,jump_landings,jump_apex_met=0,0,0
             jump_apices=[]
@@ -163,6 +164,7 @@ def main():
                         for goal_index,goal_value in enumerate(goal_values):
                             goal_steps[goal_index]+=(torch.abs(env.goal_distance-goal_value)<1e-7).sum()
                     actions = alg.act(obs, obs)
+                    input_action_clips+=(actions.abs()>env.cfg.action_limit).sum()
                     if recorder:
                         recorder.capture(rollout_step,iteration=iteration+1)
                     rollout_step+=1
@@ -212,6 +214,7 @@ def main():
                    "successes": successes, "failures": failures,
                    "mean_final_error_m": sum(errors) / len(errors) if errors else None,
                    "losses": {k: float(v) for k, v in losses.items()}}
+            row['input_action_clip_fraction']=int(input_action_clips)/(env.num_envs*steps_per_iteration*12)
             if goal_values:
                 if int(goal_steps.sum()) != env.num_envs*steps_per_iteration:
                     raise RuntimeError('Goal accounting did not cover every transition')

@@ -20,7 +20,8 @@ def make_algorithm(config, env):
     if config.get('exploration') is not None:
         from parkour.exploration import BoundedActorCritic, cap_for_update
         policy = BoundedActorCritic(obs_dim, obs_dim, 12,
-            min_std=config['exploration']['min_std'], max_std=cap_for_update(config,0), **policy_cfg).to(env.device)
+            min_std=config['exploration']['min_std'], max_std=cap_for_update(config,0),
+            bounded_mean=config['exploration']['kind']=='bounded_mean_gaussian_v2', **policy_cfg).to(env.device)
     else:
         policy = ActorCritic(obs_dim, obs_dim, 12, **policy_cfg).to(env.device)
     alg_cfg = copy.deepcopy(config["runner"]["algorithm"])
@@ -72,6 +73,8 @@ def read_checkpoint(path):
 
 
 def restore(data, config, alg, normalizer, env, training):
+    if data['config'].get('body_progress_reference','pair_midpoint') != config.get('body_progress_reference','pair_midpoint'):
+        raise ValueError('Checkpoint body reference differs; use an explicit fork')
     if data['config'].get('bound_reward_scope','all') != config.get('bound_reward_scope','all'):
         raise ValueError('Checkpoint bound reward scope differs; not a resume')
     if data['config'].get('contact_target_mode','point') != config.get('contact_target_mode','point'):
@@ -164,6 +167,8 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
         cfg.bound_reward_per_second=float(config.get('bound_reward_per_second',0.))
         if not 0<=cfg.bound_reward_per_second<=10:raise ValueError('Invalid bound reward rate')
         cfg.body_progress_weight=float(config.get('body_progress_weight',0.))
+        cfg.body_progress_reference=config.get('body_progress_reference','pair_midpoint')
+        if cfg.body_progress_reference not in ('pair_midpoint','gap_landing'):raise ValueError('Invalid body progress reference')
         if not 0<=cfg.body_progress_weight<=100:raise ValueError('Invalid body progress weight')
     elif config['task'] == 'a1_t0_foothold_v1':
         cfg, env_type = FootholdCfg(), FootholdEnv

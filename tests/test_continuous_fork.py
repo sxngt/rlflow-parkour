@@ -38,6 +38,13 @@ class ContinuousForkTest(unittest.TestCase):
         self.target['bound_reward_scope']='anything'
         with self.assertRaises(ValueError):validate_fork_configs(self.parent,self.target)
 
+    def test_explicit_body_reference_and_mean_contract(self):
+        self.target['body_progress_reference']='gap_landing'
+        self.target['exploration']['kind']='bounded_mean_gaussian_v2'
+        validate_fork_configs(self.parent,self.target)
+        self.target['body_progress_reference']='unknown'
+        with self.assertRaises(ValueError):validate_fork_configs(self.parent,self.target)
+
     def test_incompatible_contracts_and_unversioned_geometry_rejected(self):
         for key,value in [('seed',42),('action_limit',4),('body_progress_weight',20),('pair_contact_quorum','both'),('initial_rear_target','own_stance'),('success_radius_m',.12),('episode_seconds',40)]:
             with self.subTest(key=key):

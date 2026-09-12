@@ -3,6 +3,8 @@ import json,sys
 from pathlib import Path
 import numpy as np
 from audit_artifacts import audit
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src'))
+from parkour.flight_trace import reconstruct_flights
 
 def check(path):
     path=Path(path);audit(path)
@@ -17,6 +19,11 @@ def check(path):
         assert np.all(accepted<=indices)
         assert np.all(accepted[:,1]<=accepted[:,0])
         assert np.all(np.isfinite(z['root_pos'][valid,i]))
+        if 'root_velocity_world' in z:
+            events=reconstruct_flights(z['force'][valid,i],z['root_pos'][valid,i,2],
+                z['root_velocity_world'][valid,i,2],z['nonfoot_force_max'][valid,i],.005)
+            assert sum(e['counted_jump'] for e in events)==row['measured_jump_count']
+            assert int(z['measured_jump_count'][valid,i][-1])==row['measured_jump_count']
         if 'active_motion_seconds' in row:
             measured=float((np.linalg.norm(z['root_velocity'][valid,i],axis=-1)>.15).sum()*.005)
             assert abs(measured-row['active_motion_seconds'])<.011

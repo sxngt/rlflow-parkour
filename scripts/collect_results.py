@@ -77,6 +77,10 @@ def collect(evaluation, result_root=ROOT / 'result'):
         task_title = '저장착지복원_후속도약만_전체코스평가아님_' + task_title
     if run.get('terminal_policy'):task_title += '_종점RL정책연결'
     model = run.get('checkpoint')
+    if run.get('terminal_policy'):
+        terminal=run['terminal_policy']['checkpoint']
+        if digest(Path(terminal['path']))!=terminal['sha256']:
+            raise ValueError('Terminal checkpoint lineage hash mismatch')
     if run.get('chain_contract'):
         task_title += f"_리셋없는{run['chain_contract']['hops']}회도약_안정화후재도약"
         if run['chain_contract'].get('settle_command') == 'hold-last':

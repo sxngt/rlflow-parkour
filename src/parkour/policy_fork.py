@@ -42,12 +42,18 @@ def validate_fork_configs(parent, target):
 
 
 def validate_continuous_fork(parent, target):
-    """Change generated terrain/training schedules, preserving the policy contract."""
+    """Allow explicit terrain, contact, reward-reference and exploration variants.
+
+    Robot limits, input channels and network tensors remain compatible; an
+    exploration-kind change can alter the actor function despite copied weights.
+    """
     from parkour.contact_curriculum import radius_for_update
     if target.get('task') != parent['task']:
         raise ValueError('Continuous fork cannot change task')
     a,b=copy.deepcopy(parent),copy.deepcopy(target)
     for config in (a,b):
+        if config.pop('body_progress_reference','pair_midpoint') not in ('pair_midpoint','gap_landing'):
+            raise ValueError('Invalid body progress reference')
         learning_rate=config['runner']['algorithm'].pop('learning_rate')
         if not isinstance(learning_rate,(int,float)) or not math.isfinite(learning_rate) or not 0<learning_rate<=.01:
             raise ValueError('Invalid explicit fork learning rate')
@@ -63,13 +69,14 @@ def validate_continuous_fork(parent, target):
             raise ValueError('Continuous fork requires validated shared terrain')
         if cap_for_update(config,0) is None:
             raise ValueError('Continuous fork requires bounded exploration')
+        config['exploration'].pop('kind')
         radius_for_update(config,0)
         for key in ('iterations','num_envs','research_tags','contact_curriculum'):
             config.pop(key,None)
         for key in ('layout','geometry_seed'):
             config['terrain_contract'].pop(key,None)
-        # Schedules are explicit controls of the new experiment. The std floor,
-        # network, observation, action, rewards and strict evaluation stay fixed.
+        # Apart from variants validated above, retain the std floor, network,
+        # observation channels, actuator envelope and reward weights.
         config['exploration'].pop('stages',None)
     if a!=b:
         raise ValueError('Continuous fork changed robot, observation, action, reward, seed or evaluation contract')
@@ -106,7 +113,11 @@ def initialize_fork(data, config, alg, normalizer):
             'contact_target_mode':config.get('contact_target_mode','point'),
             'parent_bound_reward_scope':data['config'].get('bound_reward_scope','all'),
             'bound_reward_scope':config.get('bound_reward_scope','all'),
+            'parent_body_progress_reference':data['config'].get('body_progress_reference','pair_midpoint'),
+            'body_progress_reference':config.get('body_progress_reference','pair_midpoint'),
             'initial_learning_rate':alg.learning_rate,
+            'initial_actor_function_preserved':data['config'].get('exploration',{}).get('kind')==config.get('exploration',{}).get('kind'),
+            'exploration_contract':config.get('exploration',{}).get('kind'),
             'parent_completed_iterations':data['completed_iterations'],
             'parent_environment_steps':data['total_environment_steps'],
             'initial_completed_iterations':0,'initial_environment_steps':0,

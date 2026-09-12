@@ -12,6 +12,9 @@ class ContinuousDiagnostics:
             e=env
             self.samples.append({'time':self.elapsed,'valid':cpu(~done),
                 'root_pos':cpu(e.robot.data.root_pos_w-e.scene.env_origins),'root_velocity':cpu(e.robot.data.root_lin_vel_b),
+                'root_velocity_world':cpu(e.robot.data.root_lin_vel_w),
+                'nonfoot_force_max':cpu(e.contacts.data.net_forces_w[:,e.nonfoot_ids].norm(dim=-1).amax(dim=1)),
+                'measured_jump_count':cpu(e.flights.count),
                 'foot_pos':cpu(e.robot.data.body_pos_w[:,e.foot_ids]-e.scene.env_origins[:,None,:]),
                 'force':cpu(e.contacts.data.net_forces_w[:,e.contact_ids]),'action':cpu(e.actions),
                 'target_xyz':cpu(e.targets-e.scene.env_origins[:,None,:]),'target_indices':cpu(e.progress.target),
@@ -28,7 +31,7 @@ class ContinuousDiagnostics:
             summaries.append({'scenario_id':scenario,'duration_s':float(valid.sum()*self.env.physics_dt),
                 'root_xy_displacement_m':float(np.linalg.norm(xy[-1]-xy[0])) if len(xy)>1 else 0.,
                 'root_xy_path_length_m':float(np.linalg.norm(np.diff(xy,axis=0),axis=1).sum()) if len(xy)>1 else 0.})
-        report={'schema_version':2,'contract':'continuous_pair_trace_v1','physics_dt_s':self.env.physics_dt,
+        report={'schema_version':3,'contract':'continuous_pair_trace_v1','physics_dt_s':self.env.physics_dt,
                 'results':summaries,'mean_root_xy_displacement_m':float(np.mean([s['root_xy_displacement_m'] for s in summaries])),
                 'mean_root_xy_path_length_m':float(np.mean([s['root_xy_path_length_m'] for s in summaries])),
                 'distance_scope':'Measured between first and last valid physics samples; path length includes oscillation and is not route completion',

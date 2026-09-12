@@ -10,6 +10,7 @@ type CourseReport = {
   mean_travel_motion_seconds?: number;
   planned_gap_count?: number | null; planned_gap_widths_m?: number[];
   terminal_policy?: {contract: string};
+  input_action_clip_fraction?: number;
   completed_hops_histogram?: Record<string, number>;
   chain_contract?: {hops: number; absolute_forward_targets_m?: number[]; step_lengths_m?: number[];
     progress_criterion?: string; spacing_contract?: string; root_boundary?: {version: string}};
@@ -24,6 +25,7 @@ export function CourseEvaluation({report}: {report: CourseReport}) {
     <p>앞발 진행 {report.mean_front_accepted_index?.toFixed(2)} / 뒷발 진행 {report.mean_rear_accepted_index?.toFixed(2)}</p>
     {report.mean_active_motion_seconds!=null && <p>정지 시간을 제외한 몸체 이동: 평균 {report.mean_active_motion_seconds.toFixed(2)}초 (속력 0.15m/s 초과)</p>}
     {report.mean_travel_motion_seconds!=null && <p>종점 안정화 구간을 제외한 이동: 평균 {report.mean_travel_motion_seconds.toFixed(2)}초</p>}
+    {report.input_action_clip_fraction!=null && <p>환경 입력 행동의 범위 초과: {(report.input_action_clip_fraction*100).toFixed(1)}% (토크 포화와 별도)</p>}
     <p>접촉 판정: {report.contact_target_mode==='surface_region' ? '노출된 선택 발판의 안전 영역 · 점 정밀도 실험과 별도' : `목표점 반경 ${((report.evaluation_contact_radius_m??.06)*100).toFixed(0)}cm`}</p>
     <p>추적 영상의 {report.required_final_index}구간·10초{report.demo_target?.minimum_measured_jumps!=null?`·${report.demo_target.minimum_measured_jumps}점프`:''} 완주 조건: {report.followed_video_demo_eligible ? '충족' : '미충족'}</p>
     <p className="muted">발판 전이와 실제 비행 점프는 별도 측정합니다. 제한 시간까지 서 있는 episode는 완주가 아닙니다. 현재 목표 접촉은 학습용으로 지정하며 자율 Planner 성능은 아닙니다.</p>
