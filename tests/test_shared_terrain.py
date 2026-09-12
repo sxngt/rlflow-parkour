@@ -2,6 +2,17 @@ import math
 import unittest
 from parkour.shared_terrain import surface,local_point,world_point,contains_contact_center,build_shared_course
 class SharedTerrainTest(unittest.TestCase):
+    def test_gap_elevation_changes_after_first_approach_only(self):
+        from parkour.shared_terrain import build_ten_gap_course,scripted_pair_targets,assert_script_contacts_unoccluded
+        plain=build_ten_gap_course('medium',1,1.25)
+        xy=[[.114,.16],[.114,-.16],[-.258,.16],[-.258,-.16]]
+        for rise in (.05,.1):
+            raised=build_ten_gap_course('medium',1,1.25,gap_rise_m=rise)
+            self.assertEqual(plain['surfaces'][:4],raised['surfaces'][:4])
+            self.assertEqual(plain['gap_locations'],raised['gap_locations'])
+            for i,(a,b) in enumerate(zip(plain['surfaces'],raised['surfaces'])):
+                self.assertAlmostEqual(b['top_center_m'][2]-a['top_center_m'][2],(i//4)*rise)
+            assert_script_contacts_unoccluded(raised,scripted_pair_targets(raised,xy))
     def test_longer_approaches_keep_ten_gaps_and_old_map_exact(self):
         import json
         from pathlib import Path

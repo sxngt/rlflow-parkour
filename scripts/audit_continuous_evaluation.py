@@ -26,6 +26,10 @@ def check(path):
             assert int(z['measured_jump_count'][valid,i][-1])==row['measured_jump_count']
             if 'clean_airborne_count' in row:
                 assert sum(e['air_seconds']>=.02-1e-7 and not e['nonfoot_collision'] for e in events)==row['clean_airborne_count']
+            if 'travel_clean_airborne_count' in row:
+                traveling_events=[e for e in events if not (z['target_indices'][valid,i][e['landing_sample']]==r['required_final_index']).all()]
+                assert sum(e['air_seconds']>=.02-1e-7 and not e['nonfoot_collision'] for e in traveling_events)==row['travel_clean_airborne_count']
+                assert sum(e['counted_jump'] for e in traveling_events)==row['travel_measured_jump_count']
         if 'active_motion_seconds' in row:
             measured=float((np.linalg.norm(z['root_velocity'][valid,i],axis=-1)>.15).sum()*.005)
             assert abs(measured-row['active_motion_seconds'])<.011

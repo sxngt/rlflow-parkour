@@ -58,6 +58,8 @@ class ContinuousTrackerEnv(FootholdEnv):
         self.map_low=points.amin(dim=0)-1.;self.map_high=points.amax(dim=0)+1.
         from parkour.flight_events import FlightEvents
         self.flights=FlightEvents(self.num_envs,self.device)
+        self.travel_jumps=torch.zeros_like(self.flights.count)
+        self.travel_airborne=torch.zeros_like(self.flights.count)
         self.gap_credit=None
         if cfg.gap_jump_bonus:
             from parkour.gap_jump_credit import GapJumpCredit
@@ -73,8 +75,12 @@ class ContinuousTrackerEnv(FootholdEnv):
             self.active_motion_steps+=(self.robot.data.root_lin_vel_w.norm(dim=1)>.15)
             self.travel_motion_steps+=(self.robot.data.root_lin_vel_w.norm(dim=1)>.15)&~(self.progress.target==self.progress.target_count-1).all(dim=1)
             was_air=self.flights.air.clone() if self.gap_credit is not None else None
+            previous_airborne=self.flights.airborne_count.clone()
             valid_flight=self.flights.update(self.contacts.data.net_forces_w[:,self.contact_ids],self.robot.data.root_pos_w[:,2],
                 self.robot.data.root_lin_vel_w[:,2],self.contacts.data.net_forces_w[:,self.nonfoot_ids].norm(dim=-1).amax(dim=1),dt)
+            traveling=~(self.progress.target==self.progress.target_count-1).all(dim=1)
+            self.travel_jumps+=valid_flight&traveling
+            self.travel_airborne+=(self.flights.airborne_count-previous_airborne)*traveling
             if self.gap_credit is not None:
                 self.gap_credit.observe(self.flights.air&~was_air,valid_flight,
                     self.robot.data.root_pos_w[:,:2]-self.scene.env_origins[:,:2],self.progress.target)
@@ -103,6 +109,7 @@ class ContinuousTrackerEnv(FootholdEnv):
         self.progress.reset(ids);self.flights.reset(ids);self.final_hold[ids]=0;self.accept_events[ids]=False
         self.active_motion_steps[ids]=0
         self.travel_motion_steps[ids]=0
+        self.travel_jumps[ids]=0;self.travel_airborne[ids]=0
         self.new_gap_credit[ids]=0
         if self.gap_credit is not None:self.gap_credit.reset(ids,self.calibrated_root[:2].expand(len(ids),-1))
         self.current_valid[ids]=False;self.current_error[ids]=0
@@ -189,6 +196,7 @@ class ContinuousTrackerEnv(FootholdEnv):
             'front_target_index':self.progress.target[:,0].clone(),'rear_target_index':self.progress.target[:,1].clone(),
             'final_hold_steps':self.final_hold.clone(),'measured_jump_count':self.flights.count.clone(),
             'clean_airborne_count':self.flights.airborne_count.clone(),
+            'travel_measured_jump_count':self.travel_jumps.clone(),'travel_clean_airborne_count':self.travel_airborne.clone(),
             'active_motion_seconds':self.active_motion_steps*self.physics_dt,
             'travel_motion_seconds':self.travel_motion_steps*self.physics_dt,
             'completed_surface_transfers':self.progress.accepted.amin(dim=1).clamp_min(0).clone(),

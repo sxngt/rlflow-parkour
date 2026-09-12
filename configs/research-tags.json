@@ -117,7 +117,18 @@
     "condition:terminal-control": "종점 이동 벌점 없음",
     "course:ten-gaps-60-transfers": "10개 갭 · 60회 발 목표 이동",
     "curriculum:gap125": "중급 형상 · 갭 폭 125%",
-    "curriculum:hard-gap75": "고급 형상 · 갭 폭 75%"
+    "curriculum:hard-gap75": "고급 형상 · 갭 폭 75%",
+    "step:p3-40-rising-gaps": "P3-40 · 상승 갭 형상 확인",
+    "step:p3-40-long-rising-gaps": "P3-40 · 장거리 상승 갭 통합 학습",
+    "course:ten-rising-gaps": "10개 상승 갭",
+    "course:ten-rising-gaps-60": "10개 상승 갭 · 60구간",
+    "condition:rise05": "갭마다 높이 5cm 증가",
+    "condition:rise10": "갭마다 높이 10cm 증가",
+    "purpose:integrated-scenario": "통합 시나리오 학습",
+    "step:p3-41-terminal-pose": "P3-41 · 종점 PD 자세 연결 평가",
+    "purpose:hybrid-evaluation": "RL 주행 + PD 종점 평가",
+    "condition:pose-settled": "정착 후 자세 전환",
+    "condition:pose-contact-capture": "지지 접촉 시 자세 전환"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
@@ -579,6 +590,36 @@
       "step:p3-19-long-scenarios",
       "difficulty:medium",
       "purpose:continuous-parkour"
+    ],
+    "p3-41-long60-terminal-pose": [
+      "phase:P3",
+      "step:p3-41-terminal-pose",
+      "difficulty:medium",
+      "purpose:hybrid-evaluation",
+      "condition:pose-settled",
+      "course:ten-gaps-60-transfers"
+    ],
+    "p3-41-long60-contact-capture": [
+      "phase:P3",
+      "step:p3-41-terminal-pose",
+      "difficulty:medium",
+      "purpose:hybrid-evaluation",
+      "condition:pose-contact-capture",
+      "course:ten-gaps-60-transfers"
+    ],
+    "p3-39-medium60-frozen": [
+      "phase:P3",
+      "step:p3-39-long60-terminal",
+      "difficulty:medium",
+      "purpose:diagnosis",
+      "course:ten-gaps-60-transfers"
+    ],
+    "p3-39-gap125-medium60-frozen": [
+      "phase:P3",
+      "step:p3-39-long60-terminal",
+      "difficulty:medium",
+      "purpose:diagnosis",
+      "course:ten-gaps-60-transfers"
     ]
   },
   "note": "Phase is work classification, not a completion claim. Explicit run research_tags override task defaults. Legacy annotations are derived without changing original artifacts."

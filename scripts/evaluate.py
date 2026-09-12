@@ -17,6 +17,8 @@ def main():
     p.add_argument("--config", type=Path, default=Path("configs/t0-ppo.json"))
     p.add_argument("--checkpoint", type=Path)
     p.add_argument('--terminal-policy',type=Path,help='Explicit final-stance RL checkpoint; composite evaluation only')
+    p.add_argument('--terminal-pose-hold',action='store_true',help='Explicit settled joint-pose hold; hybrid evaluation only')
+    p.add_argument('--terminal-pose-mode',choices=['settled','contact-capture'],default='settled')
     p.add_argument('--thesis-policy',type=Path)
     p.add_argument('--thesis-source',type=Path,default=Path('../master-thesis'))
     p.add_argument('--thesis-speed',type=float,default=.5)
@@ -379,6 +381,12 @@ def main():
         action_values=torch.zeros_like(action_clips)
         action_peak=torch.zeros(env.num_envs,device=env.device)
         terminal_policy=None
+        terminal_pose=None
+        if args.terminal_pose_hold:
+            if args.terminal_policy or config['task']!='a1_continuous_tracker_v1':raise ValueError('Pose hold requires continuous Tracker and no secondary policy')
+            from parkour.terminal_pose import TerminalPoseHold
+            terminal_pose=TerminalPoseHold(env,args.terminal_pose_mode)
+            meta['terminal_pose_hold']=terminal_pose.metadata
         if args.terminal_policy:
             from parkour.terminal_policy import TerminalPolicy
             terminal_policy=TerminalPolicy(args.terminal_policy,config,env)
@@ -425,6 +433,7 @@ def main():
                               else alg.policy.act_inference(normalized))
                 if terminal_policy is not None:
                     action=terminal_policy.apply(raw,action,step,done)
+                if terminal_pose is not None:action=terminal_pose.apply(raw,action,step,done)
                 action_clips+=((action.abs()>env.cfg.action_limit)&~done[:,None]).sum(1)
                 action_values+=(~done).long()*action.shape[1]
                 action_peak=torch.where(~done,torch.maximum(action_peak,action.abs().amax(1)),action_peak)
@@ -441,6 +450,9 @@ def main():
                         **{key: val[index].item() for key, val in metrics.items()}}
                     records[index]['input_action_clip_fraction']=float(action_clips[index])/max(1,int(action_values[index]))
                     records[index]['input_action_abs_peak']=float(action_peak[index])
+                    if terminal_pose is not None:
+                        records[index]['terminal_pose_used']=bool(terminal_pose.latched[index])
+                        records[index]['terminal_pose_handoff_time_s']=float(terminal_pose.steps[index])*env.step_dt if terminal_pose.latched[index] else None
                     if terminal_policy is not None:
                         records[index]['terminal_policy_used']=bool(terminal_policy.latched[index])
                         records[index]['terminal_policy_handoff_time_s']=float(terminal_policy.steps[index])*env.step_dt if terminal_policy.latched[index] else None
@@ -490,6 +502,9 @@ def main():
             report['input_action_clip_fraction']=float(action_clips.sum())/max(1,int(action_values.sum()))
             report['input_action_diagnostic_scope']='Actions submitted to environment before its configured clamp; does not measure torque saturation'
             if terminal_policy is not None:report['terminal_policy']=terminal_policy.metadata
+            if terminal_pose is not None:
+                report['terminal_pose_hold']=terminal_pose.metadata
+                report['evaluation_scope']+='; explicit calibrated terminal pose hold, not pure RL stabilization'
             report['planned_gap_count']=support['layout'].get('planned_gap_count')
             report['planned_gap_widths_m']=[g['projected_top_gap_m'] for g in support['layout'].get('gap_locations',[])]
             report['initial_rear_target']=env.cfg.initial_rear_target
@@ -501,6 +516,8 @@ def main():
                 report['contact_region_contract']='selected exposed shared top; 2cm edge margin; normal offset 0..4cm; normal force>5N; geometric attribution'
             report['mean_measured_jump_count']=sum(r.get('measured_jump_count',0) for r in records)/count
             report['mean_clean_airborne_count']=sum(r.get('clean_airborne_count',0) for r in records)/count
+            report['mean_travel_clean_airborne_count']=sum(r.get('travel_clean_airborne_count',0) for r in records)/count
+            report['mean_travel_measured_jump_count']=sum(r.get('travel_measured_jump_count',0) for r in records)/count
             report['airborne_count_contract']='All feet below 2N >=20ms, then foot recontact, no nonfoot force >5N during flight; includes low running bounds and drops, not necessarily a gap crossing'
             report['measured_jump_contract']='Clean airborne event plus root rise >=3cm and world vertical velocity >0.2m/s; unchanged strict criterion'
             if env.gap_credit is not None:
@@ -514,9 +531,9 @@ def main():
             if config.get('demo_target'):
                 target=dict(config['demo_target'])
                 target['minimum_measured_jumps']=target.get('minimum_measured_jumps',8)
-                target['eligibility_contract']='dynamic_long_course_v4'
+                target['eligibility_contract']='dynamic_long_course_v5'
                 target['minimum_travel_motion_seconds']=target.get('minimum_travel_motion_seconds',10.)
-                report['demo_eligible_scenario_ids']=[r['scenario_id'] for r in records if r['success'] and r['length']*env.step_dt>=target['minimum_actual_seconds'] and r.get('travel_motion_seconds',0)>=target['minimum_travel_motion_seconds'] and r.get('completed_surface_transfers',0)>=target['surface_transfers'] and r.get('measured_jump_count',0)>=target['minimum_measured_jumps']]
+                report['demo_eligible_scenario_ids']=[r['scenario_id'] for r in records if r['success'] and r['length']*env.step_dt>=target['minimum_actual_seconds'] and r.get('travel_motion_seconds',0)>=target['minimum_travel_motion_seconds'] and r.get('completed_surface_transfers',0)>=target['surface_transfers'] and r.get('travel_measured_jump_count',0)>=target['minimum_measured_jumps']]
                 report['demo_target']=target
                 report['followed_video_demo_eligible']=records[0]['scenario_id'] in report['demo_eligible_scenario_ids']
         if 'completed_contacts' in records[0]:

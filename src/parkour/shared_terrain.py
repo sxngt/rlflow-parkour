@@ -161,13 +161,14 @@ def assert_script_contacts_unoccluded(layout,script):
                         raise ValueError(f'Contact on {selected["id"]} occluded by {other["id"]}')
 
 
-def build_ten_gap_course(level='medium',seed=1,gap_scale=1.,approach_transfers=3):
+def build_ten_gap_course(level='medium',seed=1,gap_scale=1.,approach_transfers=3,gap_rise_m=0.):
     """Ten gap locations separated by approach steps; actual flights are measured."""
     import random
     if level not in ('easy','medium','hard') or type(seed) is not int or seed<0 or gap_scale not in (.5,.75,1.,1.25,1.5):
         raise ValueError('Explicit tier, nonnegative seed and gap scale .5/.75/1/1.25/1.5 required')
     base_gap,tilt,height,turn={'easy':(.10,3.,.04,6.),'medium':(.45,7.,.06,10.),'hard':(.80,12.,.10,15.)}[level]
     if type(approach_transfers) is not int or approach_transfers not in (3,5):raise ValueError('Three or five approach transfers required')
+    if gap_rise_m not in (0.,.05,.1):raise ValueError('Gap elevation increments must be 0/5/10cm')
     stride=approach_transfers+1;transitions=10*stride
     rng=random.Random(seed);surfaces=[];gaps=[];x=y=heading=0.
     for i in range(transitions+1):
@@ -175,6 +176,7 @@ def build_ten_gap_course(level='medium',seed=1,gap_scale=1.,approach_transfers=3
         if i:heading+=turn*math.sin(i*.7)+rng.uniform(-turn/4,turn/4)
         roll,pitch=(0.,0.) if i in (0,transitions) else (rng.uniform(-tilt,tilt),rng.uniform(-tilt,tilt))
         z=0. if i==0 else height*(1.+.5*math.sin(i*.7))
+        z+=(i//stride)*gap_rise_m
         size=(1.,1.,.15) if i==0 else ((.7,.8,.15) if i==transitions else (.55,.7,.15))
         candidate=surface('surface_'+str(i),[0.,0.,z],size,(roll,pitch,heading))
         if i:
@@ -197,4 +199,5 @@ def build_ten_gap_course(level='medium',seed=1,gap_scale=1.,approach_transfers=3
             'nominal_path_length_m':sum(math.dist(a['top_center_m'],b['top_center_m']) for a,b in zip(surfaces,surfaces[1:])),
             'scope':'Ten explicit projected gap locations with approach steps; not ten proven jumps or a feasibility certificate'}
     if approach_transfers!=3:result.update(scenario_contract='long_ten_gap_course_v2',approach_transfers=approach_transfers)
+    if gap_rise_m:result.update(scenario_contract='long_ten_gap_course_v3',approach_transfers=approach_transfers,gap_rise_m=gap_rise_m)
     return result

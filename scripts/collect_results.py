@@ -57,8 +57,11 @@ def collect(evaluation, result_root=ROOT / 'result'):
                 task_title += f'_중급준비{layout["preparation_fraction"]*100:g}퍼센트'
             if layout.get('planned_gap_count'):
                 task_title += f'_{layout["planned_gap_count"]}개갭구간'
+                widths=[g['projected_top_gap_m'] for g in layout.get('gap_locations',[])]
+                if widths:task_title += f'_평균갭{100*sum(widths)/len(widths):.1f}cm'
                 if layout.get('gap_scale',1.)!=1.:
                     task_title += f'_갭폭{layout["gap_scale"]*100:g}퍼센트'
+                if layout.get('gap_rise_m'):task_title += f'_갭마다상승{100*layout["gap_rise_m"]:g}cm'
         if support.get('matched_material'):
             task_title += '_기본재질·구간별마찰설정' if support.get('surface_material_overrides') else '_동일물리재질'
     if run.get('chain_contract',{}).get('progress_criterion')=='mapped_contact_v1':
@@ -76,6 +79,7 @@ def collect(evaluation, result_root=ROOT / 'result'):
     if run.get('transition_restore'):
         task_title = '저장착지복원_후속도약만_전체코스평가아님_' + task_title
     if run.get('terminal_policy'):task_title += '_종점RL정책연결'
+    if run.get('terminal_pose_hold'):task_title += '_종점PD자세유지'
     model = run.get('checkpoint')
     if run.get('terminal_policy'):
         terminal=run['terminal_policy']['checkpoint']
@@ -205,6 +209,10 @@ def collect(evaluation, result_root=ROOT / 'result'):
                     text += f'- 긴 코스: 평균 **{report["mean_completed_surface_transfers"]:.2f}/{report["required_final_index"]}구간**, 몸체 상승 3cm 이상 도약 **{report["mean_measured_jump_count"]:.2f}회**, episode **{report["mean_episode_seconds"]:.2f}초**\n'
                     if 'mean_clean_airborne_count' in report:
                         text += f'- 20ms 이상 네 발 비접촉 후 재접촉: 평균 **{report["mean_clean_airborne_count"]:.2f}회**. 낮은 바운딩과 하강을 포함하며, 비발 충돌은 제외합니다. 갭 통과 횟수와 별도입니다.\n'
+                    if 'mean_travel_clean_airborne_count' in report:
+                        text += f'- 종점 구간 제외: 비접촉 후 재접촉 **{report["mean_travel_clean_airborne_count"]:.2f}회**, 상승 3cm 이상 도약 **{report["mean_travel_measured_jump_count"]:.2f}회**.\n'
+                    if report.get('terminal_pose_hold'):
+                        text += '- 실행 구성은 주행 RL 정책과 종점의 고정 PD 자세 유지입니다. 순수 RL 종점 안정화 성능으로 집계하지 않습니다.\n'
                     text += '- 접촉 판정: '+('노출된 선택 발판의 안전 영역. 6cm 점 정밀도 결과와 별도.' if report.get('contact_target_mode')=='surface_region' else '지정 점의 6cm 반경 및 선택 발판 접촉.')+'\n'
                     text += '- 영상의 동적 긴 코스 데모 조건: '+('충족' if report.get('followed_video_demo_eligible') else '미충족')+'\n'
                 if parallel:
