@@ -1,3 +1,5 @@
+최신 추가: P370 전체 완료(native52/64,39/64; seed2둘다0/64). P372 GPU0/2 난이도 비교 및 P374 GPU1/3 지도 순환 비교 실행 중. P375는 P372 완료 후 혼합 맵 온라인 계획을 실행하도록 대기. P373 driver 아카이브 충돌은 완료 worker를 재실행하지 않고 복구했음. 상태 파일을 확인할 것.
+
 # 최신 인계 · 2026-09-13 P3-73까지
 
 [혼합 맵·파이프라인 계획 최신 기록](p3-67-73-mixed-map-and-pipelined-planning.md)을 먼저 읽는다. P370 학습/평가 종료 후 P372(0/2 GPU)와 P373(1/3 GPU)이 각각 자동으로 이어진다. 상태 파일 artifacts/p3-70-continuation.json, p3-72-continuation.json, p3-73-integration.json 확인. 같은 output으로 driver를 재실행하지 않는다. 대표 원본 영상은 P363 bridge의 고정 env0이다.

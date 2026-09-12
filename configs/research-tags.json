@@ -160,7 +160,9 @@
     "step:p3-70-mixed-training": "P3-70 · 혼합 맵 · 초기 자세 변동 학습",
     "step:p3-71-pipelined-planner": "P3-71 · 미래 상태 캐시 · 4스텝 계획",
     "step:p3-72-mixed-difficulty": "P3-72 · 혼합 맵 25% 유지 / 50% 확장",
-    "step:p3-73-buffered-planning": "P3-73 · GPU 기록 버퍼 · 계획 지연 검증"
+    "step:p3-73-buffered-planning": "P3-73 · GPU 기록 버퍼 · 계획 지연 검증",
+    "step:p3-74-map-generalization": "P3-74 · 지도 seed 순환 학습",
+    "step:p3-75-mixed-online": "P3-75 · 혼합 맵 · 벽시계 deadline 계획"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
@@ -928,6 +930,26 @@
     "p3-73-matched-control": [
       "phase:P3",
       "step:p3-73-buffered-planning"
+    ],
+    "p3-75-planner": [
+      "phase:P3",
+      "step:p3-75-mixed-online"
+    ],
+    "p3-75-executor": [
+      "phase:P3",
+      "step:p3-75-mixed-online"
+    ],
+    "p3-75-control": [
+      "phase:P3",
+      "step:p3-75-mixed-online"
+    ],
+    "p3-75-online-playback": [
+      "phase:P3",
+      "step:p3-75-mixed-online"
+    ],
+    "p3-75-control-playback": [
+      "phase:P3",
+      "step:p3-75-mixed-online"
     ]
   },
   "note": "Phase is work classification, not a completion claim. Explicit run research_tags override task defaults. Legacy annotations are derived without changing original artifacts."

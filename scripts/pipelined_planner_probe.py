@@ -110,8 +110,9 @@ def main():
     for step in range(int(c['episode_seconds']/env.step_dt)):
      tick=time.perf_counter();lateness.append(max(0.,tick-(clock+step*env.step_dt)))
      if activation is not None and step>=activation:
-      path=a.mailbox/('phase-%02d.json'%next_phase);event={'id':next_phase,'step':step,'applied':False}
-      if not path.exists():event['rejection']='deadline_missed'
+      path=a.mailbox/('phase-%02d.json'%next_phase);event={'id':next_phase,'step':step,'applied':False,'activation_wall_lateness_seconds':max(0.,time.perf_counter()-(clock+activation*env.step_dt))}
+      if event['activation_wall_lateness_seconds']>env.step_dt:event['rejection']='activation_wall_deadline_missed'
+      elif not path.exists():event['rejection']='deadline_missed'
       else:
        proposal=json.loads(path.read_text());event['planner_wall_seconds']=proposal['wall_seconds']
        if proposal['parent_plan_hash']!=current_hash or proposal['checkpoint_sha256']!=digest or proposal['plan_hash']!=plan_hash(proposal['plan']):event['rejection']='plan_identity_mismatch'
