@@ -482,3 +482,12 @@ source5f2d3c1 smoke64env3update 거리5/10/15cm·반경6/4.5/3cm·cap.35/.2/.05 
 sourcebd8bd54 scripts/p2_27_train.py batch39983(출력 artifacts/p2-27-main-batch.log),4실제PID실행확인: seed0 1522303/seed1 1522214/seed2 1522215/seed3 1522200. 각1024×24×1600,신규157286400step. artifacts/p2-27-start-observation.json. 저장532GB. 중복실행금지.
 
 다음401/801/1201실제전환및checkpoint확인후1600+continuous mean평가. 이어새모델4개의deck혼합거리회귀평가와P224모델4개의continuous혼합거리대조평가필수(--support-preserve-goals 사용,같은고정calibration/matched). 기존P224 deck평가4재사용. 총비교16행/새평가12,학습4감사. report spec/추가평가배치는아직작성전. scripts/p2_15_support_report.py는foot='all'기반deck전용surface선택가능성있으므로continuous지원확인후사용. 지지면밖성공을확정성공으로과장금지. P226은15cm고정군이므로혼합거리대조에대신넣지않음. 전체목표미완료.
+
+
+### 最新: P2-27 교차 평가 준비
+
+직전턴은continuous학습계약/물리smoke/본학습착수로progress. 이번턴configs/reports/p2-27.json 16행과 scripts/p2_27_cross_evaluate.py 8개추가평가작성. 학습중RUNNING이면사전감사에서거절하여실제평가worker를시작하지않음을확인 artifacts/p2-27-cross-preflight.log. 모든학습/기본평가종료후실행해야함.
+
+scripts/p2_15_support_report.py continuous명시지원:발별기대pad의XY경계+2cm여유검사,flat/deck경로유지. 실제continuous smoke원본대조실행,기존P224모든row수치정확일치(정의문구만일반화). scripts/experiment_report.py/jump_trace_report.py/post_landing_report.py는공통spec사용. 보고서smoke증거artifacts/p2-27-smoke-check-support-diagnosis.*.
+
+최신실제프로세스 [{"seed": 0, "pid": 1522303, "live": true, "iteration": 179, "log_mtime": 1789172845.0453389}, {"seed": 1, "pid": 1522214, "live": true, "iteration": 183, "log_mtime": 1789172845.1253374}, {"seed": 2, "pid": 1522215, "live": true, "iteration": null, "log_mtime": 1789172688.9121442}, {"seed": 3, "pid": 1522200, "live": true, "iteration": 183, "log_mtime": 1789172845.3813326}]. seed2 PID1522215는시뮬레이터Starting simulation단계로metrics미생성,약2분20초CPU사용중(14core규모)/GPU약2GB. 아직실제프로세스살아있으므로초기화지연으로기록하고임의중복재시작하지않음. 다른3seed진행중. 다음동일PID/CPU시간/log/metric증가확인,401전환및cp검증. batch39983유지,전체목표미완료.

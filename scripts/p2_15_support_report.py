@@ -34,7 +34,7 @@ def main():
         paired = scenarios if paired is None else paired
         assert paired == scenarios
         support = meta['evaluation_support']
-        assert support['mode'] in ('flat', 'deck') and support['matched_material']
+        assert support['mode'] in ('flat', 'deck', 'continuous') and support['matched_material']
         calibration = calibration or support['reference_sha256']
         assert calibration == support['reference_sha256']
         policies.setdefault(item['run'], meta['checkpoint']['sha256'])
@@ -60,8 +60,10 @@ def main():
                 index = int(np.argmin(np.abs(trace['time'] - time)))
                 x, y, z = trace['foot_pos'][index, i, foot]
                 contained = abs(z - .02) <= .01
-                if support['mode'] == 'deck':
-                    x0, x1, y0, y1 = support['layout']['surfaces'][0]['bounds_xy_m']
+                if support['mode'] in ('deck', 'continuous'):
+                    surface = support['layout']['surfaces'][0] if support['mode'] == 'deck' else next(
+                        s for s in support['layout']['surfaces'] if s['foot'] == support['foot_names'][foot])
+                    x0, x1, y0, y1 = surface['bounds_xy_m']
                     contained &= x0+.02 <= x <= x1-.02 and y0+.02 <= y <= y1-.02
                 inside.append(bool(contained))
             details.append({'scenario_id': result['scenario_id'], 'goal_forward_m': result['goal_forward_m'],
@@ -72,7 +74,7 @@ def main():
                      'all_first_spheres_contained': sum(all(d['contained_per_foot']) for d in details),
                      'by_distance': report['by_distance'], 'details': details})
     summary = {'rows': rows, 'calibration_sha256': calibration, 'policy_hashes': policies,
-               'definition': 'First >5N post-flight sample at 200Hz; sphere center z=2±1cm and XY at least 2cm inside deck bounds. Flat has no XY bounds. Geometric inference, not contact-pair identity or sustained support.',
+               'definition': 'First >5N post-flight sample at 200Hz; sphere center z=2±1cm and XY at least 2cm inside the expected support bounds (shared deck or named continuous foot pad). Flat has no XY bounds. Geometric inference, not contact-pair identity or sustained support.',
                'additional_training_steps': 0}
     (ROOT / f'docs/{prefix}-support-diagnosis.json').write_text(json.dumps(summary, indent=2)+'\n')
     lines = [f'# {prefix.upper()} 최초 착지 지지면 진단', '',
