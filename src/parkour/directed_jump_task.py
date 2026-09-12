@@ -31,10 +31,13 @@ class DirectedJumpEnv(PrecisionJumpEnv):
         self.set_sequence_offsets(offsets,env_ids)
     def on_first_physics_contact(self,new):
         self.travel.touch(new.any(dim=1),self.robot.data.root_pos_w[:,:2]-self.scene.env_origins[:,:2])
+    def launch_reference_xy(self):
+        return self.calibrated_root[:2]
+
     def _get_dones(self):
         super()._get_dones()
         self.travel.launch(self.flight_event,self.robot.data.root_pos_w[:,:2]-self.scene.env_origins[:,:2],
-            self.calibrated_root[:2],self.jump['launch_radius_m'])
+            self.launch_reference_xy(),self.jump['launch_radius_m'])
         self.precise_stabilized|=self.success
         self.failure|=self.flight_event&~self.travel.launch_ok
         self.success&=self.travel.valid(self.goal_distance,self.jump['travel_tolerance_m'])&~self.failure

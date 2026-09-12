@@ -35,9 +35,12 @@ class FlightTravel:
     def reset(self,ids):
         for value in (self.launched,self.touched,self.launch_xy,self.touch_xy,self.launch_ok):value[ids]=0
     def launch(self,event,xy,origin,radius):
+        if origin.shape not in (torch.Size([2]), xy.shape):
+            raise ValueError('Launch origin must be a shared XY or one XY per environment')
         new=event&~self.launched
+        reference=origin if origin.ndim==1 else origin[new]
         self.launch_xy[new]=xy[new]
-        self.launch_ok[new]=(xy[new]-origin).norm(dim=1)<=radius
+        self.launch_ok[new]=(xy[new]-reference).norm(dim=1)<=radius
         self.launched|=new
     def touch(self,event,xy):
         new=event&self.launched&~self.touched

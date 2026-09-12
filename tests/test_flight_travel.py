@@ -22,3 +22,15 @@ class TravelTests(unittest.TestCase):
   x.launch(torch.tensor([True]),start,origin,.03)
   x.touch(torch.tensor([True]),start-torch.tensor([[.001,0.]]))
   self.assertTrue(x.valid(torch.tensor([0.]),.03).item())
+
+ def test_asynchronous_per_environment_launch_origins(self):
+  x=FlightTravel(3,'cpu');origin=torch.tensor([[0.,0.],[1.,0.],[2.,0.]])
+  positions=origin+torch.tensor([[.01,0.],[.04,0.],[.02,0.]])
+  x.launch(torch.tensor([False,True,True]),positions,origin,.03)
+  self.assertEqual(x.launch_ok.tolist(),[False,False,True])
+  x.launch(torch.tensor([True,False,True]),positions+torch.tensor([[0.,0.],[0.,0.],[1.,0.]]),origin,.03)
+  self.assertEqual(x.launch_ok.tolist(),[True,False,True])
+  self.assertTrue(torch.equal(x.launch_xy[2],positions[2]))
+  before=x.launch_xy.clone()
+  with self.assertRaises(ValueError):x.launch(torch.ones(3,dtype=torch.bool),positions,torch.zeros(2,2),.03)
+  self.assertTrue(torch.equal(x.launch_xy,before))

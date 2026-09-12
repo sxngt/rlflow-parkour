@@ -53,14 +53,18 @@ class JumpEnv(SequentialEnv):
         offset=torch.zeros(len(env_ids),4,2,device=self.device)
         self.set_sequence_offsets(offset,env_ids)
 
+    def maneuver_time_s(self):
+        """Local maneuver clock; single-jump episodes retain their original clock."""
+        return self.episode_length_buf*self.step_dt
+
     def _pre_physics_step(self,actions):
         super()._pre_physics_step(actions)
-        self.actions[self.episode_length_buf*self.step_dt<self.jump['settle_seconds']]=0
+        self.actions[self.maneuver_time_s()<self.jump['settle_seconds']]=0
 
     def _get_observations(self):
         base=FootholdEnv._get_observations(self)['policy']
         rise=self.robot.data.root_pos_w[:,2]-self.scene.env_origins[:,2]-self.calibrated_root[2]
-        clock=(self.episode_length_buf*self.step_dt/self.jump['settle_seconds']).clamp_max(1)
+        clock=(self.maneuver_time_s()/self.jump['settle_seconds']).clamp_max(1)
         return {'policy':torch.cat([base,torch.nn.functional.one_hot(self.phase,3),
             (self.required_apex-rise)[:,None],clock[:,None]],dim=1)}
 
@@ -74,7 +78,7 @@ class JumpEnv(SequentialEnv):
         height=self.robot.data.root_pos_w[:,2]-self.scene.env_origins[:,2]
         rise=height-self.calibrated_root[2]
         vz=self.robot.data.root_lin_vel_w[:,2]
-        settled=self.episode_length_buf*self.step_dt>=spec['settle_seconds']
+        settled=self.maneuver_time_s()>=spec['settle_seconds']
         air_samples=(feet_history<2).all(dim=2)
         air_window=air_samples.all(dim=1)
         supported=(feet_history>2).all(dim=(1,2))
@@ -94,7 +98,7 @@ class JumpEnv(SequentialEnv):
         return term,(self.episode_length_buf>=self.max_episode_length)&~term
 
     def _get_rewards(self):
-        settled=self.episode_length_buf*self.step_dt>=self.jump['settle_seconds']
+        settled=self.maneuver_time_s()>=self.jump['settle_seconds']
         errors=self._errors()
         launch=2*self.robot.data.root_lin_vel_w[:,2].clamp(0,1.5)
         precision=precision_reward(errors,self.landed,self.jump.get('landing_precision_mode','mean'))
