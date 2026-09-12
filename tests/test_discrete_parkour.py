@@ -21,3 +21,9 @@ class DiscreteTests(unittest.TestCase):
         self.assertEqual(a['surface_ids'],b['surface_ids'])
         c=plan_surfaces(m,'surface_0',[0,0],[1,0],blocked=a['surface_ids'],budget_ms=100)
         self.assertEqual(c['status'],'no_plan')
+    def test_extended_map_preserves_original_nonterminal_prefix(self):
+        short=build_discrete_parkour('easy',1);long=build_discrete_parkour('easy',1,24)
+        self.assertEqual(short['surfaces'][:16],long['surfaces'][:16])
+        self.assertEqual(long['planned_gap_count'],24)
+        self.assertEqual(len(long['surfaces']),25)
+        self.assertGreater(long['nominal_path_length_m'],22.)

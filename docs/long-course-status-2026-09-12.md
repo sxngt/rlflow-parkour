@@ -45,3 +45,6 @@ P343easy GPU1session91161 andmediumGPU0session85802,1200updates×1024env each, p
 
 ## 2026-09-13 user steering: motion realism and genuine discrete planning
 See docs/p3-45-motion-realism.md and docs/p3-46-controlled-discrete.md. Four P346 retraining jobs active plus persistent bounded P347 continuation process2439797. Do NOT restart already active jobs. New4stepplanner is standalone geometry only; Tracker still scripted. Implement physical rollout and runtime integration next, not more claims of autonomous planning.
+
+## Latest active work 2026-09-13: P348/P349/P350/P351
+P347finished;easymean6.30/16,medium0/16,allfullfailures. P348easyGPU0session59737/mediumGPU1session11513 stilltrainingto2400. P349candidate assaysfinishedaudited;P350shortprefixmediumpassed,otherprefixconditionsrejected,see docs/p3-48-49-continuation.md. PersistentP351driverPID2479788 waitsP348thenruns2capability-gatedsuccessorsGPU2/3; do not duplicate. Full runtimePlannerstillnotimplemented. No further permission needed for authorizedresearch.

@@ -134,7 +134,11 @@
     "step:p3-44-long-course-transfer": "P3-44 · 추가 학습 정책 지형 전이",
     "step:p3-45-motion-realism": "P3-45 · 주행 속도와 구동기 현실성 진단",
     "step:p3-46-controlled-discrete": "P3-46 · 속도 제어와 불연속 파쿠르 학습",
-    "step:p3-47-constrained-transfer": "P3-47 · 동작 제한 적응 후 불연속 코스 학습"
+    "step:p3-47-constrained-transfer": "P3-47 · 동작 제한 적응 후 불연속 코스 학습",
+    "step:p3-48-discrete-continuation": "P3-48 · 불연속 코스 추가 학습",
+    "step:p3-49-physical-candidates": "P3-49 · 4스텝 후보 물리 rollout 검증",
+    "step:p3-50-prefix-rollouts": "P3-50 · 주행 상태 재현과 후보 분기",
+    "step:p3-51-long-discrete-curriculum": "P3-51 · 능력 기반 장거리 불연속 커리큘럼"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
@@ -647,6 +651,30 @@
       "difficulty:hard",
       "purpose:development-evaluation",
       "course:ten-rising-gaps-60"
+    ],
+    "p3-48-discrete-easy-resume2400": [
+      "phase:P3",
+      "step:p3-48-discrete-continuation",
+      "difficulty:easy",
+      "purpose:curriculum-continuation"
+    ],
+    "p3-48-discrete-medium-resume2400": [
+      "phase:P3",
+      "step:p3-48-discrete-continuation",
+      "difficulty:medium",
+      "purpose:curriculum-continuation"
+    ],
+    "p3-48-discrete-easy-resume2400__final-evaluation": [
+      "phase:P3",
+      "step:p3-48-discrete-continuation",
+      "difficulty:easy",
+      "purpose:evaluation"
+    ],
+    "p3-48-discrete-medium-resume2400__final-evaluation": [
+      "phase:P3",
+      "step:p3-48-discrete-continuation",
+      "difficulty:medium",
+      "purpose:evaluation"
     ]
   },
   "note": "Phase is work classification, not a completion claim. Explicit run research_tags override task defaults. Legacy annotations are derived without changing original artifacts."

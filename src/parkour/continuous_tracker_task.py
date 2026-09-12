@@ -106,8 +106,9 @@ class ContinuousTrackerEnv(FootholdEnv):
                     self.progress.target[:,0],self.progress.accepted[:,0],self.gap_surfaces,
                     self.surface_centers,self.scene.env_origins,self.calibrated_root[2]))
     def _sync_targets(self):
-        pair=torch.arange(2,device=self.device)[None,:].expand(self.num_envs,-1)
-        self.targets=self.plan[pair,self.progress.target].reshape(self.num_envs,4,3)+self.scene.env_origins[:,None,:]
+        from parkour.candidate_plan import gather_plan
+        points=gather_plan(getattr(self,'candidate_plan',self.plan),self.progress.target[:,:,None])
+        self.targets=points.reshape(self.num_envs,4,3)+self.scene.env_origins[:,None,:]
     def _reset_idx(self,ids):
         if ids is None:ids=self.robot._ALL_INDICES
         super()._reset_idx(ids)
@@ -128,7 +129,8 @@ class ContinuousTrackerEnv(FootholdEnv):
         indices,mask=self.progress.lookahead()
         pair=torch.arange(2,device=self.device)[None,:,None].expand(self.num_envs,2,2)
         # N, pair, horizon, left/right, XYZ -> N, foot, horizon, XYZ.
-        points=self.plan[pair,indices].permute(0,1,3,2,4).reshape(self.num_envs,4,2,3)
+        from parkour.candidate_plan import gather_plan
+        points=gather_plan(getattr(self,'candidate_plan',self.plan),indices).permute(0,1,3,2,4).reshape(self.num_envs,4,2,3)
         normals=self.surface_normals[indices][:,:,None,:,:].expand(-1,-1,2,-1,-1).reshape(self.num_envs,4,2,3)
         q=self.robot.data.root_quat_w[:,None,None,:].expand(-1,4,2,-1).reshape(-1,4)
         relative=points+self.scene.env_origins[:,None,None,:]-self.robot.data.root_pos_w[:,None,None,:]

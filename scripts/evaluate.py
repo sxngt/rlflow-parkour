@@ -59,7 +59,11 @@ def main():
     p.add_argument('--support-preserve-goals', action='store_true', help='Keep configured evaluation distances during a terrain override')
     p.add_argument('--support-calibration', type=Path, help='Frozen flat evaluation run.json for support transfer')
     p.add_argument('--support-probe-offset', type=float, choices=[.075], help='Zero-action geometry probe only: start feet above the gap')
+    p.add_argument('--four-step-candidate-probe',action='store_true',help='Matched policy physical rollout of nine four-step foothold candidates; requires episodes divisible by nine')
+    p.add_argument('--candidate-prefix-run',type=Path,help='Replay an audited action prefix before physical candidate branching')
+    p.add_argument('--candidate-prefix-steps',type=int,default=50)
     args = p.parse_args()
+    if args.candidate_prefix_run and not args.four_step_candidate_probe:p.error('Prefix requires candidate probe')
     if args.chain_settle_mode != 'default' and args.chain_hops not in range(2,9):
         p.error('Holding last action requires two-hop chain evaluation')
     if args.chain_hops is not None and ((args.chain_hops >= 2 and args.support_mode not in ('deck', 'course')) or not args.support_matched_material
@@ -262,6 +266,8 @@ def main():
             'scope':'Frozen policy, evaluation-only geometry; training configuration unchanged'}
     if distance_change is not None:meta["evaluation_distance_override"] = distance_change
     recorder = None
+    candidate_contract = None
+    prefix_replay = None
     try:
         launch_app(args.video)
         import numpy as np
@@ -270,6 +276,16 @@ def main():
         torch.manual_seed(10000)
         env = make_env(config, evaluation_support=support, chain_hops=args.chain_hops,
                        chain_settle_mode=args.chain_settle_mode, independent_support_clones=args.independent_support_clones, mapped_contact_progress=args.mapped_contact_progress)
+        if args.four_step_candidate_probe:
+            if config['task']!='a1_continuous_tracker_v1' or args.baseline!='policy' or args.terminal_policy or args.terminal_pose_hold:
+                raise ValueError('Candidate probe requires unmodified continuous Tracker policy')
+            from parkour.candidate_plan import install_candidates
+            if args.candidate_prefix_run:
+                from parkour.prefix_replay import PrefixReplay
+                prefix_replay=PrefixReplay(env,args.candidate_prefix_run,args.candidate_prefix_steps,args.checkpoint,config)
+            else:
+                candidate_contract=install_candidates(env)
+                meta['candidate_plan_contract']=candidate_contract
         if args.thesis_policy:
             if not 0<args.thesis_action_limit<=4:raise ValueError('Invalid teacher action limit')
             env.cfg.action_limit=args.thesis_action_limit
@@ -419,6 +435,16 @@ def main():
                 recorder = ParallelRecorder(env,args.out,count=args.video_envs,camera_side=args.video_camera_side)
         with torch.inference_mode():
             for step in range(env.max_episode_length + 1):
+                if prefix_replay is not None and step==prefix_replay.steps:
+                    valid=prefix_replay.validate()
+                    atomic_json(args.out/'prefix-validation.json',prefix_replay.metadata)
+                    if not valid:raise RuntimeError('Prefix replay diverged; candidate execution rejected')
+                    from parkour.candidate_plan import install_candidates
+                    start=int(env.progress.target[:,0].max())
+                    candidate_contract=install_candidates(env,start)
+                    meta['candidate_plan_contract']=candidate_contract
+                    meta['prefix_replay']=prefix_replay.metadata
+                    raw=env._get_observations()['policy']
                 if teacher is not None:
                     action=teacher.act()
                 elif args.baseline == "zero":
@@ -431,6 +457,8 @@ def main():
                     normalized = norm(policy_obs)
                     action = (sample_action(alg.policy, normalized, action_rng) if args.action_mode == 'sampled'
                               else alg.policy.act_inference(normalized))
+                if prefix_replay is not None and step<prefix_replay.steps:
+                    action=prefix_replay.action(step)
                 if terminal_policy is not None:
                     action=terminal_policy.apply(raw,action,step,done)
                 if terminal_pose is not None:action=terminal_pose.apply(raw,action,step,done)
@@ -588,10 +616,22 @@ def main():
             report['course_successes'] = None
             report['restored_prior_hops'] = 1
             report['hop_diagnostic_scope'] = 'return/errors describe restored segment; length retains source episode clock'
+        if candidate_contract is not None:
+            groups=[]
+            for candidate in range(9):
+                rows=[r for i,r in enumerate(records) if candidate_contract['candidate_id_by_environment'][i]==candidate]
+                groups.append({'candidate_id':candidate,'episodes':len(rows),
+                    'required_surface_index':candidate_contract['start_surface']+3,
+                    'candidate_horizon_reached':sum(r['completed_surface_transfers']>=candidate_contract['start_surface']+3 for r in rows),
+                    'course_successes':sum(r['success'] for r in rows),
+                    'mean_transfers':sum(r['completed_surface_transfers'] for r in rows)/len(rows)})
+            atomic_json(args.out/'candidate-rollouts.json',{'contract':candidate_contract,'results':groups,
+                'scope':'Reaching the end of the candidate horizon is a prefix metric, not full course success. No real-time or state-clone fidelity claim.'})
+            report['evaluation_scope']='four_step_candidate_physical_rollouts'
         atomic_json(args.out / "evaluation.json", report)
         meta["evaluation"] = {key: value for key, value in report.items() if key != "results"}
         meta["artifacts"] = {file.name: sha256(file) for file in args.out.iterdir()
-                             if file.suffix in (".mp4", ".png") or file.name in ("transition-restore.json", "transition-states.json", "transition-states.npz", "geometric-plan.json", "collision-contract.json", "terrain.json", "evaluation.json", "scenarios.json", "replay.json", "diagnostics.json", "motion-trace.npz", "reward-components.json", "reward-components.npz")}
+                             if file.suffix in (".mp4", ".png") or file.name in ("prefix-validation.json", "candidate-rollouts.json", "transition-restore.json", "transition-states.json", "transition-states.npz", "geometric-plan.json", "collision-contract.json", "terrain.json", "evaluation.json", "scenarios.json", "replay.json", "diagnostics.json", "motion-trace.npz", "reward-components.json", "reward-components.npz")}
         if args.chain_hops is not None:
             meta['artifacts']['chain-events.json'] = sha256(args.out / 'chain-events.json')
         if args.independent_support_clones:

@@ -17,9 +17,9 @@ def training_support(config):
         if spec['layout'].get('scenario_contract') in ('long_ten_gap_course_v1','long_ten_gap_course_v2','long_ten_gap_course_v3'):
             from parkour.shared_terrain import build_ten_gap_course
             expected=build_ten_gap_course(spec['layout']['level'],spec['geometry_seed'],spec['layout']['gap_scale'],spec['layout'].get('approach_transfers',3),spec['layout'].get('gap_rise_m',0.))
-        if spec['layout'].get('scenario_contract')=='discrete_parkour_v1':
+        if spec['layout'].get('scenario_contract') in ('discrete_parkour_v1','discrete_parkour_v2'):
             from parkour.shared_terrain import build_discrete_parkour
-            expected=build_discrete_parkour(spec['layout']['level'],spec['geometry_seed'])
+            expected=build_discrete_parkour(spec['layout']['level'],spec['geometry_seed'],spec['layout']['transitions'])
         if spec['layout']!=expected:
             raise ValueError('Shared training layout differs from generator')
         calibration=spec['calibration']
