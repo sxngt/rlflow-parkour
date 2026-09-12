@@ -83,7 +83,7 @@ class MonitorTests(unittest.TestCase):
         }))
         self.scan()
         with TestClient(api.app) as client:
-            runs={r['id']:r for r in client.get('/api/runs').json()}
+            runs={r['id']:r for r in client.get('/api/runs').json()['items']}
             self.assertEqual(runs['unrelated-evaluation-name']['training_run'],'train')
             self.assertIsNone(runs['train']['training_run'])
 
@@ -99,7 +99,7 @@ class MonitorTests(unittest.TestCase):
         self.scan()
         with TestClient(api.app) as client:
             detail=client.get('/api/runs/train/evaluation').json()
-            listing=client.get('/api/runs').json()[0]['evaluation']
+            listing=client.get('/api/runs').json()['items'][0]['evaluation']
             self.assertEqual(set(detail['by_distance']),{'0.0','0.15'})
             self.assertEqual(detail['by_distance'],listing['by_distance'])
             self.assertIn('summary_derivation',detail)
@@ -115,9 +115,9 @@ class MonitorTests(unittest.TestCase):
         with store.connect() as db:
             store.put(db,'video','example',{'id':'example','evaluation_run':'train','task':'test','research_tags':['phase:P1','step:01']})
         with TestClient(api.app) as client:
-            self.assertEqual(len(client.get('/api/runs?tag=phase:P1&tag=step:01').json()),1)
-            self.assertEqual(client.get('/api/runs?tag=phase:P2').json(),[])
-            self.assertEqual(len(client.get('/api/videos?tag=step:01').json()),1)
+            self.assertEqual(len(client.get('/api/runs?tag=phase:P1&tag=step:01').json()['items']),1)
+            self.assertEqual(client.get('/api/runs?tag=phase:P2').json()['items'],[])
+            self.assertEqual(len(client.get('/api/videos?tag=step:01').json()['items']),1)
             self.assertEqual(len(client.get('/api/files?path=artifacts&tag=step:01').json()['entries']),1)
             self.assertEqual(client.get('/api/files?path=artifacts&tag=phase:P2').json()['entries'],[])
             self.assertEqual(client.get('/api/tags').json()['tags'][0]['run_count'],1)
@@ -132,5 +132,48 @@ class MonitorTests(unittest.TestCase):
             self.assertEqual(r['env_id'],7);self.assertEqual(r['samples'][0]['root_z'],.4)
             self.assertEqual(r['samples'][0]['stage'],2)
             self.assertEqual(client.get('/api/replay',params={'path':'result/replay.json','env':3}).status_code,400)
+
+    def test_server_pagination_search_and_small_video_payload(self):
+        with store.connect() as db:
+            for i in range(65):
+                store.put(db,'run',f'job-{i:03}',{'id':f'job-{i:03}','kind':'train',
+                    'task':'jump','status':'SUCCEEDED','started_at':1,
+                    'run':{'config':{'research_tags':['phase:P2' if i%2 else 'phase:P1']}}})
+                store.put(db,'video',f'video-{i:03}',{'id':f'video-{i:03}','title':f'Jump {i}',
+                    'video_episodes':[{'huge':'x'*10000}], 'video_episode':{'huge':'y'*10000}})
+        with TestClient(api.app) as client:
+            first=client.get('/api/runs').json()
+            second=client.get('/api/runs?offset=24').json()
+            self.assertEqual(first['total'],65)
+            self.assertEqual(len(first['items']),24)
+            self.assertFalse({r['id'] for r in first['items']} & {r['id'] for r in second['items']})
+            self.assertEqual(first['items'][0]['id'],'job-064')
+            self.assertEqual(client.get('/api/runs?tag=phase:P2&limit=1').json()['total'],32)
+            found=client.get('/api/runs?q=job-001').json()
+            self.assertEqual([r['id'] for r in found['items']],['job-001'])
+            empty=client.get('/api/runs?offset=99').json()
+            self.assertEqual(empty['items'],[]);self.assertEqual(empty['total'],65)
+            self.assertEqual(client.get('/api/videos?limit=101').status_code,422)
+            videos=client.get('/api/videos')
+            self.assertLess(len(videos.content),20000)
+            self.assertNotIn('video_episodes',videos.json()['items'][0])
+
+    def test_thumbnail_is_bounded_cached_and_keeps_original(self):
+        from PIL import Image
+        import io
+        source=self.root/'result/preview.png'
+        Image.new('RGB',(1280,720),'navy').save(source)
+        original=source.read_bytes()
+        with TestClient(api.app) as client:
+            first=client.get('/api/thumbnail',params={'path':'result/preview.png'})
+            self.assertEqual(first.status_code,200)
+            self.assertIn('max-age',first.headers['cache-control'])
+            picture=Image.open(io.BytesIO(first.content))
+            self.assertEqual(picture.size,(480,270))
+            second=client.get('/api/thumbnail',params={'path':'result/preview.png'})
+            self.assertEqual(first.content,second.content)
+            self.assertEqual(len(list((self.root/'.monitor/thumbnails').glob('*.jpg'))),1)
+            self.assertEqual(source.read_bytes(),original)
+            self.assertEqual(client.get('/api/thumbnail',params={'path':'/etc/passwd'}).status_code,403)
 
 if __name__=='__main__':unittest.main()

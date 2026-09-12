@@ -3,6 +3,10 @@ import asyncio
 import json
 from src.parkour.evaluation_summary import load_report
 import time
+import hashlib
+import tempfile
+from threading import BoundedSemaphore
+from PIL import Image
 from contextlib import asynccontextmanager
 from pathlib import Path
 from urllib.parse import quote
@@ -10,7 +14,7 @@ from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.responses import FileResponse, StreamingResponse, Response
 from fastapi.staticfiles import StaticFiles
 from .tags import catalog, annotate, matches
-from .store import ROOT, connect, init, record, records, safe_path, read_json
+from .store import ROOT, connect, init, record, records, safe_path, read_json, listing
 
 @asynccontextmanager
 async def lifespan(app):
@@ -18,13 +22,15 @@ async def lifespan(app):
     yield
 
 app=FastAPI(title='parkour Research Monitor',lifespan=lifespan)
+thumbnail_workers=BoundedSemaphore(2)
 
 @app.middleware('http')
 async def headers(request, call_next):
     response=await call_next(request)
     response.headers['X-Content-Type-Options']='nosniff'
     response.headers['Referrer-Policy']='same-origin'
-    if request.url.path.startswith('/api'):response.headers['Cache-Control']='no-store'
+    if request.url.path.startswith('/api'):
+        response.headers['Cache-Control']='private, max-age=300' if request.url.path=='/api/thumbnail' else 'no-store'
     return response
 
 def resolve(path):
@@ -56,37 +62,31 @@ def health():
 
 @app.get('/api/overview')
 def overview():
-    runs=records('run'); health=record('collector','health'); system=record('system','latest')
+    health=record('collector','health'); system=record('system','latest')
+    with connect() as db:
+        counts=db.execute("""SELECT count(*) FILTER (WHERE kind='run') AS runs,
+            count(*) FILTER (WHERE kind='video') AS videos,
+            count(*) FILTER (WHERE kind='run' AND payload->>'kind'='train') AS train,
+            count(*) FILTER (WHERE kind='run' AND payload->>'kind'='evaluate') AS evaluate,
+            count(*) FILTER (WHERE kind='run' AND payload->>'status'='RUNNING') AS running,
+            count(*) FILTER (WHERE kind='run' AND payload->>'status' IN ('FAILED','LOST')) AS failed FROM records""").fetchone()
+        active=db.execute("SELECT id,payload#>>'{run,pid}' AS pid FROM records WHERE kind='run' AND payload->>'status'='RUNNING'").fetchall()
     for gpu in (system or {}).get('gpus',[]):
-        pids={p['pid'] for p in gpu.get('processes',[])}
-        gpu['runs']=[r['id'] for r in runs if r['run'].get('pid') in pids and r['status']=='RUNNING']
-    return {'system':system,'collector':health,'counts':{'runs':len(runs),'train':sum(r['kind']=='train' for r in runs),
-        'evaluate':sum(r['kind']=='evaluate' for r in runs),'running':sum(r['status']=='RUNNING' for r in runs),
-        'failed':sum(r['status'] in ('FAILED','LOST') for r in runs),'videos':len(records('video'))}}
+        pids={str(p['pid']) for p in gpu.get('processes',[])}
+        gpu['runs']=[r['id'] for r in active if r['pid'] in pids]
+    return {'system':system,'collector':health,'counts':counts}
 
 @app.get('/api/runs')
-def runs(tag: list[str] = Query(default=[])):
-    items=records('run')
-    rules=catalog()
-    for r in items:annotate(r,r['id'],r.get('run',{}).get('config'),rules)
-    training_paths={str((ROOT/r['path']).resolve()):r['id'] for r in items if r['kind']=='train'}
-    for r in items:
-        display_seed(r)
-        cp=(r.get('run') or {}).get('checkpoint') or {}
-        cp_path=cp.get('path')
-        r['training_run']=None
-        if r['kind']=='evaluate' and cp_path:
-            source=Path(cp_path)
-            if not source.is_absolute():source=ROOT/source
-            r['training_run']=training_paths.get(str(source.resolve().parent))
-        r.pop('run',None)
-    return sorted([r for r in items if matches(r,tag)],key=lambda r:r.get('started_at') or 0,reverse=True)
+def runs(tag: list[str] = Query(default=[]), limit:int=Query(24,ge=1,le=100),
+         offset:int=Query(0,ge=0),q:str=Query('',max_length=200),kind:str='',status:str='',training_run:str=''):
+    return listing('run',catalog(),limit,offset,q,tag,kind,status,training_run)
 
 @app.get('/api/runs/{id}')
 def run_detail(id:str):
     r=display_seed(require_run(id)); annotate(r,id,r.get('run',{}).get('config')); directory=resolve(r['path'])
     r['files']=[{'name':p.name,'path':str(p.relative_to(ROOT)),'size':p.stat().st_size} for p in sorted(directory.iterdir()) if p.is_file() and not p.is_symlink()]
-    r['related_videos']=[v for v in records('video') if v.get('evaluation_run')==id or v.get('training_run')==id]
+    with connect() as db:
+        r['related_videos']=[row['payload'] for row in db.execute("SELECT payload - 'video_episodes' - 'video_episode' AS payload FROM records WHERE kind='video' AND (payload->>'evaluation_run'=%s OR payload->>'training_run'=%s) ORDER BY id DESC LIMIT 24",(id,id))]
     return r
 
 @app.get('/api/runs/{id}/metrics')
@@ -117,15 +117,16 @@ def logs(id:str, offset:int=Query(-1,ge=-1)):
     return {'text':data.decode('utf8',errors='replace'),'start_offset':start,'next_offset':end,'size':size}
 
 @app.get('/api/videos')
-def videos(tag: list[str] = Query(default=[])):
-    rules=catalog()
-    items=[annotate(v,v.get('evaluation_run',v['id']),rules=rules) for v in records('video')]
-    return sorted([v for v in items if matches(v,tag)],key=lambda r:r['id'],reverse=True)
+def videos(tag: list[str] = Query(default=[]),limit:int=Query(24,ge=1,le=100),
+           offset:int=Query(0,ge=0),q:str=Query('',max_length=200)):
+    return listing('video',catalog(),limit,offset,q,tag)
 
 @app.get('/api/tags')
 def tags():
     rules=catalog();counts={t:0 for t in rules.get('tags',{})}
-    for r in records('run'):
+    with connect() as db:
+        rows=db.execute("SELECT id,payload->>'task' AS task,COALESCE(payload->'research_tags',payload#>'{run,config,research_tags}') AS research_tags FROM records WHERE kind='run'").fetchall()
+    for r in rows:
         for tag in annotate(r,r['id'],r.get('run',{}).get('config'),rules)['research_tags']:
             counts[tag]=counts.get(tag,0)+1
     return {'schema_version':rules.get('schema_version'), 'tags':[{'id':t,'label':rules.get('tags',{}).get(t,t),'run_count':n} for t,n in sorted(counts.items())]}
@@ -168,13 +169,15 @@ def telemetry(hours:float=Query(1,gt=0,le=168)):
     return [r['payload'] for r in rows[::stride]]
 
 @app.get('/api/files')
-def files(path:str='artifacts',tag:list[str]=Query(default=[])):
+def files(path:str='artifacts',tag:list[str]=Query(default=[]),limit:int=Query(50,ge=1,le=100),offset:int=Query(0,ge=0)):
     p=resolve(path)
     if not p.is_dir():raise HTTPException(400,'Directory required')
     items=[]
     rules=catalog()
-    run_tags={r['id']:annotate(r,r['id'],r.get('run',{}).get('config'),rules)['research_tags'] for r in records('run')}
-    video_tags={v['id']:annotate(v,v.get('evaluation_run',v['id']),rules=rules)['research_tags'] for v in records('video')}
+    with connect() as db:
+        rows=db.execute("SELECT kind,id,payload->>'task' AS task,payload->>'evaluation_run' AS evaluation_run,COALESCE(payload->'research_tags',payload#>'{run,config,research_tags}') AS research_tags FROM records WHERE kind IN ('run','video')").fetchall()
+    run_tags={r['id']:annotate(r,r['id'],rules=rules)['research_tags'] for r in rows if r['kind']=='run'}
+    video_tags={r['id']:annotate(r,r.get('evaluation_run') or r['id'],rules=rules)['research_tags'] for r in rows if r['kind']=='video'}
     for child in p.iterdir():
         if child.name.startswith('.') or child.is_symlink():continue
         relative=child.relative_to(ROOT).parts
@@ -186,7 +189,8 @@ def files(path:str='artifacts',tag:list[str]=Query(default=[])):
         if tag and relative[0] in ('artifacts','result') and not all(t in inherited for t in tag):continue
         st=child.stat(); items.append({'research_tags':inherited,'name':child.name,'path':str(child.relative_to(ROOT)),
             'directory':child.is_dir(),'size':st.st_size,'modified_at':st.st_mtime})
-    return {'path':str(p.relative_to(ROOT)),'entries':sorted(items,key=lambda x:(not x['directory'],x['name']))}
+    items.sort(key=lambda x:(not x['directory'],x['name']))
+    return {'path':str(p.relative_to(ROOT)),'entries':items[offset:offset+limit],'total':len(items),'limit':limit,'offset':offset,'has_more':offset+limit<len(items)}
 
 @app.get('/api/preview')
 def preview(path:str):
@@ -202,6 +206,28 @@ def file(path:str,download:bool=False):
     inline={'.mp4':'video/mp4','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg'}
     media=inline.get(p.suffix,'application/octet-stream')
     return FileResponse(p,media_type=media,filename=p.name,content_disposition_type='attachment' if download or p.suffix not in inline else 'inline')
+
+@app.get('/api/thumbnail')
+def thumbnail(path:str):
+    source=resolve(path)
+    if source.suffix.lower() not in ('.png','.jpg','.jpeg'):
+        raise HTTPException(415,'Image required')
+    stat=source.stat()
+    key=hashlib.sha256(f'{source}:{stat.st_mtime_ns}:{stat.st_size}:480-v1'.encode()).hexdigest()
+    cache=ROOT/'.monitor/thumbnails';cache.mkdir(parents=True,exist_ok=True)
+    target=cache/(key+'.jpg')
+    with thumbnail_workers:
+        if not target.exists():
+            with Image.open(source) as picture:
+                picture.thumbnail((480,270))
+                with tempfile.NamedTemporaryFile(dir=cache,suffix='.tmp',delete=False) as temporary:
+                    tmp=Path(temporary.name)
+                try:
+                    picture.convert('RGB').save(tmp,format='JPEG',quality=75,optimize=True)
+                    tmp.replace(target)
+                finally:
+                    tmp.unlink(missing_ok=True)
+    return FileResponse(target,media_type='image/jpeg')
 
 @app.get('/api/events')
 async def events(request:Request):

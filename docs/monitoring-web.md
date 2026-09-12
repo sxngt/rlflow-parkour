@@ -93,3 +93,16 @@ Phase·실험 단계·과제·목적을 조합해 실행·영상·원본 파일�
 향후 evaluate.py 출력에는 first_touch_precise_episodes/stabilized_episodes/success_contract 요약도 저장된다. 기존 artifact는 수정하지 않는다. 사용자 지정 연구실 서버18710의 기존 배포 흐름으로 적용했다. TypeScript/Vite build와페이지·기존정밀평가API HTTP200을확인했으며,별도브라우저QA는수행하지않았다.
 
 수평 도약 평가는 `by_distance`가 있을 때 거리별 성공·출발 영역·순수 비행 이동·첫 접촉·안정화 표를 표시한다. 기존 구현 확인 평가API에서0/5/10/15cm 각16개 집계를 확인했고 TS/Vite build 및 기존18710서버HTTP200을확인했다. 별도브라우저QA는수행하지않았다.
+
+
+## 대량 기록 조회 최적화 (2026-09-12)
+
+`/api/runs`, `/api/videos`는 이제 배열 대신 `{items,total,limit,offset,has_more}`를 반환한다. 기본24개/최대100개, `q`, 반복 `tag`, run의 `kind`/`status`/`training_run`은 DB에서 필터링한 뒤 정렬·페이지 처리한다. 파일 탐색은 기본50개씩 응답한다. 기존 API 직접 소비자는 배열 대신 items를 읽어야 한다.
+
+초기 현황은 집계와 최근8개 run만 조회한다. 다른 탭의 목록은 해당 탭에서만 요청한다. 기본 데이터 갱신은10초,태그목록60초,비활성브라우저탭은자동갱신중지다. 경로변경/해제된fetch는AbortController로취소하고검색은300ms지연한다. 비교지표는cursor이후증분을수집하며매갱신전체history재조회하지않는다. 로그는로그탭에서만조회한다.
+
+영상목록의episode상세배열을제거했다. 카드이미지는`/api/thumbnail`에서480×270이하JPEG로생성,동시변환2개/파일변경기반디스크캐시/브라우저5분캐시를적용한다. 원본영상·이미지는그대로다운로드가능하다. `.monitor/thumbnails`는재생성가능한캐시다. 차트모듈은사용하는구성만번들에포함한다.
+
+로컬단회측정:실행목록1,390,566→48,777bytes(1.58→.29초),영상목록27,696,606→53,651bytes(2.23→.26초). 작은영상목록응답은24개페이지이므로전체조회와작업량이다르다. 초기JS raw1.39MB→.81MB. 썸네일샘플23,556bytes. 부하시험의p95나외부기기속도보장은아니다.
+
+검증:격리PostgreSQL통합테스트9개통과,TS/Vite build통과,실제Chromium에서초기요청에videos없음/recentruns8개,목록24개/다음페이지/전체기록검색/영상재생화면/파일50개/비교화면검증,JS page error0. `artifacts/monitor-pagination-validation/`에기록. 기존user service18710배포반영.

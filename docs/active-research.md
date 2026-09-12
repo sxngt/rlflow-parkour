@@ -954,3 +954,10 @@ scripts/p2_34_evaluate.py작성:4seed×2조건×4평가군=32유일결과참조,
 이전두턴은동일실제worker의verifiedwait. 이번같은4worker확인/45초단위대기후batchsession65779exit0,4seedworkerexit0배치결과확인. 8학습800+8native완료감사통과 artifacts/p2-34-main-native-audit.json. native single seed0/1/2/3 성공64/64/64/0,chain코스0/64/0/0. chain0/2/3첫도약성공0. 서로다른native과제이므로이숫자만으로조건우열주장금지.
 
 scripts/p2_34_evaluate.py 추가24평가 시작session5859,log artifacts/p2-34-evaluation-batch.log. 32참조명세 artifacts/p2-34-evaluation-plan.json. 다음실제PID/동일session확인→평가완료→scripts/p2_34_report.py실행(전체8학습/32평가paired검증)→실패단계와회귀해석/영상확인. 전체목표미완료.
+
+
+### 최신: 사용자 요청 모니터링 성능 개선 배포
+
+직전평가대기중사용자가웹fetch과부하/페이지네이션요청. monitor/backend/store.py DB필터/페이지/요약projection,overview집계경량화,relatedvideo조건조회,tags/files메타데이터projection. 프론트활성탭만fetch/24개목록/서버검색필터/50개파일/요청취소/10초갱신/compare증분/관련평가페이지. 썸네일캐시480×270추가/Pillowlock,필요ECharts모듈번들축소. 18710서비스restart배포,tests9/build/ChromiumQA통과. docs/monitoring-web.md및artifacts/monitor-pagination-validation기록. APIruns/videos응답items envelope로변경.
+
+연구는중단하지않음. artifacts/p2-34-evaluation-batch.log 최종4seedexit0확인(모니터링작업중종료). 다음session5859최종확인→scripts/p2_34_report.py전체32평가감사/paired보고서. 이미single학습seed1도chain64/64로연속학습특유효과없다는부분결과확인했고single4코스감사 artifacts/p2-34-single-trained-chain-audit.json. 나머지회귀/전체영상감사는아직. 전체연구목표미완료.
