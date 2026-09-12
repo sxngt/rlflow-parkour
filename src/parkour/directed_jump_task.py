@@ -43,7 +43,14 @@ class DirectedJumpEnv(PrecisionJumpEnv):
         self.precise_stabilized|=self.success
         self.failure|=self.flight_event&~self.travel.launch_ok
         self.strict_travel_success=self.success&self.travel.valid(self.goal_distance,self.jump['travel_tolerance_m'])&~self.failure
-        if getattr(self.cfg, 'mapped_contact_progress', False):
+        if (self.cfg.support_contract or {}).get('mode')=='full-gap':
+            from parkour.mapped_contact import mapped_contact_gate
+            departure=next(s for s in self.cfg.support_contract['layout']['surfaces'] if s['id']=='departure_platform')
+            self.full_gap_launch_surface_ok=self.launch_support_history.departure_valid(departure)
+            self.full_gap_landing_surface_ok=mapped_contact_gate(self)
+            self.failure|=self.flight_event&~self.full_gap_launch_surface_ok
+            self.success=self.strict_travel_success&self.full_gap_launch_surface_ok&self.full_gap_landing_surface_ok&~self.failure
+        elif getattr(self.cfg, 'mapped_contact_progress', False):
             from parkour.mapped_contact import mapped_contact_gate
             self.mapped_contact_ok=mapped_contact_gate(self)
             self.success&=self.travel.launch_ok&self.mapped_contact_ok&~self.failure
@@ -68,6 +75,15 @@ class DirectedJumpEnv(PrecisionJumpEnv):
         for axis,i in [('x',0),('y',1)]:
             m[f'launch_root_{axis}_m']=self.travel.launch_xy[:,i].clone()
             m[f'first_touch_root_{axis}_m']=self.travel.touch_xy[:,i].clone()
+        if (self.cfg.support_contract or {}).get('mode')=='full-gap':
+            m['full_gap_launch_surface_ok']=self.full_gap_launch_surface_ok.clone()
+            m['full_gap_landing_surface_ok']=self.full_gap_landing_surface_ok.clone()
+            for foot,name in enumerate(['fl','fr','rl','rr']):
+                for axis,index in [('x',0),('y',1),('z',2)]:
+                    m['launch_support_'+axis+'_'+name]=self.launch_support_history.positions[:,foot,index].clone()
+                m['launch_support_force_z_'+name]=self.launch_support_history.force_z[:,foot].clone()
+                m['first_touch_x_'+name]=self.first_touch.positions[:,foot,0].clone()
+                m['first_touch_y_'+name]=self.first_touch.positions[:,foot,1].clone()
         if getattr(self.cfg, 'mapped_contact_progress', False):
             m['mapped_contact_ok']=self.mapped_contact_ok.clone()
             m['strict_travel_success']=self.strict_travel_success.clone()

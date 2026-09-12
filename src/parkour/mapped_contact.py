@@ -11,7 +11,7 @@ def mapped_contact_gate_reference(env):
         matches=torch.zeros(env.num_envs,dtype=torch.int64,device=env.device)
         supported=torch.zeros_like(valid)
         for surface in env.cfg.support_contract['layout']['surfaces']:
-            if surface['foot']!=name:continue
+            if surface['foot']!=name and not (env.cfg.support_contract['layout'].get('mode')=='full-gap' and surface['foot']=='all'):continue
             x0,x1,y0,y1=surface['bounds_xy_m'];z=surface['top_z_m']
             selected=(goal[:,foot,0]>=x0+.02-1e-6)&(goal[:,foot,0]<=x1-.02+1e-6)&(goal[:,foot,1]>=y0+.02-1e-6)&(goal[:,foot,1]<=y1-.02+1e-6)
             def inside(p):return (p[:,0]>=x0)&(p[:,0]<=x1)&(p[:,1]>=y0)&(p[:,1]<=y1)
@@ -30,7 +30,7 @@ def mapped_contact_gate_vectorized(env):
     key=(id(layout),tuple(env.foot_names),feet.dtype,str(feet.device))
     cache=getattr(env,'_mapped_contact_bounds_cache',None)
     if cache is None or cache[0]!=key:
-        groups=[[surface for surface in layout['surfaces'] if surface['foot']==name] for name in env.foot_names]
+        groups=[[surface for surface in layout['surfaces'] if surface['foot']==name or (layout.get('mode')=='full-gap' and surface['foot']=='all')] for name in env.foot_names]
         size=max(1,max(map(len,groups)))
         bounds=[];limits=[];heights=[];present=[]
         for group in groups:

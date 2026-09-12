@@ -50,9 +50,17 @@ def check(directory):
             if m['success']:
                 gates = ('valid_flight', 'launch_in_region', 'first_touch_all_within', 'precise_stabilized_once')
                 assert all(m[k] for k in gates)
-                if contract.get('progress_criterion') == 'mapped_contact_v1':
+                if contract.get('progress_criterion') in ('mapped_contact_v1','full_platform_gap_v1'):
                     from parkour.support_geometry import expected_goal_surface
-                    assert m['mapped_contact_ok']
+                    if contract['progress_criterion']=='mapped_contact_v1':
+                        assert m['mapped_contact_ok']
+                    else:
+                        assert m['travel_requirement_met'] and m['full_gap_launch_surface_ok'] and m['full_gap_landing_surface_ok']
+                        departure=run['evaluation_support']['layout']['surfaces'][0]
+                        x0,x1,y0,y1=departure['bounds_xy_m'];z=departure['top_z_m']
+                        for name in ('fl','fr','rl','rr'):
+                            assert x0<=m['launch_support_x_'+name]<=x1 and y0<=m['launch_support_y_'+name]<=y1
+                            assert z<=m['launch_support_z_'+name]<=z+.04 and m['launch_support_force_z_'+name]>2
                     sample = h['episode_step'] * 4 - 1
                     for foot, name in enumerate(('fl','fr','rl','rr')):
                         surface = expected_goal_surface(run['evaluation_support'], foot,

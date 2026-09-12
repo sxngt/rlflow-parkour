@@ -41,7 +41,8 @@ def main():
     p.add_argument('--launch-radius', type=float, help='Evaluation-only tighter directed-jump launch radius in metres')
     p.add_argument('--evaluation-forward-m', nargs='+', type=float, help='Explicit evaluation-only distances on continuous/split support')
     p.add_argument('--map-goal-forward-m', type=float, help='Select a geometric stance path from the support map to a forward goal')
-    p.add_argument('--support-mode', choices=['flat', 'continuous', 'split', 'deck', 'course'])
+    p.add_argument('--gap-travel-m', type=float, default=.5, help='Foot translation for disjoint whole-platform gap evaluation')
+    p.add_argument('--support-mode', choices=['flat', 'continuous', 'split', 'deck', 'course', 'full-gap'])
     p.add_argument('--support-matched-material', action='store_true')
     p.add_argument('--independent-support-clones', action='store_true', help='P2-38 all-deck scene construction validation only')
     p.add_argument('--support-preserve-goals', action='store_true', help='Keep configured evaluation distances during a terrain override')
@@ -81,7 +82,13 @@ def main():
                    'reference_path': str(args.support_calibration.resolve()),
                    'reference_sha256': sha256(args.support_calibration),
                    'goal_forward_m': .15}
-        if args.support_mode != 'flat':
+        if args.support_mode=='full-gap':
+            if args.chain_hops!=1 or args.restore_transition or args.support_preserve_goals:
+                p.error('Whole-platform gap requires explicit original one-hop evaluation')
+            from parkour.support_geometry import build_full_platform_gap
+            support['layout']=build_full_platform_gap(names,support['calibration']['foot_xy_m'],args.gap_travel_m)
+            support['goal_forward_m']=args.gap_travel_m
+        elif args.support_mode != 'flat':
             support['layout'] = build_support_layout(names, support['calibration']['foot_xy_m'], mode=args.support_mode, course_hops=args.chain_hops or 2)
         if args.support_preserve_goals:
             support.pop('goal_forward_m')
@@ -111,7 +118,7 @@ def main():
     if support and not args.support_preserve_goals:
         from parkour.scenarios import directed_jump_scenarios
         specification = copy.deepcopy(config['jump'])
-        specification['evaluation_forward_m'] = [.15]
+        specification['evaluation_forward_m'] = [support.get('goal_forward_m',.15)]
         manifest = directed_jump_scenarios(args.episodes, specification)
         manifest['evaluation_support'] = support
     if support is None and config.get('terrain_contract'):
@@ -192,6 +199,9 @@ def main():
             meta['chain_contract']['absolute_forward_targets_m'] = distances if len(distances) == 1 else None
             meta['chain_contract']['single_hop_goal_choices_m'] = distances
             meta['chain_contract']['target_source'] = 'scenarios.episodes[*].foot_offsets_xy_m'
+        if args.support_mode=='full-gap':
+            meta['chain_contract']['progress_criterion']='full_platform_gap_v1'
+            meta['chain_contract']['physical_gap_width_m']=support['layout']['gap_width_m']
         if args.mapped_contact_progress:
             meta['chain_contract']['progress_criterion']='mapped_contact_v1'
         if args.course_station_heights is not None:
@@ -429,6 +439,9 @@ def main():
             atomic_json(args.out / 'chain-events.json', {'contract': meta['chain_contract'],
                 'hops': env.hop_events, 'transitions': env.transition_events,
                 'scope': 'first episode per environment only; later auto-reset episodes excluded'})
+        if args.support_mode=='full-gap':
+            report['success_contract']='last preflight contacts on departure platform + legacy launch/body-travel/precision/stability gates + first and final foot support on landing platform'
+            report['evaluation_scope']='full_platform_gap_v1; fixed one-hop target, not planner navigation'
         if args.mapped_contact_progress:
             report['success_contract']='valid flight + launch region + first contact on assigned surface + precise stable support; trunk airborne distance is a separate legacy metric'
             report['evaluation_scope']='mapped_contact_v1; not comparable to legacy strict-travel success'

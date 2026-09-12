@@ -1,0 +1,165 @@
+{
+  "new_training_steps": 39321600,
+  "evaluations": [
+    {
+      "seed": 1,
+      "suite": "reach",
+      "out": "artifacts/p3-15-eval-seed1-reach",
+      "successes": 48,
+      "by_distance": {
+        "0.15": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.2": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.25": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.3": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "suite": "continuous",
+      "out": "artifacts/p3-15-eval-seed1-continuous",
+      "successes": 22,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 6,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 6,
+          "stabilized": 13
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "suite": "reach",
+      "out": "artifacts/p3-15-eval-seed2-reach",
+      "successes": 3,
+      "by_distance": {
+        "0.15": {
+          "episodes": 16,
+          "successes": 3,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 3
+        },
+        "0.2": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 15
+        },
+        "0.25": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.3": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 3,
+          "stabilized": 13
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "suite": "continuous",
+      "out": "artifacts/p3-15-eval-seed2-continuous",
+      "successes": 27,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 14,
+          "launches_in_region": 16,
+          "travel_met": 14,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 13,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 13
+        }
+      }
+    }
+  ]
+}

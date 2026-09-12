@@ -161,6 +161,8 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
     if cfg.support_contract is not None:
         from parkour.terrain_contract import validate_surface_materials
         validate_surface_materials(cfg.support_contract)
+        if cfg.support_contract.get('mode')=='full-gap':
+            cfg.sim.enable_scene_query_support=True
     if chain_spec is not None and chain_hops is None:
         chain_hops = chain_spec['hops']
         chain_settle_mode = chain_spec['settle_command']

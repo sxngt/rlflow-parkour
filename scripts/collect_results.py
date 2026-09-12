@@ -45,7 +45,9 @@ def collect(evaluation, result_root=ROOT / 'result'):
     task, task_title = TASKS[run['config']['task']]
     if run.get('evaluation_support'):
         support = run['evaluation_support']
-        label = {'flat': '평지대조', 'continuous': '발별_연속지지면', 'split': '발별_분리지지면_갭6cm', 'deck': '단일발판_140x120cm', 'course': '불연속발판_발별15cm이동_패드6x12cm_갭9cm'}[support['mode']]
+        label = {'flat': '평지대조', 'continuous': '발별_연속지지면', 'split': '발별_분리지지면_갭6cm', 'deck': '단일발판_140x120cm', 'course': '불연속발판_발별15cm이동_패드6x12cm_갭9cm', 'full-gap': '분리된대형발판'}[support['mode']]
+        if support['mode']=='full-gap':
+            label += f"_실제갭{100*support['layout']['gap_width_m']:.2f}cm_발목표전진{100*support['goal_forward_m']:g}cm"
         task_title = label + ('_목표전이15cm_고정정책' if support.get('goal_forward_m') == .15 else '_목표거리별평가')
         if support.get('matched_material'):
             task_title += '_기본재질·구간별마찰설정' if support.get('surface_material_overrides') else '_동일물리재질'

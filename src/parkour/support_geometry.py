@@ -84,7 +84,7 @@ def expected_goal_surface(support, foot_index, nominal_xy, goal_forward_m, margi
     if not all(math.isfinite(v) for v in (x,y,goal_forward_m,margin)) or margin<0:
         raise ValueError('Invalid target geometry')
     surfaces=support['layout']['surfaces']
-    candidates=surfaces if support['mode']=='deck' else [s for s in surfaces if s['foot']==support['foot_names'][foot_index]]
+    candidates=surfaces if support['mode'] in ('deck','full-gap') else [s for s in surfaces if s['foot']==support['foot_names'][foot_index]]
     matches=[]
     for s in candidates:
         x0,x1,y0,y1=s['bounds_xy_m']
@@ -142,3 +142,26 @@ def vary_course_heights(layout, heights):
     result['station_heights_m']=list(heights)
     result['height_contract']='level_stance_heights_v1'
     return result
+
+
+def build_full_platform_gap(foot_names, foot_xy, travel_m=.5, margin_m=.02):
+    """Two disjoint platforms that contain whole departure/landing stances."""
+    if (len(foot_names)!=4 or len(foot_xy)!=4 or not math.isfinite(travel_m)
+            or not .42 <= travel_m <= .55 or margin_m != .02):
+        raise ValueError('Whole-platform gap requires 42–55cm travel and 2cm margins')
+    if any(len(p)!=2 or any(not math.isfinite(v) for v in p) for p in foot_xy):
+        raise ValueError('Invalid calibrated footprint')
+    departure_end=max(x for x,y in foot_xy)+margin_m
+    landing_start=min(x for x,y in foot_xy)+travel_m-margin_m
+    if landing_start<=departure_end:raise ValueError('No positive whole-platform gap')
+    cy=sum(y for x,y in foot_xy)/4
+    surfaces=[]
+    for name,x0,x1 in [('departure_platform',departure_end-1.,departure_end),('landing_platform',landing_start,landing_start+1.)]:
+        surfaces.append({'id':name,'foot':'all','role':name,'center_m':[(x0+x1)/2,cy,-.05],
+                         'size_m':[1.,1.2,.1],'normal':[0.,0.,1.],'top_z_m':0.,
+                         'bounds_xy_m':[x0,x1,cy-.6,cy+.6]})
+    return {'schema_version':1,'frame':'environment_local','mode':'full-gap','target_travel_m':travel_m,
+            'gap_width_m':landing_start-departure_end,'catch_floor_z_m':-.5,'surfaces':surfaces,
+            'landing_targets':[{'foot':name,'position_m':[x+travel_m,y,0.]} for name,(x,y) in zip(foot_names,foot_xy)],
+            'contact_margin_m':margin_m,'geometry_contract':'full_platform_gap_v1',
+            'scope':'Two disjoint whole-stance platforms; physical crossing must be separately verified'}

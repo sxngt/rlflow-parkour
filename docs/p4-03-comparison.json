@@ -1,0 +1,297 @@
+{
+  "new_training_steps": 78643200,
+  "evaluations": [
+    {
+      "seed": 1,
+      "condition": "history",
+      "suite": "uniform8",
+      "source": "artifacts/p4-03-history-seed1",
+      "out": "artifacts/p4-03-eval-history-seed1-uniform8",
+      "successes": 0,
+      "episodes": 64,
+      "completed_hops_histogram": {
+        "0": 64,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0
+      }
+    },
+    {
+      "seed": 1,
+      "condition": "history",
+      "suite": "friction0p2",
+      "source": "artifacts/p4-03-history-seed1",
+      "out": "artifacts/p4-03-eval-history-seed1-friction0p2",
+      "successes": 0,
+      "episodes": 64,
+      "completed_hops_histogram": {
+        "0": 64,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0
+      }
+    },
+    {
+      "seed": 1,
+      "condition": "history",
+      "suite": "friction0p05",
+      "source": "artifacts/p4-03-history-seed1",
+      "out": "artifacts/p4-03-eval-history-seed1-friction0p05",
+      "successes": 0,
+      "episodes": 64,
+      "completed_hops_histogram": {
+        "0": 64,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0
+      }
+    },
+    {
+      "seed": 1,
+      "condition": "history",
+      "suite": "continuous",
+      "source": "artifacts/p4-03-history-seed1",
+      "out": "artifacts/p4-03-eval-history-seed1-continuous",
+      "successes": 0,
+      "episodes": 64,
+      "completed_hops_histogram": {
+        "0": 64,
+        "1": 0
+      }
+    },
+    {
+      "seed": 1,
+      "condition": "zero",
+      "suite": "uniform8",
+      "source": "artifacts/p4-03-zero-seed1",
+      "out": "artifacts/p4-03-eval-zero-seed1-uniform8",
+      "successes": 62,
+      "episodes": 64,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 1,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 1,
+        "8": 62
+      }
+    },
+    {
+      "seed": 1,
+      "condition": "zero",
+      "suite": "friction0p2",
+      "source": "artifacts/p4-03-zero-seed1",
+      "out": "artifacts/p4-03-eval-zero-seed1-friction0p2",
+      "successes": 55,
+      "episodes": 64,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 2,
+        "4": 7,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 55
+      }
+    },
+    {
+      "seed": 1,
+      "condition": "zero",
+      "suite": "friction0p05",
+      "source": "artifacts/p4-03-zero-seed1",
+      "out": "artifacts/p4-03-eval-zero-seed1-friction0p05",
+      "successes": 9,
+      "episodes": 64,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 2,
+        "4": 19,
+        "5": 18,
+        "6": 9,
+        "7": 7,
+        "8": 9
+      }
+    },
+    {
+      "seed": 1,
+      "condition": "zero",
+      "suite": "continuous",
+      "source": "artifacts/p4-03-zero-seed1",
+      "out": "artifacts/p4-03-eval-zero-seed1-continuous",
+      "successes": 0,
+      "episodes": 64,
+      "completed_hops_histogram": {
+        "0": 64,
+        "1": 0
+      }
+    },
+    {
+      "seed": 2,
+      "condition": "history",
+      "suite": "uniform8",
+      "source": "artifacts/p4-03-history-seed2",
+      "out": "artifacts/p4-03-eval-history-seed2-uniform8",
+      "successes": 0,
+      "episodes": 64,
+      "completed_hops_histogram": {
+        "0": 64,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0
+      }
+    },
+    {
+      "seed": 2,
+      "condition": "history",
+      "suite": "friction0p2",
+      "source": "artifacts/p4-03-history-seed2",
+      "out": "artifacts/p4-03-eval-history-seed2-friction0p2",
+      "successes": 0,
+      "episodes": 64,
+      "completed_hops_histogram": {
+        "0": 64,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0
+      }
+    },
+    {
+      "seed": 2,
+      "condition": "history",
+      "suite": "friction0p05",
+      "source": "artifacts/p4-03-history-seed2",
+      "out": "artifacts/p4-03-eval-history-seed2-friction0p05",
+      "successes": 0,
+      "episodes": 64,
+      "completed_hops_histogram": {
+        "0": 64,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0
+      }
+    },
+    {
+      "seed": 2,
+      "condition": "history",
+      "suite": "continuous",
+      "source": "artifacts/p4-03-history-seed2",
+      "out": "artifacts/p4-03-eval-history-seed2-continuous",
+      "successes": 0,
+      "episodes": 64,
+      "completed_hops_histogram": {
+        "0": 64,
+        "1": 0
+      }
+    },
+    {
+      "seed": 2,
+      "condition": "zero",
+      "suite": "uniform8",
+      "source": "artifacts/p4-03-zero-seed2",
+      "out": "artifacts/p4-03-eval-zero-seed2-uniform8",
+      "successes": 52,
+      "episodes": 64,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 2,
+        "4": 4,
+        "5": 3,
+        "6": 3,
+        "7": 0,
+        "8": 52
+      }
+    },
+    {
+      "seed": 2,
+      "condition": "zero",
+      "suite": "friction0p2",
+      "source": "artifacts/p4-03-zero-seed2",
+      "out": "artifacts/p4-03-eval-zero-seed2-friction0p2",
+      "successes": 5,
+      "episodes": 64,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 2,
+        "4": 7,
+        "5": 30,
+        "6": 8,
+        "7": 12,
+        "8": 5
+      }
+    },
+    {
+      "seed": 2,
+      "condition": "zero",
+      "suite": "friction0p05",
+      "source": "artifacts/p4-03-zero-seed2",
+      "out": "artifacts/p4-03-eval-zero-seed2-friction0p05",
+      "successes": 0,
+      "episodes": 64,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 60,
+        "4": 4,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0
+      }
+    },
+    {
+      "seed": 2,
+      "condition": "zero",
+      "suite": "continuous",
+      "source": "artifacts/p4-03-zero-seed2",
+      "out": "artifacts/p4-03-eval-zero-seed2-continuous",
+      "successes": 46,
+      "episodes": 64,
+      "completed_hops_histogram": {
+        "0": 18,
+        "1": 46
+      }
+    }
+  ]
+}
