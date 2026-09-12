@@ -162,6 +162,33 @@ def collect(evaluation, result_root=ROOT / 'result'):
             except BaseException:
                 shutil.rmtree(temp)
                 raise
+        if run.get('chain_contract'):
+            source = evaluation / 'chain-events.json'
+            event_hash = run['artifacts'].get('chain-events.json')
+            if not event_hash or digest(source) != event_hash:
+                raise ValueError('Chain event hash mismatch')
+            destination = folder / source.name
+            if destination.exists() and digest(destination) != event_hash:
+                raise ValueError('Archived chain events differ; refusing to overwrite')
+            if not destination.exists():
+                temporary = folder / '.chain-events.tmp'
+                shutil.copyfile(source, temporary)
+                if digest(temporary) != event_hash:
+                    raise ValueError('Chain event copy verification failed')
+                temporary.replace(destination)
+            manifest_path = folder / 'manifest.json'
+            archived = json.loads(manifest_path.read_text())
+            archived['chain_events'] = {'file': source.name, 'sha256': event_hash}
+            temporary = folder / '.manifest.tmp'
+            temporary.write_text(json.dumps(archived, ensure_ascii=False, indent=2) + '\n')
+            temporary.replace(manifest_path)
+            readme = folder / 'README.md'
+            content = readme.read_text()
+            if '[도약별 전환 기록](chain-events.json)' not in content:
+                content += '\n[도약별 전환 기록](chain-events.json): 도약 번호·전환 시각·출발 원점·상태 보존 검사. 개별 도약의 접촉 지표와 전체 코스 성공을 구분합니다.\n'
+                temporary = folder / '.README.tmp'
+                temporary.write_text(content)
+                temporary.replace(readme)
         rebuild_index(result_root)
     return folder
 

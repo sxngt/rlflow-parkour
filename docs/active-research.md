@@ -926,3 +926,10 @@ scripts/p2_34_evaluate.py작성:4seed×2조건×4평가군=32유일결과참조,
 이전평가행렬준비는progress. scripts/p2_34_report.py추가:8학습각800×24576step과총157,286,400검증,chainhop노출합계,32평가artifact/chaintrace감사,16조건짝의같은시나리오/모델경로검사,paired성공변화및거리별표생성. 아직결과파일없음. 현재미실행chainseed0 때문에의도대로중단함 artifacts/p2-34-incomplete-report-check.log;syntax검사통과. 완전한실제데이터종단검증은8학습/32평가후필요.
 
 동일worker1783928/1783929/1783942/1783943live,251~265update확인후45초verified wait. 다음session65779동일batch유지,첫묶음800완료/native후둘째조건자동시작확인. 전체목표미완료.
+
+
+### 최신: 연속 도약 result 기록 보강 / 본학습 유지
+
+이전분석코드준비는progress. collect_results.py에chain-events.json hash검증/원자복사,manifest file/hash 및README링크추가. 기존archive에다시실행해도영상유지,이벤트충돌거부. p233seed1검증후12개완료영상archive에backfill완료(session15231exit0). 원본run/artifact변경없음.
+
+동일4workerlive재확인후45초verifiedwait. 현재chain1=519,chain3=520,single0=544,single2=540/800. 동일batchsession65779계속,재시작/설정변경없음. 저장소530GB. 다음첫묶음완료→자동평가→둘째조건시작확인. 전체목표미완료.
