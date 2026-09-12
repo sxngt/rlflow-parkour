@@ -645,3 +645,10 @@ continuous/split fork smoke각64env3update+auto평가/영상정상완료(34960/2
 이전 턴은 보고서 구현·기존 실제 평가 대조로 progress. 본 batch PID1608853 live 재확인. scripts/audit_policy_fork.py 추가: locally trusted cp0/부모hash, 정책·critic·normalizer exact tensor 복사(std cap/floor 새설정), optimizer state empty 및 초기 LR, config 허용변경, 계보/초기0계수, 기록된 모든 update의 새step 및 탐색cap 일정을 검사한다. 완료 감사와 구분하는 scope를 출력하며 live metrics의 미완성 마지막 줄은 제외한다. 실제 첫4run 감사 통과, artifacts/p2-29-initial-forks-audit.jsonl/log(session44779 exit0). snapshot update480~489, 401부터cap.05 확인. rng 독립성/최종성능을 이 감사로 증명한다고 주장하지 않는다.
 
 앞턴 보고서 validation 임시산출물4개는 artifacts/p2-29-report-validation-*-support-diagnosis.{json,md}로 이동해 보존. 본 batch는 재실행하지 않는다. 다음 첫native평가/둘째묶음 진행 확인, 둘째묶음에도 초기화 감사 적용 후 최종 artifact 감사 및 p2_29_evaluate.py. 전체 목표 미완료.
+
+
+### 최신: P2-29 모니터링 실제 데이터 검증
+
+이전 턴 fork 감사 구현/실제4run 검증은 progress. 본batch PID1608853 live, metrics610~624 관측. /api/health ok/errors[], phase/step 필터로4 RUNNING 표시, API metrics는파일대비0~3 update 지연, run detail 부모계보와원본정확일치. artifacts/p2-29-monitor-validation.json 저장.
+
+회귀 smoke는split학습config를보존한continuous평가인데상속태그split로분류됨을발견. configs/research-tags.json run_override로p2-29-regression-smoke의terrain:continuous/purpose:regression-smoke 수정,API필터결과검증. 원본연구artifact변경없음. 본교차평가script는명시적실제terrain태그를넘기므로해당오류없음. 다음첫묶음native평가와둘째묶음진행확인. 전체목표미완료.
