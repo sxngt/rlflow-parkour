@@ -1243,3 +1243,10 @@ scripts/p2_40_evaluate.py 실행 session41741,log artifacts/p2-40-evaluation-bat
 weighted chain64/64/64/0,continuous64/64/61/20,split0/64/64/0. uniform대비seed1/2회복. seed3첫hop64개모두비행거리부족(약.079~.081m),접촉/반경/안정화통과지만둘째없음. seed2single5cm13/16;seed3거리0/5/10/15=15/5/0/0. 全seed안정성미충족/champion없음。
 
 다음대표영상육안검수(아직안함),seed3부모P231→P238/239/240실패/비행거리·노출비교;seed0split및seed2짧은거리회귀포함. 반복가중치sweep전에다음가설결정. 全P240セッションterminal、新학습없음。전체목표미완료.
+
+
+### 최신: P240 동일scenario 계보진단/대표영상검수 완료
+
+이전全32비교완료는progress. scripts/p2_40_lineage_diagnosis.py 실행완료,docs/p2-40-lineage-diagnosis.json 4seed×P231/238/239/240 continuous16평가의同scenario검증/거리별종료조건. seed3부모긴목표실패지만P238에서10/15성공하므로부모원인단정불가. P240대표seed1/3영상전체범위6frame씩육안확인,findings보완.
+
+다음은보상성분계측(아직구현안함): JumpEnv dense/event/apex/success/failure, PrecisionJump firsttouch, Directed travel의실제각step기여를평가에서모으고합계reward일치/계측전후동작동일을검증. 성공8점은최종self.success사용하므로짧은실패도약에잘못지급된다고주장금지. 목적은거리실패지만안정착지한정책의보상누적을확인해다음학습가설결정. 보상변경/새학습아직없음,전체목표미완료。

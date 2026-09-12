@@ -1,0 +1,1013 @@
+{
+  "scope": "same single-hop continuous scenarios; terminal flags can overlap; lineage association is not causal attribution",
+  "records": [
+    {
+      "seed": 0,
+      "source": "p2-31-mixed",
+      "evaluation": "artifacts/p2-31-mixed-seed0-regression",
+      "groups": [
+        {
+          "goal_m": 0.0,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.03955435752868652,
+          "flight_max_m": 0.04047226905822754
+        },
+        {
+          "goal_m": 0.05,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.06856560707092285,
+          "flight_max_m": 0.07037532329559326
+        },
+        {
+          "goal_m": 0.1,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.10336136817932129,
+          "flight_max_m": 0.1041039228439331
+        },
+        {
+          "goal_m": 0.15,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.14862513542175293,
+          "flight_max_m": 0.149519681930542
+        }
+      ]
+    },
+    {
+      "seed": 0,
+      "source": "p2-38-continuous",
+      "evaluation": "artifacts/p2-38-continuous-seed0-regression",
+      "groups": [
+        {
+          "goal_m": 0.0,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.030615806579589844,
+          "flight_max_m": 0.03136467933654785
+        },
+        {
+          "goal_m": 0.05,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.07123947143554688,
+          "flight_max_m": 0.07287776470184326
+        },
+        {
+          "goal_m": 0.1,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.09723806381225586,
+          "flight_max_m": 0.0993274450302124
+        },
+        {
+          "goal_m": 0.15,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.12446188926696777,
+          "flight_max_m": 0.1257038116455078
+        }
+      ]
+    },
+    {
+      "seed": 0,
+      "source": "p2-39-coverage",
+      "evaluation": "artifacts/p2-39-coverage-seed0-regression",
+      "groups": [
+        {
+          "goal_m": 0.0,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.05605888366699219,
+          "flight_max_m": 0.05821704864501953
+        },
+        {
+          "goal_m": 0.05,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.0937645435333252,
+          "flight_max_m": 0.09444677829742432
+        },
+        {
+          "goal_m": 0.1,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.11652684211730957,
+          "flight_max_m": 0.11794579029083252
+        },
+        {
+          "goal_m": 0.15,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.15033316612243652,
+          "flight_max_m": 0.1511167287826538
+        }
+      ]
+    },
+    {
+      "seed": 0,
+      "source": "p2-40-weighted",
+      "evaluation": "artifacts/p2-40-weighted-seed0-regression",
+      "groups": [
+        {
+          "goal_m": 0.0,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.04144644737243652,
+          "flight_max_m": 0.043047189712524414
+        },
+        {
+          "goal_m": 0.05,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.06908941268920898,
+          "flight_max_m": 0.072823166847229
+        },
+        {
+          "goal_m": 0.1,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.10539841651916504,
+          "flight_max_m": 0.10793375968933105
+        },
+        {
+          "goal_m": 0.15,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.14065194129943848,
+          "flight_max_m": 0.14573156833648682
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "source": "p2-31-mixed",
+      "evaluation": "artifacts/p2-31-mixed-seed1-regression",
+      "groups": [
+        {
+          "goal_m": 0.0,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.0012919902801513672,
+          "flight_max_m": 0.0015175342559814453
+        },
+        {
+          "goal_m": 0.05,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.034452199935913086,
+          "flight_max_m": 0.034989118576049805
+        },
+        {
+          "goal_m": 0.1,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.0811307430267334,
+          "flight_max_m": 0.08132398128509521
+        },
+        {
+          "goal_m": 0.15,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.1471400260925293,
+          "flight_max_m": 0.14945530891418457
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "source": "p2-38-continuous",
+      "evaluation": "artifacts/p2-38-continuous-seed1-regression",
+      "groups": [
+        {
+          "goal_m": 0.0,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.001584768295288086,
+          "flight_max_m": 0.0015916824340820312
+        },
+        {
+          "goal_m": 0.05,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.053320884704589844,
+          "flight_max_m": 0.05622744560241699
+        },
+        {
+          "goal_m": 0.1,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.0962057113647461,
+          "flight_max_m": 0.09903287887573242
+        },
+        {
+          "goal_m": 0.15,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.13791251182556152,
+          "flight_max_m": 0.13868451118469238
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "source": "p2-39-coverage",
+      "evaluation": "artifacts/p2-39-coverage-seed1-regression",
+      "groups": [
+        {
+          "goal_m": 0.0,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.0059206485748291016,
+          "flight_max_m": 0.0063304901123046875
+        },
+        {
+          "goal_m": 0.05,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.046001434326171875,
+          "flight_max_m": 0.04622650146484375
+        },
+        {
+          "goal_m": 0.1,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.07938086986541748,
+          "flight_max_m": 0.08138179779052734
+        },
+        {
+          "goal_m": 0.15,
+          "successes": 0,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 16,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.11290550231933594,
+          "flight_max_m": 0.11297798156738281
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "source": "p2-40-weighted",
+      "evaluation": "artifacts/p2-40-weighted-seed1-regression",
+      "groups": [
+        {
+          "goal_m": 0.0,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.020749568939208984,
+          "flight_max_m": 0.02182137966156006
+        },
+        {
+          "goal_m": 0.05,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.0601806640625,
+          "flight_max_m": 0.061781883239746094
+        },
+        {
+          "goal_m": 0.1,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.11120891571044922,
+          "flight_max_m": 0.11430168151855469
+        },
+        {
+          "goal_m": 0.15,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.1525559425354004,
+          "flight_max_m": 0.15526962280273438
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "source": "p2-31-mixed",
+      "evaluation": "artifacts/p2-31-mixed-seed2-regression",
+      "groups": [
+        {
+          "goal_m": 0.0,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.021678924560546875,
+          "flight_max_m": 0.022467851638793945
+        },
+        {
+          "goal_m": 0.05,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.04989814758300781,
+          "flight_max_m": 0.05620622634887695
+        },
+        {
+          "goal_m": 0.1,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.08836555480957031,
+          "flight_max_m": 0.09378039836883545
+        },
+        {
+          "goal_m": 0.15,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.15141844749450684,
+          "flight_max_m": 0.15280961990356445
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "source": "p2-38-continuous",
+      "evaluation": "artifacts/p2-38-continuous-seed2-regression",
+      "groups": [
+        {
+          "goal_m": 0.0,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.01823735237121582,
+          "flight_max_m": 0.02039194107055664
+        },
+        {
+          "goal_m": 0.05,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.043863534927368164,
+          "flight_max_m": 0.04654049873352051
+        },
+        {
+          "goal_m": 0.1,
+          "successes": 0,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 16,
+            "stabilized_once": 16
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.10311365127563477,
+          "flight_max_m": 0.10836553573608398
+        },
+        {
+          "goal_m": 0.15,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.1493518352508545,
+          "flight_max_m": 0.15183794498443604
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "source": "p2-39-coverage",
+      "evaluation": "artifacts/p2-39-coverage-seed2-regression",
+      "groups": [
+        {
+          "goal_m": 0.0,
+          "successes": 14,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 2
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.035196781158447266,
+          "flight_max_m": 0.041042327880859375
+        },
+        {
+          "goal_m": 0.05,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.06906366348266602,
+          "flight_max_m": 0.07113814353942871
+        },
+        {
+          "goal_m": 0.1,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.0932149887084961,
+          "flight_max_m": 0.09702825546264648
+        },
+        {
+          "goal_m": 0.15,
+          "successes": 0,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 16,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.1106942892074585,
+          "flight_max_m": 0.11475181579589844
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "source": "p2-40-weighted",
+      "evaluation": "artifacts/p2-40-weighted-seed2-regression",
+      "groups": [
+        {
+          "goal_m": 0.0,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.0793982744216919,
+          "flight_max_m": 0.08006620407104492
+        },
+        {
+          "goal_m": 0.05,
+          "successes": 13,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 3,
+            "stabilized_once": 3
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.09548377990722656,
+          "flight_max_m": 0.09799110889434814
+        },
+        {
+          "goal_m": 0.1,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.11466431617736816,
+          "flight_max_m": 0.12470817565917969
+        },
+        {
+          "goal_m": 0.15,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.12989234924316406,
+          "flight_max_m": 0.13049602508544922
+        }
+      ]
+    },
+    {
+      "seed": 3,
+      "source": "p2-31-mixed",
+      "evaluation": "artifacts/p2-31-mixed-seed3-regression",
+      "groups": [
+        {
+          "goal_m": 0.0,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 1.8596649169921875e-05,
+          "flight_max_m": 0.0004277229309082031
+        },
+        {
+          "goal_m": 0.05,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.026623249053955078,
+          "flight_max_m": 0.027848243713378906
+        },
+        {
+          "goal_m": 0.1,
+          "successes": 0,
+          "terminal_false_counts": {
+            "launch_in_region": 16,
+            "distance_requirement_met": 16,
+            "first_touch_all_within": 16,
+            "final_all_feet_in_radius": 4,
+            "stabilized_once": 16
+          },
+          "recorded_flights": 0,
+          "flight_min_m": null,
+          "flight_max_m": null
+        },
+        {
+          "goal_m": 0.15,
+          "successes": 0,
+          "terminal_false_counts": {
+            "launch_in_region": 16,
+            "distance_requirement_met": 16,
+            "first_touch_all_within": 16,
+            "final_all_feet_in_radius": 4,
+            "stabilized_once": 16
+          },
+          "recorded_flights": 0,
+          "flight_min_m": null,
+          "flight_max_m": null
+        }
+      ]
+    },
+    {
+      "seed": 3,
+      "source": "p2-38-continuous",
+      "evaluation": "artifacts/p2-38-continuous-seed3-regression",
+      "groups": [
+        {
+          "goal_m": 0.0,
+          "successes": 0,
+          "terminal_false_counts": {
+            "launch_in_region": 16,
+            "distance_requirement_met": 16,
+            "first_touch_all_within": 16,
+            "final_all_feet_in_radius": 1,
+            "stabilized_once": 16
+          },
+          "recorded_flights": 0,
+          "flight_min_m": null,
+          "flight_max_m": null
+        },
+        {
+          "goal_m": 0.05,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.04900932312011719,
+          "flight_max_m": 0.05002593994140625
+        },
+        {
+          "goal_m": 0.1,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.08838093280792236,
+          "flight_max_m": 0.09616541862487793
+        },
+        {
+          "goal_m": 0.15,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.1351773738861084,
+          "flight_max_m": 0.14184069633483887
+        }
+      ]
+    },
+    {
+      "seed": 3,
+      "source": "p2-39-coverage",
+      "evaluation": "artifacts/p2-39-coverage-seed3-regression",
+      "groups": [
+        {
+          "goal_m": 0.0,
+          "successes": 0,
+          "terminal_false_counts": {
+            "launch_in_region": 16,
+            "distance_requirement_met": 16,
+            "first_touch_all_within": 16,
+            "final_all_feet_in_radius": 16,
+            "stabilized_once": 16
+          },
+          "recorded_flights": 0,
+          "flight_min_m": null,
+          "flight_max_m": null
+        },
+        {
+          "goal_m": 0.05,
+          "successes": 16,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.020345687866210938,
+          "flight_max_m": 0.021007061004638672
+        },
+        {
+          "goal_m": 0.1,
+          "successes": 0,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 16,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.04877638816833496,
+          "flight_max_m": 0.05019950866699219
+        },
+        {
+          "goal_m": 0.15,
+          "successes": 0,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 16,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.07234811782836914,
+          "flight_max_m": 0.07667350769042969
+        }
+      ]
+    },
+    {
+      "seed": 3,
+      "source": "p2-40-weighted",
+      "evaluation": "artifacts/p2-40-weighted-seed3-regression",
+      "groups": [
+        {
+          "goal_m": 0.0,
+          "successes": 15,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 0,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 1,
+            "stabilized_once": 1
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.012212514877319336,
+          "flight_max_m": 0.012416362762451172
+        },
+        {
+          "goal_m": 0.05,
+          "successes": 5,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 11,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.019599437713623047,
+          "flight_max_m": 0.020502090454101562
+        },
+        {
+          "goal_m": 0.1,
+          "successes": 0,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 16,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.05916118621826172,
+          "flight_max_m": 0.059435367584228516
+        },
+        {
+          "goal_m": 0.15,
+          "successes": 0,
+          "terminal_false_counts": {
+            "launch_in_region": 0,
+            "distance_requirement_met": 16,
+            "first_touch_all_within": 0,
+            "final_all_feet_in_radius": 0,
+            "stabilized_once": 0
+          },
+          "recorded_flights": 16,
+          "flight_min_m": 0.07902336120605469,
+          "flight_max_m": 0.08043563365936279
+        }
+      ]
+    }
+  ]
+}
