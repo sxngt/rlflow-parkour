@@ -1,0 +1,2475 @@
+{
+  "scope": "first maneuver only; same task but different fixed policies; discounted observed rewards exclude critic bootstrap",
+  "results": [
+    {
+      "seed": 1,
+      "gamma": 0.99,
+      "episodes": [
+        {
+          "env_index": 0,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15382862091064453,
+          "components": {
+            "dense": -0.6409930714871734,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.532941222190857,
+            "travel": 9.064908027648926
+          },
+          "actual_return": 33.95685637672432,
+          "discounted_return": 21.792639056780274
+        },
+        {
+          "env_index": 1,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1534738540649414,
+          "components": {
+            "dense": -0.6362000750377774,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.542768836021423,
+            "travel": 9.215471267700195
+          },
+          "actual_return": 34.122040077112615,
+          "discounted_return": 21.898495635648462
+        },
+        {
+          "env_index": 2,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15346050262451172,
+          "components": {
+            "dense": -0.636653219582513,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.542632818222046,
+            "travel": 9.22077465057373
+          },
+          "actual_return": 34.12675386737101,
+          "discounted_return": 21.901544235471444
+        },
+        {
+          "env_index": 3,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1545581817626953,
+          "components": {
+            "dense": -0.6481560489628464,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.550543546676636,
+            "travel": 8.565949440002441
+          },
+          "actual_return": 33.4683366601821,
+          "discounted_return": 21.47932134018679
+        },
+        {
+          "env_index": 4,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15486431121826172,
+          "components": {
+            "dense": -0.6469634650275111,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.542325854301453,
+            "travel": 8.380805015563965
+          },
+          "actual_return": 33.27616729680449,
+          "discounted_return": 21.355809170892975
+        },
+        {
+          "env_index": 5,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15473651885986328,
+          "components": {
+            "dense": -0.645693470723927,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.569796323776245,
+            "travel": 8.655013084411621
+          },
+          "actual_return": 33.579115494154394,
+          "discounted_return": 21.550545320538387
+        },
+        {
+          "env_index": 6,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1545543670654297,
+          "components": {
+            "dense": -0.6481573735363781,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.550876021385193,
+            "travel": 8.56753921508789
+          },
+          "actual_return": 33.470258488785475,
+          "discounted_return": 21.48056114691687
+        },
+        {
+          "env_index": 7,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1552438735961914,
+          "components": {
+            "dense": -0.6429676117841154,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.55790376663208,
+            "travel": 8.472799301147461
+          },
+          "actual_return": 33.38773535261862,
+          "discounted_return": 21.42741345496425
+        },
+        {
+          "env_index": 8,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15401697158813477,
+          "components": {
+            "dense": -0.6434887473005801,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.536314487457275,
+            "travel": 8.910338401794434
+          },
+          "actual_return": 33.80316403019242,
+          "discounted_return": 21.694078401962358
+        },
+        {
+          "env_index": 9,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15326690673828125,
+          "components": {
+            "dense": -0.6349737928248942,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.534180521965027,
+            "travel": 9.319515228271484
+          },
+          "actual_return": 34.21872216043994,
+          "discounted_return": 21.96059720824539
+        },
+        {
+          "env_index": 10,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15434503555297852,
+          "components": {
+            "dense": -0.6424528835341334,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.535221219062805,
+            "travel": 8.623540878295898
+          },
+          "actual_return": 33.516308944672346,
+          "discounted_return": 21.50979649326849
+        },
+        {
+          "env_index": 11,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15256977081298828,
+          "components": {
+            "dense": -0.6571195556316525,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.2692742347717285,
+            "travel": 8.926506042480469
+          },
+          "actual_return": 33.53866134095006,
+          "discounted_return": 21.52281446274404
+        },
+        {
+          "env_index": 12,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1531233787536621,
+          "components": {
+            "dense": -0.6355345868505538,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.526145935058594,
+            "travel": 9.334572792053223
+          },
+          "actual_return": 34.22518409835175,
+          "discounted_return": 21.964692521654467
+        },
+        {
+          "env_index": 13,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15434741973876953,
+          "components": {
+            "dense": -0.6424315492622554,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.535721063613892,
+            "travel": 8.62171745300293
+          },
+          "actual_return": 33.51500754477456,
+          "discounted_return": 21.508975553961456
+        },
+        {
+          "env_index": 14,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15474700927734375,
+          "components": {
+            "dense": -0.6456759739667177,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.570086598396301,
+            "travel": 8.654485702514648
+          },
+          "actual_return": 33.578896505758166,
+          "discounted_return": 21.55039981837171
+        },
+        {
+          "env_index": 15,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1535663604736328,
+          "components": {
+            "dense": -0.636016130214557,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.541693210601807,
+            "travel": 9.183960914611816
+          },
+          "actual_return": 34.08963825763203,
+          "discounted_return": 21.87768101895708
+        },
+        {
+          "env_index": 16,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15416502952575684,
+          "components": {
+            "dense": -0.645621259463951,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.541200280189514,
+            "travel": 8.76630973815918
+          },
+          "actual_return": 33.661888944217935,
+          "discounted_return": 21.603494172763693
+        },
+        {
+          "env_index": 17,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15407109260559082,
+          "components": {
+            "dense": -0.6441558767110109,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.539533019065857,
+            "travel": 8.868558883666992
+          },
+          "actual_return": 33.76393606606871,
+          "discounted_return": 21.668947947492338
+        },
+        {
+          "env_index": 18,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1547245979309082,
+          "components": {
+            "dense": -0.6474132987204939,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.550458669662476,
+            "travel": 8.500543594360352
+          },
+          "actual_return": 33.40358879114501,
+          "discounted_return": 21.437684776052183
+        },
+        {
+          "env_index": 19,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15332651138305664,
+          "components": {
+            "dense": -0.6413992205634713,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.539449095726013,
+            "travel": 9.292818069458008
+          },
+          "actual_return": 34.19086794834584,
+          "discounted_return": 21.94305999339602
+        },
+        {
+          "env_index": 20,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1538996696472168,
+          "components": {
+            "dense": -0.6412838082760572,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.533464312553406,
+            "travel": 9.02973461151123
+          },
+          "actual_return": 33.92191474419087,
+          "discounted_return": 21.770212401555305
+        },
+        {
+          "env_index": 21,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15325427055358887,
+          "components": {
+            "dense": -0.6349687273614109,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.533500075340271,
+            "travel": 9.321331024169922
+          },
+          "actual_return": 34.21986255655065,
+          "discounted_return": 21.961321332127277
+        },
+        {
+          "env_index": 22,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15317964553833008,
+          "components": {
+            "dense": -0.6354664622340351,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.527878284454346,
+            "travel": 9.32908821105957
+          },
+          "actual_return": 34.22150043933652,
+          "discounted_return": 21.96233797371101
+        },
+        {
+          "env_index": 23,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1524820327758789,
+          "components": {
+            "dense": -0.657436921261251,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.2614099979400635,
+            "travel": 8.934883117675781
+          },
+          "actual_return": 33.53885644022375,
+          "discounted_return": 21.522886828128584
+        },
+        {
+          "env_index": 24,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1542963981628418,
+          "components": {
+            "dense": -0.6426996430382133,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.533711552619934,
+            "travel": 8.643948554992676
+          },
+          "actual_return": 33.534960123710334,
+          "discounted_return": 21.521761397631526
+        },
+        {
+          "env_index": 25,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15329623222351074,
+          "components": {
+            "dense": -0.641548571176827,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.537241458892822,
+            "travel": 9.311237335205078
+          },
+          "actual_return": 34.20693021360785,
+          "discounted_return": 21.953365086625247
+        },
+        {
+          "env_index": 26,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15447163581848145,
+          "components": {
+            "dense": -0.6458075430709869,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.547632217407227,
+            "travel": 8.622135162353516
+          },
+          "actual_return": 33.52395941480063,
+          "discounted_return": 21.515047736819387
+        },
+        {
+          "env_index": 27,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15473365783691406,
+          "components": {
+            "dense": -0.6458684261888266,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.569946765899658,
+            "travel": 8.659913063049316
+          },
+          "actual_return": 33.58399094454944,
+          "discounted_return": 21.553677104628413
+        },
+        {
+          "env_index": 28,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15309560298919678,
+          "components": {
+            "dense": -0.6356592527590692,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.523567795753479,
+            "travel": 9.334922790527344
+          },
+          "actual_return": 34.22283113701269,
+          "discounted_return": 21.963158893167112
+        },
+        {
+          "env_index": 29,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15278351306915283,
+          "components": {
+            "dense": -0.6373761643189937,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.495803713798523,
+            "travel": 9.346242904663086
+          },
+          "actual_return": 34.20466981153004,
+          "discounted_return": 21.951329805836114
+        },
+        {
+          "env_index": 30,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15468931198120117,
+          "components": {
+            "dense": -0.6460737804882228,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.568078398704529,
+            "travel": 8.673388481140137
+          },
+          "actual_return": 33.59539262345061,
+          "discounted_return": 21.56100053407333
+        },
+        {
+          "env_index": 31,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15406382083892822,
+          "components": {
+            "dense": -0.6441915116738528,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.539099335670471,
+            "travel": 8.873476028442383
+          },
+          "actual_return": 33.768384197028354,
+          "discounted_return": 21.67179976674077
+        },
+        {
+          "env_index": 32,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1542050838470459,
+          "components": {
+            "dense": -0.6450297294650227,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.5358970165252686,
+            "travel": 8.707423210144043
+          },
+          "actual_return": 33.59829028672539,
+          "discounted_return": 21.562601501257596
+        },
+        {
+          "env_index": 33,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15427768230438232,
+          "components": {
+            "dense": -0.6427741686347872,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.533346891403198,
+            "travel": 8.647855758666992
+          },
+          "actual_return": 33.538428590400144,
+          "discounted_return": 21.52398202679858
+        },
+        {
+          "env_index": 34,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15327894687652588,
+          "components": {
+            "dense": -0.6416400927118957,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.535816669464111,
+            "travel": 9.316394805908203
+          },
+          "actual_return": 34.21057077823207,
+          "discounted_return": 21.95568973175115
+        },
+        {
+          "env_index": 35,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15427708625793457,
+          "components": {
+            "dense": -0.642531078774482,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.532520055770874,
+            "travel": 8.654520034790039
+          },
+          "actual_return": 33.54450925113633,
+          "discounted_return": 21.527894850047446
+        },
+        {
+          "env_index": 36,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1539771556854248,
+          "components": {
+            "dense": -0.6414531108457595,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.53364896774292,
+            "travel": 8.962380409240723
+          },
+          "actual_return": 33.85457628290169,
+          "discounted_return": 21.72694913319501
+        },
+        {
+          "env_index": 37,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1547461748123169,
+          "components": {
+            "dense": -0.6474170710425824,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.545282363891602,
+            "travel": 8.446650505065918
+          },
+          "actual_return": 33.344514965312555,
+          "discounted_return": 21.399734224553164
+        },
+        {
+          "env_index": 38,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1534661054611206,
+          "components": {
+            "dense": -0.6362501529511064,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.542876243591309,
+            "travel": 9.234227180480957
+          },
+          "actual_return": 34.1408535616938,
+          "discounted_return": 21.91058633923741
+        },
+        {
+          "env_index": 39,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1537541151046753,
+          "components": {
+            "dense": -0.6410735340323299,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.537598133087158,
+            "travel": 9.09552001953125
+          },
+          "actual_return": 33.99204393499531,
+          "discounted_return": 21.815222271709573
+        },
+        {
+          "env_index": 40,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15500211715698242,
+          "components": {
+            "dense": -0.646533647319302,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.535669922828674,
+            "travel": 8.314996719360352
+          },
+          "actual_return": 33.20413269312121,
+          "discounted_return": 21.309467364391985
+        },
+        {
+          "env_index": 41,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15446066856384277,
+          "components": {
+            "dense": -0.645463485037908,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.547477841377258,
+            "travel": 8.627270698547363
+          },
+          "actual_return": 33.529285681666806,
+          "discounted_return": 21.51844165100164
+        },
+        {
+          "env_index": 42,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15242648124694824,
+          "components": {
+            "dense": -0.6575684850104153,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.255206227302551,
+            "travel": 8.932978630065918
+          },
+          "actual_return": 33.53061707271263,
+          "discounted_return": 21.517547097903368
+        },
+        {
+          "env_index": 43,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15259814262390137,
+          "components": {
+            "dense": -0.637797849951312,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.480717420578003,
+            "travel": 9.348182678222656
+          },
+          "actual_return": 34.19110176176764,
+          "discounted_return": 21.94251533163908
+        },
+        {
+          "env_index": 44,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15447354316711426,
+          "components": {
+            "dense": -0.6457691958639771,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.547861456871033,
+            "travel": 8.620827674865723
+          },
+          "actual_return": 33.522920495597646,
+          "discounted_return": 21.51438203764035
+        },
+        {
+          "env_index": 45,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15249371528625488,
+          "components": {
+            "dense": -0.6573834512382746,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.262817144393921,
+            "travel": 8.933104515075684
+          },
+          "actual_return": 33.538538062013686,
+          "discounted_return": 21.52269139720806
+        },
+        {
+          "env_index": 46,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15250921249389648,
+          "components": {
+            "dense": -0.6573241332080215,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.264296889305115,
+            "travel": 8.926898956298828
+          },
+          "actual_return": 33.53387231589295,
+          "discounted_return": 21.51970418169646
+        },
+        {
+          "env_index": 47,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1547105312347412,
+          "components": {
+            "dense": -0.646021900465712,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.569295644760132,
+            "travel": 8.668357849121094
+          },
+          "actual_return": 33.59163077571429,
+          "discounted_return": 21.558588156096924
+        },
+        {
+          "env_index": 48,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1548161506652832,
+          "components": {
+            "dense": -0.6471643354743719,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.543722152709961,
+            "travel": 8.41023063659668
+          },
+          "actual_return": 33.30678898561746,
+          "discounted_return": 21.375485479181116
+        },
+        {
+          "env_index": 49,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15413856506347656,
+          "components": {
+            "dense": -0.6455054611433297,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.541275143623352,
+            "travel": 8.784932136535645
+          },
+          "actual_return": 33.68070219899528,
+          "discounted_return": 21.615565683211095
+        },
+        {
+          "env_index": 50,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15291833877563477,
+          "components": {
+            "dense": -0.6366236743051559,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.50728702545166,
+            "travel": 9.343738555908203
+          },
+          "actual_return": 34.21440132590942,
+          "discounted_return": 21.95764063872527
+        },
+        {
+          "env_index": 51,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1534113883972168,
+          "components": {
+            "dense": -0.6412207337561995,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.542200207710266,
+            "travel": 9.246709823608398
+          },
+          "actual_return": 34.147689413046464,
+          "discounted_return": 21.91533318393943
+        },
+        {
+          "env_index": 52,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15503168106079102,
+          "components": {
+            "dense": -0.64664814225398,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.534018516540527,
+            "travel": 8.30068302154541
+          },
+          "actual_return": 33.18805274949409,
+          "discounted_return": 21.29914065737382
+        },
+        {
+          "env_index": 53,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15417814254760742,
+          "components": {
+            "dense": -0.6455011779908091,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.536474943161011,
+            "travel": 8.72424602508545
+          },
+          "actual_return": 33.61521968222223,
+          "discounted_return": 21.573510192170225
+        },
+        {
+          "env_index": 54,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1530590057373047,
+          "components": {
+            "dense": -0.6356206918135285,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.522968530654907,
+            "travel": 9.33881664276123
+          },
+          "actual_return": 34.226164761930704,
+          "discounted_return": 21.96529343285845
+        },
+        {
+          "env_index": 55,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1546950340270996,
+          "components": {
+            "dense": -0.6476514572277665,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.545649766921997,
+            "travel": 8.464734077453613
+          },
+          "actual_return": 33.36273226328194,
+          "discounted_return": 21.41145775392406
+        },
+        {
+          "env_index": 56,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.1546802520751953,
+          "components": {
+            "dense": -0.6474534445442259,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.5511428117752075,
+            "travel": 8.51279354095459
+          },
+          "actual_return": 33.41648231493309,
+          "discounted_return": 21.445982605348554
+        },
+        {
+          "env_index": 57,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15259456634521484,
+          "components": {
+            "dense": -0.6394456089474261,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.480370044708252,
+            "travel": 9.38431453704834
+          },
+          "actual_return": 34.22523845219985,
+          "discounted_return": 21.964502143864408
+        },
+        {
+          "env_index": 58,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15420818328857422,
+          "components": {
+            "dense": -0.6448198223952204,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.53190541267395,
+            "travel": 8.68575668334961
+          },
+          "actual_return": 33.5728419709485,
+          "discounted_return": 21.546225738919205
+        },
+        {
+          "env_index": 59,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15299224853515625,
+          "components": {
+            "dense": -0.6365705139469355,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.515527963638306,
+            "travel": 9.353997230529785
+          },
+          "actual_return": 34.232954723061994,
+          "discounted_return": 21.969625538159892
+        },
+        {
+          "env_index": 60,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15415382385253906,
+          "components": {
+            "dense": -0.6448548280168325,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.534008502960205,
+            "travel": 8.720366477966309
+          },
+          "actual_return": 33.609520342899486,
+          "discounted_return": 21.569803023501333
+        },
+        {
+          "env_index": 61,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15311717987060547,
+          "components": {
+            "dense": -0.6372413979843259,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.523698210716248,
+            "travel": 9.346210479736328
+          },
+          "actual_return": 34.232667732052505,
+          "discounted_return": 21.969556964313554
+        },
+        {
+          "env_index": 62,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15467071533203125,
+          "components": {
+            "dense": -0.6461740161757916,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.566819429397583,
+            "travel": 8.674824714660645
+          },
+          "actual_return": 33.59546997142024,
+          "discounted_return": 21.561057315302083
+        },
+        {
+          "env_index": 63,
+          "success": true,
+          "timeout": false,
+          "steps": 62,
+          "flight_forward_m": 0.15377426147460938,
+          "components": {
+            "dense": -0.6408478475641459,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 8.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.5358240604400635,
+            "travel": 9.084538459777832
+          },
+          "actual_return": 33.97951525100507,
+          "discounted_return": 21.807157033262165
+        }
+      ],
+      "mean_components": {
+        "dense": -0.6435284728613624,
+        "flight_event": 3.0,
+        "contact_event": 4.0,
+        "success": 8.0,
+        "failure": 0.0,
+        "apex_progress": 3.0,
+        "first_touch": 7.5164628475904465,
+        "travel": 8.891264244914055
+      },
+      "mean_return": 33.76419858658119,
+      "mean_discounted_return": 21.668902894867113,
+      "mean_steps": 62.0
+    },
+    {
+      "seed": 3,
+      "gamma": 0.99,
+      "episodes": [
+        {
+          "env_index": 0,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.0794687271118164,
+          "components": {
+            "dense": -1.6024587869178504,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.601631283760071,
+            "travel": 0.9867339134216309
+          },
+          "actual_return": 16.98590596136637,
+          "discounted_return": 12.921588522070593
+        },
+        {
+          "env_index": 1,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07936382293701172,
+          "components": {
+            "dense": -1.6031910134479403,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.59093713760376,
+            "travel": 0.9843785762786865
+          },
+          "actual_return": 16.97212479542941,
+          "discounted_return": 12.911653259564892
+        },
+        {
+          "env_index": 2,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07937431335449219,
+          "components": {
+            "dense": -1.6030358572024852,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.58775520324707,
+            "travel": 0.9832941293716431
+          },
+          "actual_return": 16.96801343630068,
+          "discounted_return": 12.908734169197757
+        },
+        {
+          "env_index": 3,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.08015918731689453,
+          "components": {
+            "dense": -1.599365409463644,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.61296820640564,
+            "travel": 1.0059494972229004
+          },
+          "actual_return": 17.019552057608962,
+          "discounted_return": 12.945576305171732
+        },
+        {
+          "env_index": 4,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.0803060531616211,
+          "components": {
+            "dense": -1.5903159189037979,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.629823088645935,
+            "travel": 1.0322246551513672
+          },
+          "actual_return": 17.071731459815055,
+          "discounted_return": 12.97939331381421
+        },
+        {
+          "env_index": 5,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.08012676239013672,
+          "components": {
+            "dense": -1.5997091245371848,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.610570192337036,
+            "travel": 1.002882480621338
+          },
+          "actual_return": 17.01374326343648,
+          "discounted_return": 12.94156254624445
+        },
+        {
+          "env_index": 6,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.08015727996826172,
+          "components": {
+            "dense": -1.5990587214473635,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.613731741905212,
+            "travel": 1.0067790746688843
+          },
+          "actual_return": 17.021452182671055,
+          "discounted_return": 12.946811357295381
+        },
+        {
+          "env_index": 7,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.0805368423461914,
+          "components": {
+            "dense": -1.579572505550459,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.651269793510437,
+            "travel": 1.060583233833313
+          },
+          "actual_return": 17.132280342979357,
+          "discounted_return": 13.018684219087499
+        },
+        {
+          "env_index": 8,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07956600189208984,
+          "components": {
+            "dense": -1.6009171239566058,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.593990802764893,
+            "travel": 0.9803036451339722
+          },
+          "actual_return": 16.973377705784515,
+          "discounted_return": 12.912463400038357
+        },
+        {
+          "env_index": 9,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07935523986816406,
+          "components": {
+            "dense": -1.5990370858926326,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.561389803886414,
+            "travel": 0.9713077545166016
+          },
+          "actual_return": 16.93366083386354,
+          "discounted_return": 12.883465613643352
+        },
+        {
+          "env_index": 10,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.0799551010131836,
+          "components": {
+            "dense": -1.600759752560407,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.5761798620224,
+            "travel": 0.9708757400512695
+          },
+          "actual_return": 16.9462957396172,
+          "discounted_return": 12.894308480971798
+        },
+        {
+          "env_index": 11,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07901763916015625,
+          "components": {
+            "dense": -1.6166384485550225,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.4919785261154175,
+            "travel": 0.9172199368476868
+          },
+          "actual_return": 16.792559898924083,
+          "discounted_return": 12.789772144881004
+        },
+        {
+          "env_index": 12,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07930707931518555,
+          "components": {
+            "dense": -1.60212981258519,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.545815348625183,
+            "travel": 0.9590562582015991
+          },
+          "actual_return": 16.90274196746759,
+          "discounted_return": 12.862780587071978
+        },
+        {
+          "env_index": 13,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07995414733886719,
+          "components": {
+            "dense": -1.6002554716542363,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.575002431869507,
+            "travel": 0.9703441858291626
+          },
+          "actual_return": 16.945091172121465,
+          "discounted_return": 12.893308430082525
+        },
+        {
+          "env_index": 14,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.08001899719238281,
+          "components": {
+            "dense": -1.6006131302565336,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.606693387031555,
+            "travel": 0.99571692943573
+          },
+          "actual_return": 17.00179677270353,
+          "discounted_return": 12.933469104609818
+        },
+        {
+          "env_index": 15,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07927227020263672,
+          "components": {
+            "dense": -1.6034454505424947,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.596022725105286,
+            "travel": 0.9850007891654968
+          },
+          "actual_return": 16.97757745278068,
+          "discounted_return": 12.91556339352406
+        },
+        {
+          "env_index": 16,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07958531379699707,
+          "components": {
+            "dense": -1.5998706980608404,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.591594696044922,
+            "travel": 0.9743640422821045
+          },
+          "actual_return": 16.966087561566383,
+          "discounted_return": 12.907263296145556
+        },
+        {
+          "env_index": 17,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07949256896972656,
+          "components": {
+            "dense": -1.600701129063964,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.597045183181763,
+            "travel": 0.9794318079948425
+          },
+          "actual_return": 16.97577541321516,
+          "discounted_return": 12.914111383179247
+        },
+        {
+          "env_index": 18,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.08020257949829102,
+          "components": {
+            "dense": -1.5953434952534735,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.625476598739624,
+            "travel": 1.0195047855377197
+          },
+          "actual_return": 17.04963820753619,
+          "discounted_return": 12.965479001278084
+        },
+        {
+          "env_index": 19,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.0791921615600586,
+          "components": {
+            "dense": -1.6066462870221585,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.571323037147522,
+            "travel": 0.9668442010879517
+          },
+          "actual_return": 16.931521472753957,
+          "discounted_return": 12.88430337287697
+        },
+        {
+          "env_index": 20,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07937121391296387,
+          "components": {
+            "dense": -1.6017866344191134,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.605207324028015,
+            "travel": 0.9864636063575745
+          },
+          "actual_return": 16.98988414509222,
+          "discounted_return": 12.924018196581361
+        },
+        {
+          "env_index": 21,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07935690879821777,
+          "components": {
+            "dense": -1.599722284823656,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.559196710586548,
+            "travel": 0.9697226285934448
+          },
+          "actual_return": 16.92919734492898,
+          "discounted_return": 12.880568421964522
+        },
+        {
+          "env_index": 22,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.0793311595916748,
+          "components": {
+            "dense": -1.600933050736785,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.552120804786682,
+            "travel": 0.9640199542045593
+          },
+          "actual_return": 16.915207663550973,
+          "discounted_return": 12.871154540922618
+        },
+        {
+          "env_index": 23,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07899141311645508,
+          "components": {
+            "dense": -1.6186240778770298,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.487705588340759,
+            "travel": 0.9138677716255188
+          },
+          "actual_return": 16.782949544722214,
+          "discounted_return": 12.783608125467167
+        },
+        {
+          "env_index": 24,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.0797572135925293,
+          "components": {
+            "dense": -1.6026199574116617,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.579132914543152,
+            "travel": 0.9676645398139954
+          },
+          "actual_return": 16.944177455967292,
+          "discounted_return": 12.89331610148723
+        },
+        {
+          "env_index": 25,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07937955856323242,
+          "components": {
+            "dense": -1.5989935407415032,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.565156102180481,
+            "travel": 0.9744290709495544
+          },
+          "actual_return": 16.940591716207564,
+          "discounted_return": 12.88839377932977
+        },
+        {
+          "env_index": 26,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07999420166015625,
+          "components": {
+            "dense": -1.5994491130113602,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.576461672782898,
+            "travel": 0.9737727046012878
+          },
+          "actual_return": 16.950785087421536,
+          "discounted_return": 12.897066398733864
+        },
+        {
+          "env_index": 27,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.0800098180770874,
+          "components": {
+            "dense": -1.6010378336068243,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.605232357978821,
+            "travel": 0.9939245581626892
+          },
+          "actual_return": 16.99811896146275,
+          "discounted_return": 12.931015777936715
+        },
+        {
+          "env_index": 28,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07928979396820068,
+          "components": {
+            "dense": -1.6029481161385775,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.5422269105911255,
+            "travel": 0.955986738204956
+          },
+          "actual_return": 16.89526592567563,
+          "discounted_return": 12.857824112179541
+        },
+        {
+          "env_index": 29,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07913374900817871,
+          "components": {
+            "dense": -1.6105248017702252,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.508327960968018,
+            "travel": 0.9294838905334473
+          },
+          "actual_return": 16.827286813175306,
+          "discounted_return": 12.812319643096687
+        },
+        {
+          "env_index": 30,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.08004236221313477,
+          "components": {
+            "dense": -1.600281844381243,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.5815430879592896,
+            "travel": 0.9800987839698792
+          },
+          "actual_return": 16.96136037958786,
+          "discounted_return": 12.904880686796888
+        },
+        {
+          "env_index": 31,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07948648929595947,
+          "components": {
+            "dense": -1.6006513498723507,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.598278284072876,
+            "travel": 0.980558454990387
+          },
+          "actual_return": 16.978185389190912,
+          "discounted_return": 12.915762965400589
+        },
+        {
+          "env_index": 32,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07965314388275146,
+          "components": {
+            "dense": -1.6028091779444367,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.58671760559082,
+            "travel": 0.9705216884613037
+          },
+          "actual_return": 16.954430075129494,
+          "discounted_return": 12.90023503751147
+        },
+        {
+          "env_index": 33,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07975161075592041,
+          "components": {
+            "dense": -1.6019623093307018,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.579757452011108,
+            "travel": 0.9678419828414917
+          },
+          "actual_return": 16.945637123659253,
+          "discounted_return": 12.894014655378282
+        },
+        {
+          "env_index": 34,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07937169075012207,
+          "components": {
+            "dense": -1.5992381086107343,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.563613772392273,
+            "travel": 0.9732120633125305
+          },
+          "actual_return": 16.93758817226626,
+          "discounted_return": 12.886361365299004
+        },
+        {
+          "env_index": 35,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07973968982696533,
+          "components": {
+            "dense": -1.6021102566737682,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.581240653991699,
+            "travel": 0.9683671593666077
+          },
+          "actual_return": 16.947497724322602,
+          "discounted_return": 12.895332871404706
+        },
+        {
+          "env_index": 36,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07941174507141113,
+          "components": {
+            "dense": -1.6021235226653516,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.602208375930786,
+            "travel": 0.9839615821838379
+          },
+          "actual_return": 16.98404647083953,
+          "discounted_return": 12.920254010422203
+        },
+        {
+          "env_index": 37,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.08024346828460693,
+          "components": {
+            "dense": -1.5937427743338048,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.6305965185165405,
+            "travel": 1.0253942012786865
+          },
+          "actual_return": 17.062248128000647,
+          "discounted_return": 12.97384075084718
+        },
+        {
+          "env_index": 38,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07924950122833252,
+          "components": {
+            "dense": -1.6042059022001922,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.58478856086731,
+            "travel": 0.9775424599647522
+          },
+          "actual_return": 16.95812505716458,
+          "discounted_return": 12.90215565374299
+        },
+        {
+          "env_index": 39,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07930195331573486,
+          "components": {
+            "dense": -1.6013689313549548,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.609030485153198,
+            "travel": 0.99042147397995
+          },
+          "actual_return": 16.998083227081224,
+          "discounted_return": 12.929437592730842
+        },
+        {
+          "env_index": 40,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.0803213119506836,
+          "components": {
+            "dense": -1.5876695960760117,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.638206362724304,
+            "travel": 1.0399366617202759
+          },
+          "actual_return": 17.09047362394631,
+          "discounted_return": 12.991791335277496
+        },
+        {
+          "env_index": 41,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07999444007873535,
+          "components": {
+            "dense": -1.5997847432736307,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.576526403427124,
+            "travel": 0.9737647771835327
+          },
+          "actual_return": 16.95050609833561,
+          "discounted_return": 12.896993548599765
+        },
+        {
+          "env_index": 42,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07894563674926758,
+          "components": {
+            "dense": -1.6245638080872595,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.469747304916382,
+            "travel": 0.9026529788970947
+          },
+          "actual_return": 16.747836315538734,
+          "discounted_return": 12.761010040101903
+        },
+        {
+          "env_index": 43,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.0790395736694336,
+          "components": {
+            "dense": -1.6162707332987338,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.494606018066406,
+            "travel": 0.9192571640014648
+          },
+          "actual_return": 16.79759198310785,
+          "discounted_return": 12.793263674597403
+        },
+        {
+          "env_index": 44,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.08000373840332031,
+          "components": {
+            "dense": -1.5994831565767527,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.57737135887146,
+            "travel": 0.9748642444610596
+          },
+          "actual_return": 16.952751971781254,
+          "discounted_return": 12.898474729415344
+        },
+        {
+          "env_index": 45,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07897758483886719,
+          "components": {
+            "dense": -1.6233650122303516,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.475175619125366,
+            "travel": 0.9064836502075195
+          },
+          "actual_return": 16.758294232888147,
+          "discounted_return": 12.768031942409863
+        },
+        {
+          "env_index": 46,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07900786399841309,
+          "components": {
+            "dense": -1.6177763973828405,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.489594459533691,
+            "travel": 0.9155468940734863
+          },
+          "actual_return": 16.787365256110206,
+          "discounted_return": 12.786455029652462
+        },
+        {
+          "env_index": 47,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07998085021972656,
+          "components": {
+            "dense": -1.6016318334732205,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.603459596633911,
+            "travel": 0.9909616112709045
+          },
+          "actual_return": 16.992789342766628,
+          "discounted_return": 12.927442703163655
+        },
+        {
+          "env_index": 48,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.08022356033325195,
+          "components": {
+            "dense": -1.5916802426800132,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.626676321029663,
+            "travel": 1.0256354808807373
+          },
+          "actual_return": 17.060631369240582,
+          "discounted_return": 12.972002000395461
+        },
+        {
+          "env_index": 49,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07955503463745117,
+          "components": {
+            "dense": -1.5998945476021618,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.592132091522217,
+            "travel": 0.9747512340545654
+          },
+          "actual_return": 16.966988921398297,
+          "discounted_return": 12.907817995223828
+        },
+        {
+          "env_index": 50,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07920074462890625,
+          "components": {
+            "dense": -1.6074305654037744,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.521405935287476,
+            "travel": 0.9394386410713196
+          },
+          "actual_return": 16.85341417673044,
+          "discounted_return": 12.829782471354285
+        },
+        {
+          "env_index": 51,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07935905456542969,
+          "components": {
+            "dense": -1.6029595218133181,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.5814595222473145,
+            "travel": 0.9797419905662537
+          },
+          "actual_return": 16.958241935120896,
+          "discounted_return": 12.90184592341195
+        },
+        {
+          "env_index": 52,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.08034896850585938,
+          "components": {
+            "dense": -1.586610405240208,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.640235781669617,
+            "travel": 1.0427216291427612
+          },
+          "actual_return": 17.096347007434815,
+          "discounted_return": 12.995574430027109
+        },
+        {
+          "env_index": 53,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07962846755981445,
+          "components": {
+            "dense": -1.602927905973047,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.587511420249939,
+            "travel": 0.9711286425590515
+          },
+          "actual_return": 16.955711704213172,
+          "discounted_return": 12.901127185568852
+        },
+        {
+          "env_index": 54,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07927608489990234,
+          "components": {
+            "dense": -1.6035469465423375,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.539802074432373,
+            "travel": 0.9538928270339966
+          },
+          "actual_return": 16.890147962374613,
+          "discounted_return": 12.854405892600102
+        },
+        {
+          "env_index": 55,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.08023977279663086,
+          "components": {
+            "dense": -1.5934206186793745,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.620305299758911,
+            "travel": 1.0207041501998901
+          },
+          "actual_return": 17.047589207533747,
+          "discounted_return": 12.963403117836997
+        },
+        {
+          "env_index": 56,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.0802927017211914,
+          "components": {
+            "dense": -1.5947112399153411,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.626352787017822,
+            "travel": 1.0240466594696045
+          },
+          "actual_return": 17.055688111577183,
+          "discounted_return": 12.969544329362014
+        },
+        {
+          "env_index": 57,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07910633087158203,
+          "components": {
+            "dense": -1.6114329071715474,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.503298759460449,
+            "travel": 0.9268769025802612
+          },
+          "actual_return": 16.818742719478905,
+          "discounted_return": 12.806509423214628
+        },
+        {
+          "env_index": 58,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.079681396484375,
+          "components": {
+            "dense": -1.6030924362130463,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.584484934806824,
+            "travel": 0.9691334366798401
+          },
+          "actual_return": 16.95052561117336,
+          "discounted_return": 12.897719252348592
+        },
+        {
+          "env_index": 59,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07937812805175781,
+          "components": {
+            "dense": -1.6022028834559023,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.533370018005371,
+            "travel": 0.9538063406944275
+          },
+          "actual_return": 16.884973616804928,
+          "discounted_return": 12.85035714922292
+        },
+        {
+          "env_index": 60,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07974052429199219,
+          "components": {
+            "dense": -1.604146151104942,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.582601428031921,
+            "travel": 0.9697697758674622
+          },
+          "actual_return": 16.948225112399086,
+          "discounted_return": 12.89652596803087
+        },
+        {
+          "env_index": 61,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07937431335449219,
+          "components": {
+            "dense": -1.5983463604934514,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.555881500244141,
+            "travel": 0.9683548212051392
+          },
+          "actual_return": 16.9258900876157,
+          "discounted_return": 12.877830266826319
+        },
+        {
+          "env_index": 62,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.08006572723388672,
+          "components": {
+            "dense": -1.6021959614008665,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.601746678352356,
+            "travel": 0.9926257133483887
+          },
+          "actual_return": 16.992176208645105,
+          "discounted_return": 12.92720951280643
+        },
+        {
+          "env_index": 63,
+          "success": false,
+          "timeout": true,
+          "steps": 200,
+          "flight_forward_m": 0.07940387725830078,
+          "components": {
+            "dense": -1.6011601411737502,
+            "flight_event": 3.0,
+            "contact_event": 4.0,
+            "success": 0.0,
+            "failure": 0.0,
+            "apex_progress": 3.0,
+            "first_touch": 7.604461669921875,
+            "travel": 0.9888951182365417
+          },
+          "actual_return": 16.99219626514241,
+          "discounted_return": 12.925385119088892
+        }
+      ],
+      "mean_components": {
+        "dense": -1.6019453582193819,
+        "flight_event": 3.0,
+        "contact_event": 4.0,
+        "success": 0.0,
+        "failure": 0.0,
+        "apex_progress": 3.0,
+        "first_touch": 7.577439930289984,
+        "travel": 0.976953785866499
+      },
+      "mean_return": 16.952448327261664,
+      "mean_discounted_return": 12.898318056695626,
+      "mean_steps": 200.0
+    }
+  ]
+}

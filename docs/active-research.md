@@ -1268,3 +1268,10 @@ weighted chain64/64/64/0,continuous64/64/61/20,split0/64/64/0. uniform대비seed
 same scenarios/episode모든필드/chainevents/motiontrace모든배열정확일치. reward성분합각step오차<1e-6,누적return/길이/mask검사,2영상/eventhash/64camera4검증. seed1두도약64성공reward67.11,seed3첫도약거리timeout64reward16.95;실패성공보상0/failure0/flight3/contact4/apex3/firsttouch7.577/travel.977/dense-1.602. 성공2hop vs실패1hop이므로총점직접인과비교금지.
 
 다음현재보상npz와chainevents로첫hop범위만동일하게집계해형상화보상기여분석. 필요시全seed고정계측확장하되범위명시. 후속학습/보상변경아직없음. 全P241세션terminal,전체목표미완료。
+
+
+### 최신: P241 첫hop 비교 및 timeout bootstrap 경로 확인
+
+이전P241계측검증은progress. scripts/p2_41_first_hop.py session16856exit0, docs/p2-41-first-hop.json. 첫hop성공seed1=62step/33.764점/할인21.669,실패seed3=200step/16.952점/할인12.898. terminalstep범위/return검증통과. 성공raw보상이더높아실패보상우위가원인이라는주장기각;두정책만의관측임.
+
+설치PPO.process_env_step source조회session89343exit0: timeout에gamma*transition.values를보상에추가. scripts/train.py 모든trunc를time_outs로전달. ChainedProgress의과제hopdeadline200도timeout. raw평가보상분석에는이bootstrap없음. 다음작업은외부수집시간제한과고정과제deadline의의미를명시하고deadline bootstrap여부만분리하는가설/사전프로토콜을설계. 아직보상/학습코드변경없고새학습없음. 전체목표미완료。
