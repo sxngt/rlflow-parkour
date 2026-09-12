@@ -134,8 +134,10 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
         chain_hops = chain_spec['hops']
         chain_settle_mode = chain_spec['settle_command']
     if chain_hops is not None:
-        if config['task'] != 'a1_directed_jump_v5' or not cfg.support_contract or cfg.support_contract['mode'] != 'deck':
-            raise ValueError('Chained evaluation requires directed jump on the explicit deck')
+        if config['task'] != 'a1_directed_jump_v5' or not cfg.support_contract:
+            raise ValueError('Chained adapter requires directed jump with explicit support')
+        if chain_hops == 2 and cfg.support_contract['mode'] != 'deck':
+            raise ValueError('Two-hop execution requires deck support')
         from parkour.chained_jump_task import ChainedDirectedJumpEnv
         cfg.episode_length_s = 4. * chain_hops
         return ChainedDirectedJumpEnv(cfg, hops=chain_hops, settle_mode=chain_settle_mode)

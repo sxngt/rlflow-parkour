@@ -879,3 +879,14 @@ smoke artifacts/p2-33-hold-last-smoke 실행 시작. 다음 실제process/sessio
 configs/p2-34-{single,chain}.json작성. chain_training.py는엄격한2hop/8초/fixed.15/defaultsettle/deck계약검증. restore는chain계약동일성검사; fork는검증된chain8초만4초로정규화하여부모초기화허용,지원terrain에deck추가. 임의8초/launch반경변경거부등tests/test_chain_training.py3개통과(artifacts/p2-34-contract-tests.log). make_env는trainingconfigchain선택가능, evaluate는chaincheckpoint자동평가시명시schema기록하도록chainhops추론. chained_env의Python hop/transition목록은evaluation_done존재시만쌓아학습메모리무한증가방지.
 
 아직학습smoke/본학습시작안함. 다음필수: train로그에도약별step/성공/보상계수집추가,첫성공done억제와일회보상검증,작은fork학습/PPOfinite/checkpointresume/자동평가확인. chaincheckpoint를continuous/split단일도약회귀에쓰려면명시적single-eval override(현재chain_hops1도deck만허용)를설계하되checkpointrestore엄격성완화금지. 런타임전환의torch.equal대량sync/전체tensorclone처리비용도측정. 기존tests/test_policy_fork.py등확장회귀도실행필요. 전체목표미완료.
+
+
+### 최신: P2-34 짧은 PPO 학습 및 재개 검증
+
+이전계약설계는progress. train.py에hop별환경step/성공/reward합계추가,실제첫성공done억제assert. 기존policy_fork테스트첫실행PYTHONPATH누락실패; PYTHONPATH=src Isaac Python으로재실행4개통과 artifacts/p2-34-fork-tests-corrected.log. audit_policy_fork는systempython의rsl_rl부재로실패하므로Isaac Python사용필수.
+
+artifacts/p2-34-chain-smoke:64env12updates/18432step 학습정상완료,artifact감사passed. 하지만hopstep[18432,0],첫성공0이므로두번째학습경로검증미완료. 재개 artifacts/p2-34-chain-smoke-resume 2updates session90922exit0:iterations13/14,steps19968/21504,감사passed. 같은config엄격복구확인. fork초기tensor독립감사는아직실행필요.
+
+다음표본/처리량검사실행중: artifacts/p2-34-chain-profile-seed2,seed2부모fork1024env60updates,timeout600,본학습아닌별도파일럿. 다음실제worker확인→hop1/2step/PPOfinite/속도/VRAM분석. 무첫성공이면데이터도달문제를드러내고본학습검증완료로표현금지.
+
+평가adapter도chain_hops1은continuous/split지원하도록확장(2hop은deck만). checkpointconfig/restore는그대로; 이것의실제원거리회귀평가는아직안함. make_env config8초에runtime1hop4초override. evaluate --chain-hops1 --support-modecontinuous --evaluation-forward-m0 .05 .1 .15 경로검증필요. 전체목표미완료.

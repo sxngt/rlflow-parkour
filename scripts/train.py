@@ -117,11 +117,18 @@ def main():
             completed_contacts = []
             jump_flights,jump_landings,jump_apex_met=0,0,0
             jump_apices=[]
+            if hasattr(env, 'chain'):
+                hop_steps = torch.zeros(env.chain.hops, dtype=torch.long, device=env.device)
+                hop_successes = torch.zeros_like(hop_steps)
+                hop_returns = torch.zeros(env.chain.hops, device=env.device)
             if goal_values:
                 draws_before=env.goal_draw_counts.clone()
                 goal_steps=torch.zeros(len(goal_values),dtype=torch.long,device=env.device)
             with torch.inference_mode():
                 for _ in range(steps_per_iteration):
+                    if hasattr(env, 'chain'):
+                        segments = env.chain.completed.clone()
+                        hop_steps += torch.bincount(segments, minlength=env.chain.hops)
                     if goal_values:
                         for goal_index,goal_value in enumerate(goal_values):
                             goal_steps[goal_index]+=(torch.abs(env.goal_distance-goal_value)<1e-7).sum()
@@ -134,6 +141,14 @@ def main():
                     if not torch.isfinite(obs).all() or not torch.isfinite(rewards).all():
                         raise RuntimeError("Nonfinite observation/reward")
                     dones = term | trunc
+                    if hasattr(env, 'chain'):
+                        hop_metrics = extras['terminal_metrics']
+                        passed = hop_metrics['hop_success']
+                        intermediate = passed & (segments < env.chain.hops - 1)
+                        if bool((intermediate & dones).any()):
+                            raise RuntimeError('Successful intermediate hop unexpectedly ended training episode')
+                        hop_successes += torch.bincount(segments[passed], minlength=env.chain.hops)
+                        hop_returns.scatter_add_(0, segments, rewards)
                     alg.process_env_step(rewards, dones, {"time_outs": trunc})
                     if dones.any():
                         metrics = extras["terminal_metrics"]
@@ -164,6 +179,13 @@ def main():
                 row['goal_environment_steps'] = dict(zip(map(str,goal_values),goal_steps.tolist()))
                 row['goal_reset_draws'] = dict(zip(map(str,goal_values),(env.goal_draw_counts-draws_before).tolist()))
                 row['train_forward_choices_m'] = config['jump'].get('train_forward_choices_m')
+            if hasattr(env, 'chain'):
+                if int(hop_steps.sum()) != env.num_envs * steps_per_iteration:
+                    raise RuntimeError('Hop accounting did not cover every PPO transition')
+                row['hop_environment_steps'] = hop_steps.tolist()
+                row['hop_successes'] = hop_successes.tolist()
+                row['hop_reward_sums'] = hop_returns.tolist()
+                row['jump_metric_scope'] = 'terminal hop diagnostics; success means complete course'
             if exploration_cap is not None:
                 effective=alg.policy.std.detach().clamp(min=alg.policy.std_floor,max=alg.policy.std_cap)
                 row.update(exploration_std_cap=exploration_cap, exploration_std_min=float(effective.min()),

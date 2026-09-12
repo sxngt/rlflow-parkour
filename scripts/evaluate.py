@@ -38,10 +38,10 @@ def main():
     args = p.parse_args()
     if args.chain_settle_mode != 'default' and args.chain_hops != 2:
         p.error('Holding last action requires two-hop chain evaluation')
-    if args.chain_hops is not None and (args.support_mode != 'deck' or not args.support_matched_material
+    if args.chain_hops is not None and ((args.chain_hops == 2 and args.support_mode != 'deck') or not args.support_matched_material
             or args.support_preserve_goals or args.support_probe_offset is not None
             or args.baseline != 'policy' or args.action_mode != 'mean' or args.launch_radius is not None):
-        p.error('Chain evaluation requires matched deck, fixed 15cm policy mean, original launch radius')
+        p.error('Chain evaluation requires matched support, policy mean and original launch radius; two hops require deck')
     if args.action_mode == 'sampled' and args.baseline != 'policy':
         p.error('Sampled action diagnosis requires the policy baseline')
     if args.baseline != "zero" and not args.checkpoint:
