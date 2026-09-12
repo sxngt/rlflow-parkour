@@ -861,3 +861,12 @@ P232 deck 대조 8행 보고서와 높이/접촉/착지 후 분석 파일 생성
 P233사전프로토콜 docs/p2-33-protocol.md. default 준비결과 P232재사용 vs hold-last(첫성공 마지막실행action을두번째.3초준비에유지), 나머지clock/판정/정책/seed/지형불변. --chain-settle-mode 옵션 및 subclass 명령유지 구현, collector상세제목. scripts/p2_33_evaluate.py4seedbatch준비. 아직본평가시작안함.
 
 smoke artifacts/p2-33-hold-last-smoke 실행 시작. 다음 실제process/session검사→완료감사, trace action이전환직전action과준비구간내같은지검증→4seed본평가. 전체목표미완료.
+
+
+### 최신: P2-33 명령 유지 대조 완료
+
+이전실패분석/프로토콜은progress. smoke완료(0/8), audit_chained_evaluation에준비구간실행action검사추가:전환직전action과이후.3초모든200Hz값exact일치검증. 본평가scripts/p2_33_evaluate.py session40590exit0,4seed종료. reportsession83367exit0. scripts/p2_33_report.py는대조4+실험4감사/같은checkpoint·scenario·config·지형검사후 docs/p2-33-comparison.json 생성.
+
+첫도약event차이4seed모두0. 두도약완주hold-last모두0/64(default0/1/0/0). 준비평균이동seed0 .07430→.002114m,seed1 .04327→.005250m,seed2 .04057→.01623m. 준비명령유지가정체구간이동은줄이나완주개선없음. 모든두번째시도launch밖인지comparison필드확인가능. docs/p2-33-findings.md. 4result hash/64/camera4/상세제목검증 artifacts/p2-33-videos-audit.json. 별도학습아직시작안함.
+
+다음연구방향:실제착지후상태분포를포함하는학습을고정예산대조. 먼저state수집/정상성/초기화계약설계; PPO기존trajectory직접replay금지. 기존P231정책부모,단일도약지형회귀필수. 현재chain은평가adapter이며training fork와보상단위/episode끝처리검증이필요하다. 성공기준완화나seed3제외금지. 전체목표미완료.

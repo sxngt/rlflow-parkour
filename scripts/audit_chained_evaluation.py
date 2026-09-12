@@ -55,6 +55,15 @@ def check(directory):
             expected = np.asarray(run['nominal_foot_xy_m']) + [contract['absolute_forward_targets_m'][j + 1], 0]
             assert np.allclose(transition['target_xy_m'], expected, atol=2e-6, rtol=0)
             assert np.allclose(trace['target_xy'][sample + 1, i], expected, atol=2e-6, rtol=0)
+            prep_steps = round(run['config']['jump']['settle_seconds'] / .02)
+            prep_end = min((step + prep_steps) * 4, local[j + 1]['episode_step'] * 4)
+            prep_actions = trace['action'][sample + 1:prep_end, i]
+            if contract.get('settle_command', 'default') == 'hold-last':
+                expected_action = trace['action'][sample, i]
+            else:
+                expected_action = np.zeros_like(trace['action'][sample, i])
+            assert len(prep_actions) > 0
+            assert np.array_equal(prep_actions, np.broadcast_to(expected_action, prep_actions.shape))
             m = local[j + 1]['metrics']
             if m['launch_recorded']:
                 launch = np.array([m['launch_root_x_m'], m['launch_root_y_m']])
