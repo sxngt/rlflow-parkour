@@ -23,6 +23,7 @@ def main():
     p.add_argument("--video-envs", type=int, default=16)
     p.add_argument("--video-camera-side", type=int, help="Camera distance in grid-side units; 4 preserves the 16-robot framing")
     p.add_argument("--diagnostics", action="store_true")
+    p.add_argument('--chain-hops', type=int, choices=[1, 2], help='P2-32 frozen-policy deck evaluation; separate course success contract')
     p.add_argument('--action-mode', choices=['mean', 'sampled'], default='mean')
     p.add_argument('--action-seed', type=int, default=20000)
     p.add_argument("--research-tag", action="append", default=[])
@@ -34,6 +35,10 @@ def main():
     p.add_argument('--support-calibration', type=Path, help='Frozen flat evaluation run.json for support transfer')
     p.add_argument('--support-probe-offset', type=float, choices=[.075], help='Zero-action geometry probe only: start feet above the gap')
     args = p.parse_args()
+    if args.chain_hops is not None and (args.support_mode != 'deck' or not args.support_matched_material
+            or args.support_preserve_goals or args.support_probe_offset is not None
+            or args.baseline != 'policy' or args.action_mode != 'mean' or args.launch_radius is not None):
+        p.error('Chain evaluation requires matched deck, fixed 15cm policy mean, original launch radius')
     if args.action_mode == 'sampled' and args.baseline != 'policy':
         p.error('Sampled action diagnosis requires the policy baseline')
     if args.baseline != "zero" and not args.checkpoint:
@@ -108,6 +113,13 @@ def main():
     config["num_envs"] = args.episodes
     config["seed"] = 10000
     meta = begin_run(args.out, config, "evaluate")
+    if args.chain_hops is not None:
+        meta['chain_contract'] = {'schema_version': 1, 'hops': args.chain_hops,
+            'absolute_forward_targets_m': [.15 * (i + 1) for i in range(args.chain_hops)],
+            'hop_seconds': 4., 'episode_seconds': 4. * args.chain_hops,
+            'transition': 'stabilize then jump; physical state preserved; local bookkeeping only',
+            'checkpoint_contract': 'original config restored strictly; runtime evaluation adapter'}
+        manifest['chain_contract'] = meta['chain_contract']
     if support:
         meta['evaluation_support'] = support
         atomic_json(args.out/'terrain.json', support)
@@ -119,7 +131,7 @@ def main():
         import torch
         from parkour.learning import make_env, make_algorithm, read_checkpoint, restore
         torch.manual_seed(10000)
-        env = make_env(config, evaluation_support=support)
+        env = make_env(config, evaluation_support=support, chain_hops=args.chain_hops)
         if support:
             from parkour.collision_contract import inspect_collision_contract
             contract = inspect_collision_contract(env)
@@ -173,6 +185,8 @@ def main():
         meta["nominal_foot_xy_m"] = env.nominal_xy.tolist()
         raw = env._get_observations()["policy"]
         done = torch.zeros(env.num_envs, dtype=torch.bool, device=env.device)
+        if args.chain_hops is not None:
+            env.evaluation_done = done
         records = [None] * env.num_envs
         diagnostics = None
         if args.diagnostics:
@@ -256,10 +270,20 @@ def main():
                     report['by_foot'][foot]={'episodes':len(subset),'successes':sum(r['success'] for r in subset),
                         'placed':sum(r['completed_contacts']==report['required_contacts'] for r in subset),
                         'failures':sum(r['failure'] for r in subset),'timeouts':sum(r['timeout'] for r in subset)}
+        if args.chain_hops is not None:
+            report['chain_contract'] = meta['chain_contract']
+            report['success_contract'] = 'all commanded hops independently pass flight/travel/first-touch/stabilization, without intermediate physical reset'
+            report['completed_hops_histogram'] = {str(i): sum(r['completed_hops'] == i for r in records) for i in range(args.chain_hops + 1)}
+            report['hop_diagnostic_scope'] = 'legacy flight/contact fields describe the final attempted hop; return and mean error span the course'
+            atomic_json(args.out / 'chain-events.json', {'contract': meta['chain_contract'],
+                'hops': env.hop_events, 'transitions': env.transition_events,
+                'scope': 'first episode per environment only; later auto-reset episodes excluded'})
         atomic_json(args.out / "evaluation.json", report)
         meta["evaluation"] = {key: value for key, value in report.items() if key != "results"}
         meta["artifacts"] = {file.name: sha256(file) for file in args.out.iterdir()
                              if file.suffix in (".mp4", ".png") or file.name in ("collision-contract.json", "terrain.json", "evaluation.json", "scenarios.json", "replay.json", "diagnostics.json", "motion-trace.npz")}
+        if args.chain_hops is not None:
+            meta['artifacts']['chain-events.json'] = sha256(args.out / 'chain-events.json')
         finish_run(args.out, meta)
     except BaseException as exc:
         if recorder and recorder.writer:

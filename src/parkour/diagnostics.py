@@ -33,6 +33,11 @@ class MotionDiagnostics:
             'nonfoot_peak':cpu(e.contacts.data.net_forces_w[:,self.nonfoot_ids].norm(dim=-1).amax(dim=1)),
             'action':cpu(e.actions),'torque':cpu(e.robot.data.applied_torque),
             'active':cpu(active),'stage':cpu(e.stage),'phase':cpu(e.phase)})
+        if hasattr(e, 'chain'):
+            self.samples[-1].update(segment=cpu(e.chain.completed),
+                segment_start_step=cpu(e.chain.start_step),
+                target_xy=cpu(e.targets[:, :, :2]-e.scene.env_origins[:, None, :2]),
+                launch_origin_xy=cpu(e.chain.launch_origin))
 
     def close(self,out,scenario_ids):
         self.env.scene.update=self.original_update

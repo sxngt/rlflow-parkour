@@ -50,6 +50,8 @@ def collect(evaluation, result_root=ROOT / 'result'):
         if support.get('matched_material'):
             task_title += '_동일물리재질'
     model = run.get('checkpoint')
+    if run.get('chain_contract'):
+        task_title += f"_리셋없는{run['chain_contract']['hops']}회도약_안정화후재도약"
     seed, updates = 'NA', 0
     train_run = None
     if model:

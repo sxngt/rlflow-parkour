@@ -834,3 +834,14 @@ scripts/p2_32_deck_baseline.py실행session31819exit0,4모델deck단일15×64평
 P232 deck 대조 8행 보고서와 높이/접촉/착지 후 분석 파일 생성 확인. 각 생성 로그 traceback 없음. 신규 src/parkour/chained_progress.py는 환경별 도약 완료 수, 시작 step, 출발 원점, 전환 대기, 최종 종료를 관리한다. resolve는 첫 성공의 종료를 억제하고 commit은 지표 snapshot 이후 다음 도약 시계/원점만 갱신하도록 분리했다. 실패 우선, local 200step/전체 400step 제한, 비동기 환경 전환, 완료 재집계 방지, 부분 reset, 단일 도약 계약의 3개 CPU tensor 테스트 통과(Isaac Python, artifacts/p2-32-chained-progress-tests.log). 시뮬레이터에 아직 연결하지 않았다.
 
 다음 필수 작업: ChainedDirectedJumpEnv에서 이 상태 관리 연결, 첫 성공의 reset 억제 및 보상/지표 snapshot 이후 도약 latch만 초기화. 물리 root/joint/속도/직전 action/contact history 불변을 전환 전후 실제 tensor로 검사. 평가 adapter는 strict checkpoint restore를 유지하고 별도 chained schema, 원시 200Hz segment/target trace와 collector/audit 제공. 단일 hop 동등성→작은 2hop smoke→4seed×64 순서. 현재 GPU4장 compute 유휴, 디스크 530GB. 작업 대기 프로세스 없음. 전체 목표 미완료.
+
+
+### 최신: P2-32 연속 도약 어댑터 연결 / 8환경 smoke 완료
+
+이전 상태 관리 구현 턴은 progress. ChainedDirectedJumpEnv를 make_env/evaluate --chain-hops 1|2에 연결했다. checkpoint config/restore는 유지하고 runtime episode 기간만 4×hops초 적용한다. 첫 hop 성공은 done 반환에서 억제하고 지표 snapshot 후 latch/목표/clock/origin만 변경한다. root/joint/velocity/actions/contact hysteresis/history/episode clock/env origins 전환 전후 전체 tensor exact equality를 검사한다. 두번째 목표 nominal+.30이나 travel demand는 .15다. 원시 trace segment/startstep/target/origin 추가, chain-events.json은 첫 episode만 기록. report의 기존 비행/접촉 필드는 최종 시도 hop 진단이라고 명시, 코스 성공/완료hop histogram 별도. collector 제목에도 리셋없는 N회 도약 표기.
+
+실제 1hop 어댑터 평가 artifacts/p2-32-chain-adapter-one-hop은 64/64, 기존 deck seed0의 모든 legacy episode 필드 정확히 동일. artifacts 감사 passed. 해당 실행은 event first-episode 필터 추가 전이나 모두 동시에 끝나므로 후속 episode 없음.
+
+2hop 축소 artifacts/p2-32-chain-two-hop-smoke:8환경 첫 도약 성공/전환8, 코스성공0. 모두 두번째 비행 검출 시 launch 반경 .03m 위반으로 종료. 전환64step→종료96step, 전환 원점 대비 launch 이동 .05424~.05775m. 모든 보존 tensor 동일, audit passed. 이는 연속 실행 성공이 아니라 기존 정적 초기상태 정책의 전환 후 실패 관측이다. 원시200Hz 추가검사, 금지 simulator write/reset 호출 감시 보강, chain schema 독립 감사, 대표 영상검수는 남음.
+
+다음 scripts/p2_32_chained_evaluate.py 4seed×64 원프로토콜 평가. 어떤 실패도 기준 완화로 숨기지 않는다. 추가 학습은 이 결과 및 상태분포 분석 후 별도 사전 프로토콜 필요. 전체 목표 미완료.
