@@ -446,3 +446,10 @@ mean성공56/32/48/21,유효비행·최초정밀모두64,안정화64/64/64/53. s
 직전 턴은401검증으로progress. 이번 턴동일실제PID확인 후verified wait 및801의거리0–20cm/launch4.5cm/cap.2/reset_all=true 네seed검증. checkpoint500/800 hash정상,모든loss유한/std상한준수. 최신 [{"run": "p2-25-deck-seed0", "pid": 1495130, "live": true, "iteration": 856, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"run": "p2-25-deck-seed1", "pid": 1495129, "live": true, "iteration": 849, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"run": "p2-25-deck-seed2", "pid": 1495128, "live": true, "iteration": 862, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"run": "p2-25-deck-seed3", "pid": 1495131, "live": true, "iteration": 856, "transition801_verified": true, "checkpoint800_hash_ok": true}]
 
 다음1201의cap.05/launch3cm 및1600최종평가8감사/4보고서. batch98960 유지,중복실행금지. 전체목표미완료.
+
+
+### 최신: P2-25 마지막 탐색 상한 전환 검증
+
+직전 턴은 영상 설정 확인만으로 no progress로 분류하고, 이번 턴 실제 PID 네 개를 다시 확인한 뒤 verified wait 및 1201 전환을 검증했다. 거리0–20cm/launch3cm/cap.05/reset_all=true, 실제 std min/max .05, 모든 loss 유한, checkpoint1000/1200 hash 정상. 최신 [{"run": "p2-25-deck-seed0", "pid": 1495130, "live": true, "iteration": 1254, "transition1201_verified": true, "checkpoint1200_hash_ok": true}, {"run": "p2-25-deck-seed1", "pid": 1495129, "live": true, "iteration": 1248, "transition1201_verified": true, "checkpoint1200_hash_ok": true}, {"run": "p2-25-deck-seed2", "pid": 1495128, "live": true, "iteration": 1267, "transition1201_verified": true, "checkpoint1200_hash_ok": true}, {"run": "p2-25-deck-seed3", "pid": 1495131, "live": true, "iteration": 1262, "transition1201_verified": true, "checkpoint1200_hash_ok": true}]
+
+변경 직전 checkpoint1200의 model 및 normalizer 모든 tensor가 P2-21의 같은 seed와 정확히 일치했다. artifacts/p2-25-preintervention-comparison.json. GPU 온도34–35C, VRAM약3GB씩, 저장533GB여유. batch98960 및 기존PID 유지. 다음1600완료+mean평가8감사/4보고서, 거리·유지성능 및 탐색적2×2 상호작용 분석. 영상64env/camera_side4 유지. 전체연구 미완료.
