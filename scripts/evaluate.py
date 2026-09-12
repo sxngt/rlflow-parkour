@@ -125,6 +125,11 @@ def main():
             'hop_seconds': 4., 'episode_seconds': 4. * args.chain_hops,
             'transition': 'stabilize then jump; physical state preserved; local bookkeeping only',
             'checkpoint_contract': 'original config restored strictly; runtime evaluation adapter'}
+        if args.chain_hops == 1:
+            distances = sorted({e['goal_forward_m'] for e in manifest['episodes']})
+            meta['chain_contract']['absolute_forward_targets_m'] = distances if len(distances) == 1 else None
+            meta['chain_contract']['single_hop_goal_choices_m'] = distances
+            meta['chain_contract']['target_source'] = 'scenarios.episodes[*].foot_offsets_xy_m'
         manifest['chain_contract'] = meta['chain_contract']
     if support:
         meta['evaluation_support'] = support

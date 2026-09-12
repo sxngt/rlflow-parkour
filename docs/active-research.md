@@ -908,3 +908,14 @@ IsaacPython audit_policy_fork profile/smoke둘다passed artifacts/p2-34-initiali
 이전파일럿완료/평가시작은progress. sessions85266/47386완료,chain56첫성공/0완주,단일16/16/16/15. scripts/audit_chained_evaluation.py양쪽passed artifacts/p2-34-profile-evaluations-audit.json. docs/p2-34-pilot-summary.json갱신. config만지정하는자동chain평가smoke artifacts/p2-34-auto-evaluation-smoke session40171exit0/SUCCEEDED. 부모복사/재개/학습도달/finite/중간성공done억제경로확인. 파일럿은본학습증거아님.
 
 scripts/p2_34_train.py구현:8개독립run800updates,seed짝수single→chain/홀수chain→single,각GPU1worker,본학습부모P231cp800새fork. 모든run부재/부모및smoke감사후실행. 본학습시작예정명령python3 scripts/p2_34_train.py > artifacts/p2-34-training-batch.log. 다음동일batch진행확인,학습중모델초기화감사/기본자동평가/조건별step합확인. 추가평가batch(deck1/chain2/continuousmixed/split15)아직미구현. 전체목표미완료.
+
+
+### 최신: P2-34 첫 묶음 진행 / 후속 평가 32건 명세
+
+이전본학습시작은progress. 실제worker1783928/1783929/1783942/1783943확인. 같은batchsession65779유지,현재single0/2=113update,chain1=125,chain3=106. GPU각~23~25%/3GB,설정변경없음. artifacts/p2-34-first-wave-fork-audit.log 4초기화모두passed(관측시60대update),성능완료감사아님.
+
+scripts/p2_34_evaluate.py작성:4seed×2조건×4평가군=32유일결과참조,기존native8재사용/추가24실행. chain2deck,deck1,continuous0/5/10/15,split15모두64/진단/64render/camera4/phase태그. 전체8학습완료및native8감사후만실행. --dry-run 검증 artifacts/p2-34-evaluation-plan-dry-run.json. 아직평가batch실행안함.
+
+발견한메타데이터표기수정:1hop mixed 평가의chain_contract.absolute_forward_targets_m가항상[.15]였으나실제episode목표/평가값은정상. 이후생성은단일고정거리일때만목록,혼합이면null+single_hop_goal_choices_m+scenario target_source명시. 과거원본artifact변경없음. 이후비교는항상scenarios와episode goal기준.
+
+다음같은학습batch진행확인→첫묶음완료/두번째묶음시작→8학습/native감사→scripts/p2_34_evaluate.py24추가→paired분석. 전체목표미완료.
