@@ -1,0 +1,26 @@
+[
+  {
+    "mode": "deck",
+    "worker_wall_seconds": 75.20350408554077,
+    "summed_update_seconds": 42.540202853269875,
+    "non_update_worker_seconds": 32.663301232270896,
+    "sampled_peak_worker_gpu_mib": 2965,
+    "updates": 60,
+    "new_steps": 1474560,
+    "update_steps_per_second": 34662.74021038565,
+    "whole_worker_steps_per_second": 19607.59698541109,
+    "inspected_envs": 1024
+  },
+  {
+    "mode": "continuous",
+    "worker_wall_seconds": 98.06683301925659,
+    "summed_update_seconds": 42.07390040019527,
+    "non_update_worker_seconds": 55.99293261906132,
+    "sampled_peak_worker_gpu_mib": 2971,
+    "updates": 60,
+    "new_steps": 1474560,
+    "update_steps_per_second": 35046.90523042538,
+    "whole_worker_steps_per_second": 15036.27632912804,
+    "inspected_envs": 1024
+  }
+]
