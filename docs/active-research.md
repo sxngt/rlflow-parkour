@@ -733,3 +733,10 @@ scripts/p2_30_evaluate.py 작성(아직실행안함):seed별parent split0/15×32
 이전턴 평가배치/spec/초기화검증은progress. 본PID1674488 live확인,API첫4run249~253update/goal_environment_steps합24576/phase·step·condition태그정상. health오류없음 artifacts/p2-30-live-monitor-check.json. GPU33~34도/약3.1GB/디스크531GB.
 
 P229남은대표교차/회귀영상검수:continuous0-on-split와split2-regression의preview및ffmpeg0.8초추출프레임직접확인. artifacts/*-review-0p8s.png 보존. 구도/렌더링정상,세부발접촉은trace기준,전체프레임육안검수주장금지. findings갱신. 다음동일P230batch진행확인→첫native/둘째묶음→전체완료후20평가. 전체목표미완료.
+
+
+### 최신: P2-30 첫 묶음 완료·둘째 묶음 실행 중
+
+이전턴 모니터링/영상검수는progress. 이번 동일PID1674488 live확인후45초단위verified wait,첫fixed0/2 mixed1/3각800학습+native평가완료. artifacts/p2-30-first-batch-audit.jsonl 학습4+평가4감사통과. 거리0/15각32개:fixed0=0/32,fixed2=0/32,mixed1=0/32,mixed3=31/32. 여기서쌍의첫수는0cm성공수/둘째수는15cm성공수이며각분모32. 전체조건효과결론아님.
+
+4영상hash/camera4/64render/혼합이산제목검증 artifacts/p2-30-first-batch-summary.json. 둘째mixed0/2 fixed1/3 RUNNING확인. 다음둘째fork감사와완료native확인→전체감사→scripts/p2_30_evaluate.py20jobs→primary/regression/retention3spec보고서. 부모split혼합평가시실제scenario동일성확인필수. 전체목표미완료.
