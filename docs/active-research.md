@@ -1130,3 +1130,12 @@ scripts/p2_38_evaluate.py 실행 session39782, log artifacts/p2-38-evaluation-ba
 이전 turn은 native 진단 생성으로 progress. 동일session39782 최종exit0, seed별4개 batch exit0 확인. report session97764 exit0: 8개 학습 예산/배치 및32 평가 artifact 검증 통과. docs/p2-38-comparison.json/md와 p2-38-findings.md 생성. 대표 성공/실패 영상2개에서 각8frame 표본 육안 확인(artifacts/*-review.jpg). 전체 목표 미완료, champion 없음.
 
 혼합군 continuous회귀64/64/48/48(대조48/32/0/4), chain64/42/63/0(대조64/4/61/0), split0/64/64/64(대조모두0). 혼합seed2 10cm,seed3 제자리 실패. 다음은 거리분포0/15→0/5/10/15 비교를 준비: 계약/샘플링 검토→사전 프로토콜→smoke→같은부모4seed/고정예산, P238continuous대조 재사용 명시. 아직 새학습 없음. 모든P238 세션terminal이며 중복 실행하지 않는다.
+
+
+### 최신: P2-39 네 거리 계약 구현 / 64환경 smoke 시작
+
+이전 P238 전체32 보고서 감사는 progress. P239 사전 프로토콜 docs/p2-39-protocol.md와 configs/p2-39-coverage.json 확정(commit caeca41). 단일 목표0/5/10/15cm, 다른P238continuous 조건유지, 같은P231부모4seed/800update. 재사용 대조P238continuous78,643,200step/새처치동일예산, 최종800고정. 아직 본학습 없음.
+
+기존 hardcoded2목표를 config기반 sampling/목표별 step·draw/영상제목으로 바꿨다. validation은 기존2목표 또는 정확4목표만허용, resume변경거부. 지지면 검사는 설정의 모든단일목표 확인. 회계감사는 모든거리/배열길이/chain15cm외 정확step일치 검사 강화. 기본 python unittest는 rsl_rl미설치로2error; Isaac python에서 chain5/support2 모두통과. 런타임 sampling/restore검증은 아직 남음.
+
+GPU전체유휴 확인후64env12update smoke시작: session92600, artifacts/p2-39-coverage-training-smoke, log동명-launch.log. GPU0,seed2/P231cp800fork,timeout600. 다음동일session/PID확인→완료artifact/거리별노출/초기복사검사→2update재개 및 기존2목표 runtime회귀→1024env60update profile→본학습착수. 기존학습/평가P238는모두terminal. 전체목표미완료.
