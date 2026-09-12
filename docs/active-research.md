@@ -776,3 +776,14 @@ primary4보고서session20788exit0,regression/retention8보고서session38072exi
 P231프로토콜 docs/p2-31-protocol.md/config p2-31-mixed.json,source1e0f719. P227continuous4부모에서직접split0/15혼합800update,새4run78,643,200step. 같은부모/예산의P229split15전용대조재사용,4seed설정은목표분포/eval/tags외정확일치확인(session81580exit0). P230은출발/예산다르므로주비교에서제외.
 
 scripts/p2_31_train.py 실행시작session96480,log artifacts/p2-31-main-batch.log. seed별P227부모split0/15×32평가→새mixed800→auto native. seed2부모retry1. 본학습은parent평가exit0후자동시작하되성공률로seed를거르지않음. 기존출력거절/부모완료감사. 다음실제PID/parent평가상태확인,부모·새모델scenario동일성/실제fork/목표별계상감사. 평가배치/3spec는미작성:신규4model continuous혼합회귀+split15×64각4(8추가),대조P229split의split혼합은P230parent평가재사용、continuous回帰/15維持はP229再使用。全体目標未完了。
+
+
+### 최신: P2-31 부모 능력 확인·초기화 감사·평가 명세
+
+이전턴P230진단/P231시작은progress. 부모split0/15×32 평가4완료감사 artifacts/p2-31-parent-audit.jsonl. 부모0cm모두32/32,15cm0/0/32/0. 따라서split에서도유지대상0cm능력을출발상태에서확인. 부모scenario와재사용P229fixed의P230parent평가scenario정확일치.
+
+새4학습PIDs/batch1725396live,update67~74. 실제fork4감사통과 artifacts/p2-31-fork-audit.jsonl/log(session25830exit0),각관측updategoalstep합24576/resetdraw합종료수일치.
+
+scripts/p2_31_evaluate.py 작성(아직실행안함):각새모델continuous회귀+split15×64,총8추가jobs. configs/reports/p2-31-primary/regression/retention.json 각12행(원본P2274/재사용P229fixed4/새mixed4). 코드기준20→8commands수정및출력모두spec연결검증. 각report신규학습4개만budget계상,대조군과조건별학습량800동일임을説明に維持。
+
+다음同一本batch완료/native감사→追加8評価→3spec보고서+goal_exposure。代表P230動画視覚検収も残る。全体目標未完了。
