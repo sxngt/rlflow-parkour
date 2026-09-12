@@ -94,7 +94,7 @@ class ChainedDirectedJumpEnv(DirectedJumpEnv):
         if not all(unchanged.values()):
             raise RuntimeError(f'Maneuver transition changed preserved state: {unchanged}')
         for index in ids.tolist():
-            if hasattr(self, 'evaluation_done') and bool(self.evaluation_done[index]):
+            if not hasattr(self, 'evaluation_done') or bool(self.evaluation_done[index]):
                 continue
             self.transition_events.append({
                 'env_index': index, 'episode_step': int(self.episode_length_buf[index]),
@@ -110,7 +110,7 @@ class ChainedDirectedJumpEnv(DirectedJumpEnv):
         d = self.chain_decision
         ended = d.advance | d.success | d.failure | d.timeout
         for index in ended.nonzero(as_tuple=False).flatten().tolist():
-            if hasattr(self, 'evaluation_done') and bool(self.evaluation_done[index]):
+            if not hasattr(self, 'evaluation_done') or bool(self.evaluation_done[index]):
                 continue
             self.hop_events.append({
                 'env_index': index, 'segment': int(self.segment_before[index]),

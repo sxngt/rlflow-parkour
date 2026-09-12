@@ -66,6 +66,8 @@ def read_checkpoint(path):
 
 
 def restore(data, config, alg, normalizer, env, training):
+    from parkour.chain_training import assert_same_chain_training
+    assert_same_chain_training(data['config'], config)
     if data['config'].get('exploration') != config.get('exploration'):
         raise ValueError('Checkpoint exploration contract differs')
     from parkour.terrain_contract import assert_same_terrain
@@ -94,6 +96,8 @@ def restore(data, config, alg, normalizer, env, training):
 
 
 def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode='default'):
+    from parkour.chain_training import validate_chain_training
+    chain_spec = validate_chain_training(config)
     from parkour.task import FootholdCfg, FootholdEnv
     if config['task'] in ('a1_flat_jump_v1','a1_flat_jump_shaped_v2','a1_flat_jump_precise_v3','a1_flat_jump_supported_v4','a1_directed_jump_v5'):
         from parkour.jump_task import JumpCfg,JumpEnv
@@ -126,8 +130,11 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
     cfg.sim.device = "cuda:0"
     from parkour.terrain_contract import training_support
     cfg.support_contract = copy.deepcopy(evaluation_support) if evaluation_support is not None else training_support(config)
+    if chain_spec is not None and chain_hops is None:
+        chain_hops = chain_spec['hops']
+        chain_settle_mode = chain_spec['settle_command']
     if chain_hops is not None:
-        if config['task'] != 'a1_directed_jump_v5' or not evaluation_support or evaluation_support['mode'] != 'deck':
+        if config['task'] != 'a1_directed_jump_v5' or not cfg.support_contract or cfg.support_contract['mode'] != 'deck':
             raise ValueError('Chained evaluation requires directed jump on the explicit deck')
         from parkour.chained_jump_task import ChainedDirectedJumpEnv
         cfg.episode_length_s = 4. * chain_hops

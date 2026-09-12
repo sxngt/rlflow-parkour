@@ -870,3 +870,12 @@ smoke artifacts/p2-33-hold-last-smoke 실행 시작. 다음 실제process/sessio
 첫도약event차이4seed모두0. 두도약완주hold-last모두0/64(default0/1/0/0). 준비평균이동seed0 .07430→.002114m,seed1 .04327→.005250m,seed2 .04057→.01623m. 준비명령유지가정체구간이동은줄이나완주개선없음. 모든두번째시도launch밖인지comparison필드확인가능. docs/p2-33-findings.md. 4result hash/64/camera4/상세제목검증 artifacts/p2-33-videos-audit.json. 별도학습아직시작안함.
 
 다음연구방향:실제착지후상태분포를포함하는학습을고정예산대조. 먼저state수집/정상성/초기화계약설계; PPO기존trajectory직접replay금지. 기존P231정책부모,단일도약지형회귀필수. 현재chain은평가adapter이며training fork와보상단위/episode끝처리검증이필요하다. 성공기준완화나seed3제외금지. 전체목표미완료.
+
+
+### 최신: P2-34 현재 정책의 연속 도약 학습 계약
+
+이전P233비교완료는progress. docs/p2-34-protocol.md 사전등록: P2314부모 각각singledeck15cm vs chain15→30cm,각800×1024×24,총신규157,286,400step. 첫도약성공후같은물리상태에서현재정책으로두번째실행;저장실패trajectory replay없음. 기본PD준비.3초,기존판정/보상유지,첫성공보상은hop보상으로지급/done아님. 단일0/5/10/15회귀필수.
+
+configs/p2-34-{single,chain}.json작성. chain_training.py는엄격한2hop/8초/fixed.15/defaultsettle/deck계약검증. restore는chain계약동일성검사; fork는검증된chain8초만4초로정규화하여부모초기화허용,지원terrain에deck추가. 임의8초/launch반경변경거부등tests/test_chain_training.py3개통과(artifacts/p2-34-contract-tests.log). make_env는trainingconfigchain선택가능, evaluate는chaincheckpoint자동평가시명시schema기록하도록chainhops추론. chained_env의Python hop/transition목록은evaluation_done존재시만쌓아학습메모리무한증가방지.
+
+아직학습smoke/본학습시작안함. 다음필수: train로그에도약별step/성공/보상계수집추가,첫성공done억제와일회보상검증,작은fork학습/PPOfinite/checkpointresume/자동평가확인. chaincheckpoint를continuous/split단일도약회귀에쓰려면명시적single-eval override(현재chain_hops1도deck만허용)를설계하되checkpointrestore엄격성완화금지. 런타임전환의torch.equal대량sync/전체tensorclone처리비용도측정. 기존tests/test_policy_fork.py등확장회귀도실행필요. 전체목표미완료.

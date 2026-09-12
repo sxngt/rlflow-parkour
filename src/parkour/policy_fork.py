@@ -6,11 +6,15 @@ from parkour.terrain_contract import training_support
 
 
 def validate_fork_configs(parent, target):
+    from parkour.chain_training import validate_chain_training
+    validate_chain_training(parent); validate_chain_training(target)
     training_support(parent); training_support(target)
     a,b=copy.deepcopy(parent),copy.deepcopy(target)
     if a['task']!='a1_directed_jump_v5' or b['task']!=a['task']:
         raise ValueError('Fork supports directed-jump policies only')
     for c in (a,b):
+        if c.pop('chain_training', None) is not None:
+            c['episode_seconds'] = 4.  # Only the validated eight-second chain is normalized.
         for key in ('iterations','num_envs','research_tags'):
             c.pop(key,None)
         for key in ('train_forward_range_m','train_forward_choices_m','evaluation_forward_m','distance_curriculum','launch_curriculum'):
@@ -20,7 +24,7 @@ def validate_fork_configs(parent, target):
         c['exploration'].pop('stages',None)
     if a!=b:
         raise ValueError('Fork changed an unsupported robot, observation, reward, seed or optimizer contract')
-    if parent['terrain_contract']['mode'] not in ('continuous','split') or target['terrain_contract']['mode'] not in ('continuous','split'):
+    if parent['terrain_contract']['mode'] not in ('continuous','split','deck') or target['terrain_contract']['mode'] not in ('continuous','split','deck'):
         raise ValueError('Fork terrain change is not supported')
     cap_for_update(target,0)
 
