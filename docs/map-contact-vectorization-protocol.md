@@ -1,0 +1,7 @@
+# Map contact gate performance probe (pending GPU validation)
+
+The reference mapped-contact gate dispatches many small tensor operations inside Python foot/surface loops. A candidate vectorized implementation groups immutable map bounds and compares all environments/feet/surfaces together. Scalar selection margins and Z limits are computed in Python before tensor conversion to preserve reference rounding. Static geometry is cached by layout identity, foot order, device and dtype; replacing a map invalidates the cache. In-place geometry mutation is outside this immutable-map contract and requires explicit cache invalidation.
+
+Default behavior remains reference. Opt-in evaluation flag --vectorized-map-contact selects the candidate and records its implementation in run metadata. CPU float32/float64 tests compare reference/candidate outputs including target boundaries, bad first contacts, lost support and replacement maps. These tests passed; GPU trajectory identity and speedup have NOT yet been measured.
+
+After the current research queue completes, evaluate one fixed mapped checkpoint/config/scenario set with reference versus candidate under identical geometry,64video/camera4 and200Hz diagnostics. Compare every episode/event/trace value; separately measure no-render gate/control throughput with synchronized timing. Do not change environment count, PPO batch or default implementation based on utilization alone. Adopt only after exact gate/behavior equivalence and useful measured speedup; retain the reference implementation for audits.

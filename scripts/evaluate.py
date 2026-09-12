@@ -27,6 +27,7 @@ def main():
     p.add_argument("--transition-states", action="store_true", help="Record articulated successful-landing states; replay not yet validated")
     p.add_argument("--reward-components", action="store_true", help="Audit grouped control-step rewards without changing the policy or reward")
     p.add_argument('--chain-hops', type=int, choices=range(1,9), help='Frozen-policy one-to-eight-hop evaluation; explicit course success contract')
+    p.add_argument('--vectorized-map-contact', action='store_true', help='Opt-in equivalent map gate performance probe')
     p.add_argument('--course-station-heights', type=float, nargs='+', help='Initial and landing support heights, one per station')
     p.add_argument('--course-friction', type=float, help='Authored static/dynamic friction for later course pads')
     p.add_argument('--friction-start-station', type=int, default=4)
@@ -223,6 +224,11 @@ def main():
         torch.manual_seed(10000)
         env = make_env(config, evaluation_support=support, chain_hops=args.chain_hops,
                        chain_settle_mode=args.chain_settle_mode, independent_support_clones=args.independent_support_clones, mapped_contact_progress=args.mapped_contact_progress)
+        if args.vectorized_map_contact:
+            if not args.mapped_contact_progress:
+                raise ValueError('Vectorized map gate requires mapped-contact progression')
+            env.vectorized_map_contact=True
+            meta['mapped_contact_implementation']='vectorized_immutable_bounds_v1'
         if args.course_station_heights is not None:
             env.planned_support_heights=chosen_heights
         if args.course_step_lengths is not None:
