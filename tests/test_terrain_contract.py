@@ -52,3 +52,23 @@ class TerrainContractTest(unittest.TestCase):
                 other['terrain_contract']['foot_projection_radius_m'] = 0
             with self.assertRaises(ValueError, msg=location):
                 training_support(other)
+
+    def test_split_rejects_intervals_spanning_empty_gap(self):
+        cfg = json.loads((Path(__file__).resolve().parents[1]/'configs/p2-29-split.json').read_text())
+        self.assertEqual(training_support(cfg)['mode'], 'split')
+        # Both endpoints fit, but sampling between them would place goals in air.
+        bad = copy.deepcopy(cfg)
+        bad['jump']['train_forward_range_m'] = [0., .15]
+        with self.assertRaises(ValueError):
+            training_support(bad)
+        bad = copy.deepcopy(cfg)
+        bad['jump']['evaluation_forward_m'] = [.05]
+        with self.assertRaises(ValueError):
+            training_support(bad)
+        bad = copy.deepcopy(cfg)
+        bad['jump']['distance_curriculum'] = [{'start_update': 0, 'forward_range_m': [0., .15]}]
+        with self.assertRaises(ValueError):
+            training_support(bad)
+        # Separate valid points do not imply a uniform distribution through the gap.
+        cfg['jump']['evaluation_forward_m'] = [0., .15]
+        training_support(cfg)
