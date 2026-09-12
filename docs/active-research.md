@@ -582,3 +582,14 @@ full configs/reports/p2-27.json seed2 run을retry1로명시갱신(infrastructure
 http://127.0.0.1:18710/api/health 정상/collector errors없음. step:p2-27-support-training 태그로run18/video11조회(실험9+smoke/zero2). 원본FAILED와retryRUNNING/최신metrics분리확인. artifacts/p2-27-monitor-check.json. 원본supervisor의resource_released=false는역사기록이며실제후속회수는orphan-cleanup계보에있음.
 
 다음1600+auto평가, cross --seeds2만실행,full16행4보고서/전체감사/원본인프라손실별도계상. 다른3seed는이미완료. batch40871유지,추가재시도없음,전체목표미완료.
+
+
+### 최신: P2-27 네 seed 학습·교차평가 전체 완료
+
+직전retry1201검증턴progress. 이번턴retry1600완료/auto평가종료/PID소멸,2감사통과. batch40871정상종료. cross --seeds2 batch13621 완료. configs/reports/p2-27.json 고유24artifact(기존8+신규16) artifacts/p2-27-complete-audit.jsonl감사통과. 4종보고서/신규영상12hash/camera4/64env/seed2preview확인,모든GPU해제/532GB여유.
+
+최종continuous정책:continuous/deck모두48/48/64/48. 0/5/10cm모든seed16각성공;15cmseed2만16/16,나머지거리조건미달. 유효비행/최초정밀/안정화/최초투영포함모두64. 기존P224deck정책continuous전이0/0/0/0 및flight0. docs/p2-27-findings.md. seed0 deck회귀−8남음,champion승격안함.
+
+신규main/평가/초기실패GPU할당시간약2.0732h,실패supervisor1801.33초+회수확인57.22초별도계상. artifacts/p2-27-resource-accounting.json. 원본FAILED보존,retry1계보유지. 기존partial보고서는중간기록으로보존한다.
+
+다음P228 동결된P2274정책 continuous/split ×동일15cm64episode 전이진단. actual gap6cm,wholebody15cm갭주장금지. training path seed0/1/3 p2-27-continuous-seedS;seed2 p2-27-continuous-seed2-retry1. P226batch/report응용가능하나현재아직P228프로토콜/실행미착수. 새지도관측/보상스윕보다준비동작의실제gap전이실패구간을확인. 전체목표미완료.
