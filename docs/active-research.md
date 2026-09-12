@@ -749,3 +749,12 @@ P229남은대표교차/회귀영상검수:continuous0-on-split와split2-regressi
 scripts/goal_exposure_report.py 추가:완료artifact감사후spec의새run만선택,각update 목표별step합과resetdraw합을검증하고초기reset배정/rollout중배정/실제환경step을분리집계. 부모재사용예산제외. 첫묶음실제4run적용 artifacts/p2-30-first-batch-intermediate.json→docs/p2-30-first-batch-intermediate-goal-exposure.json,log artifacts/p2-30-first-batch-exposure.log. mixed1 0cmreset49.805%/step65.143%,mixed3 reset49.915%/step52.002%. 초기폐기reset은별도필드보존. 이는노출량이며단일실패원인이나통계적효과주장아님.
 
 다음동일batch완료후8학습/8native감사 및20평가. 전체결과에는goal_exposure_report.py configs/reports/p2-30-primary.json도실행. 현재전체예산추가/조건변경없음. 전체목표미완료.
+
+
+### 최신: P2-30 전체 본학습 완료 / 추가20평가 실행 중
+
+이전턴 둘째fork/노출량감사는progress. 이번동일PID1674488 live재확인후45초단위verifiedwait,session68047exit0/PID종료/4seedexit0로그확인. 학습8+native8감사통과 artifacts/p2-30-training-native-audit.jsonl. 각800update/총신규157286400step goal_exposure_report로검증 docs/p2-30-primary-goal-exposure.json.
+
+Native split0/15각32개성공:fixedseed0~3 0/32모두, mixed0=29/32,mixed1=0/32,mixed2=0/32,mixed3=31/32. 각쌍첫값0cm성공수/둘째값15cm성공수이며분모각32. 두seed회복만으로일반개선/승격주장금지.
+
+추가20평가 scripts/p2_30_evaluate.py 시작session31532,log artifacts/p2-30-evaluation-batch.log. 부모split0/15×32새4평가부터시작,이어서모델8continuous회귀및split15유지. 다음동일세션/PID재확인·완료후20감사,부모/자식scenario동일성,3spec×4보고서,모든신규result영상hash/camera/tags/대표시각검수,노출량·실패단계최종분석. 전체목표미완료.

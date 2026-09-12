@@ -1,0 +1,194 @@
+{
+  "rows": [
+    {
+      "run": "p2-30-fixed-seed0",
+      "updates_in_attempt": 800,
+      "new_environment_steps": 19660800,
+      "initial_reset_draws": {
+        "0.15": 2048
+      },
+      "rollout_reset_draws": {
+        "0.15": 257228
+      },
+      "environment_steps_by_goal": {
+        "0.15": 19660800
+      },
+      "step_fraction_by_goal": {
+        "0.15": 1.0
+      },
+      "reset_draw_fraction_by_goal": {
+        "0.15": 1.0
+      },
+      "contract": "Per-attempt reset draws; pre-action environment transitions; initialization draws separate; counters are diagnostics, not curriculum state"
+    },
+    {
+      "run": "p2-30-fixed-seed1",
+      "updates_in_attempt": 800,
+      "new_environment_steps": 19660800,
+      "initial_reset_draws": {
+        "0.15": 2048
+      },
+      "rollout_reset_draws": {
+        "0.15": 237649
+      },
+      "environment_steps_by_goal": {
+        "0.15": 19660800
+      },
+      "step_fraction_by_goal": {
+        "0.15": 1.0
+      },
+      "reset_draw_fraction_by_goal": {
+        "0.15": 1.0
+      },
+      "contract": "Per-attempt reset draws; pre-action environment transitions; initialization draws separate; counters are diagnostics, not curriculum state"
+    },
+    {
+      "run": "p2-30-fixed-seed2",
+      "updates_in_attempt": 800,
+      "new_environment_steps": 19660800,
+      "initial_reset_draws": {
+        "0.15": 2048
+      },
+      "rollout_reset_draws": {
+        "0.15": 339648
+      },
+      "environment_steps_by_goal": {
+        "0.15": 19660800
+      },
+      "step_fraction_by_goal": {
+        "0.15": 1.0
+      },
+      "reset_draw_fraction_by_goal": {
+        "0.15": 1.0
+      },
+      "contract": "Per-attempt reset draws; pre-action environment transitions; initialization draws separate; counters are diagnostics, not curriculum state"
+    },
+    {
+      "run": "p2-30-fixed-seed3",
+      "updates_in_attempt": 800,
+      "new_environment_steps": 19660800,
+      "initial_reset_draws": {
+        "0.15": 2048
+      },
+      "rollout_reset_draws": {
+        "0.15": 303186
+      },
+      "environment_steps_by_goal": {
+        "0.15": 19660800
+      },
+      "step_fraction_by_goal": {
+        "0.15": 1.0
+      },
+      "reset_draw_fraction_by_goal": {
+        "0.15": 1.0
+      },
+      "contract": "Per-attempt reset draws; pre-action environment transitions; initialization draws separate; counters are diagnostics, not curriculum state"
+    },
+    {
+      "run": "p2-30-mixed-seed0",
+      "updates_in_attempt": 800,
+      "new_environment_steps": 19660800,
+      "initial_reset_draws": {
+        "0.0": 1029,
+        "0.15": 1019
+      },
+      "rollout_reset_draws": {
+        "0.0": 111703,
+        "0.15": 111762
+      },
+      "environment_steps_by_goal": {
+        "0.0": 9842012,
+        "0.15": 9818788
+      },
+      "step_fraction_by_goal": {
+        "0.0": 0.5005906168619791,
+        "0.15": 0.49940938313802086
+      },
+      "reset_draw_fraction_by_goal": {
+        "0.0": 0.49989135881301744,
+        "0.15": 0.5001086411869826
+      },
+      "contract": "Per-attempt reset draws; pre-action environment transitions; initialization draws separate; counters are diagnostics, not curriculum state"
+    },
+    {
+      "run": "p2-30-mixed-seed1",
+      "updates_in_attempt": 800,
+      "new_environment_steps": 19660800,
+      "initial_reset_draws": {
+        "0.0": 997,
+        "0.15": 1051
+      },
+      "rollout_reset_draws": {
+        "0.0": 64583,
+        "0.15": 65043
+      },
+      "environment_steps_by_goal": {
+        "0.0": 12807553,
+        "0.15": 6853247
+      },
+      "step_fraction_by_goal": {
+        "0.0": 0.6514258321126302,
+        "0.15": 0.3485741678873698
+      },
+      "reset_draw_fraction_by_goal": {
+        "0.0": 0.49804820997311544,
+        "0.15": 0.5019517900268846
+      },
+      "contract": "Per-attempt reset draws; pre-action environment transitions; initialization draws separate; counters are diagnostics, not curriculum state"
+    },
+    {
+      "run": "p2-30-mixed-seed2",
+      "updates_in_attempt": 800,
+      "new_environment_steps": 19660800,
+      "initial_reset_draws": {
+        "0.0": 1040,
+        "0.15": 1008
+      },
+      "rollout_reset_draws": {
+        "0.0": 74824,
+        "0.15": 75138
+      },
+      "environment_steps_by_goal": {
+        "0.0": 14522357,
+        "0.15": 5138443
+      },
+      "step_fraction_by_goal": {
+        "0.0": 0.738645273844401,
+        "0.15": 0.26135472615559896
+      },
+      "reset_draw_fraction_by_goal": {
+        "0.0": 0.49907242944543123,
+        "0.15": 0.5009275705545688
+      },
+      "contract": "Per-attempt reset draws; pre-action environment transitions; initialization draws separate; counters are diagnostics, not curriculum state"
+    },
+    {
+      "run": "p2-30-mixed-seed3",
+      "updates_in_attempt": 800,
+      "new_environment_steps": 19660800,
+      "initial_reset_draws": {
+        "0.0": 990,
+        "0.15": 1058
+      },
+      "rollout_reset_draws": {
+        "0.0": 118160,
+        "0.15": 118499
+      },
+      "environment_steps_by_goal": {
+        "0.0": 10224033,
+        "0.15": 9436767
+      },
+      "step_fraction_by_goal": {
+        "0.0": 0.5200212097167969,
+        "0.15": 0.4799787902832031
+      },
+      "reset_draw_fraction_by_goal": {
+        "0.0": 0.49914749043806844,
+        "0.15": 0.5008525095619316
+      },
+      "contract": "Per-attempt reset draws; pre-action environment transitions; initialization draws separate; counters are diagnostics, not curriculum state"
+    }
+  ],
+  "new_environment_steps": 157286400,
+  "scope": "Only new runs selected by the manifest. Reset sampling probability is not a promise of equal transition counts; initial discarded resets are shown separately."
+}
