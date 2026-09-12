@@ -17,3 +17,9 @@ scripts/p3_04_report.py는각suite의scenario/support/chain/action동일성,chec
 본학습실제4PID생존및iteration169~186까지진행확인. 활성session47669와artifacts/p3-04-training-batch.log를계속관찰한다. 아직최종성능을주장하지않는다.
 
 실행중update11~60구간50개를고정해처리량확인:동일seed2 course단독profile33,871step/s,4작업동시32,518step/s,약1.042배slowdown. docs/p3-04-throughput-pilot.json. update시간만비교하며초기화/저장/평가비용제외,무작위scheduler벤치마크가아니다. GPU낮은utilization만으로env/batch를변경하지않는다. 실제학습473/471/489/498update관찰,session47669계속running. 완료까지같은예산/프로세스로진행한다.
+
+## 본학습 완료 및 비교평가 시작
+
+본session47669 exit0,4조건 worker exit0.각800update와native최종평가/영상/200Hz/accounting gate통과. 총78,643,200새step. native 평가:course seed1/2 각각첫도약64/64,두도약0/64;deck seed1첫64/64완주0,seed2첫39/64완주0. 이는각native지형결과이며공통지형대조결론이아니다.
+
+동일계약18평가를 python3 scripts/p3_04_evaluate.py 로시작했다. 활성session90541,로그artifacts/p3-04-evaluation-batch.log,계획artifacts/p3-04-evaluation-plan.json. 실제worker PID2002892/2002885/2002906/2002899 GPU별확인. 다음은session정상종료확인후scripts/p3_04_report.py실행. 평가실패시해당원본attempt를보존하고원인별로복구한다. 아직최종비교표/회귀결론미확정.
