@@ -120,6 +120,8 @@ class ChainedDirectedJumpEnv(DirectedJumpEnv):
         unchanged = {key: torch.equal(value, after[key]) for key, value in before.items()}
         if not all(unchanged.values()):
             raise RuntimeError(f'Maneuver transition changed preserved state: {unchanged}')
+        from parkour.transition_states import capture_transition
+        capture_transition(self, before, ids)
         for index in ids.tolist():
             if not hasattr(self, 'evaluation_done') or bool(self.evaluation_done[index]):
                 continue

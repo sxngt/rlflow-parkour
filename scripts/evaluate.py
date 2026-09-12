@@ -23,6 +23,7 @@ def main():
     p.add_argument("--video-envs", type=int, default=16)
     p.add_argument("--video-camera-side", type=int, help="Camera distance in grid-side units; 4 preserves the 16-robot framing")
     p.add_argument("--diagnostics", action="store_true")
+    p.add_argument("--transition-states", action="store_true", help="Record articulated successful-landing states; replay not yet validated")
     p.add_argument("--reward-components", action="store_true", help="Audit grouped control-step rewards without changing the policy or reward")
     p.add_argument('--chain-hops', type=int, choices=[1, 2], help='P2-32 frozen-policy deck evaluation; separate course success contract')
     p.add_argument('--chain-settle-mode', choices=['default', 'hold-last'], default='default')
@@ -175,6 +176,10 @@ def main():
             from parkour.collision_contract import inspect_collision_contract
             contract = inspect_collision_contract(env)
             atomic_json(args.out/'collision-contract.json', contract)
+        if args.transition_states:
+            if args.chain_hops != 2:
+                raise ValueError('Transition states require two-hop evaluation')
+            env.capture_transition_states = True
         alg, norm = make_algorithm(config, env)
         if args.checkpoint:
             data = read_checkpoint(args.checkpoint)
@@ -281,6 +286,9 @@ def main():
             diagnostics.close(args.out, [s["id"] for s in manifest["episodes"]])
         if reward_audit:
             reward_audit.close(args.out, manifest['episodes'], env.step_dt)
+        if args.transition_states:
+            from parkour.transition_states import save_transition_states
+            save_transition_states(env, args.out, [s['id'] for s in manifest['episodes']])
         count = len(records)
         successes = sum(row["success"] for row in records)
         rate = successes / count
@@ -332,7 +340,7 @@ def main():
         atomic_json(args.out / "evaluation.json", report)
         meta["evaluation"] = {key: value for key, value in report.items() if key != "results"}
         meta["artifacts"] = {file.name: sha256(file) for file in args.out.iterdir()
-                             if file.suffix in (".mp4", ".png") or file.name in ("geometric-plan.json", "collision-contract.json", "terrain.json", "evaluation.json", "scenarios.json", "replay.json", "diagnostics.json", "motion-trace.npz", "reward-components.json", "reward-components.npz")}
+                             if file.suffix in (".mp4", ".png") or file.name in ("transition-states.json", "transition-states.npz", "geometric-plan.json", "collision-contract.json", "terrain.json", "evaluation.json", "scenarios.json", "replay.json", "diagnostics.json", "motion-trace.npz", "reward-components.json", "reward-components.npz")}
         if args.chain_hops is not None:
             meta['artifacts']['chain-events.json'] = sha256(args.out / 'chain-events.json')
         if args.independent_support_clones:

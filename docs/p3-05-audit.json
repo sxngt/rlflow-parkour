@@ -1,0 +1,8 @@
+{
+  "snapshot_count": 64,
+  "episode_results_exact_equal": true,
+  "all_motion_arrays_exact_equal": true,
+  "snapshot_trace_boundary_match": true,
+  "artifact_and_video_hashes_verified": true,
+  "scope": "read-only capture validated; reset and physics replay not yet validated"
+}
