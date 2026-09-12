@@ -9,19 +9,23 @@ def validate_chain_training(config):
         return None
     expected = {'schema_version': 1, 'hops': 2, 'forward_per_hop_m': .15,
                 'hop_seconds': 4., 'settle_command': 'default'}
-    if spec != expected:
+    course_contract = dict(expected, schema_version=2, settle_command='hold-last')
+    if spec not in (expected, course_contract):
         raise ValueError('Unsupported chain training contract')
     if config['task'] != 'a1_directed_jump_v5' or config['episode_seconds'] != 8.:
         raise ValueError('Chain training requires directed jump and eight-second episodes')
     terrain = config.get('terrain_contract', {})
-    if terrain.get('mode') != 'deck' or terrain.get('matched_material') is not True:
-        raise ValueError('Chain training requires matched deck support')
+    allowed_terrain = ('deck', 'course') if spec == course_contract else ('deck',)
+    if terrain.get('mode') not in allowed_terrain or terrain.get('matched_material') is not True:
+        raise ValueError('Chain training requires matched support allowed by its schema')
     jump = config['jump']
     if jump.get('train_forward_range_m') != [.15, .15] or jump.get('settle_seconds') != .3:
         raise ValueError('Chain training requires fixed 15cm goals and original preparation time')
     if any(key in jump for key in ('train_forward_choices_m', 'distance_curriculum', 'launch_curriculum')):
         raise ValueError('Chain training does not support goal or launch curricula')
     retention = config.get('retention_training')
+    if spec == course_contract and (retention is not None or config.get('support_assignment') is not None):
+        raise ValueError('Version2 course comparison uses homogeneous two-hop training only')
     if retention is not None:
         retention = dict(retention)
         weights = retention.pop('single_goal_weights', None)

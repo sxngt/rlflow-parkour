@@ -66,3 +66,20 @@ class ContractTests(unittest.TestCase):
         with self.assertRaises(ValueError): validate_fork_configs(parent, bad)
         bad = copy.deepcopy(self.chain); bad['jump']['launch_radius_m'] = .1
         with self.assertRaises(ValueError): validate_fork_configs(parent, bad)
+
+class CourseContractTests(unittest.TestCase):
+    def test_explicit_course_fork_and_resume_boundary(self):
+        from parkour.policy_fork import validate_fork_configs
+        from parkour.terrain_contract import training_support
+        parent=json.loads((ROOT/'configs/p2-40-weighted.json').read_text())
+        course=json.loads((ROOT/'configs/p3-04-course.json').read_text())
+        validate_fork_configs(parent,course)
+        training_support(course)
+        assert_same_chain_training(course,copy.deepcopy(course))
+        with self.assertRaises(ValueError):assert_same_chain_training(parent,course)
+        bad=copy.deepcopy(course);bad['chain_training']['schema_version']=1
+        with self.assertRaises(ValueError):validate_chain_training(bad)
+        bad=copy.deepcopy(course);bad['retention_training']=parent['retention_training']
+        with self.assertRaises(ValueError):validate_chain_training(bad)
+        bad=copy.deepcopy(course);bad['terrain_contract']['layout']['surfaces'][0]['bounds_xy_m'][0]+=.01
+        with self.assertRaises(ValueError):training_support(bad)

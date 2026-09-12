@@ -28,7 +28,7 @@ def validate_fork_configs(parent, target):
         c['exploration'].pop('stages',None)
     if a!=b:
         raise ValueError('Fork changed an unsupported robot, observation, reward, seed or optimizer contract')
-    if parent['terrain_contract']['mode'] not in ('continuous','split','deck') or target['terrain_contract']['mode'] not in ('continuous','split','deck'):
+    if parent['terrain_contract']['mode'] not in ('continuous','split','deck','course') or target['terrain_contract']['mode'] not in ('continuous','split','deck','course'):
         raise ValueError('Fork terrain change is not supported')
     cap_for_update(target,0)
 

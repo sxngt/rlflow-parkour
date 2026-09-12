@@ -54,6 +54,7 @@ def main():
     config = json.loads(args.config.read_text())
     if config.get('chain_training') is not None and args.chain_hops is None:
         args.chain_hops = config['chain_training']['hops']
+        args.chain_settle_mode = config['chain_training']['settle_command']
     support = None
     if args.support_mode:
         if not args.support_calibration or config['task'] != 'a1_directed_jump_v5':

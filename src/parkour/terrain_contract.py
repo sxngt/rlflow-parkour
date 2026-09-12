@@ -11,8 +11,8 @@ def training_support(config):
         return None
     if config['task'] != 'a1_directed_jump_v5' or spec.get('schema_version') != 1:
         raise ValueError('Unsupported terrain training contract')
-    if spec['mode'] not in ('flat', 'deck', 'continuous', 'split') or spec.get('matched_material') is not True:
-        raise ValueError('Terrain training supports matched flat/deck/continuous/split only')
+    if spec['mode'] not in ('flat', 'deck', 'continuous', 'split', 'course') or spec.get('matched_material') is not True:
+        raise ValueError('Terrain training supports matched flat/deck/continuous/split/course only')
     if spec['foot_names'] != ['FL_foot', 'FR_foot', 'RL_foot', 'RR_foot']:
         raise ValueError('Unexpected calibrated foot order')
     calibration = spec['calibration']
@@ -28,12 +28,14 @@ def training_support(config):
         raise ValueError('Terrain layout differs from versioned generator')
     if spec['mode'] == 'flat' and 'layout' in spec:
         raise ValueError('Flat contract cannot contain finite geometry')
-    if spec['mode'] in ('continuous', 'split'):
+    if spec['mode'] in ('continuous', 'split', 'course'):
         margin = spec.get('foot_projection_radius_m')
         if margin != .02:
             raise ValueError('Finite foot supports require measured 2cm projection')
         jump = config['jump']
         ranges = [[0., 0.]] + target_ranges(jump)
+        if spec['mode'] == 'course':
+            ranges += [[.30, .30]]
         ranges += [s['forward_range_m'] for s in jump.get('distance_curriculum', [])]
         ranges += [[d, d] for d in jump['evaluation_forward_m']]
         for limits in ranges:
