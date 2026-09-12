@@ -509,3 +509,10 @@ seed2 PID1522215는metrics/checkpoint미생성이고Starting simulation단계로
 scripts/p2_27_stage_report.py로완료된update1–400만대조, docs/p2-27-first-stage.md/json생성. 기존P2244seed도초기성공0;새3seed성공0,유효비행/재접촉있으나실패수가많다. episode수다르므로rawcount로개선주장금지. pending seed2를실패0/성공0수치로넣지않고명시적미완료행으로보존. 고정평가와구분.
 
 다음801/1201 및checkpoint검증. seed2는기존1800초감독timeout까지동일PID관측,종료가권위있는상태로확인되면실패원본/lease/GPU해제확인후한번의동일seed새attempt재시도검토. 아직살아있고재시도없음. 전체목표미완료.
+
+
+### 최신: P2-27 세 seed의801전환 검증
+
+직전턴첫400구간보고서생성은progress. 이번턴실제4PID를확인하고여러차례verified wait후seed0/1/3의801전환검증:거리0–15cm/반경4.5cm/cap.2/reset_all=true. 모든loss유한,checkpoint500/600/700/800해시정상. 최신 [{"seed": 0, "pid": 1522303, "iteration": 836, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"seed": 1, "pid": 1522214, "iteration": 857, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"seed": 3, "pid": 1522200, "iteration": 845, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"seed": 2, "pid": 1522215, "live": true, "iteration": null, "status": "initializing"}].
+
+seed2 PID1522215는여전히Starting simulation/metrics없음,기존1800초감독예산안에서진행중으로추적한다. 무단중복재시도없음. 다음정상3seed1201전환및1600평가,seed2종료또는실제진입확인. 교차평가전체배치는4seed완료조건이라현재실행불가;후속seed2복구attempt를진행하게되면명세/경로/계보를명시갱신할것. 전체목표미완료.
