@@ -1047,3 +1047,9 @@ src/parkour/support_assignment.py 순수strict계약추가:optional config suppo
 기존chain tests9통과 artifacts/p2-38-chain-regression-tests.log,assignmenttests2통과. B8env×2update scene-smoke artifacts/p2-38-continuous-scene-smoke session69912exit0,신규384step/아직종료episode0. 앞0~3deck각1/뒤4~7continuous각4 총20collider실제검사passed. artifacts/p2-38-continuous-scene-audit.jsonl completed 회계감사passed. 이는정적USD경계/재질검사와기본step/update smoke이며dynamic충돌분리/최종정책성능증거아님.
 
 현재A같은8env×2update scene-smoke session83582 artifacts/p2-38-deck-scene-smoke GPU0실행중. 다음동일session확인→A검사/부모복사/실제접촉과환경간충돌분리probe구현. 이후64envsmoke/resume및1024프로파일링전게이트를계속충족할것. 아직本학습/큰파일럿없음. 전체목표미완료.
+
+### 최신: P2-38 물리 접촉/환경 분리 probe 통과 / 64환경 학습smoke
+
+이전8env이종scene연결은progress. A8envscene-smoke 완료/회계감사 artifacts/p2-38-deck-scene-audit.jsonl passed. scripts/support_assignment_probe.py +run_job새허용kind추가(commit91031cb). 8로봇실제원래발판PD300physicsstep→robot0을env4로봇위XY+z.1에옮겨240physicsstep낙하,원래robot4양성대조. traces200Hz540step원본기록,전체USD검사포함. A/B probe sessions53201/90993둘다exit0,각artifact감사passed artifacts/p2-38-{deck,continuous}-physical-audit.jsonl. docs/p2-38-physical-gates.json요약. Bownroot전체~.275638m,foreignroot-.249265m/positivecontrol.274895m. 한쌍cross-group동적검사이며전환경모든상호작용의완전증명아님.
+
+현재64env×12update 학습smoke 실행중: B session12857 artifacts/p2-38-continuous-training-smoke GPU0, A session42697 artifacts/p2-38-deck-training-smoke GPU1. 원P231seed2cp800새fork/skipautoeval. 다음동일session/PID확인→양쪽완료및전체geometry/회계/초기복사감사→2update재개/초기cp0의기존평가override정상성→새scene기준고정정책평가검증(protoc게이트4아직충족안됨)→1024×60profiling. 아직本학습없음. 전체목표미완료.

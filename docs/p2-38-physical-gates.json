@@ -1,0 +1,44 @@
+[
+  {
+    "mode": "deck",
+    "artifact": "artifacts/p2-38-deck-physical-probe",
+    "own_support_passed": true,
+    "own_root_heights_m": [
+      0.27563804388046265,
+      0.2756374180316925,
+      0.2756379246711731,
+      0.2756378650665283,
+      0.2756381332874298,
+      0.2756374180316925,
+      0.27563726902008057,
+      0.27563774585723877
+    ],
+    "foreign_drop_root_z_m": -0.2492653727531433,
+    "positive_control_root_z_m": 0.27489516139030457,
+    "isolation_passed": true,
+    "passed": true,
+    "physics_dt_s": 0.005,
+    "scope": "physical eight-environment stance and one cross-group overlap/drop; not exhaustive collision isolation proof"
+  },
+  {
+    "mode": "continuous",
+    "artifact": "artifacts/p2-38-continuous-physical-probe",
+    "own_support_passed": true,
+    "own_root_heights_m": [
+      0.27563804388046265,
+      0.2756374180316925,
+      0.2756379246711731,
+      0.2756378650665283,
+      0.2756381332874298,
+      0.2756374180316925,
+      0.27563726902008057,
+      0.27563774585723877
+    ],
+    "foreign_drop_root_z_m": -0.2492653727531433,
+    "positive_control_root_z_m": 0.27489516139030457,
+    "isolation_passed": true,
+    "passed": true,
+    "physics_dt_s": 0.005,
+    "scope": "physical eight-environment stance and one cross-group overlap/drop; not exhaustive collision isolation proof"
+  }
+]
