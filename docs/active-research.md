@@ -825,3 +825,12 @@ docs/p2-32-protocol.md source e5d99cb:동결4정책,기존deck상대조먼저;�
 scripts/p2_32_deck_baseline.py실행session31819exit0,4모델deck단일15×64평가결과64/64/64/0. 기존split15시나리오정확일치,4artifact감사 artifacts/p2-32-deck-audit.jsonl. 결과는단일지형대조뿐. configs/reports/p2-32-deck-control.json8재사용학습행,보고서아직미생성.
 
 다음구현:기존JumpEnv에기본동작동일한maneuver clock/launch reference hook→chained subclass에per-env startstep/origin/completedhop. 성공첫도약의_get_dones는reset반환억제,보상/terminalmetric snapshot후도약bookkeeping전환,physics/joints/contacts/actions보존. FlightTravel.launch는origin perenvNx2사용시new mask맞춰선택해야함(현재origin[2]만지원). 전체timestamp/segment trace/collector·감사계약별도설계. 아직두도약실행코드없음. 전체목표미완료.
+
+
+### 최신: P2-32 단일 도약 회귀 검증 및 연속 도약 상태 관리
+
+직전 카메라 설정 확인 턴은 연구 구현 기준 no progress로 분류한다. 이번 턴은 상태 관리 구현과 테스트로 progress다. c3ddca5의 maneuver_time_s/launch_reference_xy 훅을 적용한 실제 평가 artifacts/p2-32-clock-hook-regression은 이전 deck seed0와 시나리오 및 전체 episode 결과가 정확히 같다(64/64). comparison.json과 artifact 감사 passed 확인. 단일 도약 기본 동작 보존의 증거이며, 아직 두 도약 실행 증거가 아니다.
+
+P232 deck 대조 8행 보고서와 높이/접촉/착지 후 분석 파일 생성 확인. 각 생성 로그 traceback 없음. 신규 src/parkour/chained_progress.py는 환경별 도약 완료 수, 시작 step, 출발 원점, 전환 대기, 최종 종료를 관리한다. resolve는 첫 성공의 종료를 억제하고 commit은 지표 snapshot 이후 다음 도약 시계/원점만 갱신하도록 분리했다. 실패 우선, local 200step/전체 400step 제한, 비동기 환경 전환, 완료 재집계 방지, 부분 reset, 단일 도약 계약의 3개 CPU tensor 테스트 통과(Isaac Python, artifacts/p2-32-chained-progress-tests.log). 시뮬레이터에 아직 연결하지 않았다.
+
+다음 필수 작업: ChainedDirectedJumpEnv에서 이 상태 관리 연결, 첫 성공의 reset 억제 및 보상/지표 snapshot 이후 도약 latch만 초기화. 물리 root/joint/속도/직전 action/contact history 불변을 전환 전후 실제 tensor로 검사. 평가 adapter는 strict checkpoint restore를 유지하고 별도 chained schema, 원시 200Hz segment/target trace와 collector/audit 제공. 단일 hop 동등성→작은 2hop smoke→4seed×64 순서. 현재 GPU4장 compute 유휴, 디스크 530GB. 작업 대기 프로세스 없음. 전체 목표 미완료.
