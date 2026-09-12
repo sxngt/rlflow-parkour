@@ -97,7 +97,7 @@ def restore(data, config, alg, normalizer, env, training):
         env.generator.set_state(data["rng_scenario"])
 
 
-def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode='default'):
+def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode='default', independent_support_clones=False):
     from parkour.chain_training import validate_chain_training
     chain_spec = validate_chain_training(config)
     retention = (config.get('retention_training') is not None and chain_hops is None
@@ -128,7 +128,11 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
         raise ValueError('Unknown task contract')
     cfg.seed = config["seed"]
     cfg.scene.num_envs = config["num_envs"]
-    if retention and config.get('support_assignment') is not None:
+    if independent_support_clones:
+        if (config.get('support_assignment', {}).get('single_mode') != 'deck'
+                or not evaluation_support or evaluation_support['mode'] != 'deck'):
+            raise ValueError('Independent clone evaluation requires explicit all-deck support assignment')
+    if (retention and config.get('support_assignment') is not None) or independent_support_clones:
         from parkour.support_assignment import support_assignment
         cfg.support_assignment = support_assignment(config)
         cfg.scene.replicate_physics = False

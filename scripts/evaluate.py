@@ -32,6 +32,7 @@ def main():
     p.add_argument('--evaluation-forward-m', nargs='+', type=float, help='Explicit evaluation-only distances on continuous/split support')
     p.add_argument('--support-mode', choices=['flat', 'continuous', 'split', 'deck'])
     p.add_argument('--support-matched-material', action='store_true')
+    p.add_argument('--independent-support-clones', action='store_true', help='P2-38 all-deck scene construction validation only')
     p.add_argument('--support-preserve-goals', action='store_true', help='Keep configured evaluation distances during a terrain override')
     p.add_argument('--support-calibration', type=Path, help='Frozen flat evaluation run.json for support transfer')
     p.add_argument('--support-probe-offset', type=float, choices=[.075], help='Zero-action geometry probe only: start feet above the gap')
@@ -143,7 +144,12 @@ def main():
         from parkour.learning import make_env, make_algorithm, read_checkpoint, restore
         torch.manual_seed(10000)
         env = make_env(config, evaluation_support=support, chain_hops=args.chain_hops,
-                       chain_settle_mode=args.chain_settle_mode)
+                       chain_settle_mode=args.chain_settle_mode, independent_support_clones=args.independent_support_clones)
+        if args.independent_support_clones:
+            from parkour.support_inspection import inspect_support_assignment
+            meta['scene_construction'] = 'independent all-deck supports; replicate_physics=False; explicit collision filter'
+            atomic_json(args.out/'support-assignment.json', env.cfg.support_assignment)
+            atomic_json(args.out/'support-inspection.json', inspect_support_assignment(env))
         if support:
             from parkour.collision_contract import inspect_collision_contract
             contract = inspect_collision_contract(env)
@@ -296,6 +302,9 @@ def main():
                              if file.suffix in (".mp4", ".png") or file.name in ("collision-contract.json", "terrain.json", "evaluation.json", "scenarios.json", "replay.json", "diagnostics.json", "motion-trace.npz")}
         if args.chain_hops is not None:
             meta['artifacts']['chain-events.json'] = sha256(args.out / 'chain-events.json')
+        if args.independent_support_clones:
+            for name in ('support-assignment.json', 'support-inspection.json'):
+                meta['artifacts'][name] = sha256(args.out / name)
         finish_run(args.out, meta)
     except BaseException as exc:
         if recorder and recorder.writer:
