@@ -13,3 +13,10 @@ artifacts/p2-39-native-first-hop-diagnosis.json과 native-second-hop-diagnosis.j
 중간거리포함자체와15cm reset노출감소가동시에바뀌었다. 단일과제의reset당15cm확률은1/2에서1/4로감소했다. 실제rollout step별노출과실패/성공별비행이동거리·보상성분을비교해긴목표노출부족인지목표간간섭인지좁힌다. 목표거리판정이나성공허용오차를완화하지않는다. 다음학습은이분석후사전프로토콜을작성하며아직시작하지않았다.
 
 이번전체32영상은hash/메타데이터를검증했으며추가육안검수는남아있다. 이전P238대표영상검수를P239검수로대체하지않는다.
+
+
+## 후속 노출 분석과 영상 검수
+
+scripts/p2_39_exposure.py로800개update 전체를 재집계했다. [노출 데이터](p2-39-exposure.json)의15cm 단일 step은 seed별 기존의53.86%,54.63%,62.96%,66.87%다. 그러나seed0은노출감소에도완주를유지했고, seed1은학습중두번째도약step이3,083,530→3,162,971로늘었는데최종mean정책은첫도약부터실패했다. 노출량만으로원인을단정할수없다. reward성분별 episode 기록은이집계에없어보상원인분해를주장하지않는다.
+
+P239seed0성공영상78frame/3.12초,seed1첫도약timeout영상100frame/4초에서전체시간범위각6frame을육안확인했다. artifacts/p2-39-coverage-seed{0,1}__final-evaluation-review.jpg. 병렬장면이표시되며seed1은첫착지후다음도약으로넘어가지않는기록과일관된다. 작은타일로5cm정밀도를판정하지않고200Hz측정을근거로쓴다. 전체영상의모든frame수동감사는아니다.

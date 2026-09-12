@@ -1,0 +1,221 @@
+{
+  "scope": "Observed on-policy exposure and final mean-policy development diagnostics; not causal identification or reward-component attribution",
+  "pairs": [
+    {
+      "seed": 0,
+      "endpoint": {
+        "run": "artifacts/p2-38-continuous-seed0",
+        "distances": [
+          {
+            "goal_m": 0.0,
+            "single_steps": 5105046,
+            "reset_draws_including_initial": 62736
+          },
+          {
+            "goal_m": 0.15,
+            "single_steps": 4725354,
+            "reset_draws_including_initial": 62095
+          }
+        ],
+        "chain_first_steps": 6077010,
+        "chain_second_steps": 3753390,
+        "first_hop_recorded_flights": 64,
+        "first_hop_flight_min_m": 0.12443137168884277,
+        "first_hop_flight_max_m": 0.12580013275146484
+      },
+      "coverage": {
+        "run": "artifacts/p2-39-coverage-seed0",
+        "distances": [
+          {
+            "goal_m": 0.0,
+            "single_steps": 2333200,
+            "reset_draws_including_initial": 29486
+          },
+          {
+            "goal_m": 0.05,
+            "single_steps": 2484552,
+            "reset_draws_including_initial": 29031
+          },
+          {
+            "goal_m": 0.1,
+            "single_steps": 2467768,
+            "reset_draws_including_initial": 29331
+          },
+          {
+            "goal_m": 0.15,
+            "single_steps": 2544880,
+            "reset_draws_including_initial": 29519
+          }
+        ],
+        "chain_first_steps": 5651168,
+        "chain_second_steps": 4179232,
+        "first_hop_recorded_flights": 64,
+        "first_hop_flight_min_m": 0.15026378631591797,
+        "first_hop_flight_max_m": 0.15107965469360352
+      },
+      "single_15cm_step_ratio": 0.5385585926472387
+    },
+    {
+      "seed": 1,
+      "endpoint": {
+        "run": "artifacts/p2-38-continuous-seed1",
+        "distances": [
+          {
+            "goal_m": 0.0,
+            "single_steps": 4020636,
+            "reset_draws_including_initial": 59772
+          },
+          {
+            "goal_m": 0.15,
+            "single_steps": 5809764,
+            "reset_draws_including_initial": 59924
+          }
+        ],
+        "chain_first_steps": 6746870,
+        "chain_second_steps": 3083530,
+        "first_hop_recorded_flights": 64,
+        "first_hop_flight_min_m": 0.13788652420043945,
+        "first_hop_flight_max_m": 0.13873672485351562
+      },
+      "coverage": {
+        "run": "artifacts/p2-39-coverage-seed1",
+        "distances": [
+          {
+            "goal_m": 0.0,
+            "single_steps": 1938063,
+            "reset_draws_including_initial": 30233
+          },
+          {
+            "goal_m": 0.05,
+            "single_steps": 2204938,
+            "reset_draws_including_initial": 30217
+          },
+          {
+            "goal_m": 0.1,
+            "single_steps": 2513492,
+            "reset_draws_including_initial": 29788
+          },
+          {
+            "goal_m": 0.15,
+            "single_steps": 3173907,
+            "reset_draws_including_initial": 30017
+          }
+        ],
+        "chain_first_steps": 6667429,
+        "chain_second_steps": 3162971,
+        "first_hop_recorded_flights": 64,
+        "first_hop_flight_min_m": 0.1129150390625,
+        "first_hop_flight_max_m": 0.11297988891601562
+      },
+      "single_15cm_step_ratio": 0.5463056674935505
+    },
+    {
+      "seed": 2,
+      "endpoint": {
+        "run": "artifacts/p2-38-continuous-seed2",
+        "distances": [
+          {
+            "goal_m": 0.0,
+            "single_steps": 3402243,
+            "reset_draws_including_initial": 60131
+          },
+          {
+            "goal_m": 0.15,
+            "single_steps": 6428157,
+            "reset_draws_including_initial": 60432
+          }
+        ],
+        "chain_first_steps": 6532378,
+        "chain_second_steps": 3298022,
+        "first_hop_recorded_flights": 64,
+        "first_hop_flight_min_m": 0.14925718307495117,
+        "first_hop_flight_max_m": 0.15183448791503906
+      },
+      "coverage": {
+        "run": "artifacts/p2-39-coverage-seed2",
+        "distances": [
+          {
+            "goal_m": 0.0,
+            "single_steps": 1832058,
+            "reset_draws_including_initial": 30443
+          },
+          {
+            "goal_m": 0.05,
+            "single_steps": 1813638,
+            "reset_draws_including_initial": 30320
+          },
+          {
+            "goal_m": 0.1,
+            "single_steps": 2137610,
+            "reset_draws_including_initial": 29972
+          },
+          {
+            "goal_m": 0.15,
+            "single_steps": 4047094,
+            "reset_draws_including_initial": 30360
+          }
+        ],
+        "chain_first_steps": 7014987,
+        "chain_second_steps": 2815413,
+        "first_hop_recorded_flights": 64,
+        "first_hop_flight_min_m": 0.11049413681030273,
+        "first_hop_flight_max_m": 0.1144704818725586
+      },
+      "single_15cm_step_ratio": 0.6295885430302962
+    },
+    {
+      "seed": 3,
+      "endpoint": {
+        "run": "artifacts/p2-38-continuous-seed3",
+        "distances": [
+          {
+            "goal_m": 0.0,
+            "single_steps": 4670286,
+            "reset_draws_including_initial": 40917
+          },
+          {
+            "goal_m": 0.15,
+            "single_steps": 5160114,
+            "reset_draws_including_initial": 41379
+          }
+        ],
+        "chain_first_steps": 9261557,
+        "chain_second_steps": 568843,
+        "first_hop_recorded_flights": 64,
+        "first_hop_flight_min_m": 0.13492488861083984,
+        "first_hop_flight_max_m": 0.1447157859802246
+      },
+      "coverage": {
+        "run": "artifacts/p2-39-coverage-seed3",
+        "distances": [
+          {
+            "goal_m": 0.0,
+            "single_steps": 756591,
+            "reset_draws_including_initial": 20585
+          },
+          {
+            "goal_m": 0.05,
+            "single_steps": 2049608,
+            "reset_draws_including_initial": 20582
+          },
+          {
+            "goal_m": 0.1,
+            "single_steps": 3573698,
+            "reset_draws_including_initial": 20648
+          },
+          {
+            "goal_m": 0.15,
+            "single_steps": 3450503,
+            "reset_draws_including_initial": 20648
+          }
+        ],
+        "chain_first_steps": 9830400,
+        "chain_second_steps": 0,
+        "first_hop_recorded_flights": 64,
+        "first_hop_flight_min_m": 0.07227849960327148,
+        "first_hop_flight_max_m": 0.07651901245117188
+      },
+      "single_15cm_step_ratio": 0.6686873584575844
+    }
+  ]
+}

@@ -1182,3 +1182,10 @@ scripts/p2_39_report.py 준비:같은부모/거리외설정동일,전체지지�
 이전 추가평가실행은progress. 같은session85688 최종exit0, report20723 exit0, 전체8예산/배치 및32평가archive 검증통과. docs/p2-39-comparison.json/md,findings.md생성. native첫/둘째도약진단 artifacts/p2-39-native-{first,second}-hop-diagnosis.json. 새조건chain64/0/0/0,continuous64/48/46/16,split모두0. 대조보다악화되어채택/승격안함. seed1~3첫도약64개씩모두착지/안정화는통과하나비행거리부족,둘째진입없음.
 
 다음 실제목표별rollout노출/거리분포·보상진단과대표영상육안검수→후속protocol. reset15확률1/2→1/4변화와중간목표추가의혼재를분리할필요. P239모든세션terminal/새학습없음. 전체목표미완료.
+
+
+### 최신: P239 노출분석/대표영상검수, P240 사전프로토콜
+
+이전P239전체비교완료는progress. scripts/p2_39_exposure.py 실행완료,docs/p2-39-exposure.json:15cm single실제step비율seed0~3 .5386/.5463/.6296/.6687. seed0성공유지,seed1두번째훈련노출오히려증가로단순노출원인단정불가. 원본reward성분없어원인분해주장안함. P239대표seed0/1영상각6frame전체범위육안확인,findings보완.
+
+docs/p2-40-protocol.md작성:네목표유지하고reset ticket[1,1,1,3] (15cm1/2,기타1/6). 같은P231부모4새fork800/1024,재사용P239uniform대조동일예산. 아직구현/새학습없음. 다음strict optional가중치계약/샘플링 및metric·제목·resume검사→smoke12/resume2/기존uniform runtime검사/profile60→본학습4+평가16/대조16. 이전모든세션terminal,전체목표미완료.
