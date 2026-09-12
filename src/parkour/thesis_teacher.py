@@ -27,7 +27,7 @@ class ThesisVelocityTeacher:
         self.metadata={'checkpoint':str(path),'checkpoint_sha256':sha256(path),'config':str(config_path),'config_sha256':sha256(config_path),
             'network_source':str(network_path),'network_source_sha256':sha256(network_path),'training_seed':cfg['run']['seed'],
             'source_project':'master-thesis','command_forward_m_s':speed,'source_action_scale':self.action_scale,
-            'target_action_scale':env.cfg.action_scale,'policy_parameter_count':sum(p.numel() for p in self.actor.parameters()),
+            'normalized_action_limit':env.cfg.action_limit,'target_action_scale':env.cfg.action_scale,'policy_parameter_count':sum(p.numel() for p in self.actor.parameters()),
             'observation_contract':'48: linvel*2,angvel*.25,gravity,body command*2,joint delta,jointvel*.05,previous action in source units',
             'scope':'Frozen existing velocity policy; no foothold or heading feedback, no parkour fine-tuning; current contact/actuator/terrain contracts apply'}
     @torch.inference_mode()
@@ -39,5 +39,5 @@ class ThesisVelocityTeacher:
             d.joint_pos-d.default_joint_pos,d.joint_vel*.05,prior],dim=1)
         action=self.actor.body(obs)*self.action_scale/e.cfg.action_scale
         if not torch.isfinite(action).all():raise ValueError('Nonfinite teacher action')
-        self.clipped+=int((action.abs()>1).sum());self.total+=action.numel()
+        self.clipped+=int((action.abs()>e.cfg.action_limit).sum());self.total+=action.numel()
         return action

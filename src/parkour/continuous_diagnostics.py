@@ -21,7 +21,17 @@ class ContinuousDiagnostics:
         self.env.scene.update=self.original
         arrays={k:np.stack([s[k] for s in self.samples]) for k in self.samples[0]}
         np.savez_compressed(out/'motion-trace.npz',**arrays)
+        summaries=[]
+        for i,scenario in enumerate(scenario_ids):
+            valid=arrays['valid'][:,i]
+            xy=arrays['root_pos'][valid,i,:2]
+            summaries.append({'scenario_id':scenario,'duration_s':float(valid.sum()*self.env.physics_dt),
+                'root_xy_displacement_m':float(np.linalg.norm(xy[-1]-xy[0])) if len(xy)>1 else 0.,
+                'root_xy_path_length_m':float(np.linalg.norm(np.diff(xy,axis=0),axis=1).sum()) if len(xy)>1 else 0.})
         report={'schema_version':2,'contract':'continuous_pair_trace_v1','physics_dt_s':self.env.physics_dt,
+                'results':summaries,'mean_root_xy_displacement_m':float(np.mean([s['root_xy_displacement_m'] for s in summaries])),
+                'mean_root_xy_path_length_m':float(np.mean([s['root_xy_path_length_m'] for s in summaries])),
+                'distance_scope':'Measured between first and last valid physics samples; path length includes oscillation and is not route completion',
                 'scenario_ids':scenario_ids,'samples_per_episode':arrays['valid'].sum(axis=0).tolist(),
                 'scope':'First episode per environment; front/rear target indices are pre-control-update physics samples'}
         atomic_json(out/'diagnostics.json',report);return report

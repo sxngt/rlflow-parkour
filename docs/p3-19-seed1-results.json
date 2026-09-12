@@ -1,0 +1,9 @@
+{
+  "seed": 1,
+  "source": "artifacts/p3-19-long-easy-seed1",
+  "run": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p3-19-long-easy-seed1__final-evaluation",
+  "episodes": 64,
+  "successes": 0,
+  "audit": "passed",
+  "scope": "Artifact/first-episode trace/progress consistency; physical success gates remain separately instrumented"
+}

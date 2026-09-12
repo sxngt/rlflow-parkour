@@ -10,6 +10,7 @@ from parkour.shared_terrain import scripted_pair_targets
 
 @configclass
 class ContinuousTrackerCfg(FootholdCfg):
+    initial_rear_target='own_stance'
     bound_reward_per_second=0.
     body_progress_weight=0.
     observation_space=105
@@ -31,13 +32,13 @@ class ContinuousTrackerEnv(FootholdEnv):
         self.nominal_xy=torch.tensor(self.calibration['foot_xy_m'],device=self.device)
         self.calibrated_root=torch.tensor(self.calibration['root_state'],device=self.device)
         self.calibrated_joint_pos=torch.tensor(self.calibration['joint_positions'],device=self.device)
-        self.target_script=scripted_pair_targets(self.layout,self.calibration['foot_xy_m'])
+        self.target_script=scripted_pair_targets(self.layout,self.calibration['foot_xy_m'],initial_rear_target=cfg.initial_rear_target)
         self.plan=torch.tensor(self.target_script['positions_m'],device=self.device)
         self.surface_rotations=torch.tensor([s['rotation_local_to_world'] for s in self.layout['surfaces']],device=self.device)
         self.surface_centers=torch.tensor([s['top_center_m'] for s in self.layout['surfaces']],device=self.device)
         self.surface_normals=torch.tensor([s['normal'] for s in self.layout['surfaces']],device=self.device)
         self.surface_halves=torch.tensor([s['usable_half_extents_m'] for s in self.layout['surfaces']],device=self.device)
-        self.progress=PairTargetProgress(self.num_envs,len(self.layout['surfaces']),self.device,cfg.contact_hold_steps,'both')
+        self.progress=PairTargetProgress(self.num_envs,len(self.layout['surfaces']),self.device,cfg.contact_hold_steps,'both',cfg.initial_rear_target=='front_stance')
         self.nonfoot_ids=[i for i in range(len(self.contacts.body_names)) if i not in self.contact_ids]
         self.final_hold=torch.zeros(self.num_envs,dtype=torch.long,device=self.device)
         self.accept_events=torch.zeros(self.num_envs,2,dtype=torch.bool,device=self.device)
@@ -113,7 +114,13 @@ class ContinuousTrackerEnv(FootholdEnv):
         nonfoot=self.contacts.data.net_forces_w_history[:,:,self.nonfoot_ids].norm(dim=-1).amax(dim=(1,2))>5
         root=self.robot.data.root_pos_w-self.scene.env_origins
         outside=((root[:,:2]<self.map_low)|(root[:,:2]>self.map_high)).any(dim=1)
-        self.failure=nonfoot|outside|(root[:,2]<self.layout['catch_floor_z_m']+.13)|(self.robot.data.projected_gravity_b[:,2]>-math.cos(math.radians(100)))
+        self.failure_nonfoot=nonfoot
+        self.failure_outside=outside
+        self.failure_low=root[:,2]<self.layout['catch_floor_z_m']+.13
+        self.failure_tilt=self.robot.data.projected_gravity_b[:,2]>-math.cos(math.radians(100))
+        peaks=self.contacts.data.net_forces_w_history[:,:,self.nonfoot_ids].norm(dim=-1).amax(dim=1)
+        self.failure_nonfoot_id=torch.tensor(self.nonfoot_ids,device=self.device)[peaks.argmax(dim=1)]
+        self.failure=nonfoot|outside|self.failure_low|self.failure_tilt
         final=decision['sequence_completed']&self.current_valid.all(dim=1)&((root[:,:2]-self.goal[:2]).norm(dim=1)<.3)&(self.robot.data.root_lin_vel_b.norm(dim=1)<.2)&(self.robot.data.root_ang_vel_b.norm(dim=1)<1.)
         self.final_hold=torch.where(final,self.final_hold+1,0)
         self.success=(self.final_hold>=self.cfg.final_hold_steps)&~self.failure
@@ -138,5 +145,7 @@ class ContinuousTrackerEnv(FootholdEnv):
             'front_accepted_index':self.progress.accepted[:,0].clone(),'rear_accepted_index':self.progress.accepted[:,1].clone(),
             'front_target_index':self.progress.target[:,0].clone(),'rear_target_index':self.progress.target[:,1].clone(),
             'final_hold_steps':self.final_hold.clone(),'measured_jump_count':self.flights.count.clone(),
-            'completed_surface_transfers':self.progress.accepted.amin(dim=1).clone()}
+            'completed_surface_transfers':self.progress.accepted.amin(dim=1).clamp_min(0).clone(),
+            'failure_nonfoot':self.failure_nonfoot.clone(),'failure_nonfoot_body_id':self.failure_nonfoot_id.clone(),
+            'failure_outside_map':self.failure_outside.clone(),'failure_low_body':self.failure_low.clone(),'failure_tilt':self.failure_tilt.clone()}
         return reward

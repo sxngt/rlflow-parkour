@@ -76,6 +76,10 @@ def restore(data, config, alg, normalizer, env, training):
     assert_same_support_assignment(data['config'], config)
     from parkour.chain_training import assert_same_chain_training
     assert_same_chain_training(data['config'], config)
+    if data['config'].get('initial_rear_target','own_stance') != config.get('initial_rear_target','own_stance'):
+        raise ValueError('Checkpoint initial rear target contract differs')
+    if data['config'].get('action_limit',1.) != config.get('action_limit',1.):
+        raise ValueError('Checkpoint action limit differs')
     if data['config'].get('bound_reward_per_second',0.) != config.get('bound_reward_per_second',0.):
         raise ValueError('Checkpoint bounding reward differs')
     if data['config'].get('body_progress_weight',0.) != config.get('body_progress_weight',0.):
@@ -141,6 +145,8 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
         from parkour.continuous_tracker_task import ContinuousTrackerCfg,ContinuousTrackerEnv
         cfg,env_type=ContinuousTrackerCfg(),ContinuousTrackerEnv
         cfg.scene.env_spacing=14.
+        cfg.initial_rear_target=config.get('initial_rear_target','own_stance')
+        if cfg.initial_rear_target not in ('own_stance','front_stance'):raise ValueError('Invalid initial rear target')
         cfg.bound_reward_per_second=float(config.get('bound_reward_per_second',0.))
         if not 0<=cfg.bound_reward_per_second<=10:raise ValueError('Invalid bound reward rate')
         cfg.body_progress_weight=float(config.get('body_progress_weight',0.))
@@ -156,6 +162,8 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
         cfg.observation_space=history_spec['frames']*history_spec['base_observation_dim']+history_spec['frames']-1
     cfg.mapped_contact_progress = ((chain_spec or {}).get('progress_criterion') == 'mapped_contact_v1'
                                    if mapped_contact_progress is None else mapped_contact_progress)
+    cfg.action_limit=float(config.get("action_limit",1.))
+    if not 0<cfg.action_limit<=4:raise ValueError("Invalid normalized action limit")
     cfg.seed = config["seed"]
     cfg.scene.num_envs = config["num_envs"]
     if independent_support_clones:

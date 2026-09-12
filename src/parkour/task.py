@@ -25,6 +25,7 @@ class FootholdCfg(DirectRLEnvCfg):
     observation_space = 61
     state_space = 0
     is_finite_horizon = False
+    action_limit = 1.0
     action_scale = 0.35
     target_offset_m = 0.06
     success_radius_m = 0.035
@@ -119,7 +120,7 @@ class FootholdEnv(DirectRLEnv):
 
     def _pre_physics_step(self, actions):
         self.previous_actions.copy_(self.actions)
-        self.actions.copy_(actions.clamp(-1., 1.))
+        self.actions.copy_(actions.clamp(-self.cfg.action_limit, self.cfg.action_limit))
 
     def _apply_action(self):
         self.robot.set_joint_position_target(self.robot.data.default_joint_pos + self.cfg.action_scale * self.actions)

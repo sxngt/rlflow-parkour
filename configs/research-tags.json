@@ -86,7 +86,10 @@
     "difficulty:easy": "쉬움",
     "difficulty:medium": "중간",
     "difficulty:hard": "어려움",
-    "step:p3-21-long-body-progress": "P3-21 · 긴 코스 몸체 이동 보상"
+    "step:p3-21-long-body-progress": "P3-21 · 긴 코스 몸체 이동 보상",
+    "step:p3-22-long-bounding-style": "P3-22 · 바운딩 지지 보상",
+    "step:p3-23-thesis-transfer": "P3-23 · 졸업 연구 보행 정책 전이",
+    "step:p3-24-initial-rear-sequence": "P3-24 · 앞발 자리로 뒷발 진행"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [

@@ -46,27 +46,29 @@ def build_shared_course(kind='mixed'):
             'catch_floor_z_m':-.8,'scope':'Geometry development set only; no assigned foot targets, planned route or demonstrated policy feasibility'}
 
 
-def scripted_pair_targets(layout, initial_foot_xy, half_width_m=.16, terminal_half_length_m=.18):
+def scripted_pair_targets(layout, initial_foot_xy, half_width_m=.16, terminal_half_length_m=.18, initial_rear_target="own_stance"):
     """Training-only contact script; final front/rear positions form a stance.
 
     Intermediate rear contacts reuse front targets. At the final platform, the
     groups receive separated targets so all four feet can support the body.
     This script is not an autonomous map planner or a feasibility certificate.
     """
+    if initial_rear_target not in ('own_stance','front_stance'):raise ValueError('Unknown initial rear target')
     if len(initial_foot_xy)!=4 or half_width_m<=0 or terminal_half_length_m<=0:
         raise ValueError('Invalid calibrated stance')
     groups=[[],[]];last=len(layout['surfaces'])-1
     for group in range(2):
         for index,s in enumerate(layout['surfaces']):
             if index==0:
-                pair=[[x,y,.02] for x,y in initial_foot_xy[group*2:group*2+2]]
+                start=0 if group==1 and initial_rear_target=='front_stance' else group*2
+                pair=[[x,y,.02] for x,y in initial_foot_xy[start:start+2]]
             else:
                 longitudinal=(terminal_half_length_m if group==0 else -terminal_half_length_m) if index==last else 0.
                 pair=[world_point(s,[longitudinal,sign*half_width_m,.02]) for sign in (1,-1)]
             if not all(contains_contact_center(s,p) for p in pair):
                 raise ValueError('Contact script leaves usable shared surface')
             groups[group].append(pair)
-    return {'contract':'scripted_front_rear_surface_targets_v1','group_order':['front','rear'],
+    return {'initial_rear_target':initial_rear_target,'contract':'scripted_front_rear_surface_targets_v2' if initial_rear_target=='front_stance' else 'scripted_front_rear_surface_targets_v1','group_order':['front','rear'],
             'foot_order':['FL_foot','FR_foot','RL_foot','RR_foot'],'positions_m':groups,
             'surface_ids':[s['id'] for s in layout['surfaces']],
             'normals':[s['normal'] for s in layout['surfaces']],

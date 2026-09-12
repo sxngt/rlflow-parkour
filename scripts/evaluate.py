@@ -19,6 +19,7 @@ def main():
     p.add_argument('--thesis-policy',type=Path)
     p.add_argument('--thesis-source',type=Path,default=Path('../master-thesis'))
     p.add_argument('--thesis-speed',type=float,default=.5)
+    p.add_argument('--thesis-action-limit',type=float,default=1.)
     p.add_argument("--baseline", choices=["zero", "policy", "shuffled-target"], default="policy")
     p.add_argument("--out", type=Path, required=True)
     p.add_argument("--episodes", type=int, default=64)
@@ -260,6 +261,10 @@ def main():
         torch.manual_seed(10000)
         env = make_env(config, evaluation_support=support, chain_hops=args.chain_hops,
                        chain_settle_mode=args.chain_settle_mode, independent_support_clones=args.independent_support_clones, mapped_contact_progress=args.mapped_contact_progress)
+        if args.thesis_policy:
+            if not 0<args.thesis_action_limit<=4:raise ValueError('Invalid teacher action limit')
+            env.cfg.action_limit=args.thesis_action_limit
+            meta['evaluation_action_limit']=args.thesis_action_limit
         if args.vectorized_map_contact:
             if not args.mapped_contact_progress:
                 raise ValueError('Vectorized map gate requires mapped-contact progression')
@@ -455,7 +460,8 @@ def main():
                 mean_front_accepted_index=sum(r['front_accepted_index'] for r in records)/count,
                 mean_rear_accepted_index=sum(r['rear_accepted_index'] for r in records)/count,
                 required_final_index=len(support['layout']['surfaces'])-1,
-                evaluation_scope='Scripted contact buffer; not autonomous map planning')
+                evaluation_scope='Frozen thesis velocity policy; does not consume scripted foothold targets' if teacher is not None else 'Scripted contact buffer; not autonomous map planning')
+            report['contact_body_names']=env.contacts.body_names
             report['evaluation_contact_radius_m']=env.cfg.success_radius_m
             report['mean_measured_jump_count']=sum(r.get('measured_jump_count',0) for r in records)/count
             report['mean_completed_surface_transfers']=sum(r.get('completed_surface_transfers',0) for r in records)/count
