@@ -93,12 +93,16 @@ def build_easy_shared_course(seed=0):
             'scope':'Easy development terrain with touching/overlapping projected blocks; not a gap-crossing benchmark'}
 
 
-def build_long_shared_course(level='easy',seed=0,transitions=10):
+def build_long_shared_course(level='easy',seed=0,transitions=10,preparation_fraction=1.):
     """Long scenario geometry; ten surface transfers are not ten proven jumps."""
     import random
-    if level not in ('easy','medium','hard') or transitions!=10:
-        raise ValueError('Version1 long scenarios use easy/medium/hard and ten transfers')
+    if level not in ('easy','medium','hard') or type(transitions) is not int or not 10<=transitions<=40:
+        raise ValueError('Long scenarios use easy/medium/hard and 10..40 transfers')
     step,tilt,height,turn={'easy':(.45,3.,.04,6.),'medium':(.65,10.,.12,15.),'hard':(.85,20.,.24,25.)}[level]
+    if preparation_fraction not in (.25,.5,.75,1.) or (preparation_fraction!=1. and level!='medium'):
+        raise ValueError('Only medium preparation fractions .25/.5/.75 are supported')
+    if preparation_fraction!=1.:
+        step,tilt,height,turn=[a+(b-a)*preparation_fraction for a,b in zip((.45,3.,.04,6.),(step,tilt,height,turn))]
     rng=random.Random(seed);surfaces=[];x=y=heading=0.
     for i in range(transitions+1):
         if i:
@@ -110,11 +114,26 @@ def build_long_shared_course(level='easy',seed=0,transitions=10):
         roll,pitch=(0.,0.) if i in (0,transitions) else (rng.uniform(-tilt,tilt),rng.uniform(-tilt,tilt))
         size=(1.,1.,.15) if i==0 else ((.7,.8,.15) if i==transitions else (.55,.7,.15))
         surfaces.append(surface('surface_'+str(i),[x,y,z],size,(roll,pitch,heading)))
-    return {'schema_version':2,'geometry_contract':'oriented_shared_surfaces_v1','scenario_contract':'long_shared_course_v1',
+    layout={'schema_version':2,'geometry_contract':'oriented_shared_surfaces_v1','scenario_contract':'long_shared_course_v1' if transitions==10 else 'long_shared_course_v2',
             'kind':'long-'+level,'level':level,'seed':seed,'transitions':transitions,'frame':'course_local',
             'surfaces':surfaces,'start_position_m':[0.,0.,0.],'goal_position_m':surfaces[-1]['top_center_m'],
             'catch_floor_z_m':-.8,'nominal_path_length_m':sum(math.dist(a['top_center_m'],b['top_center_m']) for a,b in zip(surfaces,surfaces[1:])),
-            'scope':'Ten shared-surface transfers with height, slope and heading variation; actual jumps and feasibility measured during execution'}
+            'scope':('Ten shared-surface transfers with height, slope and heading variation; actual jumps and feasibility measured during execution' if transitions==10 else 'Extended shared-surface endurance course; transfer count is not jump count; actual moving duration must be measured')}
+    if preparation_fraction!=1.:
+        layout.update(scenario_contract='long_shared_blend_v1',preparation_fraction=preparation_fraction,
+                      scope='Explicit easy-to-medium geometry preparation; not the full medium benchmark')
+    return layout
+
+
+def shared_scene_spacing(layout):
+    """Keep existing scenes stable; longer routes need nonoverlapping clone bounds."""
+    lows=[float('inf')]*2;highs=[-float('inf')]*2
+    for s in layout['surfaces']:
+        for axis in range(2):
+            extent=sum(abs(s['rotation_local_to_world'][axis][j])*s['size_m'][j]/2 for j in range(3))
+            lows[axis]=min(lows[axis],s['center_m'][axis]-extent)
+            highs[axis]=max(highs[axis],s['center_m'][axis]+extent)
+    return max(14.,max(b-a for a,b in zip(lows,highs))+4.)
 
 
 def assert_script_contacts_unoccluded(layout,script):

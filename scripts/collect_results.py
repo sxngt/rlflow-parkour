@@ -53,6 +53,8 @@ def collect(evaluation, result_root=ROOT / 'result'):
             layout=support['layout'];level={'easy':'쉬움','medium':'중간','hard':'어려움'}.get(layout.get('level'),'개발')
             task_title=f"{level}_{len(layout['surfaces'])-1}구간_경사·회전_스크립트목표_자율계획아님"
             task_title += '_안전접촉영역' if report.get('contact_target_mode')=='surface_region' else '_점반경6cm'
+            if 'preparation_fraction' in layout:
+                task_title += f'_중급준비{layout["preparation_fraction"]*100:g}퍼센트'
         if support.get('matched_material'):
             task_title += '_기본재질·구간별마찰설정' if support.get('surface_material_overrides') else '_동일물리재질'
     if run.get('chain_contract',{}).get('progress_criterion')=='mapped_contact_v1':

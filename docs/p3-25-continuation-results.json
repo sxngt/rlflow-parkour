@@ -1,0 +1,22 @@
+[
+  {
+    "seed": 1,
+    "extended": true,
+    "recent_max_live_front_index": 9.0703125,
+    "run": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p3-25-either-foot-seed1-continued2400__final-evaluation",
+    "episodes": 64,
+    "successes": 0,
+    "audit": "passed",
+    "scope": "Artifact/first-episode trace/progress consistency; physical success gates remain separately instrumented"
+  },
+  {
+    "seed": 2,
+    "extended": true,
+    "recent_max_live_front_index": 9.0546875,
+    "run": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p3-25-either-foot-seed2-continued2400__final-evaluation",
+    "episodes": 64,
+    "successes": 0,
+    "audit": "passed",
+    "scope": "Artifact/first-episode trace/progress consistency; physical success gates remain separately instrumented"
+  }
+]

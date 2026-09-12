@@ -49,6 +49,7 @@ def main():
     p.add_argument('--video-camera-mode',choices=['parallel','follow'])
     p.add_argument('--shared-course-level',choices=['easy','medium','hard'])
     p.add_argument('--shared-course-seed',type=int,default=101)
+    p.add_argument('--shared-course-transfers',type=int,default=10,choices=range(10,41))
     p.add_argument('--support-mode', choices=['flat', 'continuous', 'split', 'deck', 'course', 'full-gap'])
     p.add_argument('--support-matched-material', action='store_true')
     p.add_argument('--independent-support-clones', action='store_true', help='P2-38 all-deck scene construction validation only')
@@ -140,7 +141,10 @@ def main():
         if config['task']!='a1_continuous_tracker_v1' or args.support_mode:
             p.error('Shared-course evaluation override requires continuous Tracker')
         from parkour.shared_evaluation import override_course
-        support=override_course(support,args.shared_course_level,args.shared_course_seed)
+        support=override_course(support,args.shared_course_level,args.shared_course_seed,args.shared_course_transfers)
+    elif args.shared_course_transfers!=10:
+        p.error('Explicit --shared-course-level required for a length override')
+    if args.shared_course_level is not None:
         config['research_tags']=[t for t in config.get('research_tags',[]) if not t.startswith('difficulty:')]+['difficulty:'+args.shared_course_level]
     if config['task']=='a1_continuous_tracker_v1':
         if args.support_mode or args.chain_hops is not None or args.map_goal_forward_m is not None:
@@ -470,12 +474,17 @@ def main():
                 report['evaluation_contact_radius_m']=None
                 report['contact_region_contract']='selected exposed shared top; 2cm edge margin; normal offset 0..4cm; normal force>5N; geometric attribution'
             report['mean_measured_jump_count']=sum(r.get('measured_jump_count',0) for r in records)/count
+            report['mean_active_motion_seconds']=sum(r.get('active_motion_seconds',0) for r in records)/count
+            report['active_motion_contract']='200Hz body linear speed norm >0.15m/s; accumulated moving time, excludes stationary waiting'
+            report['mean_travel_motion_seconds']=sum(r.get('travel_motion_seconds',0) for r in records)/count
+            report['travel_motion_contract']='Speed norm >0.15m/s before both pair targets become final stance; excludes terminal rocking/settling'
             report['mean_completed_surface_transfers']=sum(r.get('completed_surface_transfers',0) for r in records)/count
             if config.get('demo_target'):
                 target=dict(config['demo_target'])
                 target['minimum_measured_jumps']=target.get('minimum_measured_jumps',8)
-                target['eligibility_contract']='dynamic_long_course_v2'
-                report['demo_eligible_scenario_ids']=[r['scenario_id'] for r in records if r['success'] and r['length']*env.step_dt>=target['minimum_actual_seconds'] and r.get('completed_surface_transfers',0)>=target['surface_transfers'] and r.get('measured_jump_count',0)>=target['minimum_measured_jumps']]
+                target['eligibility_contract']='dynamic_long_course_v4'
+                target['minimum_travel_motion_seconds']=target.get('minimum_travel_motion_seconds',10.)
+                report['demo_eligible_scenario_ids']=[r['scenario_id'] for r in records if r['success'] and r['length']*env.step_dt>=target['minimum_actual_seconds'] and r.get('travel_motion_seconds',0)>=target['minimum_travel_motion_seconds'] and r.get('completed_surface_transfers',0)>=target['surface_transfers'] and r.get('measured_jump_count',0)>=target['minimum_measured_jumps']]
                 report['demo_target']=target
                 report['followed_video_demo_eligible']=records[0]['scenario_id'] in report['demo_eligible_scenario_ids']
         if 'completed_contacts' in records[0]:

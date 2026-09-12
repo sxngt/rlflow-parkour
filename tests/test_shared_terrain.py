@@ -2,6 +2,41 @@ import math
 import unittest
 from parkour.shared_terrain import surface,local_point,world_point,contains_contact_center,build_shared_course
 class SharedTerrainTest(unittest.TestCase):
+    def test_medium_preparation_is_explicit_and_generated(self):
+        from parkour.shared_terrain import build_long_shared_course,scripted_pair_targets,assert_script_contacts_unoccluded
+        full=build_long_shared_course('medium',1);easy=build_long_shared_course('easy',1)
+        xy=[[.114,.16],[.114,-.16],[-.258,.16],[-.258,-.16]]
+        for fraction in (.25,.5,.75):
+            c=build_long_shared_course('medium',1,10,fraction)
+            self.assertEqual(c['scenario_contract'],'long_shared_blend_v1')
+            self.assertGreater(c['nominal_path_length_m'],easy['nominal_path_length_m'])
+            self.assertLess(c['nominal_path_length_m'],full['nominal_path_length_m'])
+            assert_script_contacts_unoccluded(c,scripted_pair_targets(c,xy))
+        with self.assertRaises(ValueError):build_long_shared_course('hard',1,10,.5)
+    def test_extended_routes_and_clone_separation_preserve_ten_transfer_maps(self):
+        import json
+        from pathlib import Path
+        from parkour.shared_terrain import build_long_shared_course,shared_scene_spacing,scripted_pair_targets,assert_script_contacts_unoccluded
+        stored=json.loads((Path(__file__).resolve().parents[1]/'configs/p3-25-either-foot-progression.json').read_text())
+        self.assertEqual(build_long_shared_course('easy',1),stored['terrain_contract']['layout'])
+        self.assertEqual(shared_scene_spacing(build_long_shared_course('hard',1)),14.)
+        xy=stored['terrain_contract']['calibration']['foot_xy_m']
+        for level in ('easy','medium','hard'):
+            for count in (20,30,40):
+                c=build_long_shared_course(level,1,count)
+                self.assertEqual(len(c['surfaces']),count+1)
+                self.assertEqual(c['scenario_contract'],'long_shared_course_v2')
+                assert_script_contacts_unoccluded(c,scripted_pair_targets(c,xy))
+                # Axis-aligned full cuboid spans plus four metres of margin.
+                spacing=shared_scene_spacing(c)
+                for axis in (0,1):
+                    lo=[];hi=[]
+                    for s in c['surfaces']:
+                        extent=sum(abs(s['rotation_local_to_world'][axis][j])*s['size_m'][j]/2 for j in range(3))
+                        lo.append(s['center_m'][axis]-extent);hi.append(s['center_m'][axis]+extent)
+                    self.assertGreaterEqual(spacing,max(hi)-min(lo)+4.)
+        for bad in (9,41,10.5,True):
+            with self.assertRaises(ValueError):build_long_shared_course('easy',1,bad)
     def test_oriented_contact_coordinates(self):
         s=surface('s',[1.,2.,.3],[.7,.6,.2],[15,-20,40])
         for point in ([.1,-.12,.02],[0,0,0],[.35,0,.02]):

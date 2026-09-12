@@ -17,6 +17,13 @@ def check(path):
         assert np.all(accepted<=indices)
         assert np.all(accepted[:,1]<=accepted[:,0])
         assert np.all(np.isfinite(z['root_pos'][valid,i]))
+        if 'active_motion_seconds' in row:
+            measured=float((np.linalg.norm(z['root_velocity'][valid,i],axis=-1)>.15).sum()*.005)
+            assert abs(measured-row['active_motion_seconds'])<.011
+        if 'travel_motion_seconds' in row:
+            traveling=~(z['target_indices'][valid,i]==r['required_final_index']).all(axis=-1)
+            measured=float(((np.linalg.norm(z['root_velocity'][valid,i],axis=-1)>.15)&traveling).sum()*.005)
+            assert abs(measured-row['travel_motion_seconds'])<.011
         if row['success']:
             assert row['front_accepted_index']==row['rear_accepted_index']==r['required_final_index']
             assert row['final_hold_steps']>=10

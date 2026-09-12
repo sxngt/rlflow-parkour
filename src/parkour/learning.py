@@ -194,6 +194,9 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
     cfg.sim.device = "cuda:0"
     from parkour.terrain_contract import training_support
     cfg.support_contract = copy.deepcopy(evaluation_support) if evaluation_support is not None else training_support(config)
+    if cfg.support_contract and cfg.support_contract['mode']=='shared-course':
+        from parkour.shared_terrain import shared_scene_spacing
+        cfg.scene.env_spacing=shared_scene_spacing(cfg.support_contract['layout'])
     if cfg.support_contract is not None:
         from parkour.terrain_contract import validate_surface_materials
         validate_surface_materials(cfg.support_contract)

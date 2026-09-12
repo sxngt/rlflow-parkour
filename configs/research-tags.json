@@ -94,7 +94,13 @@
     "step:p3-26-medium-transfer": "P3-26 · 중급 경사·갭 전이 학습",
     "step:p3-27-precision-refinement": "P3-27 · 탐색 잡음 축소·정밀화",
     "step:p3-28-surface-region": "P3-28 · 공유 발판 영역 기반 연속 이동",
-    "step:p3-29-terminal-stabilization": "P3-29 · 최종 발판 네 발 안정화"
+    "step:p3-29-terminal-stabilization": "P3-29 · 최종 발판 네 발 안정화",
+    "step:p3-30-medium-regions": "P3-30 · 중급 경사·갭 연속 학습",
+    "step:p3-31-extended-route": "P3-31 · 긴 경로·실제 이동 시간 검증",
+    "purpose:endurance": "연속 이동 시간 검증",
+    "step:p3-32-medium-preparation": "P3-32 · 쉬움–중급 보간 지형 검증",
+    "step:p3-33-dynamic-long-medium": "P3-33 · 중급 장거리·연속 비행 도약",
+    "purpose:dynamic-endurance": "동적 움직임·장거리 연속 수행"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [

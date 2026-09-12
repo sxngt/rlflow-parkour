@@ -1,0 +1,5 @@
+# P3-33 — Long medium route with measured flights
+
+The full medium frozen update400 policy reaches ~7surface transfers and2actual flights in2.74s before failure. Ten foot-target transfers therefore do not mean ten dynamic jumps or ten seconds. The next candidate has40shared-surface transfers (~26m path), providing room for walking, multiple flights, height/slope changes and heading adjustments. The anticipated~10flight events/>10s is a design hypothesis; only actual first-episode metrics and video can establish it.
+
+Fork source P3-30seed1 update600,1200newupdates×1024env. Keep medium geometry parameters and seed, extend length with version2. Use parent adaptive learning rate, cap.18 then.12 at600, same region support and terminal-style reward scope. Existing40surface and medium runtime paths are verified; no redundant twelve-update gate is required for this combination. Validate checkpoint lineage, actual geometry rays and native200Hz trace afterward. Separate full traversal, measured flights, body-motion time and travel-phase moving time. No artificial target waiting or video padding.

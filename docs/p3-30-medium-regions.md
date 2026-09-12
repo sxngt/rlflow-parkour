@@ -1,0 +1,3 @@
+# P3-30 — Full medium-region transfer
+
+Parent P3-28seed1 update800:29/64easy region completions, no measured jumps. New ten-transfer medium course with larger gaps,~18cm maximum center-height change, slope and heading variation. Fresh optimizer/RNG, copied policy/critic/normalization, parent adaptiveLR1.5e-5; cap.25→.18→.12. Bounding reward limited to travel; region contact and final support remain explicit. Smoke12updates/native64episodes/audit passed. Main1200updates×1024env; success, flights, active and travel durations evaluated separately. This is an engineering transfer, not an isolated ablation.

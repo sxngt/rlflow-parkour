@@ -54,10 +54,14 @@ class ContinuousTrackerEnv(FootholdEnv):
         self.map_low=points.amin(dim=0)-1.;self.map_high=points.amax(dim=0)+1.
         from parkour.flight_events import FlightEvents
         self.flights=FlightEvents(self.num_envs,self.device)
+        self.active_motion_steps=torch.zeros(self.num_envs,dtype=torch.long,device=self.device)
+        self.travel_motion_steps=torch.zeros_like(self.active_motion_steps)
         original_update=self.scene.update
         def update(dt):
             original_update(dt)
             if dt<=0:return
+            self.active_motion_steps+=(self.robot.data.root_lin_vel_w.norm(dim=1)>.15)
+            self.travel_motion_steps+=(self.robot.data.root_lin_vel_w.norm(dim=1)>.15)&~(self.progress.target==self.progress.target_count-1).all(dim=1)
             self.flights.update(self.contacts.data.net_forces_w[:,self.contact_ids],self.robot.data.root_pos_w[:,2],
                 self.robot.data.root_lin_vel_w[:,2],self.contacts.data.net_forces_w[:,self.nonfoot_ids].norm(dim=-1).amax(dim=1),dt)
         self.scene.update=update
@@ -78,6 +82,8 @@ class ContinuousTrackerEnv(FootholdEnv):
         if ids is None:ids=self.robot._ALL_INDICES
         super()._reset_idx(ids)
         self.progress.reset(ids);self.flights.reset(ids);self.final_hold[ids]=0;self.accept_events[ids]=False
+        self.active_motion_steps[ids]=0
+        self.travel_motion_steps[ids]=0
         self.current_valid[ids]=False;self.current_error[ids]=0
         root=self.calibrated_root.expand(len(ids),-1).clone();root[:,:3]+=self.scene.env_origins[ids]
         self.robot.write_root_pose_to_sim(root[:,:7],ids);self.robot.write_root_velocity_to_sim(root[:,7:],ids)
@@ -155,6 +161,8 @@ class ContinuousTrackerEnv(FootholdEnv):
             'front_accepted_index':self.progress.accepted[:,0].clone(),'rear_accepted_index':self.progress.accepted[:,1].clone(),
             'front_target_index':self.progress.target[:,0].clone(),'rear_target_index':self.progress.target[:,1].clone(),
             'final_hold_steps':self.final_hold.clone(),'measured_jump_count':self.flights.count.clone(),
+            'active_motion_seconds':self.active_motion_steps*self.physics_dt,
+            'travel_motion_seconds':self.travel_motion_steps*self.physics_dt,
             'completed_surface_transfers':self.progress.accepted.amin(dim=1).clamp_min(0).clone(),
             'failure_nonfoot':self.failure_nonfoot.clone(),'failure_nonfoot_body_id':self.failure_nonfoot_id.clone(),
             'failure_outside_map':self.failure_outside.clone(),'failure_low_body':self.failure_low.clone(),'failure_tilt':self.failure_tilt.clone()}
