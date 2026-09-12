@@ -973,3 +973,11 @@ P2-35 사전명세 docs/p2-35-protocol.md, scripts/p2_35_evaluate.py 작성/dry-
 직전P234검증/P235실행은progress. 동일batch PID1846918 실제생존/동일session24317만추적,45/45/30초verifiedwait 후exit0 및4seedexit0확인. 모든24새평가완료. scripts/p2_35_report.py추가(commit9b196c4),미완료400실행에서보고서생성거부확인 artifacts/p2-35-incomplete-report-check.log. 최종session96683exit0:전체32(chain4seed×4시점×2suite)checkpoint/시나리오/200Hzchaintrace/영상/chain-events hash/태그/64camera4감사passed artifacts/p2-35-timeline-build.log. docs/p2-35-timeline.json/md 및findings 작성.
 
 핵심:seed0 cp400 chain64/64+continuous63/64였으나cp800모두0. seed1cp600chain62,cp80064지만회귀16/64. seed2cp200첫도약64이후소실,모든시점코스0;seed3전부0. 고정endpointP234미승격판단유지. 학습능력획득후소실증거이며optimizer/탐험/분포단일원인증명아님. 다음사전명세대상:부모4seed 동일예산의chain-only 대 현재정책으로기존단일과제도함께수집하는혼합학습. 구현/예산/정규화/done계약검증필요,아직착수안함. 현재실행학습/평가batch없음. 모든연구목표미완료.
+
+### 최신: P2-36 사전 명세 및 과제별 종료 기반 구현
+
+이전P235최종감사는progress. docs/p2-36-protocol.md 신규:부모P231전체4seed,기존P234chain-only800endpoint 재사용대조,새B1024환경고정ID512chain/512single(0또는15cm동일확률reset),동일deck/총step/보상/PPO. continuous물리지형혼합이아닌목표과제혼합임명시. B본학습신규78643200step,파일럿별도. 아직본학습없음.
+
+src/parkour/chained_progress.py에선택target_hops int64vector 추가,기본은전환경기존hops. 성공/전체deadline만환경별요구도약수사용,reset에서과제계약유지,호출자tensoralias차단. tests/test_chained_progress.py mixed단일성공done/연속첫성공advance/비동기reset/deadline/실패우선순위/잘못된계약거부 추가. IsaacPython session36707exit0,5tests통과 artifacts/p2-36-progress-tests.log. 순수상태기계검증이며실제혼합시뮬레이션완료아님.
+
+다음필수구현:strict混合설정검증/fork/resume,ChainedDirectedJumpEnv에훈련전용정적과제할당및single목표reset,learning.make_env는명시적평가1/2hop일때혼합끄기. train.py기존intermediate판정segments<hops-1을환경별target_hops-1로변경(현재혼합을호출하지않아기존학습정상),task×hop/goal step회계구현. 기존goal_sample_values=[.15]상태로mixed0을추가하면합계오류이므로[0,.15]전체관측과single전용draw정의를명확히수정해야함. sharednormalizer/동일rollout유지. 그후strict테스트/기존cp0결과일치/64smoke+resume/1024×60파일럿후본학습. 현재GPU학습/평가작업없음,목표미완료.

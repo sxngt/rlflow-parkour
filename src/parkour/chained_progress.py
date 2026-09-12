@@ -17,10 +17,18 @@ class ChainDecision:
 
 
 class ChainedProgress:
-    def __init__(self, count, device, hops=2, hop_steps=200):
+    def __init__(self, count, device, hops=2, hop_steps=200, target_hops=None):
         if type(hops) is not int or hops < 1 or type(hop_steps) is not int or hop_steps < 1:
             raise ValueError('Positive integer hop count and step budget required')
         self.hops, self.hop_steps = hops, hop_steps
+        if target_hops is None:
+            self.target_hops = torch.full((count,), hops, dtype=torch.long, device=device)
+        else:
+            if (not isinstance(target_hops, torch.Tensor) or target_hops.shape != (count,)
+                    or target_hops.dtype != torch.long
+                    or bool(((target_hops < 1) | (target_hops > hops)).any())):
+                raise ValueError('Per-environment hop counts must be int64 in [1, hops]')
+            self.target_hops = target_hops.to(device=device).clone()
         self.completed = torch.zeros(count, dtype=torch.long, device=device)
         self.start_step = torch.zeros_like(self.completed)
         self.launch_origin = torch.zeros(count, 2, device=device)
@@ -43,8 +51,8 @@ class ChainedProgress:
         active = ~self.finished
         failed = active & failure
         passed = active & hop_success & ~failed
-        success = passed & (self.completed == self.hops - 1)
-        global_limit = episode_steps >= self.hops * self.hop_steps
+        success = passed & (self.completed == self.target_hops - 1)
+        global_limit = episode_steps >= self.target_hops * self.hop_steps
         advance = passed & ~success & ~global_limit
         timeout = active & ~failed & ~success & ~advance & (
             (self.local_steps(episode_steps) >= self.hop_steps) | global_limit)

@@ -8,6 +8,31 @@ from parkour.chained_progress import ChainedProgress
 
 
 class ChainTests(unittest.TestCase):
+    def test_mixed_tasks_finish_single_but_continue_chain(self):
+        targets = torch.tensor([2, 1, 2, 1])
+        chain = ChainedProgress(4, 'cpu', target_hops=targets)
+        targets.zero_()  # Constructor must own its contract, not alias caller memory.
+        steps = torch.full((4,), 80)
+        decision = chain.resolve(torch.ones(4, dtype=torch.bool),
+                                 torch.tensor([False, False, False, True]), steps)
+        self.assertEqual(decision.advance.tolist(), [True, False, True, False])
+        self.assertEqual(decision.success.tolist(), [False, True, False, False])
+        self.assertEqual(decision.failure.tolist(), [False, False, False, True])
+        self.assertEqual(chain.commit(steps, torch.zeros(4, 2)).tolist(), [0, 2])
+        chain.reset(torch.tensor([1, 3]), torch.zeros(2, 2))
+        self.assertEqual(chain.target_hops.tolist(), [2, 1, 2, 1])
+        decision = chain.resolve(torch.tensor([True, True, False, False]),
+                                 torch.zeros(4, dtype=torch.bool), torch.tensor([160, 200, 280, 200]))
+        self.assertEqual(decision.success.tolist(), [True, True, False, False])
+        self.assertEqual(decision.timeout.tolist(), [False, False, True, True])
+        self.assertFalse(decision.advance.any())
+
+    def test_invalid_task_hop_contract_rejected(self):
+        for targets in (torch.tensor([1]), torch.tensor([1., 2.]),
+                        torch.tensor([0, 2]), torch.tensor([1, 3]), [1, 2]):
+            with self.assertRaises(ValueError):
+                ChainedProgress(2, 'cpu', target_hops=targets)
+
     def test_asynchronous_hops_do_not_finish_or_reset_first_success(self):
         chain = ChainedProgress(3, 'cpu')
         chain.reset(torch.arange(3), torch.tensor([-.02, 0.]))
