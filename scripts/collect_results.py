@@ -49,6 +49,8 @@ def collect(evaluation, result_root=ROOT / 'result'):
         task_title = label + ('_목표전이15cm_고정정책' if support.get('goal_forward_m') == .15 else '_목표거리별평가')
         if support.get('matched_material'):
             task_title += '_동일물리재질'
+    if run.get('transition_restore'):
+        task_title = '저장착지복원_후속도약만_전체코스평가아님_' + task_title
     model = run.get('checkpoint')
     if run.get('chain_contract'):
         task_title += f"_리셋없는{run['chain_contract']['hops']}회도약_안정화후재도약"
