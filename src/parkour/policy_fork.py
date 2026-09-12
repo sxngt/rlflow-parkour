@@ -11,10 +11,15 @@ def validate_fork_configs(parent, target):
     from parkour.chain_training import validate_chain_training
     validate_chain_training(parent); validate_chain_training(target)
     training_support(parent); training_support(target)
+    from parkour.observation_contract import validate_history
+    old_history,new_history=validate_history(parent),validate_history(target)
+    if old_history is not None and old_history!=new_history:
+        raise ValueError('Fork cannot reinterpret an existing history policy')
     a,b=copy.deepcopy(parent),copy.deepcopy(target)
     if a['task']!='a1_directed_jump_v5' or b['task']!=a['task']:
         raise ValueError('Fork supports directed-jump policies only')
     for c in (a,b):
+        c.pop('observation_history', None)
         c.pop('support_assignment', None)
         c.pop('retention_training', None)  # Strictly validated above; new task mixture is a fork.
         if c.pop('chain_training', None) is not None:
@@ -38,15 +43,24 @@ def initialize_fork(data, config, alg, normalizer):
     if alg.optimizer.state:
         raise ValueError('Fork requires a fresh optimizer')
     # Validate both state dictionaries completely before copying either one.
+    states={}
     for module,key in ((alg.policy,'model'),(normalizer,'normalizer')):
-        expected=module.state_dict();source=data[key]
+        expected=module.state_dict();source=dict(data[key])
+        if key=='model' and config.get('observation_history') is not None and data['config'].get('observation_history') is None:
+            for name in ('actor.0.weight','critic.0.weight'):
+                old=source[name]
+                if old.shape!=(expected[name].shape[0],66):
+                    raise ValueError('History initialization requires the original 66-channel policy')
+                extended=torch.zeros_like(expected[name]);extended[:,:66]=old
+                source[name]=extended
         if expected.keys()!=source.keys():
             raise ValueError('Fork state keys differ: '+key)
         for name,tensor in source.items():
             if tensor.shape!=expected[name].shape or tensor.dtype!=expected[name].dtype or not torch.isfinite(tensor).all():
                 raise ValueError('Incompatible or nonfinite fork tensor: '+key+'.'+name)
-    alg.policy.load_state_dict(data['model'])
-    normalizer.load_state_dict(data['normalizer'])
+        states[key]=source
+    alg.policy.load_state_dict(states['model'])
+    normalizer.load_state_dict(states['normalizer'])
     # These are distribution controls of the NEW experiment, not learned tensors.
     alg.policy.std_cap.fill_(cap_for_update(config,0))
     alg.policy.std_floor.fill_(config['exploration']['min_std'])
@@ -54,4 +68,5 @@ def initialize_fork(data, config, alg, normalizer):
             'parent_completed_iterations':data['completed_iterations'],
             'parent_environment_steps':data['total_environment_steps'],
             'initial_completed_iterations':0,'initial_environment_steps':0,
-            'initial_std_cap':cap_for_update(config,0)}
+            'initial_std_cap':cap_for_update(config,0),
+            'history_initialization':'zero extra actor/critic input columns; shared current-frame normalization' if config.get('observation_history') is not None and data['config'].get('observation_history') is None else None}

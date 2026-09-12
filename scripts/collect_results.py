@@ -58,6 +58,9 @@ def collect(evaluation, result_root=ROOT / 'result'):
         task_title += f"_발판{friction['start_station']}부터마찰재질{friction['authored_friction']:g}"
     if run.get('chain_contract', {}).get('height_contract'):
         task_title += '_발판높이' + '·'.join(f'{100*x:g}' for x in run['chain_contract']['support_heights_m']) + 'cm'
+    history=run['config'].get('observation_history')
+    if history:
+        task_title += '_관측이력8프레임' if history['mode']=='stack' else '_동일입력크기·이력이없는대조군'
     if run.get('transition_restore'):
         task_title = '저장착지복원_후속도약만_전체코스평가아님_' + task_title
     model = run.get('checkpoint')

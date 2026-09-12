@@ -15,6 +15,7 @@ class JumpCfg(SequentialCfg):
     robot=copy.deepcopy(UNITREE_A1_CFG).replace(prim_path='/World/envs/env_.*/Robot')
     robot.spawn.articulation_props.enabled_self_collisions=True
     jump={}
+    observation_history=None
 
 class JumpEnv(SequentialEnv):
     contact_group_all=True
@@ -52,6 +53,8 @@ class JumpEnv(SequentialEnv):
         self.required_apex[env_ids]=low+(high-low)*torch.rand(len(env_ids),device=self.device,generator=self.generator)
         offset=torch.zeros(len(env_ids),4,2,device=self.device)
         self.set_sequence_offsets(offset,env_ids)
+        if hasattr(self, "observation_history_buffer"):
+            self.observation_history_buffer.reset(env_ids)
 
     def maneuver_time_s(self):
         """Local maneuver clock; single-jump episodes retain their original clock."""
@@ -79,8 +82,14 @@ class JumpEnv(SequentialEnv):
         base=FootholdEnv._get_observations(self)['policy']
         rise=self.launch_rise_m()
         clock=(self.maneuver_time_s()/self.jump['settle_seconds']).clamp_max(1)
-        return {'policy':torch.cat([base,torch.nn.functional.one_hot(self.phase,3),
-            (self.required_apex-rise)[:,None],clock[:,None]],dim=1)}
+        observation=torch.cat([base,torch.nn.functional.one_hot(self.phase,3),
+            (self.required_apex-rise)[:,None],clock[:,None]],dim=1)
+        if self.cfg.observation_history is not None:
+            if not hasattr(self, 'observation_history_buffer'):
+                from parkour.observation_history import ObservationHistory
+                self.observation_history_buffer=ObservationHistory(self.num_envs,self.device,self.cfg.observation_history)
+            observation=self.observation_history_buffer.encode(observation,self.episode_length_buf)
+        return {'policy':observation}
 
     def _get_dones(self):
         spec=self.jump

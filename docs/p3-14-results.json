@@ -1,0 +1,80 @@
+[
+  {
+    "seed": 1,
+    "exit_code": 0,
+    "successes": 16,
+    "by_distance": {
+      "0.15": {
+        "episodes": 16,
+        "successes": 16,
+        "launches_in_region": 16,
+        "travel_met": 16,
+        "first_touch_precise": 16,
+        "stabilized": 16
+      },
+      "0.2": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 1,
+        "travel_met": 0,
+        "first_touch_precise": 1,
+        "stabilized": 1
+      },
+      "0.25": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      },
+      "0.3": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      }
+    }
+  },
+  {
+    "seed": 2,
+    "exit_code": 0,
+    "successes": 16,
+    "by_distance": {
+      "0.15": {
+        "episodes": 16,
+        "successes": 16,
+        "launches_in_region": 16,
+        "travel_met": 16,
+        "first_touch_precise": 16,
+        "stabilized": 16
+      },
+      "0.2": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      },
+      "0.25": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 16,
+        "travel_met": 0,
+        "first_touch_precise": 16,
+        "stabilized": 16
+      },
+      "0.3": {
+        "episodes": 16,
+        "successes": 0,
+        "launches_in_region": 16,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      }
+    }
+  }
+]

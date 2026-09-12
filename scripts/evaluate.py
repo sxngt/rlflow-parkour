@@ -245,6 +245,8 @@ def main():
                 raise ValueError('Transition states require a multi-hop evaluation')
             env.capture_transition_states = True
         alg, norm = make_algorithm(config, env)
+        from parkour.learning import model_profile
+        meta['model_profile']=model_profile(config,alg,norm,env)
         if args.checkpoint:
             data = read_checkpoint(args.checkpoint)
             restore(data, config, alg, norm, env, training=False)

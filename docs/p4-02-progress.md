@@ -24,3 +24,10 @@ Next prepared but NOT yet executed: scripts/p3_13_evaluate.py and docs/p3-13-pro
 
 
 Main training complete: all4×800 update workers and native artifact gates passed. Native lowfriction seed1=44/64,seed2=64/64; control both64/64. Session88841 is now in16 common evaluations, not finished. Do not treat native comparison as identical terrain: lowfriction/native uses0.2 on stations2/3 while control/native stays0.5. Four-common-suite comparison follows. Actual main training wall~770s/run. No retraining or automatic promotion.
+
+
+P4-02 pipeline88841 completed exit0: four trainings +16 comparisons +report all passed. See p4-02-findings.md; effect is seed/condition dependent, control seed1 exceeds lowfriction at0.2, lowfriction seed1 alone succeeds27/64 at0.05, retention remains. No champion.
+
+P3-13 session4427 completed exit0: zero-height seed2=64 exact original records/traces, up1cm seed1=34/64 seed2=15/64, down1cm seed2=60/64; physical bounds and target-Z/error audits pass. P3-14 session69628 completes bothseeds15cm16/16,20/25/30cm0/16. Longer airborne capability requires training, not metric relaxation.
+
+P4-03 history implementation prepared:535inputs=current66+7past×66+7validity, stack vszero control, shared66-channel normalizer, zero extra input-weight columns preserve initial means. CPUtests3 pass.64env12update smoke complete including video,2update resume now session87644 (check terminal state). Main P4-03 has NOT been launched. Protocol/configs exist. Need preserve equal parent/budget and track changed dimensions in model_profile. History is140ms simulation observation history, not a deployable sensor contract. Consider running larger-distance capability work alongside this comparison so geometry progress continues.

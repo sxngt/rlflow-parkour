@@ -60,6 +60,8 @@ def main():
             atomic_json(args.out/'support-inspection.json', inspect_support_assignment(env))
         env.reset()
         alg, norm = make_algorithm(config, env)
+        from parkour.learning import model_profile
+        meta['model_profile']=model_profile(config,alg,norm,env)
         completed, total_steps = 0, 0
         if args.resume:
             data = read_checkpoint(args.resume)

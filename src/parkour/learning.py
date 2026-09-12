@@ -28,7 +28,13 @@ def make_algorithm(config, env):
         raise ValueError("Only PPO is supported")
     alg = PPO(policy, device=env.device, **alg_cfg)
     alg.init_storage("rl", env.num_envs, config["runner"]["num_steps_per_env"], [obs_dim], [obs_dim], [12])
-    normalizer = EmpiricalNormalization(shape=[obs_dim]).to(env.device)
+    from parkour.observation_contract import validate_history
+    history_spec=validate_history(config)
+    if history_spec is None:
+        normalizer = EmpiricalNormalization(shape=[obs_dim]).to(env.device)
+    else:
+        from parkour.observation_history import HistoryNormalization
+        normalizer=HistoryNormalization(history_spec).to(env.device)
     return alg, normalizer
 
 
@@ -74,6 +80,9 @@ def restore(data, config, alg, normalizer, env, training):
         raise ValueError('Checkpoint exploration contract differs')
     from parkour.terrain_contract import assert_same_terrain
     assert_same_terrain(data['config'], config)
+    from parkour.observation_contract import validate_history
+    if validate_history(data['config']) != validate_history(config):
+        raise ValueError('Checkpoint observation history contract differs')
     keys = ("task", "episode_seconds", "target_offset_m", "surface_height_m", "success_radius_m", "success_dwell_s", "runner")
     if any(data["config"][key] != config[key] for key in keys):
         raise ValueError("Checkpoint/task contract differs")
@@ -126,6 +135,11 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
         cfg, env_type = FootholdCfg(), FootholdEnv
     else:
         raise ValueError('Unknown task contract')
+    from parkour.observation_contract import validate_history
+    history_spec=validate_history(config)
+    if history_spec is not None:
+        cfg.observation_history=history_spec
+        cfg.observation_space=history_spec['frames']*history_spec['base_observation_dim']+history_spec['frames']-1
     cfg.mapped_contact_progress = ((chain_spec or {}).get('progress_criterion') == 'mapped_contact_v1'
                                    if mapped_contact_progress is None else mapped_contact_progress)
     cfg.seed = config["seed"]
@@ -161,3 +175,12 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
                                       retention_goals=(config.get('retention_training') or {}).get('single_goal_choices_m'),
                                       retention_weights=(config.get('retention_training') or {}).get('single_goal_weights'))
     return env_type(cfg)
+
+
+def model_profile(config, alg, normalizer, env):
+    return {'observation_dimension':env.cfg.observation_space,
+            'actor_parameters':sum(p.numel() for p in alg.policy.actor.parameters()),
+            'critic_parameters':sum(p.numel() for p in alg.policy.critic.parameters()),
+            'total_policy_parameters':sum(p.numel() for p in alg.policy.parameters()),
+            'normalization_channels':int(normalizer._mean.shape[-1]),
+            'observation_history':config.get('observation_history')}
