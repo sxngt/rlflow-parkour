@@ -159,3 +159,38 @@ def assert_script_contacts_unoccluded(layout,script):
                             near=max(near,a);far=min(far,b)
                     if near<=far:
                         raise ValueError(f'Contact on {selected["id"]} occluded by {other["id"]}')
+
+
+def build_ten_gap_course(level='medium',seed=1,gap_scale=1.):
+    """Ten gap locations separated by approach steps; actual flights are measured."""
+    import random
+    if level not in ('easy','medium','hard') or type(seed) is not int or seed<0 or gap_scale not in (.5,.75,1.):
+        raise ValueError('Explicit tier, nonnegative seed and gap scale .5/.75/1 required')
+    base_gap,tilt,height,turn={'easy':(.10,3.,.04,6.),'medium':(.45,7.,.06,10.),'hard':(.80,12.,.10,15.)}[level]
+    rng=random.Random(seed);surfaces=[];gaps=[];x=y=heading=0.
+    for i in range(41):
+        is_gap=i>0 and i%4==0
+        if i:heading+=turn*math.sin(i*.7)+rng.uniform(-turn/4,turn/4)
+        roll,pitch=(0.,0.) if i in (0,40) else (rng.uniform(-tilt,tilt),rng.uniform(-tilt,tilt))
+        z=0. if i==0 else height*(1.+.5*math.sin(i*.7))
+        size=(1.,1.,.15) if i==0 else ((.7,.8,.15) if i==40 else (.55,.7,.15))
+        candidate=surface('surface_'+str(i),[0.,0.,z],size,(roll,pitch,heading))
+        if i:
+            direction=[math.cos(math.radians(heading)),math.sin(math.radians(heading))]
+            if is_gap:
+                gap=base_gap*gap_scale*rng.uniform(.9,1.1)
+                def projected_half(s):
+                    return sum(abs(sum(direction[a]*s['rotation_local_to_world'][a][j] for a in (0,1)))*s['size_m'][j]/2 for j in (0,1))
+                distance=projected_half(surfaces[-1])+projected_half(candidate)+gap
+                gaps.append({'arrival_surface_index':i,'projected_top_gap_m':gap,'direction_xy':direction})
+            else:distance=.45+rng.uniform(-.015,.015)
+            x+=distance*direction[0];y+=distance*direction[1]
+        candidate=surface('surface_'+str(i),[x,y,z],size,(roll,pitch,heading))
+        candidate['scenario_role']='start' if i==0 else ('gap_landing' if is_gap else 'approach')
+        surfaces.append(candidate)
+    return {'schema_version':2,'geometry_contract':'oriented_shared_surfaces_v1','scenario_contract':'long_ten_gap_course_v1',
+            'kind':'ten-gap-'+level,'level':level,'seed':seed,'gap_scale':gap_scale,'transitions':40,'frame':'course_local',
+            'surfaces':surfaces,'start_position_m':[0.,0.,0.],'goal_position_m':surfaces[-1]['top_center_m'],
+            'catch_floor_z_m':-.8,'planned_gap_count':10,'gap_locations':gaps,
+            'nominal_path_length_m':sum(math.dist(a['top_center_m'],b['top_center_m']) for a,b in zip(surfaces,surfaces[1:])),
+            'scope':'Ten explicit projected gap locations with approach steps; not ten proven jumps or a feasibility certificate'}

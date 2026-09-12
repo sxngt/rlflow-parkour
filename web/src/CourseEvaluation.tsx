@@ -8,6 +8,7 @@ type CourseReport = {
   contact_target_mode?: string; evaluation_contact_radius_m?: number | null;
   mean_active_motion_seconds?: number;
   mean_travel_motion_seconds?: number;
+  planned_gap_count?: number | null; planned_gap_widths_m?: number[];
   completed_hops_histogram?: Record<string, number>;
   chain_contract?: {hops: number; absolute_forward_targets_m?: number[]; step_lengths_m?: number[];
     progress_criterion?: string; spacing_contract?: string; root_boundary?: {version: string}};
@@ -16,6 +17,7 @@ export function CourseEvaluation({report}: {report: CourseReport}) {
   if (report.required_final_index != null) return <section className="panel">
     <h2>공유 발판 긴 코스 평가</h2>
     <p><strong>{report.successes}/{report.episodes}회 완주</strong> · 목표 {report.required_final_index}구간</p>
+    {report.planned_gap_count!=null && <p>설계된 갭 {report.planned_gap_count}곳 · 실제 비행 횟수는 아래 계측값으로 확인합니다.</p>}
     <p>평균 완료 구간 {report.mean_completed_surface_transfers?.toFixed(2)} · 실제 점프 {report.mean_measured_jump_count?.toFixed(2)}회 · 실제 episode {report.mean_episode_seconds?.toFixed(2)}초</p>
     <p>앞발 진행 {report.mean_front_accepted_index?.toFixed(2)} / 뒷발 진행 {report.mean_rear_accepted_index?.toFixed(2)}</p>
     {report.mean_active_motion_seconds!=null && <p>정지 시간을 제외한 몸체 이동: 평균 {report.mean_active_motion_seconds.toFixed(2)}초 (속력 0.15m/s 초과)</p>}

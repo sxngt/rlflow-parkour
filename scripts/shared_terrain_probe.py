@@ -3,8 +3,8 @@ import argparse,json,math,sys,traceback
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src'))
 from parkour.runtime import begin_run,finish_run,launch_app,atomic_json,sha256
-from parkour.shared_terrain import build_shared_course,build_long_shared_course
-p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);p.add_argument('--course',choices=['blocks','ramps','turns','mixed','long-easy','long-medium','long-hard'],default='mixed');args=p.parse_args()
+from parkour.shared_terrain import build_shared_course,build_long_shared_course,build_ten_gap_course
+p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);p.add_argument('--course',choices=['blocks','ramps','turns','mixed','long-easy','long-medium','long-hard','ten-gap-easy','ten-gap-medium','ten-gap-hard'],default='mixed');args=p.parse_args()
 config={'task':'shared_terrain_geometry_probe_v1','research_tags':['phase:P3','step:p3-17-shared-terrain','purpose:geometry-preview'],'course':args.course,'scope':'Terrain only; no robot policy or completed parkour claim'}
 meta=begin_run(args.out,config,'probe')
 try:
@@ -14,14 +14,15 @@ try:
     import isaaclab.sim as sim_utils
     from isaaclab.sensors import Camera,CameraCfg
     from omni.physx import get_physx_scene_query_interface
-    layout=build_long_shared_course(args.course.split('-')[1],1) if args.course.startswith('long-') else build_shared_course(args.course)
+    layout=(build_ten_gap_course(args.course.split('-')[-1],1) if args.course.startswith('ten-gap-') else
+            build_long_shared_course(args.course.split('-')[1],1) if args.course.startswith('long-') else build_shared_course(args.course))
     sim=sim_utils.SimulationContext(sim_utils.SimulationCfg(dt=.005,device='cuda:0',enable_scene_query_support=True))
     ground=sim_utils.GroundPlaneCfg();ground.func('/World/Ground',ground,translation=(0,0,layout['catch_floor_z_m']))
     light=sim_utils.DomeLightCfg(intensity=2500);light.func('/World/Light',light)
     for i,s in enumerate(layout['surfaces']):
         block=sim_utils.CuboidCfg(size=tuple(s['size_m']),collision_props=sim_utils.CollisionPropertiesCfg(),
             physics_material=sim_utils.RigidBodyMaterialCfg(static_friction=.5,dynamic_friction=.5,friction_combine_mode='average'),
-            visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(.25+.06*i,.4,.55)))
+            visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(.25+.5*i/max(1,len(layout['surfaces'])-1),.4,.55)))
         block.func('/World/Surfaces/'+s['id'],block,translation=tuple(s['center_m']),orientation=tuple(s['orientation_wxyz']))
     camera=Camera(CameraCfg(prim_path='/World/Camera',height=720,width=1280,data_types=['rgb'],
         spawn=sim_utils.PinholeCameraCfg(focal_length=24.,horizontal_aperture=32.,clipping_range=(.1,100.))))

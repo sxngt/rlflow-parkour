@@ -1,0 +1,7 @@
+# P3-34 — Ten explicit gap locations with approach sections
+
+Longer rows of small gaps still allow mostly walking. P3-33 training at435updates reached33.4meanterminated transfers but only1.37measuredjumps. A transfer/jump ratio from a short route did not extrapolate. Do not claim this is the requested ten-jump scenario.
+
+New generated family:41shared surfaces, forty target transfers, gap arrivals4/8/.../40 (ten locations), three approach transfers before each gap. Tiers use nominal projected top gaps10cm/45cm/80cm, ±10%seededvariation, with slope, height and heading variation. Actual projected separation is computed from both oriented top rectangles, not assumed from center spacing. Gap geometry alone does not prove robot feasibility or ten flights. Seven geometry tests include independent corner projection checks and contact target exposure. Actual Isaac medium geometry probe validates41center rays/normals.
+
+Initial medium training: parent P3-30seed1 update1200, copied weights/critic/normalization, fresh optimizer/RNG with parentLR1e-5. Full-gap condition1600updates, and a separate75%-gap preparation condition1200updates,1024env each. Bounded exploration.25→.18→.12. These are engineering curriculum alternatives, not a replicated statistical comparison. No new robot/action/observation/reward contract. Physics targets, actual flights and first-episode moving duration decide the outcome. All final recordings remain single-robot third-person follow.

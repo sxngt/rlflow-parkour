@@ -2,6 +2,21 @@ import math
 import unittest
 from parkour.shared_terrain import surface,local_point,world_point,contains_contact_center,build_shared_course
 class SharedTerrainTest(unittest.TestCase):
+    def test_ten_gap_route_projected_width_and_exposed_targets(self):
+        from parkour.shared_terrain import build_ten_gap_course,scripted_pair_targets,assert_script_contacts_unoccluded
+        xy=[[.114,.16],[.114,-.16],[-.258,.16],[-.258,-.16]]
+        for level in ('easy','medium','hard'):
+            for scale in (.5,1.):
+                c=build_ten_gap_course(level,1,scale)
+                self.assertEqual(c['planned_gap_count'],10)
+                self.assertEqual([g['arrival_surface_index'] for g in c['gap_locations']],list(range(4,41,4)))
+                assert_script_contacts_unoccluded(c,scripted_pair_targets(c,xy))
+                for g in c['gap_locations']:
+                    i=g['arrival_surface_index'];a,b=c['surfaces'][i-1:i+1];direction=g['direction_xy']
+                    corners=[]
+                    for s in (a,b):
+                        corners.append([sum(direction[k]*world_point(s,[x*s['size_m'][0]/2,y*s['size_m'][1]/2,0])[k] for k in (0,1)) for x in (-1,1) for y in (-1,1)])
+                    self.assertAlmostEqual(min(corners[1])-max(corners[0]),g['projected_top_gap_m'],places=10)
     def test_medium_preparation_is_explicit_and_generated(self):
         from parkour.shared_terrain import build_long_shared_course,scripted_pair_targets,assert_script_contacts_unoccluded
         full=build_long_shared_course('medium',1);easy=build_long_shared_course('easy',1)

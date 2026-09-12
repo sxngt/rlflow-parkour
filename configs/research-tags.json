@@ -100,7 +100,9 @@
     "purpose:endurance": "연속 이동 시간 검증",
     "step:p3-32-medium-preparation": "P3-32 · 쉬움–중급 보간 지형 검증",
     "step:p3-33-dynamic-long-medium": "P3-33 · 중급 장거리·연속 비행 도약",
-    "purpose:dynamic-endurance": "동적 움직임·장거리 연속 수행"
+    "purpose:dynamic-endurance": "동적 움직임·장거리 연속 수행",
+    "step:p3-34-ten-gap-course": "P3-34 · 접근 구간과 10개 실제 갭",
+    "condition:gap-scale-0p75": "갭 폭 75% 준비 조건"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [

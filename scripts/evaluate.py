@@ -49,7 +49,7 @@ def main():
     p.add_argument('--video-camera-mode',choices=['parallel','follow'])
     p.add_argument('--shared-course-level',choices=['easy','medium','hard'])
     p.add_argument('--shared-course-seed',type=int,default=101)
-    p.add_argument('--shared-course-transfers',type=int,default=10,choices=range(10,41))
+    p.add_argument('--shared-course-transfers',type=int,choices=range(10,41))
     p.add_argument('--support-mode', choices=['flat', 'continuous', 'split', 'deck', 'course', 'full-gap'])
     p.add_argument('--support-matched-material', action='store_true')
     p.add_argument('--independent-support-clones', action='store_true', help='P2-38 all-deck scene construction validation only')
@@ -142,7 +142,7 @@ def main():
             p.error('Shared-course evaluation override requires continuous Tracker')
         from parkour.shared_evaluation import override_course
         support=override_course(support,args.shared_course_level,args.shared_course_seed,args.shared_course_transfers)
-    elif args.shared_course_transfers!=10:
+    elif args.shared_course_transfers is not None:
         p.error('Explicit --shared-course-level required for a length override')
     if args.shared_course_level is not None:
         config['research_tags']=[t for t in config.get('research_tags',[]) if not t.startswith('difficulty:')]+['difficulty:'+args.shared_course_level]
@@ -466,6 +466,8 @@ def main():
                 required_final_index=len(support['layout']['surfaces'])-1,
                 evaluation_scope='Frozen thesis velocity policy; does not consume scripted foothold targets' if teacher is not None else 'Scripted contact buffer; not autonomous map planning')
             report['pair_contact_quorum']=env.cfg.pair_contact_quorum
+            report['planned_gap_count']=support['layout'].get('planned_gap_count')
+            report['planned_gap_widths_m']=[g['projected_top_gap_m'] for g in support['layout'].get('gap_locations',[])]
             report['initial_rear_target']=env.cfg.initial_rear_target
             report['contact_body_names']=env.contacts.body_names
             report['evaluation_contact_radius_m']=env.cfg.success_radius_m

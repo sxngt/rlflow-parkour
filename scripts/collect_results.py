@@ -55,6 +55,10 @@ def collect(evaluation, result_root=ROOT / 'result'):
             task_title += '_안전접촉영역' if report.get('contact_target_mode')=='surface_region' else '_점반경6cm'
             if 'preparation_fraction' in layout:
                 task_title += f'_중급준비{layout["preparation_fraction"]*100:g}퍼센트'
+            if layout.get('planned_gap_count'):
+                task_title += f'_{layout["planned_gap_count"]}개갭구간'
+                if layout.get('gap_scale',1.)!=1.:
+                    task_title += f'_갭폭{layout["gap_scale"]*100:g}퍼센트'
         if support.get('matched_material'):
             task_title += '_기본재질·구간별마찰설정' if support.get('surface_material_overrides') else '_동일물리재질'
     if run.get('chain_contract',{}).get('progress_criterion')=='mapped_contact_v1':
