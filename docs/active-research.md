@@ -695,3 +695,12 @@ primary24行/regression12行の4種報告生成session83437exit0。GPUcomputeプ
 monitor collector/API에evaluation_summary.load_report 적용,scenarios파일수정도색인변경감지. 최초서비스재시작후P205구버전distance_requirement_met누락경고발견,구버전계약원래집계유지로수정. unit3+monitor통합7통과. 재시작session6218exit0,실제8회귀API목록/상세네거리일치+health오류없음 artifacts/p2-29-monitor-summary-validation.json. 원본불변.
 
 다음P230: 15cm전용추가학습 대비0cm/15cm 명시적이산혼합목표(갭중간목표금지)로능력유지 비교설계. split훈련출신checkpoint fork허용경계와RNG/새optimizer규약,각목표의split발판역할(0cm departure/15cm landing) 평가진단지원 검토가필요. 아직프로토콜/코드/학습미착수. 연속도약으로확장하기전반복가능한거리명령제어를고정. 전체목표미완료.
+
+
+### 최신: P2-30 프로토콜 및 이산 목표 샘플링 구현
+
+이전턴 실패단계진단/모니터링집계수정은progress. docs/p2-30-protocol.md 확정: 부모P229split4개,동일split지형15cm전용vsreset별균등0/15cm혼합,각800×1024×24 신규총157286400step. 부모policy/critic/normalizer계승·새optimizer/LR/RNG. 기본native평가는0/15×32,continuous혼합회귀및split15×64보존평가. 부모split혼합군은새평가필요. 본학습미착수.
+
+src/parkour/jump_sampling.py target_ranges/sample_distances 및 DirectedJumpEnv 리셋연결,terrain_contract이산목표별가용성검사. train_forward_choices_m은range/curriculum과동시지정금지. configs/p2-30-fixed.json/mixed.json 작성,혼합은range키제거/choices[0,.15]. 기존연속rand호출값/RNG소비동일테스트,지정값외출력없음/RNG복구/균등샘플/갭목표·중복·nan거절 포함72tests통과(session47878exit0),artifacts/p2-30-sampling-tests.log. torch는sampler함수내import로CPU관리경로의불필요의존성방지.
+
+다음필수: policy_fork의split부모및choices허용변경규약추가(기존strictresume유지),train목표별reset/관측량계상·metric기록(현재active_distance None만으로는혼합기록불충분),support보고서0cm departure/15cm landing 선택,영상제목의이산목표표기,양조건축소학습/평가/재개검증. 아직본학습시작금지(미검증기능남음). 이후8run밸런스순서배치. 전체목표미완료.

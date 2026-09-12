@@ -2,6 +2,7 @@
 import copy
 import math
 from parkour.support_geometry import build_support_layout
+from parkour.jump_sampling import target_ranges
 
 
 def training_support(config):
@@ -32,7 +33,7 @@ def training_support(config):
         if margin != .02:
             raise ValueError('Finite foot supports require measured 2cm projection')
         jump = config['jump']
-        ranges = [[0., 0.], jump['train_forward_range_m']]
+        ranges = [[0., 0.]] + target_ranges(jump)
         ranges += [s['forward_range_m'] for s in jump.get('distance_curriculum', [])]
         ranges += [[d, d] for d in jump['evaluation_forward_m']]
         for limits in ranges:

@@ -1,5 +1,6 @@
 """Flat forward jump with a fixed launch region and measured airborne travel."""
 import torch
+from parkour.jump_sampling import sample_distances
 from parkour.precision_jump_task import PrecisionJumpEnv
 from parkour.flight_travel import FlightTravel,TravelLandingReward
 
@@ -20,8 +21,7 @@ class DirectedJumpEnv(PrecisionJumpEnv):
         super()._reset_idx(env_ids)
         self.travel.reset(env_ids);self.precise_stabilized[env_ids]=False
         self.travel_reward.reset(env_ids)
-        low,high=self.jump['train_forward_range_m']
-        distance=low+(high-low)*torch.rand(len(env_ids),device=self.device,generator=self.generator)
+        distance=sample_distances(self.jump,len(env_ids),self.device,self.generator)
         offsets=torch.zeros(len(env_ids),4,2,device=self.device);offsets[:,:,0]=distance[:,None]
         self.set_sequence_offsets(offsets,env_ids)
     def on_first_physics_contact(self,new):
