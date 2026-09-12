@@ -51,7 +51,7 @@ def collect(evaluation, result_root=ROOT / 'result'):
         task_title = label + ('_목표전이15cm_고정정책' if support.get('goal_forward_m') == .15 else '_목표거리별평가')
         if support['mode']=='shared-course':
             layout=support['layout'];level={'easy':'쉬움','medium':'중간','hard':'어려움'}.get(layout.get('level'),'개발')
-            task_title=f"{level}_{len(layout['surfaces'])-1}구간_경사·회전_스크립트목표_자율계획아님
+            task_title=f"{level}_{len(layout['surfaces'])-1}구간_경사·회전_스크립트목표_자율계획아님"
         if support.get('matched_material'):
             task_title += '_기본재질·구간별마찰설정' if support.get('surface_material_overrides') else '_동일물리재질'
     if run.get('chain_contract',{}).get('progress_criterion')=='mapped_contact_v1':
