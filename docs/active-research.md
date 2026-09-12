@@ -523,3 +523,10 @@ seed2 PID1522215는여전히Starting simulation/metrics없음,기존1800초감�
 직전801검증턴은progress. 이번턴실제4PID재확인후 docs/p2-27-initialization-incident.md 및 artifacts/p2-27-resource-snapshot.json 작성. 약789초 관측시점seed2기록학습step0/할당GPU시간하한.2193h/CPU11840초. 다른세seed918/935/924update. GPU프로세스존재와실제GPU연산시간을구분하고초기화정체의원인을확정하지않았다.
 
 기존1800초감독제한유지,종료후원본실패/로그/자원계상보존+같은seed설정새attempt최대1회검토라는제한적복구절차문서화. 아직재시도없고PID1522215살아있음. 다음1201전환검증및1600평가,seed2동일PID/감독자상태추적. 초기화실패의재시도는0학습step인프라복구이며성능이낮은seed교체와구분. 전체목표미완료.
+
+
+### 최신: P2-27 세 seed의1201전환 검증
+
+직전정체자원계상턴은progress. 이번턴실제4PID확인/verified wait후seed0/1/3의1201전환검증:거리0–15cm/반경3cm/cap.05/reset_all=true,실제std min/max.05. 모든loss유한,checkpoint900/1000/1100/1200해시정상. 최신 [{"seed": 0, "pid": 1522303, "iteration": 1240, "transition1201_verified": true, "checkpoint1200_hash_ok": true}, {"seed": 1, "pid": 1522214, "iteration": 1257, "transition1201_verified": true, "checkpoint1200_hash_ok": true}, {"seed": 3, "pid": 1522200, "iteration": 1240, "transition1201_verified": true, "checkpoint1200_hash_ok": true}, {"seed": 2, "pid": 1522215, "live": true, "iteration": null, "elapsed_s": 1049.9855904579163}].
+
+seed2 PID1522215는여전히초기화정체,기존1800초감독제한유지. 다음3seed1600및자동평가종료감사. seed2가완료안되면전체비교를완료로표현하지않고각완료artifact는분석가능. 교차평가전체배치는현재4seed완료게이트유지. supervisor실제timeout종료후원본/자원해제확인하고동일seed새attempt1회복구검토. 아직재시도없음,전체목표미완료.
