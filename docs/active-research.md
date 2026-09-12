@@ -967,3 +967,9 @@ scripts/p2_34_evaluate.py 추가24평가 시작session5859,log artifacts/p2-34-e
 이전 사용자 모니터링 요청은 배포/검증을 완료한 progress. 이번 연구 재개에서 docs/p2-34-comparison 생성 성공 로그를 실제 확인했다. 8학습/32평가/16짝 시나리오 일치와 총157286400step 감사 완료. scripts/p2_34_archive_audit.py 실제 실행 session8952 exit0:32영상 hash/태그/64render/camera4 및 chain-events 원본/보관 일치,8개2hop진단 저장 artifacts/p2-34-archive-diagnosis.json. docs/p2-34-findings.md 결과 해석. 두 조건 모두 chain 성공 seed순0/64/0/0, 연속학습우위없음. chain0첫도약travel/finalfoot실패,chain2finalfoot실패;단일0/2두번째launch영역실패. continuous회귀크므로champion승격없음.
 
 P2-35 사전명세 docs/p2-35-protocol.md, scripts/p2_35_evaluate.py 작성/dry-run후 commit475dd61. chain4seed cp200/400/600 ×2suite(chain64,continuous0/5/10/15각16)=24새평가,추가학습0. cp800결과재사용하며기존P234판정대체안함. phase:P2/step:p2-35-chain-retention-timeline/각checkpoint태그,64render camera4. batch session24317 실제실행중 PID1846918;첫평가 실제Isaac Python1846968/1846969/1846976 및 seed1worker실행확인. log artifacts/p2-35-evaluation-batch.log. 다음동일session/PID상태확인,24평가완료뒤checkpoint시간경과보고서 구현/paired시나리오/진단/result검증. 중간모델선택편향없이모든seed/고정시점보고. 현재4GPU외부작업없고시작전메모리16~35MiB,저장528GB남음. 전체연구목표미완료,동일실행재시작금지.
+
+### 최신: P2-35 전체 완료 및 시간 경과 감사
+
+직전P234검증/P235실행은progress. 동일batch PID1846918 실제생존/동일session24317만추적,45/45/30초verifiedwait 후exit0 및4seedexit0확인. 모든24새평가완료. scripts/p2_35_report.py추가(commit9b196c4),미완료400실행에서보고서생성거부확인 artifacts/p2-35-incomplete-report-check.log. 최종session96683exit0:전체32(chain4seed×4시점×2suite)checkpoint/시나리오/200Hzchaintrace/영상/chain-events hash/태그/64camera4감사passed artifacts/p2-35-timeline-build.log. docs/p2-35-timeline.json/md 및findings 작성.
+
+핵심:seed0 cp400 chain64/64+continuous63/64였으나cp800모두0. seed1cp600chain62,cp80064지만회귀16/64. seed2cp200첫도약64이후소실,모든시점코스0;seed3전부0. 고정endpointP234미승격판단유지. 학습능력획득후소실증거이며optimizer/탐험/분포단일원인증명아님. 다음사전명세대상:부모4seed 동일예산의chain-only 대 현재정책으로기존단일과제도함께수집하는혼합학습. 구현/예산/정규화/done계약검증필요,아직착수안함. 현재실행학습/평가batch없음. 모든연구목표미완료.

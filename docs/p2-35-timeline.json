@@ -1,0 +1,1353 @@
+{
+  "new_training_steps": 0,
+  "new_evaluation_episodes": 1536,
+  "reused_evaluation_episodes": 512,
+  "new_evaluation_worker_seconds": 859.7532646656036,
+  "scope": "fixed development timeline; no replacement of P2-34 final endpoint; seeds are independent units",
+  "results": [
+    {
+      "seed": 0,
+      "update": 200,
+      "suite": "chain",
+      "evaluation": "artifacts/p2-35-chain-seed0-update0200-chain",
+      "reused": false,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 64,
+          "travel_met": 0,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 0,
+        "launch_in_region": 0,
+        "travel_requirement_met": 64,
+        "first_touch_all_within": 0,
+        "final_all_feet_in_radius": 0,
+        "stabilized_once": 0
+      },
+      "worker_wall_seconds": 42.52184176445007,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-0__updates-000200__p2-35-chain-seed0-update0200-chain/manifest.json"
+    },
+    {
+      "seed": 0,
+      "update": 200,
+      "suite": "regression",
+      "evaluation": "artifacts/p2-35-chain-seed0-update0200-regression",
+      "reused": false,
+      "successes": 32,
+      "episodes": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 0,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "first_hop_successes": 32,
+      "terminal_gate_false_counts": {
+        "valid_flight": 0,
+        "launch_in_region": 0,
+        "travel_requirement_met": 16,
+        "first_touch_all_within": 16,
+        "final_all_feet_in_radius": 0,
+        "stabilized_once": 0
+      },
+      "worker_wall_seconds": 37.99803447723389,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-0__updates-000200__p2-35-chain-seed0-update0200-regression/manifest.json"
+    },
+    {
+      "seed": 0,
+      "update": 400,
+      "suite": "chain",
+      "evaluation": "artifacts/p2-35-chain-seed0-update0400-chain",
+      "reused": false,
+      "successes": 64,
+      "episodes": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 64,
+          "launches_in_region": 64,
+          "travel_met": 64,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "first_hop_successes": 64,
+      "terminal_gate_false_counts": {
+        "valid_flight": 0,
+        "launch_in_region": 0,
+        "travel_requirement_met": 0,
+        "first_touch_all_within": 0,
+        "final_all_feet_in_radius": 0,
+        "stabilized_once": 0
+      },
+      "worker_wall_seconds": 33.87960076332092,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-0__updates-000400__p2-35-chain-seed0-update0400-chain/manifest.json"
+    },
+    {
+      "seed": 0,
+      "update": 400,
+      "suite": "regression",
+      "evaluation": "artifacts/p2-35-chain-seed0-update0400-regression",
+      "reused": false,
+      "successes": 63,
+      "episodes": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 15,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 15
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "first_hop_successes": 63,
+      "terminal_gate_false_counts": {
+        "valid_flight": 0,
+        "launch_in_region": 0,
+        "travel_requirement_met": 0,
+        "first_touch_all_within": 0,
+        "final_all_feet_in_radius": 1,
+        "stabilized_once": 1
+      },
+      "worker_wall_seconds": 35.873046875,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-0__updates-000400__p2-35-chain-seed0-update0400-regression/manifest.json"
+    },
+    {
+      "seed": 0,
+      "update": 600,
+      "suite": "chain",
+      "evaluation": "artifacts/p2-35-chain-seed0-update0600-chain",
+      "reused": false,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 64,
+          "travel_met": 0,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 0,
+        "launch_in_region": 0,
+        "travel_requirement_met": 64,
+        "first_touch_all_within": 0,
+        "final_all_feet_in_radius": 0,
+        "stabilized_once": 0
+      },
+      "worker_wall_seconds": 36.2115523815155,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-0__updates-000600__p2-35-chain-seed0-update0600-chain/manifest.json"
+    },
+    {
+      "seed": 0,
+      "update": 600,
+      "suite": "regression",
+      "evaluation": "artifacts/p2-35-chain-seed0-update0600-regression",
+      "reused": false,
+      "successes": 48,
+      "episodes": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "first_hop_successes": 48,
+      "terminal_gate_false_counts": {
+        "valid_flight": 0,
+        "launch_in_region": 0,
+        "travel_requirement_met": 16,
+        "first_touch_all_within": 0,
+        "final_all_feet_in_radius": 0,
+        "stabilized_once": 0
+      },
+      "worker_wall_seconds": 33.79584264755249,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-0__updates-000600__p2-35-chain-seed0-update0600-regression/manifest.json"
+    },
+    {
+      "seed": 0,
+      "update": 800,
+      "suite": "chain",
+      "evaluation": "artifacts/p2-34-chain-seed0__final-evaluation",
+      "reused": true,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 64,
+          "travel_met": 0,
+          "first_touch_precise": 64,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 0,
+        "launch_in_region": 0,
+        "travel_requirement_met": 64,
+        "first_touch_all_within": 0,
+        "final_all_feet_in_radius": 64,
+        "stabilized_once": 64
+      },
+      "worker_wall_seconds": 33.817599058151245,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-0__updates-000800__p2-34-chain-seed0__final-evaluation/manifest.json"
+    },
+    {
+      "seed": 0,
+      "update": 800,
+      "suite": "regression",
+      "evaluation": "artifacts/p2-34-chain-seed0-regression",
+      "reused": true,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 0,
+        "launch_in_region": 16,
+        "travel_requirement_met": 32,
+        "first_touch_all_within": 16,
+        "final_all_feet_in_radius": 64,
+        "stabilized_once": 64
+      },
+      "worker_wall_seconds": 36.058002948760986,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-0__updates-000800__p2-34-chain-seed0-regression/manifest.json"
+    },
+    {
+      "seed": 1,
+      "update": 200,
+      "suite": "chain",
+      "evaluation": "artifacts/p2-35-chain-seed1-update0200-chain",
+      "reused": false,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 64,
+      "terminal_gate_false_counts": {
+        "valid_flight": 0,
+        "launch_in_region": 64,
+        "travel_requirement_met": 64,
+        "first_touch_all_within": 64,
+        "final_all_feet_in_radius": 64,
+        "stabilized_once": 64
+      },
+      "worker_wall_seconds": 34.41183423995972,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-1__updates-000200__p2-35-chain-seed1-update0200-chain/manifest.json"
+    },
+    {
+      "seed": 1,
+      "update": 200,
+      "suite": "regression",
+      "evaluation": "artifacts/p2-35-chain-seed1-update0200-regression",
+      "reused": false,
+      "successes": 24,
+      "episodes": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 8,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 8
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 10,
+          "travel_met": 0,
+          "first_touch_precise": 4,
+          "stabilized": 10
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 24,
+      "terminal_gate_false_counts": {
+        "valid_flight": 22,
+        "launch_in_region": 22,
+        "travel_requirement_met": 32,
+        "first_touch_all_within": 28,
+        "final_all_feet_in_radius": 22,
+        "stabilized_once": 30
+      },
+      "worker_wall_seconds": 36.17442512512207,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-1__updates-000200__p2-35-chain-seed1-update0200-regression/manifest.json"
+    },
+    {
+      "seed": 1,
+      "update": 400,
+      "suite": "chain",
+      "evaluation": "artifacts/p2-35-chain-seed1-update0400-chain",
+      "reused": false,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 64,
+          "travel_met": 64,
+          "first_touch_precise": 64,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 0,
+        "launch_in_region": 0,
+        "travel_requirement_met": 0,
+        "first_touch_all_within": 0,
+        "final_all_feet_in_radius": 64,
+        "stabilized_once": 64
+      },
+      "worker_wall_seconds": 35.893141984939575,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-1__updates-000400__p2-35-chain-seed1-update0400-chain/manifest.json"
+    },
+    {
+      "seed": 1,
+      "update": 400,
+      "suite": "regression",
+      "evaluation": "artifacts/p2-35-chain-seed1-update0400-regression",
+      "reused": false,
+      "successes": 16,
+      "episodes": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 1,
+          "travel_met": 1,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 16,
+      "terminal_gate_false_counts": {
+        "valid_flight": 32,
+        "launch_in_region": 47,
+        "travel_requirement_met": 47,
+        "first_touch_all_within": 48,
+        "final_all_feet_in_radius": 48,
+        "stabilized_once": 48
+      },
+      "worker_wall_seconds": 25.65210223197937,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-1__updates-000400__p2-35-chain-seed1-update0400-regression/manifest.json"
+    },
+    {
+      "seed": 1,
+      "update": 600,
+      "suite": "chain",
+      "evaluation": "artifacts/p2-35-chain-seed1-update0600-chain",
+      "reused": false,
+      "successes": 62,
+      "episodes": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 62,
+          "launches_in_region": 63,
+          "travel_met": 63,
+          "first_touch_precise": 63,
+          "stabilized": 62
+        }
+      },
+      "first_hop_successes": 64,
+      "terminal_gate_false_counts": {
+        "valid_flight": 0,
+        "launch_in_region": 1,
+        "travel_requirement_met": 1,
+        "first_touch_all_within": 1,
+        "final_all_feet_in_radius": 2,
+        "stabilized_once": 2
+      },
+      "worker_wall_seconds": 37.958675146102905,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-1__updates-000600__p2-35-chain-seed1-update0600-chain/manifest.json"
+    },
+    {
+      "seed": 1,
+      "update": 600,
+      "suite": "regression",
+      "evaluation": "artifacts/p2-35-chain-seed1-update0600-regression",
+      "reused": false,
+      "successes": 16,
+      "episodes": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 16,
+      "terminal_gate_false_counts": {
+        "valid_flight": 32,
+        "launch_in_region": 48,
+        "travel_requirement_met": 48,
+        "first_touch_all_within": 48,
+        "final_all_feet_in_radius": 48,
+        "stabilized_once": 48
+      },
+      "worker_wall_seconds": 26.281686544418335,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-1__updates-000600__p2-35-chain-seed1-update0600-regression/manifest.json"
+    },
+    {
+      "seed": 1,
+      "update": 800,
+      "suite": "chain",
+      "evaluation": "artifacts/p2-34-chain-seed1__final-evaluation",
+      "reused": true,
+      "successes": 64,
+      "episodes": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 64,
+          "launches_in_region": 64,
+          "travel_met": 64,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "first_hop_successes": 64,
+      "terminal_gate_false_counts": {
+        "valid_flight": 0,
+        "launch_in_region": 0,
+        "travel_requirement_met": 0,
+        "first_touch_all_within": 0,
+        "final_all_feet_in_radius": 0,
+        "stabilized_once": 0
+      },
+      "worker_wall_seconds": 29.692016124725342,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p2-34-chain-seed1__final-evaluation/manifest.json"
+    },
+    {
+      "seed": 1,
+      "update": 800,
+      "suite": "regression",
+      "evaluation": "artifacts/p2-34-chain-seed1-regression",
+      "reused": true,
+      "successes": 16,
+      "episodes": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 16,
+      "terminal_gate_false_counts": {
+        "valid_flight": 32,
+        "launch_in_region": 48,
+        "travel_requirement_met": 48,
+        "first_touch_all_within": 48,
+        "final_all_feet_in_radius": 48,
+        "stabilized_once": 48
+      },
+      "worker_wall_seconds": 25.954832315444946,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p2-34-chain-seed1-regression/manifest.json"
+    },
+    {
+      "seed": 2,
+      "update": 200,
+      "suite": "chain",
+      "evaluation": "artifacts/p2-35-chain-seed2-update0200-chain",
+      "reused": false,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 22,
+          "travel_met": 0,
+          "first_touch_precise": 22,
+          "stabilized": 22
+        }
+      },
+      "first_hop_successes": 64,
+      "terminal_gate_false_counts": {
+        "valid_flight": 0,
+        "launch_in_region": 42,
+        "travel_requirement_met": 64,
+        "first_touch_all_within": 42,
+        "final_all_feet_in_radius": 42,
+        "stabilized_once": 42
+      },
+      "worker_wall_seconds": 44.60253977775574,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000200__p2-35-chain-seed2-update0200-chain/manifest.json"
+    },
+    {
+      "seed": 2,
+      "update": 200,
+      "suite": "regression",
+      "evaluation": "artifacts/p2-35-chain-seed2-update0200-regression",
+      "reused": false,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 48,
+        "launch_in_region": 64,
+        "travel_requirement_met": 64,
+        "first_touch_all_within": 64,
+        "final_all_feet_in_radius": 48,
+        "stabilized_once": 64
+      },
+      "worker_wall_seconds": 30.142714023590088,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000200__p2-35-chain-seed2-update0200-regression/manifest.json"
+    },
+    {
+      "seed": 2,
+      "update": 400,
+      "suite": "chain",
+      "evaluation": "artifacts/p2-35-chain-seed2-update0400-chain",
+      "reused": false,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 64,
+          "travel_met": 64,
+          "first_touch_precise": 64,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 0,
+        "launch_in_region": 0,
+        "travel_requirement_met": 0,
+        "first_touch_all_within": 0,
+        "final_all_feet_in_radius": 64,
+        "stabilized_once": 64
+      },
+      "worker_wall_seconds": 38.06199908256531,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000400__p2-35-chain-seed2-update0400-chain/manifest.json"
+    },
+    {
+      "seed": 2,
+      "update": 400,
+      "suite": "regression",
+      "evaluation": "artifacts/p2-35-chain-seed2-update0400-regression",
+      "reused": false,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 14,
+          "travel_met": 14,
+          "first_touch_precise": 10,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 1,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 28,
+        "launch_in_region": 33,
+        "travel_requirement_met": 34,
+        "first_touch_all_within": 38,
+        "final_all_feet_in_radius": 64,
+        "stabilized_once": 64
+      },
+      "worker_wall_seconds": 36.39926362037659,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000400__p2-35-chain-seed2-update0400-regression/manifest.json"
+    },
+    {
+      "seed": 2,
+      "update": 600,
+      "suite": "chain",
+      "evaluation": "artifacts/p2-35-chain-seed2-update0600-chain",
+      "reused": false,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 64,
+          "travel_met": 64,
+          "first_touch_precise": 64,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 0,
+        "launch_in_region": 0,
+        "travel_requirement_met": 0,
+        "first_touch_all_within": 0,
+        "final_all_feet_in_radius": 64,
+        "stabilized_once": 64
+      },
+      "worker_wall_seconds": 34.287981271743774,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000600__p2-35-chain-seed2-update0600-chain/manifest.json"
+    },
+    {
+      "seed": 2,
+      "update": 600,
+      "suite": "regression",
+      "evaluation": "artifacts/p2-35-chain-seed2-update0600-regression",
+      "reused": false,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 0,
+        "launch_in_region": 0,
+        "travel_requirement_met": 0,
+        "first_touch_all_within": 0,
+        "final_all_feet_in_radius": 64,
+        "stabilized_once": 64
+      },
+      "worker_wall_seconds": 34.158596992492676,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000600__p2-35-chain-seed2-update0600-regression/manifest.json"
+    },
+    {
+      "seed": 2,
+      "update": 800,
+      "suite": "chain",
+      "evaluation": "artifacts/p2-34-chain-seed2__final-evaluation",
+      "reused": true,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 64,
+          "travel_met": 64,
+          "first_touch_precise": 64,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 0,
+        "launch_in_region": 0,
+        "travel_requirement_met": 0,
+        "first_touch_all_within": 0,
+        "final_all_feet_in_radius": 64,
+        "stabilized_once": 64
+      },
+      "worker_wall_seconds": 38.21800637245178,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p2-34-chain-seed2__final-evaluation/manifest.json"
+    },
+    {
+      "seed": 2,
+      "update": 800,
+      "suite": "regression",
+      "evaluation": "artifacts/p2-34-chain-seed2-regression",
+      "reused": true,
+      "successes": 17,
+      "episodes": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 1,
+          "launches_in_region": 1,
+          "travel_met": 1,
+          "first_touch_precise": 1,
+          "stabilized": 1
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 17,
+      "terminal_gate_false_counts": {
+        "valid_flight": 15,
+        "launch_in_region": 15,
+        "travel_requirement_met": 15,
+        "first_touch_all_within": 15,
+        "final_all_feet_in_radius": 47,
+        "stabilized_once": 47
+      },
+      "worker_wall_seconds": 38.27486968040466,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p2-34-chain-seed2-regression/manifest.json"
+    },
+    {
+      "seed": 3,
+      "update": 200,
+      "suite": "chain",
+      "evaluation": "artifacts/p2-35-chain-seed3-update0200-chain",
+      "reused": false,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 64,
+        "launch_in_region": 64,
+        "travel_requirement_met": 64,
+        "first_touch_all_within": 64,
+        "final_all_feet_in_radius": 64,
+        "stabilized_once": 64
+      },
+      "worker_wall_seconds": 42.5832257270813,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-3__updates-000200__p2-35-chain-seed3-update0200-chain/manifest.json"
+    },
+    {
+      "seed": 3,
+      "update": 200,
+      "suite": "regression",
+      "evaluation": "artifacts/p2-35-chain-seed3-update0200-regression",
+      "reused": false,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 64,
+        "launch_in_region": 64,
+        "travel_requirement_met": 64,
+        "first_touch_all_within": 64,
+        "final_all_feet_in_radius": 32,
+        "stabilized_once": 64
+      },
+      "worker_wall_seconds": 38.405818462371826,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-3__updates-000200__p2-35-chain-seed3-update0200-regression/manifest.json"
+    },
+    {
+      "seed": 3,
+      "update": 400,
+      "suite": "chain",
+      "evaluation": "artifacts/p2-35-chain-seed3-update0400-chain",
+      "reused": false,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 64,
+        "launch_in_region": 64,
+        "travel_requirement_met": 64,
+        "first_touch_all_within": 64,
+        "final_all_feet_in_radius": 64,
+        "stabilized_once": 64
+      },
+      "worker_wall_seconds": 38.122278690338135,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-3__updates-000400__p2-35-chain-seed3-update0400-chain/manifest.json"
+    },
+    {
+      "seed": 3,
+      "update": 400,
+      "suite": "regression",
+      "evaluation": "artifacts/p2-35-chain-seed3-update0400-regression",
+      "reused": false,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 64,
+        "launch_in_region": 64,
+        "travel_requirement_met": 64,
+        "first_touch_all_within": 64,
+        "final_all_feet_in_radius": 32,
+        "stabilized_once": 64
+      },
+      "worker_wall_seconds": 36.11789679527283,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-3__updates-000400__p2-35-chain-seed3-update0400-regression/manifest.json"
+    },
+    {
+      "seed": 3,
+      "update": 600,
+      "suite": "chain",
+      "evaluation": "artifacts/p2-35-chain-seed3-update0600-chain",
+      "reused": false,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 64,
+        "launch_in_region": 64,
+        "travel_requirement_met": 64,
+        "first_touch_all_within": 64,
+        "final_all_feet_in_radius": 64,
+        "stabilized_once": 64
+      },
+      "worker_wall_seconds": 35.96221446990967,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-3__updates-000600__p2-35-chain-seed3-update0600-chain/manifest.json"
+    },
+    {
+      "seed": 3,
+      "update": 600,
+      "suite": "regression",
+      "evaluation": "artifacts/p2-35-chain-seed3-update0600-regression",
+      "reused": false,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 64,
+        "launch_in_region": 64,
+        "travel_requirement_met": 64,
+        "first_touch_all_within": 64,
+        "final_all_feet_in_radius": 51,
+        "stabilized_once": 64
+      },
+      "worker_wall_seconds": 34.256951570510864,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-3__updates-000600__p2-35-chain-seed3-update0600-regression/manifest.json"
+    },
+    {
+      "seed": 3,
+      "update": 800,
+      "suite": "chain",
+      "evaluation": "artifacts/p2-34-chain-seed3__final-evaluation",
+      "reused": true,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 64,
+        "launch_in_region": 64,
+        "travel_requirement_met": 64,
+        "first_touch_all_within": 64,
+        "final_all_feet_in_radius": 64,
+        "stabilized_once": 64
+      },
+      "worker_wall_seconds": 33.84741497039795,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-3__updates-000800__p2-34-chain-seed3__final-evaluation/manifest.json"
+    },
+    {
+      "seed": 3,
+      "update": 800,
+      "suite": "regression",
+      "evaluation": "artifacts/p2-34-chain-seed3-regression",
+      "reused": true,
+      "successes": 0,
+      "episodes": 64,
+      "by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "first_hop_successes": 0,
+      "terminal_gate_false_counts": {
+        "valid_flight": 64,
+        "launch_in_region": 64,
+        "travel_requirement_met": 64,
+        "first_touch_all_within": 64,
+        "final_all_feet_in_radius": 64,
+        "stabilized_once": 64
+      },
+      "worker_wall_seconds": 38.07641911506653,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-3__updates-000800__p2-34-chain-seed3-regression/manifest.json"
+    }
+  ]
+}
