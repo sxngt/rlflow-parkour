@@ -559,3 +559,10 @@ full configs/reports/p2-27.json seed2 run을retry1로명시갱신(infrastructure
 실제프로세스단위3회귀검증+전체61unit통과. synthetic worker 실제run_job timeout session57819는의도대로exit1/FAILED이며,supervisor SIGTERM/SIGKILL/그룹잔존0/resource_released=true 확인. artifacts/cleanup-timeout-regression.* 및 docs/worker-cleanup-regression.md. GPUcompute없는합성검증이므로Isaac GPU해제시험으로과장금지. 다른세션프로세스보존확인.
 
 다음seed2 retry401/801/1201/1600관측,기본평가/cross --seeds2(다른3seed이미완료),full16행4보고서/전체감사. originalbatch39983터미널상태필요시확인. 새batch40871 계속유지,추가재시도없음. 전체목표미완료.
+
+
+### 최신: P2-27 seed2 retry 첫401전환 검증
+
+직전worker cleanup수정턴progress. 이번턴실제PID1556210확인/verified wait후401전환(거리0–10cm/반경6cm/cap.35/reset_all=true) 및checkpoint100/200/300/400해시·유한loss검증. 최신427update. scripts/p2_27_stage_report.py재생성하여retry1의첫400구간포함,네학습seed완료구간모두확보. seed2 retry 첫400:98154episodes/성공0/실패73263/유효비행52499/재접촉50359. 고정평가성과로해석금지.
+
+기존batch39983터미널핸들조회,새batch40871/PID1556210는계속실행. 다음801/1201/1600+최종평가/cross --seeds2,full4보고서와전체artifact감사. 원본FAILED/cleanup/recovery계보유지. 전체목표미완료.

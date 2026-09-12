@@ -80,11 +80,17 @@
       }
     },
     {
-      "run": "p2-27-continuous-seed2",
+      "run": "p2-27-continuous-seed2-retry1",
       "seed": 2,
-      "complete": false,
-      "observed_updates": 0,
-      "totals": null
+      "complete": true,
+      "observed_updates": 400,
+      "totals": {
+        "episodes": 98154,
+        "successes": 0,
+        "failures": 73263,
+        "valid_flights": 52499,
+        "landed_episodes": 50359
+      }
     },
     {
       "run": "p2-27-continuous-seed3",
