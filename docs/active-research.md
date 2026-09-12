@@ -1077,3 +1077,11 @@ scripts/p2_38_pilot_evaluate.py(commit a730885) 두조건×chain/regression4작�
 scripts/p2_38_train.py 구현:8개학습800×1024×24,짝수deck→continuous/홀수반대,원P231부모전체4새fork,physicsprobe/scene/smoke/resume/profile/고정모델생성비교감사게이트,중복방지. scripts/collect_results.py title에학습지지면assignment/독립생성검증표시추가(파일명길이유지). commit478eda9. 현재batchsession29971/log artifacts/p2-38-training-batch.log실행중. 실제Isaac첫묶음PID1898154(deck0)/1898155(continuous1)/1898164(deck2)/1898156(continuous3)확인. 시작전GPU유휴/저장526GB. 아직첫묶음初期化단계,새학습초기checkpoint복사감사다음필요.
 
 다음:동일4worker상태/업데이트확인→초기복사검증→본학습/native첫묶음완료및둘째묶음자동시작확인. 후속평가행렬scripts아직없음:8모델×4suite=32참조(nativechain8재사용/새24),deck단일0/5/10/15각16(이전deck15のみ와다름),continuous同距離,split15×64. 모든model/同scenario/환경geometry/학습예산157286400/動画32検証필요. 본학습中設定변경금지/전체목표미완료.
+
+### 최신: P2-38 첫묶음 초기화 감사 / 후속32평가 명세
+
+이전본학습시작은progress. 실제같은PID1898154/1898155/1898164/1898156확인,현재deck0/2각94update,continuous1/3각64/62update. session5997exit0:初期복사4모두passed artifacts/p2-38-first-wave-initialization-audit.jsonl(검사시50~82update,완료성능감사아님).
+
+scripts/p2_38_evaluate.py(commitb11d06a) 추가:8모델×chain/deck-regression/continuousregression/split15=32참조,nativechain8재사용/새24. 两regression은0/5/10/15각16,split15×64. 64render/camera4/診断태그. 전체8학습800/신규step및native8완료게이트후실행,중복시도거부. dryrun artifacts/p2-38-evaluation-plan-dry-run.json. 아직evalbatch실행안함. 本학습batchsession29971그대로유지。
+
+다음같은학습완료/native第一묶음→두번째묶음자동시작/初期복사감사;完了前최종pairedreport코드구현가능(아직P238보고서없음). 全체32평가/geometry/지원배치/同부모/157286400step감사후결론. 전체목표미완료.
