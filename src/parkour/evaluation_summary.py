@@ -33,7 +33,8 @@ def load_report(directory):
     path = directory / 'evaluation.json'
     raw = path.read_bytes()
     report = json.loads(raw)
-    if report['results'] and 'goal_forward_m' in report['results'][0]:
+    if (report['results'] and 'goal_forward_m' in report['results'][0]
+            and 'distance_requirement_met' in report['results'][0]):
         scenarios_path = directory / 'scenarios.json'
         scenarios_raw = scenarios_path.read_bytes()
         derived = by_distance(report['results'], json.loads(scenarios_raw)['episodes'])

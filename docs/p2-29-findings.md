@@ -19,6 +19,12 @@ continuous의 0/5/10/15cm 회귀군에서는 모든 새 모델의 5/10/15cm가 �
 
 ## 거리별 요약 오류와 처리
 
-평가 전용 거리 override는 실제 시나리오와 개인별 기록을 올바르게 변경했으나, evaluation.json의 by_distance는 학습 config의15cm만 순회했다. 전체성공수와 개별episode는 영향을 받지 않았다. 원본을 수정하지 않고 `evaluation_summary.load_report`가 실제 scenario ID·거리 일치를 검사해 네 거리 요약을 재계산한다. 정정된 보고서에는 원본 evaluation/scenario hash 및 원래 요약을 남긴다. `artifacts/p2-29-derived-distance-summary.json`도 보존한다. 다음 평가부터는 생성 시 동일 집계 함수를 사용한다. 집계·누락/중복/잘못된 거리 거절·원본 불변 테스트2개 통과. 모니터링 API의 과거 by_distance 표시 보정은 후속 작업으로 남아 있다.
+평가 전용 거리 override는 실제 시나리오와 개인별 기록을 올바르게 변경했으나, evaluation.json의 by_distance는 학습 config의15cm만 순회했다. 전체성공수와 개별episode는 영향을 받지 않았다. 원본을 수정하지 않고 `evaluation_summary.load_report`가 실제 scenario ID·거리 일치를 검사해 네 거리 요약을 재계산한다. 정정된 보고서에는 원본 evaluation/scenario hash 및 원래 요약을 남긴다. `artifacts/p2-29-derived-distance-summary.json`도 보존한다. 다음 평가부터는 생성 시 동일 집계 함수를 사용한다. 집계·누락/중복/잘못된 거리 거절·원본 불변 테스트2개 통과. 모니터링 목록·상세 API에도 동일 정정 집계를 적용했다. 실제 8개 회귀 평가에서 네 거리와 합계 일치를 확인했다. 초기 P2-05처럼 현재 거리 판정 계약이 없는 기록은 원래 집계를 유지한다. 통합 테스트7개와 집계 단위 테스트3개가 통과했고 서비스 재시작 후 수집 오류는 없다.
 
-새 교차/회귀 영상16개의 result hash·구도·태그와 대표 영상 시각 검수는 아직 별도 확인이 필요하다. GPU compute process는 배치 종료 후 없어졌으며 저장소 여유는 약531GB였다.
+새 교차/회귀 영상16개의 result hash·64개 렌더링 ID·camera_side4·실제 평가 지형 태그를 확인했다. 대표 교차/회귀 영상 시각 검수는 아직 별도 확인이 필요하다. GPU compute process는 배치 종료 후 없어졌으며 저장소 여유는 약531GB였다.
+
+## 회귀 실패 단계 진단
+
+0cm 명령에서 seed2/3은 두 학습 지형 모두16/16회 유효 비행 감지 시 출발반경3cm를 벗어났다. 저장된 launch XY가200Hz 유효 trace 표본에 존재하며 보정된 원점과의 거리로 같은 판정을 얻었다. continuous seed1은유효비행미발생12/반경이탈4, split seed1은정밀최초착지후안정화미달15/성공1이었다. 따라서 단일 착지 보상 조정으로 모든 회귀를 설명하지 않는다.
+
+continuous seed0의split15cm전이는실패종료0/시간제한49/성공15였다. 오른앞발 최초착지오차5cm초과49회, 왼뒷발10회로 최초접촉정밀성이 주된 미충족 조건이었다. 이는 관측된 판정 단계이며 단일 물리 원인을 확정한 것이 아니다. 상세 기록은p2-29-failure-diagnosis.json이다. 다음 실험은15cm능력과0cm능력을 함께 학습하는 명시적 혼합 목표를 같은 추가 예산의15cm전용 대조군과 비교하는 방향으로 설계한다.

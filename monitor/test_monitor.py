@@ -87,6 +87,24 @@ class MonitorTests(unittest.TestCase):
             self.assertEqual(runs['unrelated-evaluation-name']['training_run'],'train')
             self.assertIsNone(runs['train']['training_run'])
 
+    def test_distance_override_summary_corrected_without_source_mutation(self):
+        records=[{'scenario_id':str(i),'goal_forward_m':d,'success':True,
+                  'launch_in_region':True,'distance_requirement_met':True,
+                  'first_touch_all_within':True,'stabilized_once':True}
+                 for i,d in enumerate([0.,.15])]
+        scenarios=[{'id':r['scenario_id'],'goal_forward_m':r['goal_forward_m']} for r in records]
+        raw=json.dumps({'episodes':2,'successes':2,'results':records,'by_distance':{}})
+        (self.run/'evaluation.json').write_text(raw)
+        (self.run/'scenarios.json').write_text(json.dumps({'episodes':scenarios}))
+        self.scan()
+        with TestClient(api.app) as client:
+            detail=client.get('/api/runs/train/evaluation').json()
+            listing=client.get('/api/runs').json()[0]['evaluation']
+            self.assertEqual(set(detail['by_distance']),{'0.0','0.15'})
+            self.assertEqual(detail['by_distance'],listing['by_distance'])
+            self.assertIn('summary_derivation',detail)
+        self.assertEqual((self.run/'evaluation.json').read_text(),raw)
+
     def test_phase_tags_filter_runs_and_videos_without_rewriting_sources(self):
         (self.root/'configs/research-tags.json').write_text(json.dumps({'schema_version':1,
             'tags':{'phase:P1':'P1','step:01':'Diagnosis'},'task_defaults':{'test':['phase:P1']}}))

@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import io
 import json
+from src.parkour.evaluation_summary import load_report
 import logging
 import time
 import subprocess
@@ -62,11 +63,13 @@ class Collector:
                 rid=directory.name; present_runs.append(rid)
                 try:
                     safe_path(str(directory.relative_to(ROOT)))
-                    paths=[directory/'run.json',directory/'evaluation.json',directory.with_suffix('.supervisor.json'),directory/'metrics.jsonl']
+                    paths=[directory/'run.json',directory/'evaluation.json',directory.with_suffix('.supervisor.json'),directory/'metrics.jsonl',directory/'scenarios.json']
                     sig=self.changed(paths)
                     with db.transaction():
                         if sig!=self.signatures.get(rid):
                             run=read_json(paths[0]); evaluation=read_json(paths[1]) if paths[1].exists() else None
+                            if evaluation and evaluation.get('results') and 'goal_forward_m' in evaluation['results'][0]:
+                                evaluation=load_report(directory)
                             supervisor=read_json(paths[2]) if paths[2].exists() else None
                             if paths[3].exists():ingest_metrics(db,paths[3],rid)
                             last=db.execute('SELECT payload FROM metrics WHERE run_id=%s ORDER BY byte_offset DESC LIMIT 1',(rid,)).fetchone()

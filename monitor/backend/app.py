@@ -1,6 +1,7 @@
 from __future__ import annotations
 import asyncio
 import json
+from src.parkour.evaluation_summary import load_report
 import time
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -98,7 +99,10 @@ def metrics(id:str, after:int=-1, limit:int=Query(2000,ge=1,le=10000)):
 @app.get('/api/runs/{id}/evaluation')
 def evaluation(id:str):
     r=require_run(id); p=resolve(r['path']+'/evaluation.json')
-    return read_json(p)
+    report=read_json(p)
+    if report.get('results') and 'goal_forward_m' in report['results'][0]:
+        return load_report(p.parent)
+    return report
 
 @app.get('/api/runs/{id}/log')
 def logs(id:str, offset:int=Query(-1,ge=-1)):

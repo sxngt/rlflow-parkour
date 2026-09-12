@@ -24,6 +24,12 @@ class EvaluationSummaryTest(unittest.TestCase):
             self.assertEqual(derived['results'],records);self.assertEqual(derived['successes'],3)
             self.assertEqual(sum(r['episodes'] for r in derived['by_distance'].values()),4)
             self.assertIn('summary_derivation',derived)
+    def test_legacy_distance_contract_is_preserved(self):
+        report={'results':[{'goal_forward_m':.1}], 'by_distance':{'legacy':{}}}
+        with tempfile.TemporaryDirectory() as tmp:
+            p=Path(tmp);(p/'evaluation.json').write_text(json.dumps(report))
+            self.assertEqual(load_report(p),report)
+
     def test_reject_missing_duplicate_and_wrong_distance(self):
         records,scenarios=self.data()
         with self.assertRaises(ValueError):by_distance(records[:-1],scenarios)

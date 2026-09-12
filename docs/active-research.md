@@ -684,3 +684,14 @@ continuous/split fork smoke각64env3update+auto평가/영상정상완료(34960/2
 거리override시evaluation.json by_distance가config15only로누락됨을발견;個episode/scenarioはmixed正しく全体success不変。src/parkour/evaluation_summary.py by_distance(records,scenarios)+load_report追加、ID/距離/重複確認、原本不変/sha系譜を添付。evaluate future生成修正、experiment_report/support報告load_report適用。2tests通過、実16評価で距離別episode/成功合計一致。artifacts/p2-29-derived-distance-summary.json。原本書換なし。
 
 primary24行/regression12行の4種報告生成session83437exit0。GPUcomputeプロセス空/531GB。次:モニタリング過去by_distance補正(APIとUI集計経路確認、原本保存)、16新video hash/camera/tags/preview、0cm回帰とcontinuous0split失敗trace診断、P230能力維持計画。全体目標未完了。
+
+
+### 최신: P2-29 실패 단계 진단·모니터링 집계 적용
+
+이전턴 전체평가/보고서/집계수정은progress. scripts/p2_29_failure_report.py 실제실행 완료, docs/p2-29-failure-diagnosis.json. 0cm seed2/3 양지형 모두16/16 유효비행감지시launch반경3cm밖(원점/200Hz표본일치검사). continuous1 유효비행없음12/반경밖4,split1 정밀착지후안정화미달15. continuous0split 전이timeout49/FR첫오차5cm초과49/RL10. docs/p2-29-findings.md 갱신.
+
+16교차/회귀result영상hash/camera4/render64/실제terrain태그 확인 artifacts/p2-29-cross-regression-videos.json. 대표추가영상시각검수는남음.
+
+monitor collector/API에evaluation_summary.load_report 적용,scenarios파일수정도색인변경감지. 최초서비스재시작후P205구버전distance_requirement_met누락경고발견,구버전계약원래집계유지로수정. unit3+monitor통합7통과. 재시작session6218exit0,실제8회귀API목록/상세네거리일치+health오류없음 artifacts/p2-29-monitor-summary-validation.json. 원본불변.
+
+다음P230: 15cm전용추가학습 대비0cm/15cm 명시적이산혼합목표(갭중간목표금지)로능력유지 비교설계. split훈련출신checkpoint fork허용경계와RNG/새optimizer규약,각목표의split발판역할(0cm departure/15cm landing) 평가진단지원 검토가필요. 아직프로토콜/코드/학습미착수. 연속도약으로확장하기전반복가능한거리명령제어를고정. 전체목표미완료.
