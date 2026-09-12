@@ -1001,3 +1001,9 @@ src/parkour/chained_progress.py에선택target_hops int64vector 추가,기본은
 scripts/collect_results.py 신규혼합모델제목에학습step50:50명시/파일명짧은혼합0·15cm표기. 기존보관영상원본미변경. scripts/p2_36_train.py 게이트3retention학습+3평가+초기episode정확일치+부모4+대조4감사/중복방지후4GPU본학습. commit39fc9ad. batchsession97849 실행중 log artifacts/p2-36-training-batch.log. 실제Isaac Python seed0PID1865235/seed1PID1865236/seed2PID1865221/seed3PID1865220. 현재65~66update/800. GPU시작전유휴/저장527GB확인. 본모델은원P231cp800새fork,파일럿재개아님. 전체초기복사4감사 session5602exit0 artifacts/p2-36-main-initialization-audit.jsonl passed.
 
 후속 scripts/p2_36_evaluate.py commit a084956:16비교참조(nativechain4재사용+새single/regression/split12),P234chain대조16재사용. dryrun artifacts/p2-36-evaluation-plan-dry-run.json. 본학습/native4완료검증후실행해야함,아직후속평가batch없음. 다음동일session97849/PID업데이트확인→본학습/native완료→12추가평가→32개조건짝report/실제task노출/총78643200신규step/영상감사. P236최종pairedreport스크립트아직미구현. 전체목표미완료,같은worker재시작금지.
+
+### 최신: P2-36 최종 비교 코드 준비 / 같은 본학습 유지
+
+이전본학습착수/평가명세는progress. scripts/p2_36_report.py(commit0ca7ae6) 추가:혼합4/기존대조4의동일부모/설정(혼합태그만차이)/800×24576전체step계수,신규78643200/재사용대조78643200/파일럿1496064분리. 최종32평가모델경로/paired시나리오/64개200Hzchaintrace/영상및eventhash/혼합태그와제목50%검사,16짝성공및거리별결과보고. 미완료run에서명시적으로중단확인 artifacts/p2-36-incomplete-report-check.log,최종결과파일아직없음. 실제4config비교도통과.
+
+동일IsaacPID1865235/1865236/1865221/1865220 모두live확인(약210update),45초verifiedwait후재확인. batchsession97849유지,재시작없음. 다음같은학습완료/native감사→scripts/p2_36_evaluate.py추가12실행→전체완료scripts/p2_36_report.py검증/해석. 전체연구목표미완료.
