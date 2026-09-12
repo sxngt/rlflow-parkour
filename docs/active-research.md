@@ -1157,3 +1157,12 @@ GPU전체유휴 확인후64env12update smoke시작: session92600, artifacts/p2-3
 scripts/p2_39_train.py(commit35d6e52) 구현. smoke/resume/기존2목표smoke/profile 학습4개와 각최종평가4개의200Hz chain 및 result MP4/events hash,64camera4검증, 설정차이는목표거리만인지와4부모/대조예산검사 모두통과(artifacts/p2-39-training-gates.json).
 
 본학습 batch session39712 실행중, log artifacts/p2-39-training-batch.log. 실제IsaacPID seed0=1935335,seed1=1935326,seed2=1935332,seed3=1935314. GPU별1run/원P231부모/1024환경800update,새학습총78,643,200step. 다음동일PID/session 진행→checkpoint0와metrics확보후4초기복사감사→최종800/native4완료. 후속12평가(각seed deck/continuous0·5·10·15,split15)+native4와재사용P238대조16=총32참조 비교 scripts작성필요. 새source와기존대조모델/시나리오/목표외설정/영상검증. 본학습성능아직주장없음/전체목표미완료.
+
+
+### 최신: P2-39 네 본학습 초기 복사 감사 / 후속32 평가 코드 준비
+
+이전 본학습 착수는 progress. 동일worker PID1935335/1935326/1935332/1935314 생존 확인, 초기화 후4개 checkpoint0 복사와 관측된 update 회계 감사 session26402 exit0. artifacts/p2-39-main-initialization-audit.jsonl 모두passed. batch39712 유지, 중복실행 없음.
+
+scripts/p2_39_evaluate.py 준비: 새coverage4모델×4suite16개(native4재사용/새12), 기존P238continuous16평가재사용=32참조. dryrun artifacts/p2-39-evaluation-plan-dry-run.json, 기존대조16경로존재 확인. 모든8학습800/step감사 및재사용20완료게이트 후새12만실행, 기존attempt거부. 아직실행안함.
+
+scripts/p2_39_report.py 준비:같은부모/거리외설정동일,전체지지면배치/step회계,모델800/동일시나리오/32영상과이벤트hash/64camera4/phase태그/네거리제목. 새78,643,200과재사용78,643,200step분리. 현재RUNNING인모델에서보고서생성차단 확인 artifacts/p2-39-incomplete-report-check.log, docs최종결과파일없음. 실제완료후실행검증은남음. 다음같은본학습800/native완료→새12평가→최종32감사/실패분석. 전체목표미완료.
