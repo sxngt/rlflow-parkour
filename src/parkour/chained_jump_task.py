@@ -110,6 +110,9 @@ class ChainedDirectedJumpEnv(DirectedJumpEnv):
         self.travel_reward.reset(ids)
         offsets = torch.zeros(len(ids), 4, 2, device=self.device)
         offsets[:, :, 0] = .15 * (self.chain.completed[ids, None] + 1)
+        if hasattr(self, 'planned_forward_targets'):
+            values = torch.tensor(self.planned_forward_targets, device=self.device)
+            offsets[:, :, 0] = values[self.chain.completed[ids], None]
         self.set_sequence_offsets(offsets, ids)
         # Absolute world targets advance to 30 cm; per-hop flight demand is 15 cm.
         self.goal_distance[ids] = .15

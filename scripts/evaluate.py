@@ -31,6 +31,7 @@ def main():
     p.add_argument("--research-tag", action="append", default=[])
     p.add_argument('--launch-radius', type=float, help='Evaluation-only tighter directed-jump launch radius in metres')
     p.add_argument('--evaluation-forward-m', nargs='+', type=float, help='Explicit evaluation-only distances on continuous/split support')
+    p.add_argument('--map-goal-forward-m', type=float, help='Select a geometric stance path from the support map to a forward goal')
     p.add_argument('--support-mode', choices=['flat', 'continuous', 'split', 'deck', 'course'])
     p.add_argument('--support-matched-material', action='store_true')
     p.add_argument('--independent-support-clones', action='store_true', help='P2-38 all-deck scene construction validation only')
@@ -115,6 +116,18 @@ def main():
         support = copy.deepcopy(support)
         support.pop('goal_forward_m', None)
         manifest['evaluation_support'] = support
+    plan = None
+    if args.map_goal_forward_m is not None:
+        if args.support_mode != 'course' or args.chain_hops != 2:
+            p.error('Geometric execution currently requires the two-hop course adapter')
+        from parkour.geometric_planner import plan_stances
+        plan = plan_stances(support['layout'], support['calibration']['foot_xy_m'], args.map_goal_forward_m)
+        selected = [c['forward_m'] for c in plan['contacts']]
+        if plan['status'] != 'planned' or selected != [.15, .30]:
+            p.error('No geometric plan compatible with the current 15cm two-hop Tracker contract')
+        for episode in manifest['episodes']:
+            episode['foot_offsets_xy_m'] = [[selected[0], 0.] for _ in range(4)]
+        manifest['geometric_plan'] = plan
     manifest["task"] = config["task"]
     if config.get("sequence"):manifest["sequence_contract"] = config["sequence"]
     config["num_envs"] = args.episodes
@@ -133,6 +146,10 @@ def main():
             meta['chain_contract']['single_hop_goal_choices_m'] = distances
             meta['chain_contract']['target_source'] = 'scenarios.episodes[*].foot_offsets_xy_m'
         manifest['chain_contract'] = meta['chain_contract']
+    if plan is not None:
+        atomic_json(args.out/'geometric-plan.json', plan)
+        meta['geometric_plan'] = plan
+        meta['chain_contract']['target_source'] = 'geometric-plan.json contacts; Tracker-compatible translation path'
     if support:
         meta['evaluation_support'] = support
         atomic_json(args.out/'terrain.json', support)
@@ -146,6 +163,8 @@ def main():
         torch.manual_seed(10000)
         env = make_env(config, evaluation_support=support, chain_hops=args.chain_hops,
                        chain_settle_mode=args.chain_settle_mode, independent_support_clones=args.independent_support_clones)
+        if plan is not None:
+            env.planned_forward_targets = [c['forward_m'] for c in plan['contacts']]
         if args.independent_support_clones:
             from parkour.support_inspection import inspect_support_assignment
             meta['scene_construction'] = 'independent all-deck supports; replicate_physics=False; explicit collision filter'
@@ -312,7 +331,7 @@ def main():
         atomic_json(args.out / "evaluation.json", report)
         meta["evaluation"] = {key: value for key, value in report.items() if key != "results"}
         meta["artifacts"] = {file.name: sha256(file) for file in args.out.iterdir()
-                             if file.suffix in (".mp4", ".png") or file.name in ("collision-contract.json", "terrain.json", "evaluation.json", "scenarios.json", "replay.json", "diagnostics.json", "motion-trace.npz", "reward-components.json", "reward-components.npz")}
+                             if file.suffix in (".mp4", ".png") or file.name in ("geometric-plan.json", "collision-contract.json", "terrain.json", "evaluation.json", "scenarios.json", "replay.json", "diagnostics.json", "motion-trace.npz", "reward-components.json", "reward-components.npz")}
         if args.chain_hops is not None:
             meta['artifacts']['chain-events.json'] = sha256(args.out / 'chain-events.json')
         if args.independent_support_clones:
