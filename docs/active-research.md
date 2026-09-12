@@ -1053,3 +1053,11 @@ src/parkour/support_assignment.py 순수strict계약추가:optional config suppo
 이전8env이종scene연결은progress. A8envscene-smoke 완료/회계감사 artifacts/p2-38-deck-scene-audit.jsonl passed. scripts/support_assignment_probe.py +run_job새허용kind추가(commit91031cb). 8로봇실제원래발판PD300physicsstep→robot0을env4로봇위XY+z.1에옮겨240physicsstep낙하,원래robot4양성대조. traces200Hz540step원본기록,전체USD검사포함. A/B probe sessions53201/90993둘다exit0,각artifact감사passed artifacts/p2-38-{deck,continuous}-physical-audit.jsonl. docs/p2-38-physical-gates.json요약. Bownroot전체~.275638m,foreignroot-.249265m/positivecontrol.274895m. 한쌍cross-group동적검사이며전환경모든상호작용의완전증명아님.
 
 현재64env×12update 학습smoke 실행중: B session12857 artifacts/p2-38-continuous-training-smoke GPU0, A session42697 artifacts/p2-38-deck-training-smoke GPU1. 원P231seed2cp800새fork/skipautoeval. 다음동일session/PID확인→양쪽완료및전체geometry/회계/초기복사감사→2update재개/초기cp0의기존평가override정상성→새scene기준고정정책평가검증(protoc게이트4아직충족안됨)→1024×60profiling. 아직本학습없음. 전체목표미완료.
+
+### 최신: P2-38 64환경smoke/재개 및 생성방식 평가 완료 / 1024파일럿 시작
+
+이전물리probe검증은progress. B/A64env×12 session12857/42697둘다exit0,completed회계 artifacts/p2-38-training-smoke-audit.jsonl passed. Bchainstep[8222,994]/single9216,Asame[8273,943]/single9216. 부모복사감사session17337exit0 artifacts/p2-38-smoke-initialization-audit.jsonl. 2update재개Bsession51870/Asession6367둘다exit0,13/14각3072step회계검증 artifacts/p2-38-training-resume-audit.jsonl.
+
+scripts/evaluate.py --independent-support-clones 추가(commit e9541f4),explicitall-deck+configsupportassignmentdeck만허용하는learningmake_env경로. 평가시supportplan/전체USD검사/hash및scene_construction메타저장. 같은A초기cp0로64deck15scenarios를replicateFalse独立생성과기존replicated생성비교: sessions64892/72134둘다exit0,64/64와모든episode필드정확일치 docs/p2-38-construction-comparison.json. chain/200Hz감사 artifacts/p2-38-construction-evaluation-audit.json passed. 한seed한고정목표평가의일치이며모든물리상황bitwise동일주장아님. 두result영상존재;추가보관hash검증다음.
+
+현재1024env×60update파일럿2개실행중: Bsession38849,경로artifacts/p2-38-continuous-profile-seed2/GPU0; Asession44464 artifacts/p2-38-deck-profile-seed2/GPU1. launchlog각경로-launch.log,run_jobtimeout600초는이종초기화프로파일링포함한상한. 원P231seed2cp800새fork,본학습아님. 다음실제PID/session확인→초기화비용/메모리/전체1024geometry검사/60완료회계→파일럿최종평가→본학습게이트결정。전체목표미완료.

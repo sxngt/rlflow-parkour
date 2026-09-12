@@ -1,0 +1,10 @@
+{
+  "successes": [
+    64,
+    64
+  ],
+  "same_scenarios": true,
+  "all_episode_fields_equal": true,
+  "differing_field_episode_counts": {},
+  "scope": "one seed2 frozen initial model and 64 deck15 scenarios; not broad bitwise physics equivalence"
+}
