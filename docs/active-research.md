@@ -652,3 +652,10 @@ continuous/split fork smoke각64env3update+auto평가/영상정상완료(34960/2
 이전 턴 fork 감사 구현/실제4run 검증은 progress. 본batch PID1608853 live, metrics610~624 관측. /api/health ok/errors[], phase/step 필터로4 RUNNING 표시, API metrics는파일대비0~3 update 지연, run detail 부모계보와원본정확일치. artifacts/p2-29-monitor-validation.json 저장.
 
 회귀 smoke는split학습config를보존한continuous평가인데상속태그split로분류됨을발견. configs/research-tags.json run_override로p2-29-regression-smoke의terrain:continuous/purpose:regression-smoke 수정,API필터결과검증. 원본연구artifact변경없음. 본교차평가script는명시적실제terrain태그를넘기므로해당오류없음. 다음첫묶음native평가와둘째묶음진행확인. 전체목표미완료.
+
+
+### 최신: P2-29 첫 묶음 완료, 둘째 묶음 시작
+
+동일 batch PID1608853을45초간격live재확인하며대기,첫continuous seed0/2 및 split seed1/3 학습800+native평가완료. 각64/64성공기록. 학습4+평가4 artifacts감사통과:artifacts/p2-29-first-batch-audit.jsonl. result영상4hash검증,64render IDs/camera framing_side4검증:artifacts/p2-29-first-batch-videos.json. 아직preview직접시각검수및교차지형/혼합거리회귀미완료.
+
+둘째묶음 continuous seed1/3, split seed0/2 RUNNING을run.json과동일live batch로확인. 본총8run완료아님. 다음둘째초기화audit실행및완료평가,이후p2_29_evaluate.py. 최초결과만으로terrain효과/champion승격/일반성공주장금지.
