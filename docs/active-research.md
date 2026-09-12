@@ -573,3 +573,12 @@ full configs/reports/p2-27.json seed2 run을retry1로명시갱신(infrastructure
 직전retry401검증턴progress. 이번턴실제PID1556210반복확인/verified wait후801전환(거리0–15cm/반경4.5cm/cap.2/reset_all=true),모든loss유한/checkpoint500/600/700/800해시검증. 최신 {"run": "p2-27-continuous-seed2-retry1", "pid": 1556210, "iteration": 842, "transition801_verified": true, "checkpoint800_hash_ok": true}. GPU2약3GB/32C,초기화정체재발없이업데이트증가.
 
 다음1201/1600+auto평가, scripts/p2_27_cross_evaluate.py --seeds2만실행,full configs/reports/p2-27.json 4보고서/학습4+평가12감사(기존실패는회수/복구별도계보). 완료된3seed교차평가중복금지. batch40871/PID1556210유지,추가재시도없음,전체목표미완료.
+
+
+### 최신: P2-27 seed2 retry1201 및모니터링확인
+
+직전801검증턴progress. 이번턴실제PID1556210반복확인/verified wait후1201전환(거리0–15cm/반경3cm/cap.05/reset_all=true/실제std min/max.05),모든loss유한/checkpoint900/1000/1100/1200해시검증. 최신 {"run": "p2-27-continuous-seed2-retry1", "pid": 1556210, "iteration": 1252, "transition1201_verified": true, "checkpoint1200_hash_ok": true}.
+
+http://127.0.0.1:18710/api/health 정상/collector errors없음. step:p2-27-support-training 태그로run18/video11조회(실험9+smoke/zero2). 원본FAILED와retryRUNNING/최신metrics분리확인. artifacts/p2-27-monitor-check.json. 원본supervisor의resource_released=false는역사기록이며실제후속회수는orphan-cleanup계보에있음.
+
+다음1600+auto평가, cross --seeds2만실행,full16행4보고서/전체감사/원본인프라손실별도계상. 다른3seed는이미완료. batch40871유지,추가재시도없음,전체목표미완료.
