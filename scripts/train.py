@@ -91,6 +91,10 @@ def main():
             from parkour.media import ParallelRecorder
             recorder=ParallelRecorder(env,args.out,name='parallel-training')
         goal_values=getattr(env, 'goal_sample_values', [])
+        retention = getattr(env, 'retention_enabled', False)
+        if retention:
+            meta['retention_accounting_contract'] = 'task rows chain,single; hop columns first,second; pre-action steps; current-policy shared PPO rollout'
+            meta['single_goal_initial_draws'] = env.single_goal_draw_counts.tolist()
         if goal_values:
             meta['goal_accounting_initial_draws'] = dict(zip(map(str,goal_values),env.goal_draw_counts.tolist()))
             meta['goal_accounting_contract'] = 'Per-attempt reset draws; pre-action environment transitions; initialization draws separate; counters are diagnostics, not curriculum state'
@@ -124,11 +128,22 @@ def main():
             if goal_values:
                 draws_before=env.goal_draw_counts.clone()
                 goal_steps=torch.zeros(len(goal_values),dtype=torch.long,device=env.device)
+            if retention:
+                task_hop_steps = torch.zeros((2, 2), dtype=torch.long, device=env.device)
+                task_episodes = torch.zeros(2, dtype=torch.long, device=env.device)
+                task_successes = torch.zeros_like(task_episodes)
+                task_rewards = torch.zeros(2, device=env.device)
+                single_goal_steps = torch.zeros(2, dtype=torch.long, device=env.device)
+                single_draws_before = env.single_goal_draw_counts.clone()
             with torch.inference_mode():
                 for _ in range(steps_per_iteration):
                     if hasattr(env, 'chain'):
                         segments = env.chain.completed.clone()
                         hop_steps += torch.bincount(segments, minlength=env.chain.hops)
+                    if retention:
+                        task_hop_steps += torch.bincount(env.retention_task * 2 + segments, minlength=4).reshape(2, 2)
+                        for i, distance in enumerate((0., .15)):
+                            single_goal_steps[i] += ((env.retention_task == 1) & ((env.goal_distance - distance).abs() < 1e-7)).sum()
                     if goal_values:
                         for goal_index,goal_value in enumerate(goal_values):
                             goal_steps[goal_index]+=(torch.abs(env.goal_distance-goal_value)<1e-7).sum()
@@ -144,11 +159,16 @@ def main():
                     if hasattr(env, 'chain'):
                         hop_metrics = extras['terminal_metrics']
                         passed = hop_metrics['hop_success']
-                        intermediate = passed & (segments < env.chain.hops - 1)
+                        intermediate = passed & (segments < env.chain.target_hops - 1)
                         if bool((intermediate & dones).any()):
                             raise RuntimeError('Successful intermediate hop unexpectedly ended training episode')
                         hop_successes += torch.bincount(segments[passed], minlength=env.chain.hops)
                         hop_returns.scatter_add_(0, segments, rewards)
+                    if retention:
+                        task_rewards.scatter_add_(0, env.retention_task, rewards)
+                        task_episodes += torch.bincount(env.retention_task[dones], minlength=2)
+                        succeeded = dones & extras['terminal_metrics']['success']
+                        task_successes += torch.bincount(env.retention_task[succeeded], minlength=2)
                     alg.process_env_step(rewards, dones, {"time_outs": trunc})
                     if dones.any():
                         metrics = extras["terminal_metrics"]
@@ -186,6 +206,16 @@ def main():
                 row['hop_successes'] = hop_successes.tolist()
                 row['hop_reward_sums'] = hop_returns.tolist()
                 row['jump_metric_scope'] = 'terminal hop diagnostics; success means complete course'
+            if retention:
+                expected = env.num_envs * steps_per_iteration // 2
+                if (task_hop_steps.sum(1).tolist() != [expected, expected]
+                        or int(task_hop_steps[1, 1]) != 0 or int(single_goal_steps.sum()) != expected
+                        or int(task_episodes.sum()) != episodes or int(task_successes.sum()) != successes):
+                    raise RuntimeError('Retention task accounting inconsistent with PPO transitions or terminations')
+                row.update(task_hop_environment_steps=task_hop_steps.tolist(),
+                           task_episodes=task_episodes.tolist(), task_successes=task_successes.tolist(),
+                           task_reward_sums=task_rewards.tolist(), single_goal_environment_steps=single_goal_steps.tolist(),
+                           single_goal_reset_draws=(env.single_goal_draw_counts - single_draws_before).tolist())
             if exploration_cap is not None:
                 effective=alg.policy.std.detach().clamp(min=alg.policy.std_floor,max=alg.policy.std_cap)
                 row.update(exploration_std_cap=exploration_cap, exploration_std_min=float(effective.min()),

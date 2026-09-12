@@ -10,19 +10,40 @@ from parkour.directed_jump_task import DirectedJumpEnv
 
 
 class ChainedDirectedJumpEnv(DirectedJumpEnv):
-    def __init__(self, cfg, render_mode=None, hops=2, settle_mode='default'):
+    def __init__(self, cfg, render_mode=None, hops=2, settle_mode='default', retention=False):
         if hops not in (1, 2):
             raise ValueError('P2-32 supports one-hop control or two-hop evaluation')
         if settle_mode not in ('default', 'hold-last'):
             raise ValueError('Unknown inter-hop settle command')
         super().__init__(cfg, render_mode)
+        if retention and (hops != 2 or self.num_envs % 2):
+            raise ValueError('Retention requires two-hop adapter and even environment count')
+        self.retention_enabled = retention
+        target_hops = None
+        if retention:
+            # Fixed population, so each rollout contains exactly half of each task.
+            self.retention_task = (torch.arange(self.num_envs, device=self.device) >= self.num_envs // 2).long()
+            target_hops = 2 - self.retention_task
+            self.goal_sample_values = [0., .15]
+            self.goal_draw_counts = torch.zeros(2, dtype=torch.long, device=self.device)
+            self.single_goal_draw_counts = torch.zeros_like(self.goal_draw_counts)
         self.chain_settle_mode = settle_mode
         self.settle_action = torch.zeros_like(self.actions)
         self.chain = ChainedProgress(self.num_envs, self.device, hops=hops,
-                                     hop_steps=round(4. / self.step_dt))
+                                     hop_steps=round(4. / self.step_dt), target_hops=target_hops)
         self.chain.reset(self.robot._ALL_INDICES, self.calibrated_root[:2])
         self.hop_events = []
         self.transition_events = []
+
+    def _sample_goal_distances(self, env_ids):
+        if not getattr(self, 'retention_enabled', False):
+            return super()._sample_goal_distances(env_ids)
+        distance = torch.full((len(env_ids),), .15, device=self.device)
+        single = self.retention_task[env_ids] == 1
+        draws = torch.randint(2, (int(single.sum()),), device=self.device, generator=self.generator)
+        distance[single] = draws.to(distance.dtype) * .15
+        self.single_goal_draw_counts += torch.bincount(draws, minlength=2)
+        return distance
 
     def maneuver_time_s(self):
         if not hasattr(self, 'chain'):

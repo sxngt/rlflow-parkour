@@ -98,6 +98,8 @@ def restore(data, config, alg, normalizer, env, training):
 def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode='default'):
     from parkour.chain_training import validate_chain_training
     chain_spec = validate_chain_training(config)
+    retention = (config.get('retention_training') is not None and chain_hops is None
+                 and evaluation_support is None)
     from parkour.task import FootholdCfg, FootholdEnv
     if config['task'] in ('a1_flat_jump_v1','a1_flat_jump_shaped_v2','a1_flat_jump_precise_v3','a1_flat_jump_supported_v4','a1_directed_jump_v5'):
         from parkour.jump_task import JumpCfg,JumpEnv
@@ -140,5 +142,5 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
             raise ValueError('Two-hop execution requires deck support')
         from parkour.chained_jump_task import ChainedDirectedJumpEnv
         cfg.episode_length_s = 4. * chain_hops
-        return ChainedDirectedJumpEnv(cfg, hops=chain_hops, settle_mode=chain_settle_mode)
+        return ChainedDirectedJumpEnv(cfg, hops=chain_hops, settle_mode=chain_settle_mode, retention=retention)
     return env_type(cfg)

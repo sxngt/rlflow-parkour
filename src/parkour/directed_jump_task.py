@@ -24,11 +24,13 @@ class DirectedJumpEnv(PrecisionJumpEnv):
         super()._reset_idx(env_ids)
         self.travel.reset(env_ids);self.precise_stabilized[env_ids]=False
         self.travel_reward.reset(env_ids)
-        distance=sample_distances(self.jump,len(env_ids),self.device,self.generator)
+        distance=self._sample_goal_distances(env_ids)
         for i,value in enumerate(self.goal_sample_values):
             self.goal_draw_counts[i]+=(torch.abs(distance-value)<1e-7).sum()
         offsets=torch.zeros(len(env_ids),4,2,device=self.device);offsets[:,:,0]=distance[:,None]
         self.set_sequence_offsets(offsets,env_ids)
+    def _sample_goal_distances(self, env_ids):
+        return sample_distances(self.jump,len(env_ids),self.device,self.generator)
     def on_first_physics_contact(self,new):
         self.travel.touch(new.any(dim=1),self.robot.data.root_pos_w[:,:2]-self.scene.env_origins[:,:2])
     def launch_reference_xy(self):

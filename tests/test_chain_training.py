@@ -21,6 +21,20 @@ class ContractTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             assert_same_chain_training(self.single, self.chain)
 
+    def test_retention_requires_explicit_fork_and_exact_contract(self):
+        from parkour.policy_fork import validate_fork_configs
+        mixed = copy.deepcopy(self.chain)
+        mixed['retention_training'] = {'schema_version': 1, 'single_fraction': .5,
+            'single_goal_choices_m': [0., .15], 'assignment': 'fixed_env_id_chain_first'}
+        validate_chain_training(mixed)
+        validate_fork_configs(self.chain, mixed)
+        assert_same_chain_training(mixed, copy.deepcopy(mixed))
+        with self.assertRaises(ValueError): assert_same_chain_training(self.chain, mixed)
+        bad = copy.deepcopy(mixed); bad['retention_training']['single_fraction'] = .25
+        with self.assertRaises(ValueError): validate_chain_training(bad)
+        bad = copy.deepcopy(mixed); del bad['chain_training']
+        with self.assertRaises(ValueError): validate_chain_training(bad)
+
     def test_reject_unvalidated_training_variants(self):
         for key, value in [('episode_seconds', 4.), ('task', 'other')]:
             bad = copy.deepcopy(self.chain); bad[key] = value

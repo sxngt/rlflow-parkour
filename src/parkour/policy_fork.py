@@ -13,6 +13,7 @@ def validate_fork_configs(parent, target):
     if a['task']!='a1_directed_jump_v5' or b['task']!=a['task']:
         raise ValueError('Fork supports directed-jump policies only')
     for c in (a,b):
+        c.pop('retention_training', None)  # Strictly validated above; new task mixture is a fork.
         if c.pop('chain_training', None) is not None:
             c['episode_seconds'] = 4.  # Only the validated eight-second chain is normalized.
         for key in ('iterations','num_envs','research_tags'):
