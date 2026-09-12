@@ -84,6 +84,11 @@ def collect(evaluation, result_root=ROOT / 'result'):
     title = f'A1 | {task} {task_title.replace("_", " ")} | {mode} seed {seed} | {updates} updates | 개발군 {report["episodes"]} episodes'
     if train_run and train_run['config'].get('retention_training'):
         title += ' | 학습 step: 연속 도약 50% + 단일 목표 0·15cm 50%'
+    if train_run and train_run['config'].get('support_assignment'):
+        mode = train_run['config']['support_assignment']['single_mode']
+        title += f' | 학습 지지면: 연속 deck / 단일 {mode}'
+    if run.get('scene_construction'):
+        title += ' | 독립 지형 생성 검증'
     folder_name = f'{date}__A1__{task}__seed-{seed}__updates-{updates:06d}__{evaluation.name}'
     result_root.mkdir(parents=True, exist_ok=True)
     folder = result_root / folder_name

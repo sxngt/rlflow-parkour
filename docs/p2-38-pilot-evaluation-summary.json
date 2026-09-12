@@ -1,0 +1,146 @@
+[
+  {
+    "evaluation": "p2-38-deck-pilot-chain",
+    "successes": 0,
+    "by_distance": {
+      "0.15": {
+        "episodes": 64,
+        "successes": 0,
+        "launches_in_region": 0,
+        "travel_met": 0,
+        "first_touch_precise": 0,
+        "stabilized": 0
+      }
+    },
+    "manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000060__p2-38-deck-pilot-chain/manifest.json",
+    "verified": true
+  },
+  {
+    "evaluation": "p2-38-deck-pilot-regression",
+    "successes": 64,
+    "by_distance": {
+      "0.0": {
+        "episodes": 16,
+        "successes": 16,
+        "launches_in_region": 16,
+        "travel_met": 16,
+        "first_touch_precise": 16,
+        "stabilized": 16
+      },
+      "0.05": {
+        "episodes": 16,
+        "successes": 16,
+        "launches_in_region": 16,
+        "travel_met": 16,
+        "first_touch_precise": 16,
+        "stabilized": 16
+      },
+      "0.1": {
+        "episodes": 16,
+        "successes": 16,
+        "launches_in_region": 16,
+        "travel_met": 16,
+        "first_touch_precise": 16,
+        "stabilized": 16
+      },
+      "0.15": {
+        "episodes": 16,
+        "successes": 16,
+        "launches_in_region": 16,
+        "travel_met": 16,
+        "first_touch_precise": 16,
+        "stabilized": 16
+      }
+    },
+    "manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000060__p2-38-deck-pilot-regression/manifest.json",
+    "verified": true
+  },
+  {
+    "evaluation": "p2-38-continuous-pilot-chain",
+    "successes": 0,
+    "by_distance": {
+      "0.15": {
+        "episodes": 64,
+        "successes": 0,
+        "launches_in_region": 30,
+        "travel_met": 0,
+        "first_touch_precise": 30,
+        "stabilized": 30
+      }
+    },
+    "manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000060__p2-38-continuous-pilot-chain/manifest.json",
+    "verified": true
+  },
+  {
+    "evaluation": "p2-38-continuous-pilot-regression",
+    "successes": 57,
+    "by_distance": {
+      "0.0": {
+        "episodes": 16,
+        "successes": 16,
+        "launches_in_region": 16,
+        "travel_met": 16,
+        "first_touch_precise": 16,
+        "stabilized": 16
+      },
+      "0.05": {
+        "episodes": 16,
+        "successes": 16,
+        "launches_in_region": 16,
+        "travel_met": 16,
+        "first_touch_precise": 16,
+        "stabilized": 16
+      },
+      "0.1": {
+        "episodes": 16,
+        "successes": 16,
+        "launches_in_region": 16,
+        "travel_met": 16,
+        "first_touch_precise": 16,
+        "stabilized": 16
+      },
+      "0.15": {
+        "episodes": 16,
+        "successes": 9,
+        "launches_in_region": 16,
+        "travel_met": 9,
+        "first_touch_precise": 16,
+        "stabilized": 16
+      }
+    },
+    "manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000060__p2-38-continuous-pilot-regression/manifest.json",
+    "verified": true
+  },
+  {
+    "evaluation": "p2-38-deck-independent-initial-evaluation",
+    "successes": 64,
+    "by_distance": {
+      "0.15": {
+        "episodes": 64,
+        "successes": 64,
+        "launches_in_region": 64,
+        "travel_met": 64,
+        "first_touch_precise": 64,
+        "stabilized": 64
+      }
+    },
+    "manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000000__p2-38-deck-independent-initial-evaluation/manifest.json",
+    "verified": true
+  },
+  {
+    "evaluation": "p2-38-deck-replicated-initial-evaluation",
+    "successes": 64,
+    "by_distance": {
+      "0.15": {
+        "episodes": 64,
+        "successes": 64,
+        "launches_in_region": 64,
+        "travel_met": 64,
+        "first_touch_precise": 64,
+        "stabilized": 64
+      }
+    },
+    "manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000000__p2-38-deck-replicated-initial-evaluation/manifest.json",
+    "verified": true
+  }
+]
