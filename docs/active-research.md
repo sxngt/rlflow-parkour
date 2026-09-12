@@ -1039,3 +1039,11 @@ P237 실행상태정정:첫session27226은실제terminal exit1,4첫chain평가�
 src/parkour/support_assignment.py 순수strict계약추가:optional config support_assignment={schema_version:1,single_mode:deck|continuous,assignment:fixed_env_id_chain_first,replicate_physics:false},retention/chain조건+짝수env강제,앞절반deck/뒤절반선택지형,기존build_support_layout 및expected_goal_surface로목표포함검증. plan copy_from_sourceTrue/explicitcollisionfilter,원본불변. tests/test_support_assignment.py2개통과 artifacts/p2-38-assignment-tests.log. 현재helper만구현,아직make_env/task.py/fork/resume에연결안됨,새config/실제scene없음.
 
 다음:cfg.support_assignment추가,learning.make_env학습시에만계획생성/replicatefalse(명시적평가는기존override),task._setup_scene는assignment일때support선생성스킵→robotclone copy_from_sourceTrue→각env별지형spawn→명시적filter_collisionsglobalGround. 환경0상속잔여deck금지/전체USD collider배치감사(경계/firstlast뿐아니라전체). staticCuboid형상/재질기존유지,본학습전실제접촉/환경간충돌분리/보정동일검증필요. fork/resume검증및metadata保存추가후smallscene/probe/smoke/profiling. 현재GPU작업없음,전체목표미완료.
+
+### 최신: P2-38 실제 이종scene 연결 / 8환경 생성smoke 통과
+
+이전명세/순수plan은progress. cfg.support_assignment추가 및learning훈련전용plan/replicatefalse연결,명시적평가override는이종생성끄기. task._setup_scene assignment시env0Supports선생성스킵→copy_from_sourceTrue clone→각env별기존Cuboid생성→explicitGround collisionfilter. support_inspection.py전체USD collider개수/월드경계-envorigin/활성/마찰반발검사. train에support-assignment.json/support-inspection.json hash저장,artifact감사추가. fork strictsupportplan검증후config지원/restore assignment동일검사. configs/p2-38-deck/continuous생성. commit48ddf44.
+
+기존chain tests9통과 artifacts/p2-38-chain-regression-tests.log,assignmenttests2통과. B8env×2update scene-smoke artifacts/p2-38-continuous-scene-smoke session69912exit0,신규384step/아직종료episode0. 앞0~3deck각1/뒤4~7continuous각4 총20collider실제검사passed. artifacts/p2-38-continuous-scene-audit.jsonl completed 회계감사passed. 이는정적USD경계/재질검사와기본step/update smoke이며dynamic충돌분리/최종정책성능증거아님.
+
+현재A같은8env×2update scene-smoke session83582 artifacts/p2-38-deck-scene-smoke GPU0실행중. 다음동일session확인→A검사/부모복사/실제접촉과환경간충돌분리probe구현. 이후64envsmoke/resume및1024프로파일링전게이트를계속충족할것. 아직本학습/큰파일럿없음. 전체목표미완료.
