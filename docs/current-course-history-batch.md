@@ -1,3 +1,15 @@
+## Active update — 2026-09-12 20:10 KST
+
+- P3-19 seeds1/2 completed3000each, native0/64each, both audited/archived. P3-20 completed2400, native0/64. P3-21 completed600, native0/64; collection typo fixed and collection rerun. P3-22 completed800, native0/64, no extension. All earlier sessions finished.
+- Frozen thesis priors tested: roughseed2 failed0.20s; flatseed3 moved~.28m thenfailed0.56s; expanding actionlimit1→4 removed clipping without helping; stairsseed1 failed0.24s trunk contact. These are not adopted as champions or pretraining. Archives/provenance under artifacts/pretrained; source has noGit metadata.
+- New opt-in initial rear target=front_stance: rear first steps to the known initial front position; starts accepted index-1. Prevents holding rear at starting rear location then requesting~.72m first rear stride. Target scriptv2; oldown_stance defaults/checkpoints unchanged.
+- GPU0: P3-24 both-foot corrected-start pilot, `artifacts/p3-24-rear-sequence-seed1-pilot800`, session75687,800updates1024env. Aroundupdate460 sparse front progress. Native evaluation follows automatically.
+- GPU1: P3-25 either-foot corrected-start, `artifacts/p3-25-either-foot-seed1-pilot800`, session19123,800updates1024env. Front mean.02148 atupdate39, trainingradius.25; notstrictsuccess.
+- GPU3: independentP3-25 seed2 `artifacts/p3-25-either-foot-seed2-pilot800` (latest exec session printed by launcher).800updates1024env, same settings. Evaluate before extension.
+- GPU2: strict interimP3-24 checkpoint300 evaluation `artifacts/p3-24-rear-sequence-interim300`, session67901,16episodes+200Hz+singlefollow. Wait for release before further probes.
+- P3-24/25 smoke+nativeaudits passed. Fixedstrict6cm evaluations, finalall4stabilization eveneitherintermediatequorum. Dynamicdemo requires10transfers,>=10actuals,>=8measuredjumps. No qualifying result yet. New diagnostics include body displacement/path length and nonfoot failure bodyIDs; pathlength includesoscillation.
+- Latest source commit55bd3b2 plus thishandoff/doc update. Web rebuilt withdifficultyfilters andschema2diagnostics; actualbrowsersearch/detail/followtrace verified. Stay onthelongsharedmaps; donotreturntooldstraightpads.
+
 ## Latest execution update (2026-09-12 19:39 KST)
 
 - P3-19 baseline seeds1/2 still active on GPUs0/1 (session48387), roughly1700/3000 updates, no first-surface progress. Checkpoint500 native easy diagnostic:0/16, all30s timeout,0jumps. Corrected-config retry completed. Held-out medium geometryseed101 evaluation and 200Hz audit completed0/16, with follow video. All archived in result.

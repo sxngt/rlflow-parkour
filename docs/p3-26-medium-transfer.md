@@ -1,0 +1,5 @@
+# P3-26 — Explicit medium-course policy transfer
+
+The medium ten-transfer layout introduces larger height changes, tilt and gaps. A continuous Tracker fork copies policy, critic and105-channel normalization, but starts a fresh optimizer, RNG, episode boundary and training precision/exploration schedule. This is a new experiment with parent checkpoint hash, not a resume or autonomous Planner. Robot/action/observation/reward/seed/strict evaluation contracts cannot change through this adapter. Generated geometry, geometry seed, run budget/tags and validated training schedules may change.
+
+Seven legacy/new fork tests pass, including complete state-copy checks and rejection of altered action, reward, seed, calibration or unversioned geometry. GPU2 smoke uses P3-25 seed1 update800 as parent,64env/12updates; it only verifies simulator/learning/evaluation integration. The parent has no strict long-course completion yet. Do not interpret smoke outcome as successful medium-course training or automatically launch a large transfer run. Inspect the2400update parents before choosing the main transfer source.

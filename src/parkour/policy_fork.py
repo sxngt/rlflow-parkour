@@ -6,6 +6,8 @@ from parkour.terrain_contract import training_support
 
 
 def validate_fork_configs(parent, target):
+    if parent.get('task') == 'a1_continuous_tracker_v1':
+        return validate_continuous_fork(parent, target)
     from parkour.support_assignment import support_assignment
     support_assignment(parent); support_assignment(target)
     from parkour.chain_training import validate_chain_training
@@ -36,6 +38,30 @@ def validate_fork_configs(parent, target):
     if parent['terrain_contract']['mode'] not in ('continuous','split','deck','course') or target['terrain_contract']['mode'] not in ('continuous','split','deck','course'):
         raise ValueError('Fork terrain change is not supported')
     cap_for_update(target,0)
+
+
+def validate_continuous_fork(parent, target):
+    """Change generated terrain/training schedules, preserving the policy contract."""
+    from parkour.contact_curriculum import radius_for_update
+    if target.get('task') != parent['task']:
+        raise ValueError('Continuous fork cannot change task')
+    a,b=copy.deepcopy(parent),copy.deepcopy(target)
+    for config in (a,b):
+        support=training_support(config)
+        if support is None or support['mode']!='shared-course':
+            raise ValueError('Continuous fork requires validated shared terrain')
+        if cap_for_update(config,0) is None:
+            raise ValueError('Continuous fork requires bounded exploration')
+        radius_for_update(config,0)
+        for key in ('iterations','num_envs','research_tags','contact_curriculum'):
+            config.pop(key,None)
+        for key in ('layout','geometry_seed'):
+            config['terrain_contract'].pop(key,None)
+        # Schedules are explicit controls of the new experiment. The std floor,
+        # network, observation, action, rewards and strict evaluation stay fixed.
+        config['exploration'].pop('stages',None)
+    if a!=b:
+        raise ValueError('Continuous fork changed robot, observation, action, reward, seed or evaluation contract')
 
 
 def initialize_fork(data, config, alg, normalizer):
