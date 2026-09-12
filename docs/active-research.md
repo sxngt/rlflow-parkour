@@ -993,3 +993,11 @@ src/parkour/chained_progress.py에선택target_hops int64vector 추가,기본은
 1024env×60파일럿 artifacts/p2-36-mixed-profile-seed2 session5843exit0(실제PID1862522live확인후45초wait),52.73worker초. 총1474560step,chain[717604,19676],single737280;sampledcourse1/single3201(평균정책평가성과아님). completed회계감사 artifacts/p2-36-profile-audit.jsonl passed. profile초기fork감사session96175exit0 artifacts/p2-36-profile-fork-audit.jsonl.
 
 현재파일럿cp60평가진행:chain session90793 GPU0 artifacts/p2-36-profile-seed2-chain,regression session55038 GPU1 artifacts/p2-36-profile-seed2-regression. 각64/진단/64render/camera4,태그purposepilot。다음동일session/PID검증→완료감사/파일럿결과문서→本학습4seed launchergates구현/실행(아직본학습없음). 원부모P231모두포함하고파일럿cp재개하지않음. 평가영상result保管후hash확인필요. 전체목표미완료.
+
+### 최신: P2-36 파일럿 최종 감사 / 본학습4개 진행
+
+이전혼합환경/파일럿구현은progress. 평가session90793/55038둘다exit0:chain첫성공64/코스0,continuous16/16/16/16. artifacts/p2-36-pilot-evaluations-audit.json chain trace/판정감사passed. 초기/파일럿3result영상64/camera4/영상및chain-events hash검증 docs/p2-36-pilot-summary.json. 총파일럿신규1496064step(64smoke18432+resume3072+profile1474560),본예산별도.
+
+scripts/collect_results.py 신규혼합모델제목에학습step50:50명시/파일명짧은혼합0·15cm표기. 기존보관영상원본미변경. scripts/p2_36_train.py 게이트3retention학습+3평가+초기episode정확일치+부모4+대조4감사/중복방지후4GPU본학습. commit39fc9ad. batchsession97849 실행중 log artifacts/p2-36-training-batch.log. 실제Isaac Python seed0PID1865235/seed1PID1865236/seed2PID1865221/seed3PID1865220. 현재65~66update/800. GPU시작전유휴/저장527GB확인. 본모델은원P231cp800새fork,파일럿재개아님. 전체초기복사4감사 session5602exit0 artifacts/p2-36-main-initialization-audit.jsonl passed.
+
+후속 scripts/p2_36_evaluate.py commit a084956:16비교참조(nativechain4재사용+새single/regression/split12),P234chain대조16재사용. dryrun artifacts/p2-36-evaluation-plan-dry-run.json. 본학습/native4완료검증후실행해야함,아직후속평가batch없음. 다음동일session97849/PID업데이트확인→본학습/native완료→12추가평가→32개조건짝report/실제task노출/총78643200신규step/영상감사. P236최종pairedreport스크립트아직미구현. 전체목표미완료,같은worker재시작금지.
