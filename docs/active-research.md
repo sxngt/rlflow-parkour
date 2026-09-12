@@ -704,3 +704,14 @@ monitor collector/API에evaluation_summary.load_report 적용,scenarios파일수
 src/parkour/jump_sampling.py target_ranges/sample_distances 및 DirectedJumpEnv 리셋연결,terrain_contract이산목표별가용성검사. train_forward_choices_m은range/curriculum과동시지정금지. configs/p2-30-fixed.json/mixed.json 작성,혼합은range키제거/choices[0,.15]. 기존연속rand호출값/RNG소비동일테스트,지정값외출력없음/RNG복구/균등샘플/갭목표·중복·nan거절 포함72tests통과(session47878exit0),artifacts/p2-30-sampling-tests.log. torch는sampler함수내import로CPU관리경로의불필요의존성방지.
 
 다음필수: policy_fork의split부모및choices허용변경규약추가(기존strictresume유지),train목표별reset/관측량계상·metric기록(현재active_distance None만으로는혼합기록불충분),support보고서0cm departure/15cm landing 선택,영상제목의이산목표표기,양조건축소학습/평가/재개검증. 아직본학습시작금지(미검증기능남음). 이후8run밸런스순서배치. 전체목표미완료.
+
+
+### 최신: P2-30 통합 검증 완료·본학습 시작
+
+이전턴프로토콜/샘플러구현은progress. source4741d06 split부모fork 및choices허용변경,목표별reset draws/pre-action envstep 집계,goal선택지로departure/landing 지지면판정,이산학습거리영상제목지원. 74tests통과(session40356),artifacts/p2-30-integration-unit-tests.log.
+
+fixed/mixed64env3update smoke(session9750/89744)둘다학습·native평가·영상정상종료,4artifact감사통과 artifacts/p2-30-smoke-audit.jsonl. 실제cp0부모복사/새optimizer감사2통과 artifacts/p2-30-smoke-fork-audit.jsonl. 각4608step,혼합0cm2607/15cm2001,resetdraw총수와종료수일치. 초기2회reset배정(128개)은meta별도:fixed128,mixed65/63. 집계는attempt진단이며checkpoint커리큘럼상태가아님. 기록 artifacts/p2-30-smoke-goal-accounting.json. support보고서0/15목표선택경로도정상(3update미수렴성능은주장하지않음).
+
+혼합resume3→4/5(session89693)학습+auto평가정상,계보동일·신규3072/누적7680step,2감사 artifacts/p2-30-smoke-resume-audit.jsonl. 원래동일조건resume규약유지.
+
+source d1fec6a scripts/p2_30_train.py 균형8run배치. 본학습시작session68047,log artifacts/p2-30-main-batch.log. 부모P229splitseedS cp800,각P230fixed/mixedseedS cp800계획. seed0/2fixed먼저,seed1/3mixed먼저. 재시작/중복실행금지,현재실제PID확인필요. 다음본학습초기화/목표별계상확인,평가배치/primary회귀spec작성(프로토콜기준split0/15×32 native,continuous0/5/10/15×16,split15×64각8;부모split0/15×32새평가4필요). 전체목표미완료.
