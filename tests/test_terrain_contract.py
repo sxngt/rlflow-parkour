@@ -33,3 +33,22 @@ class TerrainContractTest(unittest.TestCase):
                 other['terrain_contract']['calibration']['root_state'][2] = float('nan')
             with self.assertRaises(ValueError):
                 training_support(other)
+
+    def test_continuous_targets_and_resume_boundary(self):
+        cfg = json.loads((Path(__file__).resolve().parents[1]/'configs/p2-27-continuous.json').read_text())
+        support = training_support(cfg)
+        self.assertEqual(support['mode'], 'continuous')
+        with self.assertRaises(ValueError):
+            assert_same_terrain(self.config, cfg)
+        for location in ('train', 'evaluation', 'curriculum', 'margin'):
+            other = copy.deepcopy(cfg)
+            if location == 'train':
+                other['jump']['train_forward_range_m'][1] = .20
+            elif location == 'evaluation':
+                other['jump']['evaluation_forward_m'].append(.20)
+            elif location == 'curriculum':
+                other['jump']['distance_curriculum'][1]['forward_range_m'][0] = -.04
+            else:
+                other['terrain_contract']['foot_projection_radius_m'] = 0
+            with self.assertRaises(ValueError, msg=location):
+                training_support(other)
