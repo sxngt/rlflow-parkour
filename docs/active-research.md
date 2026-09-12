@@ -668,3 +668,10 @@ continuous/split fork smoke각64env3update+auto평가/영상정상완료(34960/2
 첫묶음중간spec artifacts/p2-29-first-batch-intermediate.json. support보고서가native split metadata에goal_forward_m이없어KeyError 발생(원본실패log보존). 공통layout.target_travel_m사용+optionalgoal일치검사로수정. native첫4run256episode모두최초네발구투영포함/성공64각확인. 기존P2288평가512episode진단전체JSON동일검증으로override형식회귀확인. support retry/session85684정상. post_landing도전부최초접촉/안정화완료확인(session24433의postlandingexit0;앞선support오류는별도명시). docs/p2-29-first-batch-intermediate*중간결과/비교미완료문구보존.
 
 다음동일batch둘째학습과native평가완료확인→8학습/8native감사→p2_29_evaluate.py 교차8+회귀8→full primary/regression 보고서. 전체목표미완료.
+
+
+### 최신: P2-29 본학습 전체 완료 / 교차·회귀 실행 중
+
+이전턴은둘째fork감사/첫묶음진단수정으로progress. 이번동일batch PID1608853을live재확인후45초단위대기. 최종PID종료+batch로그4seed exit0 확인. 8run각800update·19,660,800step,총신규157,286,400step정확일치. 8native평가모두64/64성공,16artifact감사통과 artifacts/p2-29-training-native-audit.jsonl. 8result영상hash/64env/camera4 검증 artifacts/p2-29-training-native-summary.json. 전체비교/회귀결론은미확정.
+
+이어서 scripts/p2_29_evaluate.py 실행시작:session57789,log artifacts/p2-29-cross-regression-batch.log. seed별continuous학습→split평가→continuous혼합거리회귀→split학습→continuous평가→continuous혼합거리회귀 순. 총16평가. 동일세션/실제PID재확인,중복실행금지. 다음완료후평가16감사,두spec에experiment_report/jump_trace_report/p2_15_support_report/post_landing_report 실행,부모/지형간차이와회귀분석. 전체목표미완료.
