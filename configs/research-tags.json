@@ -73,7 +73,11 @@
     "step:p3-12-nonuniform-course": "P3-12 · 비균일 간격 코스",
     "step:p4-01-spatial-friction": "P4-01 · 공간별 마찰 변화 평가",
     "step:p4-02-friction-training": "P4-02 · 마찰 변화 학습 비교",
-    "purpose:closeup": "개별 로봇 근접 영상"
+    "purpose:closeup": "개별 로봇 근접 영상",
+    "step:p3-13-height-course": "P3-13 · 발판 높이 변화",
+    "step:p3-14-reach-envelope": "P3-14 · 도약 거리 범위 평가",
+    "step:p3-15-longer-jump-training": "P3-15 · 15–30cm 도약 학습",
+    "step:p4-03-history-training": "P4-03 · 관측 이력 비교"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
