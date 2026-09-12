@@ -1114,3 +1114,12 @@ scripts/p2_38_evaluate.py(commitb11d06a) 추가:8모델×chain/deck-regression/c
 scripts/p2_38_evaluate.py 실행 session39782, log artifacts/p2-38-evaluation-batch.log. 시작 게이트에서 8학습 및 native8 artifact 감사 통과. GPU별 seed를 배치해 추가24평가 실행 중이며 첫 실제 Isaac PID1918848/1918849/1918862/1918863 확인. 영상64환경/camera_side4, 200Hz 진단, result 제목/phase태그 경로 유지. 저장소 여유526GB.
 
 다음은 동일 session39782/PID 확인 후 추가24 종료 → scripts/p2_38_report.py의 전체32 모델·동일시나리오·영상 hash 감사 → paired 비교와 실패 분석/영상 검수. 전체 목표는 미완료이며 같은 평가를 중복 실행하지 않는다.
+
+
+### 최신: P2-38 native 두번째 도약 진단 / 같은 평가 batch 진행
+
+이전 turn은 전체 학습 감사와 추가 평가 실행으로 progress. session39782를 직접 poll해 실행 중임을 확인했고 새 평가 worker PID1920414/1920649/1920959를 확인했다. 재시작 없음. 추가24 중 deck 조건12개 run은 SUCCEEDED, continuous 조건의 deck-regression4개 실행 중인 시점까지 확인했다. supervisor/전체 artifact 최종 완료는 batch 종료 후 확인한다.
+
+기존 scripts/p2_32_failure_report.analyze를 native8에 적용한 artifacts/p2-38-native-second-hop-diagnosis.json 생성(session55561 exit0). 최종 200Hz 발 좌표와 목표로 재계산한 반경 gate가 기록과 일치했다. seed1 continuous는 두번째 시도64개 중22개 최종 발 반경 불충족, deck은 두번째 시도9개 중5개 여러 gate 불충족. seed2 deck3/continuous1개 최종 반경 불충족. seed3 양조건 두번째 시도64개 모두 첫 접촉/이동/반경/지지 gate 불충족. 이는 종료 시점 조건 분류이며 접촉 물리 원인이나 미끄러짐을 확정하지 않는다.
+
+다음 동일session39782 종료 확인 → 전체32 보고서 감사 및 paired 결과 분석. 분석 파일은 artifacts에 있으며 연구 결론 문서는 아직 생성하지 않았다.
