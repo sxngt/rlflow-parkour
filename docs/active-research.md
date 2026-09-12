@@ -462,3 +462,12 @@ mean성공56/32/48/21,유효비행·최초정밀모두64,안정화64/64/64/53. s
 성공32/29/64/48, 최초정밀·유효비행64전부,안정화64/44/64/50. 거리별seed0=16/16/0/0,seed1=16/13/0/0,seed2=16/16/16/16,seed3=16/16/16/0. 평균43.25/64이나P224대비seed0−24/seed1−3회귀.2×2차이의차이+24/+33/−4/+1,평균+13.5/64 기술통계이며사후설계/작은seed한계. champion승격안함. docs/p2-25-findings.md.
 
 다음은추가작은상한sweep대신P2-26 동결된현재4정책의지지면전이진단. deck/continuous/split 각각동일15cm목표·64episode·동일물리재질 비교,200Hz 준비동작/유효비행/최초접촉/유지 분석. scripts/p2_14_evaluate.py는이전P211고정구현이므로새프로토콜/배치작성,현재학습terrain과evaluation override호환 및동일calibration 확인이필요. scripts/evaluate.py --support-mode/--support-calibration/--support-matched-material 경로존재. --support-preserve-goals 없이15cm고정 override. 네seed모두평가하며좋은seed만선별금지. 현재미착수,추가학습없음. 전체연구미완료.
+
+
+### 최신: P2-26 지지면 전이 12평가 완료
+
+직전P225완료턴은progress. 이번턴프로토콜/배치source7b2a51d,seed0 deck선행검증후나머지11평가수행. scripts/p2_26_evaluate.py batches87380/37008/44216모두정상종료. artifacts/p2-26-audit.jsonl12감사통과. scripts/p2_26_report.py 및 p2_26_preparation_report.py 실행완료. result12영상hash/camera4/64env/태그,seed2 split preview 확인.GPU전부회수,저장533GB.
+
+deck성공0/0/64/0,flight전부64. continuous/split모든seed성공0/flight0/비발충돌64. 좁은지지면512episode모두초기발XY내부,후속XY이탈/발높이−2cm아래관측. seed2 FR0.355초이탈/0.425초표면아래,continuous종료.46/split.44. docs/p2-26-findings.md/summary.json/preparation.json. 유효비행전지지손실이며갭만의문제아님. 원인과미끄러짐확정금지.
+
+다음P227은좁은continuous학습분포/준비동작의구조적수정후보. terrain_contract flat/deck전용확장및목표영역가용성(20cm목표를현24cm패드에무조건넣지않음)/reset/restore/물리probe검증필요. 관측경계추가와지형분포변경을동시에섞지말고먼저프로토콜/비교예산고정. 기존deck회귀유지. 현재P227미착수,추가학습없음,전체목표미완료.
