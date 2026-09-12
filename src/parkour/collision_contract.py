@@ -68,4 +68,7 @@ def inspect_collision_contract(env):
         assert len(elevated_bounds)==len(surfaces)*(2 if env.num_envs>1 else 1)
     return {'schema_version': 1, 'roots': roots, 'colliders': rows, 'elevated_support_bounds':elevated_bounds,
             'scope': 'Resolved USD binding in first/last environment and global ground. Null means unspecified; not a measured solver default.',
-            'matched_support_material': bool(env.cfg.support_contract.get('matched_material'))}
+            'matched_support_material': bool(env.cfg.support_contract.get('matched_material')) and all(
+                v==.5 for override in env.cfg.support_contract.get('surface_material_overrides',{}).values() for v in override.values()),
+            'base_material_matched': bool(env.cfg.support_contract.get('matched_material')),
+            'surface_material_override_count':len(env.cfg.support_contract.get('surface_material_overrides',{}))}

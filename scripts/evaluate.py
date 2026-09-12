@@ -26,7 +26,7 @@ def main():
     p.add_argument("--restore-transition", type=Path, help="Probe a saved landing state; success is for the remaining hop only")
     p.add_argument("--transition-states", action="store_true", help="Record articulated successful-landing states; replay not yet validated")
     p.add_argument("--reward-components", action="store_true", help="Audit grouped control-step rewards without changing the policy or reward")
-    p.add_argument('--chain-hops', type=int, choices=range(1,9), help='P2-32 frozen-policy deck evaluation; separate course success contract')
+    p.add_argument('--chain-hops', type=int, choices=range(1,9), help='Frozen-policy one-to-eight-hop evaluation; explicit course success contract')
     p.add_argument('--course-station-heights', type=float, nargs='+', help='Initial and landing support heights, one per station')
     p.add_argument('--course-friction', type=float, help='Authored static/dynamic friction for later course pads')
     p.add_argument('--friction-start-station', type=int, default=4)
@@ -150,7 +150,7 @@ def main():
     plan = None
     if args.map_goal_forward_m is not None:
         if args.support_mode != 'course' or args.chain_hops not in range(2,9):
-            p.error('Geometric execution currently requires the two-hop course adapter')
+            p.error('Geometric execution requires a course with two to eight hops')
         from parkour.geometric_planner import plan_stances
         plan = plan_stances(support['layout'], support['calibration']['foot_xy_m'], args.map_goal_forward_m, max_hops=args.chain_hops, max_step_height_m=.03 if args.course_station_heights is not None else None)
         selected = [c['forward_m'] for c in plan['contacts']]
@@ -159,7 +159,7 @@ def main():
             import itertools
             expected = list(itertools.accumulate(args.course_step_lengths))
         if plan['status'] != 'planned' or (len(selected)!=args.chain_hops or any(abs(x-expected[i])>1e-7 for i,x in enumerate(selected))):
-            p.error('No geometric plan compatible with the current 15cm two-hop Tracker contract')
+            p.error('No geometric plan compatible with the declared translation sequence')
         for episode in manifest['episodes']:
             episode['foot_offsets_xy_m'] = [[selected[0], 0.] for _ in range(4)]
             if args.course_step_lengths is not None:
@@ -242,7 +242,7 @@ def main():
             atomic_json(args.out/'collision-contract.json', contract)
         if args.transition_states:
             if args.chain_hops not in range(2,9):
-                raise ValueError('Transition states require two-hop evaluation')
+                raise ValueError('Transition states require a multi-hop evaluation')
             env.capture_transition_states = True
         alg, norm = make_algorithm(config, env)
         if args.checkpoint:
@@ -293,7 +293,7 @@ def main():
         meta["nominal_foot_xy_m"] = env.nominal_xy.tolist()
         if args.restore_transition:
             if args.chain_hops not in range(2,9) or args.transition_states or args.action_mode != 'mean':
-                raise ValueError('Restore probe requires two-hop mean policy without nested capture')
+                raise ValueError('Restore probe requires a compatible multi-hop mean policy without nested capture')
             from parkour.transition_states import restore_transition_states
             restored = restore_transition_states(env, args.restore_transition, args.checkpoint, support)
             meta['transition_restore'] = restored
