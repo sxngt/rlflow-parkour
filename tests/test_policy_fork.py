@@ -41,3 +41,11 @@ class PolicyForkTest(unittest.TestCase):
         self.data['normalizer'][key].fill_(float('nan'))
         with self.assertRaises(ValueError):initialize_fork(self.data,self.target,self.dest,self.norm)
         for k,v in self.dest.policy.state_dict().items():self.assertTrue(torch.equal(v,before[k]))
+
+    def test_split_parent_discrete_fork_keeps_other_contracts(self):
+        parent=json.loads((ROOT/'configs/p2-29-split.json').read_text())
+        target=json.loads((ROOT/'configs/p2-30-mixed.json').read_text())
+        validate_fork_configs(parent,target)
+        for section,key,value in [('jump','launch_radius_m',.1),('jump','travel_reward_weight',100),('exploration','min_std',.01)]:
+            bad=copy.deepcopy(target);bad[section][key]=value
+            with self.assertRaises(ValueError):validate_fork_configs(parent,bad)

@@ -62,8 +62,12 @@ def collect(evaluation, result_root=ROOT / 'result'):
     if run['config']['task'] in ('a1_t0_single_foot_v4','a1_t0_single_foot_aligned_v5','a1_t0_single_foot_continuous_v6'):
         task_title = run['config']['sequence']['foot_order'][0].replace('_foot','')+'_'+task_title
     if run['config']['task'] == 'a1_directed_jump_v5' and train_run:
-        low, high = train_run['config']['jump']['train_forward_range_m']
-        task_title += f'_학습거리{100*low:g}–{100*high:g}cm'
+        jump = train_run['config']['jump']
+        if 'train_forward_choices_m' in jump:
+            task_title += '_이산학습거리' + '·'.join(f'{100*d:g}' for d in jump['train_forward_choices_m']) + 'cm'
+        else:
+            low, high = jump['train_forward_range_m']
+            task_title += f'_학습거리{100*low:g}–{100*high:g}cm'
     if 'purpose:profiling' in run.get('research_tags', run['config'].get('research_tags', [])):
         task_title += '_처리량측정용_미수렴정책'
     mode = {'policy':'PPO', 'zero':'기본자세_대조군', 'shuffled-target':'PPO_목표셔플'}[run['baseline']]

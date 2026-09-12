@@ -90,6 +90,10 @@ def main():
         if args.video:
             from parkour.media import ParallelRecorder
             recorder=ParallelRecorder(env,args.out,name='parallel-training')
+        goal_values=getattr(env, 'goal_sample_values', [])
+        if goal_values:
+            meta['goal_accounting_initial_draws'] = dict(zip(map(str,goal_values),env.goal_draw_counts.tolist()))
+            meta['goal_accounting_contract'] = 'Per-attempt reset draws; pre-action environment transitions; initialization draws separate; counters are diagnostics, not curriculum state'
         rollout_step=0
         for iteration in range(completed, completed + config["iterations"]):
             started = time.perf_counter()
@@ -113,8 +117,14 @@ def main():
             completed_contacts = []
             jump_flights,jump_landings,jump_apex_met=0,0,0
             jump_apices=[]
+            if goal_values:
+                draws_before=env.goal_draw_counts.clone()
+                goal_steps=torch.zeros(len(goal_values),dtype=torch.long,device=env.device)
             with torch.inference_mode():
                 for _ in range(steps_per_iteration):
+                    if goal_values:
+                        for goal_index,goal_value in enumerate(goal_values):
+                            goal_steps[goal_index]+=(torch.abs(env.goal_distance-goal_value)<1e-7).sum()
                     actions = alg.act(obs, obs)
                     if recorder:
                         recorder.capture(rollout_step,iteration=iteration+1)
@@ -148,6 +158,12 @@ def main():
                    "successes": successes, "failures": failures,
                    "mean_final_error_m": sum(errors) / len(errors) if errors else None,
                    "losses": {k: float(v) for k, v in losses.items()}}
+            if goal_values:
+                if int(goal_steps.sum()) != env.num_envs*steps_per_iteration:
+                    raise RuntimeError('Goal accounting did not cover every transition')
+                row['goal_environment_steps'] = dict(zip(map(str,goal_values),goal_steps.tolist()))
+                row['goal_reset_draws'] = dict(zip(map(str,goal_values),(env.goal_draw_counts-draws_before).tolist()))
+                row['train_forward_choices_m'] = config['jump'].get('train_forward_choices_m')
             if exploration_cap is not None:
                 effective=alg.policy.std.detach().clamp(min=alg.policy.std_floor,max=alg.policy.std_cap)
                 row.update(exploration_std_cap=exploration_cap, exploration_std_min=float(effective.min()),

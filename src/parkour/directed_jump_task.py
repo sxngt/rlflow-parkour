@@ -11,6 +11,9 @@ class DirectedJumpEnv(PrecisionJumpEnv):
         self.travel_reward=TravelLandingReward(self.num_envs,self.device,self.jump.get('travel_reward_mode','distance_only'))
         self.goal_distance=torch.zeros(self.num_envs,device=self.device)
         self.precise_stabilized=torch.zeros(self.num_envs,dtype=torch.bool,device=self.device)
+        interval=self.jump.get('train_forward_range_m')
+        self.goal_sample_values=self.jump.get('train_forward_choices_m', [interval[0]] if interval and interval[0]==interval[1] else [])
+        self.goal_draw_counts=torch.zeros(len(self.goal_sample_values),dtype=torch.long,device=self.device)
     def set_sequence_offsets(self,offsets,env_ids=None,episode_orders=None):
         super().set_sequence_offsets(offsets,env_ids,episode_orders)
         if hasattr(self,'goal_distance'):
@@ -22,6 +25,8 @@ class DirectedJumpEnv(PrecisionJumpEnv):
         self.travel.reset(env_ids);self.precise_stabilized[env_ids]=False
         self.travel_reward.reset(env_ids)
         distance=sample_distances(self.jump,len(env_ids),self.device,self.generator)
+        for i,value in enumerate(self.goal_sample_values):
+            self.goal_draw_counts[i]+=(torch.abs(distance-value)<1e-7).sum()
         offsets=torch.zeros(len(env_ids),4,2,device=self.device);offsets[:,:,0]=distance[:,None]
         self.set_sequence_offsets(offsets,env_ids)
     def on_first_physics_contact(self,new):

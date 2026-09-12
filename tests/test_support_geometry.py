@@ -34,3 +34,16 @@ class SupportGeometryTest(unittest.TestCase):
                 build_support_layout(self.names, self.feet, mode='split', **kwargs)
         with self.assertRaises(ValueError):
             build_support_layout(self.names, [[0, 0]] * 4, mode='continuous')
+
+
+class CommandedSurfaceTest(unittest.TestCase):
+    def test_zero_and_forward_select_distinct_pads(self):
+        import json
+        from pathlib import Path
+        from parkour.support_geometry import expected_goal_surface
+        c=json.loads((Path(__file__).resolve().parents[1]/'configs/p2-30-mixed.json').read_text())
+        support=c['terrain_contract']
+        for i,xy in enumerate(support['calibration']['foot_xy_m']):
+            self.assertEqual(expected_goal_surface(support,i,xy,0)['role'],'departure')
+            self.assertEqual(expected_goal_surface(support,i,xy,.15)['role'],'landing')
+            with self.assertRaises(ValueError):expected_goal_surface(support,i,xy,.05)

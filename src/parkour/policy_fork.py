@@ -13,14 +13,14 @@ def validate_fork_configs(parent, target):
     for c in (a,b):
         for key in ('iterations','num_envs','research_tags'):
             c.pop(key,None)
-        for key in ('train_forward_range_m','evaluation_forward_m','distance_curriculum','launch_curriculum'):
+        for key in ('train_forward_range_m','train_forward_choices_m','evaluation_forward_m','distance_curriculum','launch_curriculum'):
             c['jump'].pop(key,None)
         for key in ('mode','layout'):
             c['terrain_contract'].pop(key,None)
         c['exploration'].pop('stages',None)
     if a!=b:
         raise ValueError('Fork changed an unsupported robot, observation, reward, seed or optimizer contract')
-    if parent['terrain_contract']['mode']!='continuous' or target['terrain_contract']['mode'] not in ('continuous','split'):
+    if parent['terrain_contract']['mode'] not in ('continuous','split') or target['terrain_contract']['mode'] not in ('continuous','split'):
         raise ValueError('Fork terrain change is not supported')
     cap_for_update(target,0)
 

@@ -68,3 +68,21 @@ def support_ids_at_xy(layout, x, y):
     return [s['id'] for s in layout['surfaces']
             if s['bounds_xy_m'][0] <= x <= s['bounds_xy_m'][1]
             and s['bounds_xy_m'][2] <= y <= s['bounds_xy_m'][3]]
+
+
+def expected_goal_surface(support, foot_index, nominal_xy, goal_forward_m, margin=.02):
+    """Select the unique pad containing the commanded foot projection."""
+    import math
+    x,y=nominal_xy
+    if not all(math.isfinite(v) for v in (x,y,goal_forward_m,margin)) or margin<0:
+        raise ValueError('Invalid target geometry')
+    surfaces=support['layout']['surfaces']
+    candidates=surfaces if support['mode']=='deck' else [s for s in surfaces if s['foot']==support['foot_names'][foot_index]]
+    matches=[]
+    for s in candidates:
+        x0,x1,y0,y1=s['bounds_xy_m']
+        if x0+margin <= x+goal_forward_m <= x1-margin and y0+margin <= y <= y1-margin:
+            matches.append(s)
+    if len(matches)!=1:
+        raise ValueError('Expected target must fit exactly one support surface')
+    return matches[0]
