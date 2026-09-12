@@ -1,0 +1,14 @@
+{
+  "updates": 60,
+  "new_steps": 1474560,
+  "hop_steps": [
+    1449310,
+    25250
+  ],
+  "hop_successes": [
+    856,
+    0
+  ],
+  "mean_update_seconds": 0.6930914997433623,
+  "initial_vs_parent_legacy_differences": []
+}

@@ -890,3 +890,14 @@ artifacts/p2-34-chain-smoke:64env12updates/18432step 학습정상완료,artifact
 다음표본/처리량검사실행중: artifacts/p2-34-chain-profile-seed2,seed2부모fork1024env60updates,timeout600,본학습아닌별도파일럿. 다음실제worker확인→hop1/2step/PPOfinite/속도/VRAM분석. 무첫성공이면데이터도달문제를드러내고본학습검증완료로표현금지.
 
 평가adapter도chain_hops1은continuous/split지원하도록확장(2hop은deck만). checkpointconfig/restore는그대로; 이것의실제원거리회귀평가는아직안함. make_env config8초에runtime1hop4초override. evaluate --chain-hops1 --support-modecontinuous --evaluation-forward-m0 .05 .1 .15 경로검증필요. 전체목표미완료.
+
+
+### 최신: P2-34 1024환경 파일럿 완료 / 학습 후 평가 중
+
+이전짧은smoke/재개는progress. profile동일worker1778503live확인후진행관측,session58254exit0/60updates완료. 신규1,474,560step,hopsteps[1449310,25250],hopsuccess[856,0],meanupdate.6930915초. 이는실제두번째구간PPOtransition도달증거,성능성공아님. docs/p2-34-pilot-summary.json.
+
+IsaacPython audit_policy_fork profile/smoke둘다passed artifacts/p2-34-initialization-audit.log(관측시profile34update,초기상태검증scope). profile및초기평가완료artifact감사 artifacts/p2-34-profile-initial-audit.jsonl.
+
+초기cp0단일continuous0/5/10/15평가 artifacts/p2-34-initial-seed2-single-regression session91884exit0:64/64,기존P231seed2regression의모든legacyepisode필드정확동일. strictchaincheckpoint+runtime1hop지원확인.
+
+학습후cp60평가2개진행중: artifacts/p2-34-profile-seed2-chain-evaluation session85266 GPU0, artifacts/p2-34-profile-seed2-single-regression session47386 GPU2. 다음live/terminal확인→chain/일반artifact감사→거리별회귀/코스성능해석→본학습착수게이트결정. 본학습아직시작안함. currentmeanpolicy와sampled학습성공차이를혼동하지말것. 전체목표미완료.
