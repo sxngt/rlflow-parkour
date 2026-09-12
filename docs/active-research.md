@@ -613,3 +613,12 @@ terrain_contract.py split지원추가,각uniform목표구간전체가하나의pa
 zero split probe session51362정상종료,artifacts/p2-29-zero-split-support 감사통과.64대4초실패0/settle후모든200Hz표본네발>2N. autoresult영상생성. 이것은초기지지검증이며학습성공아님. 현재새학습없음.
 
 다음train --fork-from(또는명시명칭) 구현:동일조건resume와상호배타,부모hash/계보/config허용변경리스트,model/normalizer호환tensor검증,새optimizer/RNG/0iteration규약. restore기존strict검사우회로사용금지. 부모model std_cap버퍼.05를복사한뒤새일정.1이rollout전에적용되는지확인. learning.py save_checkpoint에계보보존규약검토. 평가회귀의명시적거리override(부모학습config변경과구분)구현필요;현재sourceconfigevaluation_forward_m15only이므로 --support-preserve-goals만으로혼합거리회귀는안됨. fork양지형smoke/재개/평가검증후본8학습. 아직본학습미착수,전체목표미완료.
+
+
+### 최신: P2-29 fork 구현·실제학습/재개 검증
+
+직전split계약/지지probe턴progress. sourceed6c2b7 src/parkour/policy_fork.py+train --fork-from 구현. --resume상호배타,config허용변경검사/전체model·normalizer tensor검사후복사,새optimizer/RNG/0계수,새std_cap.1적용. learning.save_checkpoint optional lineage와resume계보보존. checkpoint000000부터부모hash/step을저장. 기존strictrestore유지. 65unit통과.
+
+continuous/split fork smoke각64env3update+auto평가/영상정상완료(34960/24983),4artifact감사통과. 실제cp0의부모model(std_cap제외)/normalizer전tensor동일/optimizer빈값/counters0,cp3신규4608step/동일계보/cap.1→.05→.05검증. splitresume3→4/5(59852)완료/누적7680step/계보보존/별도감사통과. docs/p2-29-fork-validation.md. 본학습아직없음.
+
+다음평가전용명시거리override구현:config의학습jump계약을restore용으로유지한채scenario생성만[0,.05,.1,.15]로바꾸고manifest/meta에저장. split학습모델의회귀는continuous override에서만허용/목표영역가용성검증. 현재--support-preserve-goals는원래config15only이므로충분하지않음. 그후8run순서균형배치/parentseed0,1,3 p227continuous/seed2retry1,각800update/총157286400step. eval15cm각2지형+continuous혼합거리회귀、fullspec작성. 모든smoke후본학습. 전체목표미완료.
