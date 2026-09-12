@@ -23,7 +23,7 @@ def training_support(config):
         raise ValueError('Invalid calibrated root height')
     if len(spec['reference_sha256']) != 64:
         raise ValueError('Missing reference hash')
-    generated = build_support_layout(spec['foot_names'], calibration['foot_xy_m'], mode=spec['mode'] if spec['mode'] != 'flat' else 'deck')
+    generated = build_support_layout(spec['foot_names'], calibration['foot_xy_m'], mode=spec['mode'] if spec['mode'] != 'flat' else 'deck', course_hops=config.get('chain_training',{}).get('hops',2))
     if spec['mode'] != 'flat' and spec.get('layout') != generated:
         raise ValueError('Terrain layout differs from versioned generator')
     if spec['mode'] == 'flat' and 'layout' in spec:
@@ -35,7 +35,7 @@ def training_support(config):
         jump = config['jump']
         ranges = [[0., 0.]] + target_ranges(jump)
         if spec['mode'] == 'course':
-            ranges += [[.30, .30]]
+            ranges += [[.15*k,.15*k] for k in range(2,config.get('chain_training',{}).get('hops',2)+1)]
         ranges += [s['forward_range_m'] for s in jump.get('distance_curriculum', [])]
         ranges += [[d, d] for d in jump['evaluation_forward_m']]
         for limits in ranges:

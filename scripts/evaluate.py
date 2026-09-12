@@ -58,6 +58,7 @@ def main():
     if config.get('chain_training') is not None and args.chain_hops is None:
         args.chain_hops = config['chain_training']['hops']
         args.chain_settle_mode = config['chain_training']['settle_command']
+        args.mapped_contact_progress = config['chain_training'].get('progress_criterion')=='mapped_contact_v1'
     support = None
     if args.support_mode:
         if not args.support_calibration or config['task'] != 'a1_directed_jump_v5':
@@ -120,7 +121,7 @@ def main():
         support = copy.deepcopy(support)
         support.pop('goal_forward_m', None)
         manifest['evaluation_support'] = support
-    if args.mapped_contact_progress and (args.support_mode!='course' or args.chain_hops not in (2,3,4) or args.restore_transition):
+    if args.mapped_contact_progress and ((support or {}).get('mode')!='course' or args.chain_hops not in (2,3,4) or args.restore_transition):
         p.error('Mapped contact progression requires an original course evaluation')
     plan = None
     if args.map_goal_forward_m is not None:

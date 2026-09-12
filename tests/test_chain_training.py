@@ -83,3 +83,17 @@ class CourseContractTests(unittest.TestCase):
         with self.assertRaises(ValueError):validate_chain_training(bad)
         bad=copy.deepcopy(course);bad['terrain_contract']['layout']['surfaces'][0]['bounds_xy_m'][0]+=.01
         with self.assertRaises(ValueError):training_support(bad)
+
+class ThreeHopContractTests(unittest.TestCase):
+    def test_contact_and_strict_contracts_are_distinct_forks(self):
+        from parkour.policy_fork import validate_fork_configs
+        from parkour.terrain_contract import training_support
+        a=json.loads((ROOT/'configs/p3-04-course.json').read_text())
+        b=json.loads((ROOT/'configs/p3-08-mapped.json').read_text())
+        c=json.loads((ROOT/'configs/p3-08-strict.json').read_text())
+        for target in (b,c):
+            validate_fork_configs(a,target);training_support(target)
+            self.assertEqual(len(target['terrain_contract']['layout']['surfaces']),16)
+        with self.assertRaises(ValueError):assert_same_chain_training(b,c)
+        bad=copy.deepcopy(b);bad['episode_seconds']=8.
+        with self.assertRaises(ValueError):validate_chain_training(bad)

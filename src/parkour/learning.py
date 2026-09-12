@@ -97,7 +97,7 @@ def restore(data, config, alg, normalizer, env, training):
         env.generator.set_state(data["rng_scenario"])
 
 
-def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode='default', independent_support_clones=False, mapped_contact_progress=False):
+def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode='default', independent_support_clones=False, mapped_contact_progress=None):
     from parkour.chain_training import validate_chain_training
     chain_spec = validate_chain_training(config)
     retention = (config.get('retention_training') is not None and chain_hops is None
@@ -126,7 +126,8 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
         cfg, env_type = FootholdCfg(), FootholdEnv
     else:
         raise ValueError('Unknown task contract')
-    cfg.mapped_contact_progress = mapped_contact_progress
+    cfg.mapped_contact_progress = ((chain_spec or {}).get('progress_criterion') == 'mapped_contact_v1'
+                                   if mapped_contact_progress is None else mapped_contact_progress)
     cfg.seed = config["seed"]
     cfg.scene.num_envs = config["num_envs"]
     if independent_support_clones:
