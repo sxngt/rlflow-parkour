@@ -1,0 +1,246 @@
+{
+  "title": "P2-29 \u00b7 \ubd84\ub9ac \uc9c0\uc9c0\uba74 \ucd94\uac00\ud559\uc2b5 \uad50\ucc28\ud3c9\uac00",
+  "report": "p2-29",
+  "protocol": "p2-29-protocol.md",
+  "description": "\ubd80\ubaa8\uc815\ucc45\uc744\ub3d9\uc77c\ud558\uac8c\ubcf5\uc0ac\ud55c4seed\u00d72\ubd84\uae30. \ubd80\ubaa8\ud559\uc2b5\uc7ac\uc0ac\uc6a9\uacfc\uc0c8\ubd84\uae30step\uc744\uad6c\ubd84\ud558\uba70\uc6d0\ub798\ucd08\uae30\ud654\uc2e4\ud328\uc758\uc778\ud504\ub77c\ube44\uc6a9\uc740\ubcc4\ub3c4\uacc4\uc0c1\ud55c\ub2e4.",
+  "success_label": "\ubaa9\ud45c \ub3c4\uc57d \uc131\uacf5",
+  "evaluation_distances_m": [
+    0.15
+  ],
+  "show_forward_trace": true,
+  "trace_episode_index": 3,
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "parent-on-continuous",
+      "seed": 0,
+      "run": "p2-27-continuous-seed0",
+      "evaluation_run": "p2-28-material-continuous-seed0",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "parent-on-split",
+      "seed": 0,
+      "run": "p2-27-continuous-seed0",
+      "evaluation_run": "p2-28-material-split-seed0",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-continuous_eval-continuous",
+      "seed": 0,
+      "run": "p2-29-continuous-seed0",
+      "evaluation_run": "p2-29-continuous-seed0__final-evaluation",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed0"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-continuous_eval-split",
+      "seed": 0,
+      "run": "p2-29-continuous-seed0",
+      "evaluation_run": "p2-29-continuous-seed0-on-split",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed0"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-split_eval-continuous",
+      "seed": 0,
+      "run": "p2-29-split-seed0",
+      "evaluation_run": "p2-29-split-seed0-on-continuous",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed0"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-split_eval-split",
+      "seed": 0,
+      "run": "p2-29-split-seed0",
+      "evaluation_run": "p2-29-split-seed0__final-evaluation",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed0"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "parent-on-continuous",
+      "seed": 1,
+      "run": "p2-27-continuous-seed1",
+      "evaluation_run": "p2-28-material-continuous-seed1",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "parent-on-split",
+      "seed": 1,
+      "run": "p2-27-continuous-seed1",
+      "evaluation_run": "p2-28-material-split-seed1",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-continuous_eval-continuous",
+      "seed": 1,
+      "run": "p2-29-continuous-seed1",
+      "evaluation_run": "p2-29-continuous-seed1__final-evaluation",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed1"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-continuous_eval-split",
+      "seed": 1,
+      "run": "p2-29-continuous-seed1",
+      "evaluation_run": "p2-29-continuous-seed1-on-split",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed1"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-split_eval-continuous",
+      "seed": 1,
+      "run": "p2-29-split-seed1",
+      "evaluation_run": "p2-29-split-seed1-on-continuous",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed1"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-split_eval-split",
+      "seed": 1,
+      "run": "p2-29-split-seed1",
+      "evaluation_run": "p2-29-split-seed1__final-evaluation",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed1"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "parent-on-continuous",
+      "seed": 2,
+      "run": "p2-27-continuous-seed2-retry1",
+      "evaluation_run": "p2-28-material-continuous-seed2",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "parent-on-split",
+      "seed": 2,
+      "run": "p2-27-continuous-seed2-retry1",
+      "evaluation_run": "p2-28-material-split-seed2",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-continuous_eval-continuous",
+      "seed": 2,
+      "run": "p2-29-continuous-seed2",
+      "evaluation_run": "p2-29-continuous-seed2__final-evaluation",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed2-retry1"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-continuous_eval-split",
+      "seed": 2,
+      "run": "p2-29-continuous-seed2",
+      "evaluation_run": "p2-29-continuous-seed2-on-split",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed2-retry1"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-split_eval-continuous",
+      "seed": 2,
+      "run": "p2-29-split-seed2",
+      "evaluation_run": "p2-29-split-seed2-on-continuous",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed2-retry1"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-split_eval-split",
+      "seed": 2,
+      "run": "p2-29-split-seed2",
+      "evaluation_run": "p2-29-split-seed2__final-evaluation",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed2-retry1"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "parent-on-continuous",
+      "seed": 3,
+      "run": "p2-27-continuous-seed3",
+      "evaluation_run": "p2-28-material-continuous-seed3",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "parent-on-split",
+      "seed": 3,
+      "run": "p2-27-continuous-seed3",
+      "evaluation_run": "p2-28-material-split-seed3",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-continuous_eval-continuous",
+      "seed": 3,
+      "run": "p2-29-continuous-seed3",
+      "evaluation_run": "p2-29-continuous-seed3__final-evaluation",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed3"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-continuous_eval-split",
+      "seed": 3,
+      "run": "p2-29-continuous-seed3",
+      "evaluation_run": "p2-29-continuous-seed3-on-split",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed3"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-split_eval-continuous",
+      "seed": 3,
+      "run": "p2-29-split-seed3",
+      "evaluation_run": "p2-29-split-seed3-on-continuous",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed3"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-split_eval-split",
+      "seed": 3,
+      "run": "p2-29-split-seed3",
+      "evaluation_run": "p2-29-split-seed3__final-evaluation",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed3"
+    }
+  ]
+}
