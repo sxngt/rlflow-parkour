@@ -50,6 +50,8 @@ class DirectedJumpEnv(PrecisionJumpEnv):
         extra=self.travel_reward.collect(self.travel,self.goal_distance,self.failure,
             self.jump.get('travel_reward_weight',0.),self.jump.get('travel_reward_scale_m',.03),
             self.first_touch,self.jump.get('travel_precision_scale_m'))
+        if getattr(self, 'record_reward_components', False):
+            self.extras['reward_components']['travel'] = extra.clone()
         reward+=extra;self.reward_sum+=extra;m['return']=self.reward_sum.clone()
         m['first_travel_reward']=extra.clone()
         m.update(goal_forward_m=self.goal_distance.clone(),launch_recorded=self.travel.launched.clone(),

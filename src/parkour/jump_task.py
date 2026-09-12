@@ -113,6 +113,15 @@ class JumpEnv(SequentialEnv):
             self.jump.get('landing_vz_weight',0),self.jump.get('landing_support_weight',0))
         reward=dense*self.step_dt+3*self.flight_event.float()+self.new_touch.sum(dim=1)+8*self.success.float()-10*self.failure.float()
         reward+=self.jump.get('apex_progress_weight',0)*self.apex_progress_delta*(~self.failure)
+        if getattr(self, 'record_reward_components', False):
+            self.extras['reward_components'] = {
+                'dense': (dense*self.step_dt).clone(),
+                'flight_event': (3*self.flight_event.float()).clone(),
+                'contact_event': self.new_touch.sum(dim=1).clone(),
+                'success': (8*self.success.float()).clone(),
+                'failure': (-10*self.failure.float()).clone(),
+                'apex_progress': (self.jump.get('apex_progress_weight',0)*self.apex_progress_delta*(~self.failure)).clone(),
+            }
         error=errors.mean(dim=1);self.error_sum+=error;self.sample_count+=1;self.reward_sum+=reward
         self.extras['terminal_metrics']={'success':self.success.clone(),'failure':self.failure.clone(),'timeout':self.reset_time_outs.clone(),
           'length':self.episode_length_buf.clone(),'mean_error_m':(self.error_sum/self.sample_count.clamp_min(1)).clone(),

@@ -39,6 +39,8 @@ class PrecisionJumpEnv(JumpEnv):
     def _get_rewards(self):
         reward=super()._get_rewards()
         extra=self.first_touch_bonus*(~self.failure)
+        if getattr(self, 'record_reward_components', False):
+            self.extras['reward_components']['first_touch'] = extra.clone()
         reward+=extra;self.reward_sum+=extra
         metrics=self.extras['terminal_metrics']
         metrics['return']=self.reward_sum.clone()

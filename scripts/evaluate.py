@@ -23,6 +23,7 @@ def main():
     p.add_argument("--video-envs", type=int, default=16)
     p.add_argument("--video-camera-side", type=int, help="Camera distance in grid-side units; 4 preserves the 16-robot framing")
     p.add_argument("--diagnostics", action="store_true")
+    p.add_argument("--reward-components", action="store_true", help="Audit grouped control-step rewards without changing the policy or reward")
     p.add_argument('--chain-hops', type=int, choices=[1, 2], help='P2-32 frozen-policy deck evaluation; separate course success contract')
     p.add_argument('--chain-settle-mode', choices=['default', 'hold-last'], default='default')
     p.add_argument('--action-mode', choices=['mean', 'sampled'], default='mean')
@@ -205,6 +206,14 @@ def main():
         done = torch.zeros(env.num_envs, dtype=torch.bool, device=env.device)
         if args.chain_hops is not None:
             env.evaluation_done = done
+        reward_audit = None
+        if args.reward_components:
+            if config['task'] != 'a1_directed_jump_v5':
+                raise ValueError('Reward accounting currently supports directed jump v5 only')
+            from parkour.reward_audit import RewardAudit
+            reward_audit = RewardAudit()
+            env.record_reward_components = True
+            meta['reward_accounting'] = 'grouped_control_step_v1'
         records = [None] * env.num_envs
         diagnostics = None
         if args.diagnostics:
@@ -227,7 +236,9 @@ def main():
                               else alg.policy.act_inference(normalized))
                 if recorder and not bool(done[recorder.ids].all()):
                     recorder.capture(step,finished=done)
-                raw_dict, _, term, trunc, extras = env.step(action)
+                raw_dict, reward, term, trunc, extras = env.step(action)
+                if reward_audit:
+                    reward_audit.collect(reward, extras['reward_components'], done)
                 raw = raw_dict["policy"]
                 newly_done = (term | trunc) & ~done
                 for index in newly_done.nonzero().flatten().tolist():
@@ -248,6 +259,8 @@ def main():
             recorder = None
         if diagnostics:
             diagnostics.close(args.out, [s["id"] for s in manifest["episodes"]])
+        if reward_audit:
+            reward_audit.close(args.out, manifest['episodes'], env.step_dt)
         count = len(records)
         successes = sum(row["success"] for row in records)
         rate = successes / count
@@ -299,7 +312,7 @@ def main():
         atomic_json(args.out / "evaluation.json", report)
         meta["evaluation"] = {key: value for key, value in report.items() if key != "results"}
         meta["artifacts"] = {file.name: sha256(file) for file in args.out.iterdir()
-                             if file.suffix in (".mp4", ".png") or file.name in ("collision-contract.json", "terrain.json", "evaluation.json", "scenarios.json", "replay.json", "diagnostics.json", "motion-trace.npz")}
+                             if file.suffix in (".mp4", ".png") or file.name in ("collision-contract.json", "terrain.json", "evaluation.json", "scenarios.json", "replay.json", "diagnostics.json", "motion-trace.npz", "reward-components.json", "reward-components.npz")}
         if args.chain_hops is not None:
             meta['artifacts']['chain-events.json'] = sha256(args.out / 'chain-events.json')
         if args.independent_support_clones:
