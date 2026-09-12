@@ -47,3 +47,21 @@ class CommandedSurfaceTest(unittest.TestCase):
             self.assertEqual(expected_goal_surface(support,i,xy,0)['role'],'departure')
             self.assertEqual(expected_goal_surface(support,i,xy,.15)['role'],'landing')
             with self.assertRaises(ValueError):expected_goal_surface(support,i,xy,.05)
+
+class CourseGeometryTest(unittest.TestCase):
+    def test_two_hop_targets_and_unbridged_gaps(self):
+        import json
+        from pathlib import Path
+        from parkour.support_geometry import expected_goal_surface
+        c = json.loads((Path(__file__).resolve().parents[1]/'configs/p2-40-weighted.json').read_text())
+        support = dict(c['terrain_contract'], mode='course')
+        feet = support['calibration']['foot_xy_m']
+        layout = build_support_layout(support['foot_names'], feet, mode='course')
+        support['layout'] = layout
+        self.assertEqual(len(layout['surfaces']), 12)
+        self.assertAlmostEqual(layout['gap_width_m'], .09)
+        for i, (x, y) in enumerate(feet):
+            for k in range(3):
+                self.assertEqual(expected_goal_surface(support, i, (x,y), k*.15)['role'], f'station_{k}')
+            for offset in (.075, .225):
+                self.assertEqual(support_ids_at_xy(layout, x+offset, y), [])

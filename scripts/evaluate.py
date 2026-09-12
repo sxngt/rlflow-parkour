@@ -31,7 +31,7 @@ def main():
     p.add_argument("--research-tag", action="append", default=[])
     p.add_argument('--launch-radius', type=float, help='Evaluation-only tighter directed-jump launch radius in metres')
     p.add_argument('--evaluation-forward-m', nargs='+', type=float, help='Explicit evaluation-only distances on continuous/split support')
-    p.add_argument('--support-mode', choices=['flat', 'continuous', 'split', 'deck'])
+    p.add_argument('--support-mode', choices=['flat', 'continuous', 'split', 'deck', 'course'])
     p.add_argument('--support-matched-material', action='store_true')
     p.add_argument('--independent-support-clones', action='store_true', help='P2-38 all-deck scene construction validation only')
     p.add_argument('--support-preserve-goals', action='store_true', help='Keep configured evaluation distances during a terrain override')
@@ -40,10 +40,10 @@ def main():
     args = p.parse_args()
     if args.chain_settle_mode != 'default' and args.chain_hops != 2:
         p.error('Holding last action requires two-hop chain evaluation')
-    if args.chain_hops is not None and ((args.chain_hops == 2 and args.support_mode != 'deck') or not args.support_matched_material
+    if args.chain_hops is not None and ((args.chain_hops == 2 and args.support_mode not in ('deck', 'course')) or not args.support_matched_material
             or args.support_preserve_goals or args.support_probe_offset is not None
             or args.baseline != 'policy' or args.action_mode != 'mean' or args.launch_radius is not None):
-        p.error('Chain evaluation requires matched support, policy mean and original launch radius; two hops require deck')
+        p.error('Chain evaluation requires matched support, policy mean and original launch radius; two hops require deck or course')
     if args.action_mode == 'sampled' and args.baseline != 'policy':
         p.error('Sampled action diagnosis requires the policy baseline')
     if args.baseline != "zero" and not args.checkpoint:

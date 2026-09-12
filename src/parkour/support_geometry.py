@@ -11,8 +11,11 @@ import math
 def build_support_layout(foot_names, foot_xy, *, mode, travel_m=0.15,
                          pad_length_m=0.09, pad_width_m=0.12,
                          thickness_m=0.10, catch_floor_z_m=-0.5):
-    if mode not in ('continuous', 'split', 'deck'):
-        raise ValueError('Support mode must be continuous, split or deck')
+    if mode not in ('continuous', 'split', 'deck', 'course'):
+        raise ValueError('Support mode must be continuous, split, deck or course')
+    if mode == 'course':
+        # Rear final pads approach front departure pads: 9 cm pads overlap.
+        pad_length_m = .06
     dimensions = (travel_m, pad_length_m, pad_width_m, thickness_m)
     if any(not math.isfinite(v) or v <= 0 for v in dimensions):
         raise ValueError('Dimensions must be finite and positive')
@@ -32,6 +35,8 @@ def build_support_layout(foot_names, foot_xy, *, mode, travel_m=0.15,
                     if mode == 'continuous' else
                     [(x, pad_length_m, 'departure'),
                      (x + travel_m, pad_length_m, 'landing')])
+        if mode == 'course':
+            segments = [(x + k * travel_m, pad_length_m, f'station_{k}') for k in range(3)]
         for cx, length, role in segments:
             surfaces.append({'id': f'{name}_{role}', 'foot': name, 'role': role,
                 'center_m': [cx, y, -thickness_m / 2],
@@ -55,7 +60,7 @@ def build_support_layout(foot_names, foot_xy, *, mode, travel_m=0.15,
                 raise ValueError(f"Overlapping supports: {a['id']}, {b['id']}")
     return {'schema_version': 1, 'frame': 'environment_local', 'mode': mode,
             'target_travel_m': travel_m,
-            'gap_width_m': travel_m-pad_length_m if mode == 'split' else 0.,
+            'gap_width_m': travel_m-pad_length_m if mode in ('split', 'course') else 0.,
             'catch_floor_z_m': catch_floor_z_m, 'surfaces': surfaces,
             'landing_targets': targets,
             'contact_margin_m': None,

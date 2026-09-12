@@ -1,0 +1,20 @@
+{
+  "0": {
+    "episodes": 64,
+    "successes": 51,
+    "failures": 9,
+    "timeouts": 4,
+    "nonfoot_collisions": 9,
+    "ended_within_15_step_preparation": 0,
+    "valid_flights": 55
+  },
+  "1": {
+    "episodes": 51,
+    "successes": 0,
+    "failures": 51,
+    "timeouts": 0,
+    "nonfoot_collisions": 51,
+    "ended_within_15_step_preparation": 51,
+    "valid_flights": 0
+  }
+}
