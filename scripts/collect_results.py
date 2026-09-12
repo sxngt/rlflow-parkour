@@ -85,6 +85,9 @@ def collect(evaluation, result_root=ROOT / 'result'):
     if train_run and train_run['config'].get('retention_training'):
         goals = '·'.join(f'{100*x:g}' for x in train_run['config']['retention_training']['single_goal_choices_m'])
         title += f' | 학습 step: 연속 도약 50% + 단일 목표 {goals}cm 50%'
+        weights = train_run['config']['retention_training'].get('single_goal_weights')
+        if weights is not None:
+            title += ' | 단일 목표 선택 비중 ' + ':'.join(map(str, weights))
     if train_run and train_run['config'].get('support_assignment'):
         mode = train_run['config']['support_assignment']['single_mode']
         title += f' | 학습 지지면: 연속 deck / 단일 {mode}'

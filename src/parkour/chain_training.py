@@ -22,6 +22,13 @@ def validate_chain_training(config):
     if any(key in jump for key in ('train_forward_choices_m', 'distance_curriculum', 'launch_curriculum')):
         raise ValueError('Chain training does not support goal or launch curricula')
     retention = config.get('retention_training')
+    if retention is not None:
+        retention = dict(retention)
+        weights = retention.pop('single_goal_weights', None)
+        if weights is not None and (weights != [1, 1, 1, 3] or
+                any(type(x) is not int for x in weights) or
+                retention.get('single_goal_choices_m') != [0., .05, .1, .15]):
+            raise ValueError('Unsupported retention goal weights')
     if retention is not None and retention not in ({
             'schema_version': 1, 'single_fraction': .5, 'single_goal_choices_m': goals,
             'assignment': 'fixed_env_id_chain_first'} for goals in ([0., .15], [0., .05, .1, .15])):

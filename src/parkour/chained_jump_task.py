@@ -4,13 +4,14 @@ Only final episode termination invokes Isaac's reset. Intermediate success
 changes command/bookkeeping after the terminal-metric snapshot, before obs.
 """
 import torch
+from parkour.retention_sampling import sample_goal_indices
 
 from parkour.chained_progress import ChainedProgress
 from parkour.directed_jump_task import DirectedJumpEnv
 
 
 class ChainedDirectedJumpEnv(DirectedJumpEnv):
-    def __init__(self, cfg, render_mode=None, hops=2, settle_mode='default', retention=False, retention_goals=None):
+    def __init__(self, cfg, render_mode=None, hops=2, settle_mode='default', retention=False, retention_goals=None, retention_weights=None):
         if hops not in (1, 2):
             raise ValueError('P2-32 supports one-hop control or two-hop evaluation')
         if settle_mode not in ('default', 'hold-last'):
@@ -27,6 +28,7 @@ class ChainedDirectedJumpEnv(DirectedJumpEnv):
             self.goal_sample_values = list(retention_goals if retention_goals is not None else [0., .15])
             self.goal_draw_counts = torch.zeros(len(self.goal_sample_values), dtype=torch.long, device=self.device)
             self.single_goal_draw_counts = torch.zeros_like(self.goal_draw_counts)
+            self.retention_weights = retention_weights
         self.chain_settle_mode = settle_mode
         self.settle_action = torch.zeros_like(self.actions)
         self.chain = ChainedProgress(self.num_envs, self.device, hops=hops,
@@ -40,7 +42,8 @@ class ChainedDirectedJumpEnv(DirectedJumpEnv):
             return super()._sample_goal_distances(env_ids)
         distance = torch.full((len(env_ids),), .15, device=self.device)
         single = self.retention_task[env_ids] == 1
-        draws = torch.randint(len(self.goal_sample_values), (int(single.sum()),), device=self.device, generator=self.generator)
+        draws = sample_goal_indices(int(single.sum()), len(self.goal_sample_values),
+                                    self.device, self.generator, self.retention_weights)
         distance[single] = torch.tensor(self.goal_sample_values, dtype=distance.dtype, device=self.device)[draws]
         self.single_goal_draw_counts += torch.bincount(draws, minlength=len(self.goal_sample_values))
         return distance
