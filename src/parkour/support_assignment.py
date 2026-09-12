@@ -26,7 +26,7 @@ def support_assignment(config):
     groups = []
     for task, start, stop, mode, goals in (
             ('chain', 0, count // 2, 'deck', [.15, .30]),
-            ('single', count // 2, count, spec['single_mode'], [0., .15])):
+            ('single', count // 2, count, spec['single_mode'], config['retention_training']['single_goal_choices_m'])):
         layout = build_support_layout(support['foot_names'], support['calibration']['foot_xy_m'], mode=mode)
         candidate = dict(support, mode=mode, layout=layout)
         for i, xy in enumerate(support['calibration']['foot_xy_m']):

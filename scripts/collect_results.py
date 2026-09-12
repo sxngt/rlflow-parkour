@@ -68,7 +68,7 @@ def collect(evaluation, result_root=ROOT / 'result'):
     if run['config']['task'] == 'a1_directed_jump_v5' and train_run:
         jump = train_run['config']['jump']
         if train_run['config'].get('retention_training'):
-            task_title += '_혼합0·15cm'
+            task_title += '_혼합' + '·'.join(f'{100*x:g}' for x in train_run['config']['retention_training']['single_goal_choices_m']) + 'cm'
         elif 'train_forward_choices_m' in jump:
             task_title += '_이산학습거리' + '·'.join(f'{100*d:g}' for d in jump['train_forward_choices_m']) + 'cm'
         else:
@@ -83,7 +83,8 @@ def collect(evaluation, result_root=ROOT / 'result'):
     date = datetime.fromtimestamp(run['finished_unix_s'], timezone(timedelta(hours=9))).strftime('%Y-%m-%d')
     title = f'A1 | {task} {task_title.replace("_", " ")} | {mode} seed {seed} | {updates} updates | 개발군 {report["episodes"]} episodes'
     if train_run and train_run['config'].get('retention_training'):
-        title += ' | 학습 step: 연속 도약 50% + 단일 목표 0·15cm 50%'
+        goals = '·'.join(f'{100*x:g}' for x in train_run['config']['retention_training']['single_goal_choices_m'])
+        title += f' | 학습 step: 연속 도약 50% + 단일 목표 {goals}cm 50%'
     if train_run and train_run['config'].get('support_assignment'):
         mode = train_run['config']['support_assignment']['single_mode']
         title += f' | 학습 지지면: 연속 deck / 단일 {mode}'

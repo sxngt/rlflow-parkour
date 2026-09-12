@@ -10,7 +10,7 @@ from parkour.directed_jump_task import DirectedJumpEnv
 
 
 class ChainedDirectedJumpEnv(DirectedJumpEnv):
-    def __init__(self, cfg, render_mode=None, hops=2, settle_mode='default', retention=False):
+    def __init__(self, cfg, render_mode=None, hops=2, settle_mode='default', retention=False, retention_goals=None):
         if hops not in (1, 2):
             raise ValueError('P2-32 supports one-hop control or two-hop evaluation')
         if settle_mode not in ('default', 'hold-last'):
@@ -24,8 +24,8 @@ class ChainedDirectedJumpEnv(DirectedJumpEnv):
             # Fixed population, so each rollout contains exactly half of each task.
             self.retention_task = (torch.arange(self.num_envs, device=self.device) >= self.num_envs // 2).long()
             target_hops = 2 - self.retention_task
-            self.goal_sample_values = [0., .15]
-            self.goal_draw_counts = torch.zeros(2, dtype=torch.long, device=self.device)
+            self.goal_sample_values = list(retention_goals if retention_goals is not None else [0., .15])
+            self.goal_draw_counts = torch.zeros(len(self.goal_sample_values), dtype=torch.long, device=self.device)
             self.single_goal_draw_counts = torch.zeros_like(self.goal_draw_counts)
         self.chain_settle_mode = settle_mode
         self.settle_action = torch.zeros_like(self.actions)
@@ -40,9 +40,9 @@ class ChainedDirectedJumpEnv(DirectedJumpEnv):
             return super()._sample_goal_distances(env_ids)
         distance = torch.full((len(env_ids),), .15, device=self.device)
         single = self.retention_task[env_ids] == 1
-        draws = torch.randint(2, (int(single.sum()),), device=self.device, generator=self.generator)
-        distance[single] = draws.to(distance.dtype) * .15
-        self.single_goal_draw_counts += torch.bincount(draws, minlength=2)
+        draws = torch.randint(len(self.goal_sample_values), (int(single.sum()),), device=self.device, generator=self.generator)
+        distance[single] = torch.tensor(self.goal_sample_values, dtype=distance.dtype, device=self.device)[draws]
+        self.single_goal_draw_counts += torch.bincount(draws, minlength=len(self.goal_sample_values))
         return distance
 
     def maneuver_time_s(self):

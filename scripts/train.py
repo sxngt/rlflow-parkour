@@ -137,7 +137,7 @@ def main():
                 task_episodes = torch.zeros(2, dtype=torch.long, device=env.device)
                 task_successes = torch.zeros_like(task_episodes)
                 task_rewards = torch.zeros(2, device=env.device)
-                single_goal_steps = torch.zeros(2, dtype=torch.long, device=env.device)
+                single_goal_steps = torch.zeros(len(env.goal_sample_values), dtype=torch.long, device=env.device)
                 single_draws_before = env.single_goal_draw_counts.clone()
             with torch.inference_mode():
                 for _ in range(steps_per_iteration):
@@ -146,7 +146,7 @@ def main():
                         hop_steps += torch.bincount(segments, minlength=env.chain.hops)
                     if retention:
                         task_hop_steps += torch.bincount(env.retention_task * 2 + segments, minlength=4).reshape(2, 2)
-                        for i, distance in enumerate((0., .15)):
+                        for i, distance in enumerate(env.goal_sample_values):
                             single_goal_steps[i] += ((env.retention_task == 1) & ((env.goal_distance - distance).abs() < 1e-7)).sum()
                     if goal_values:
                         for goal_index,goal_value in enumerate(goal_values):

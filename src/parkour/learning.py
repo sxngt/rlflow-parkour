@@ -152,5 +152,6 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
             raise ValueError('Two-hop execution requires deck support')
         from parkour.chained_jump_task import ChainedDirectedJumpEnv
         cfg.episode_length_s = 4. * chain_hops
-        return ChainedDirectedJumpEnv(cfg, hops=chain_hops, settle_mode=chain_settle_mode, retention=retention)
+        return ChainedDirectedJumpEnv(cfg, hops=chain_hops, settle_mode=chain_settle_mode, retention=retention,
+                                      retention_goals=config.get('retention_training', {}).get('single_goal_choices_m'))
     return env_type(cfg)

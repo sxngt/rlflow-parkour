@@ -23,7 +23,14 @@ def check(path):
         assert steps[1][1] == 0
         assert [sum(steps[t][h] for t in range(2)) for h in range(2)] == row['hop_environment_steps']
         assert sum(row['single_goal_environment_steps']) == expected
-        assert row['single_goal_environment_steps'][0] == row['goal_environment_steps']['0.0']
+        goals = config['retention_training']['single_goal_choices_m']
+        assert len(row['single_goal_environment_steps']) == len(row['single_goal_reset_draws']) == len(goals)
+        for distance, steps_at_goal, draws in zip(goals, row['single_goal_environment_steps'], row['single_goal_reset_draws']):
+            key = str(distance)
+            assert steps_at_goal <= row['goal_environment_steps'][key]
+            assert draws <= row['goal_reset_draws'][key]
+            if distance != .15:
+                assert steps_at_goal == row['goal_environment_steps'][key]
         assert sum(row['task_episodes']) == row['episodes']
         assert sum(row['task_successes']) == row['successes']
         assert all(s <= n for s, n in zip(row['task_successes'], row['task_episodes']))

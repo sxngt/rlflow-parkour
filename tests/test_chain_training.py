@@ -35,6 +35,17 @@ class ContractTests(unittest.TestCase):
         bad = copy.deepcopy(mixed); del bad['chain_training']
         with self.assertRaises(ValueError): validate_chain_training(bad)
 
+    def test_coverage_goals_require_new_fork(self):
+        from parkour.policy_fork import validate_fork_configs
+        old = json.loads((ROOT / 'configs/p2-38-continuous.json').read_text())
+        new = json.loads((ROOT / 'configs/p2-39-coverage.json').read_text())
+        validate_chain_training(new)
+        validate_fork_configs(old, new)
+        with self.assertRaises(ValueError): assert_same_chain_training(old, new)
+        for goals in ([0., .1], [0., .05, .05, .15], [.15, .1, .05, 0.]):
+            bad = copy.deepcopy(new); bad['retention_training']['single_goal_choices_m'] = goals
+            with self.assertRaises(ValueError): validate_chain_training(bad)
+
     def test_reject_unvalidated_training_variants(self):
         for key, value in [('episode_seconds', 4.), ('task', 'other')]:
             bad = copy.deepcopy(self.chain); bad[key] = value
