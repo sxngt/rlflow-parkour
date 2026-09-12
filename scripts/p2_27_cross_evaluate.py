@@ -8,8 +8,10 @@ import sys
 from audit_artifacts import audit
 ROOT=Path(__file__).resolve().parents[1]
 CASES=(('p2-24-deck','continuous'),('p2-27-continuous','deck'))
+def training_run(source,seed):
+    return f'{source}-seed{seed}'+('-retry1' if source=='p2-27-continuous' and seed==2 else '')
 def command(seed,source,terrain):
-    run=f'{source}-seed{seed}';train=f'artifacts/{run}'
+    run=training_run(source,seed);train=f'artifacts/{run}'
     return [sys.executable,'scripts/run_job.py','--gpu',str(seed),'--timeout','240','evaluate',
         '--config',train+'/config.json','--checkpoint',train+'/checkpoint-001600.pt',
         '--out',f'artifacts/p2-27-{run}-on-{terrain}','--episodes','64','--diagnostics',
@@ -30,7 +32,7 @@ if __name__=='__main__':
     if len(set(args.seeds))!=len(args.seeds):parser.error('Duplicate seeds')
     for seed in args.seeds:
         for source,_ in CASES:
-            p=ROOT/'artifacts'/f'{source}-seed{seed}'
+            p=ROOT/'artifacts'/training_run(source,seed)
             audit(p);audit(p.with_name(p.name+'__final-evaluation'))
         for source,terrain in CASES:
             c=command(seed,source,terrain);p=ROOT/c[c.index('--out')+1]

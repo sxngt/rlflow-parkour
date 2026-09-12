@@ -539,3 +539,14 @@ seed2 PID1522215는여전히초기화정체,기존1800초감독제한유지. 다
 configs/reports/p2-27-partial.json은미완료seed2를명시하고3seed12행만포함,4보고서완료. 기존deck→continuous전부0/유효비행0;신규continuous→continuous및deck모두48/64,0/5/10cm16각성공/15cm0거리미달.유효비행/최초정밀/안정화/최초투영포함64전부. 영상9hash/camera4/64env검증. docs/p2-27-partial-findings.md. 전체4seed결론/승격금지.
 
 마지막seed2 PID1522215 RUNNING실제live,elapsed1582초/metrics없음. 감독1800초까지약218초. 현재정상3GPU해제,seed2 GPU2여전히점유. 다음동일PID/감독batch39983관측→실제timeout종료및GPU/lease해제확인→원본실패보존/동일seed2설정새attempt최대1회. 새attempt경로를fullreport/cross/stage보고서명세에명시연결해야함. 이미완료된3seed교차평가중복실행금지. 아직재시도없음. 전체목표미완료.
+
+
+### 최신: P2-27 seed2 인프라 복구 후 학습 진입
+
+직전3seed학습/교차평가완료는progress. 이번턴동일PIDverified wait후1800초supervisor timeout확인. 원본FAILED/exit−15/timed_out=true/resource_released=false;workerPID1522215 PPID1 orphan/GPU1971MiB잔존. 원본보존+cmdline/소유권확인후해당PID SIGKILL,/proc소멸/GPU없음/lease획득확인. artifacts/p2-27-seed2-orphan-cleanup.json 및 incident문서.
+
+source3e66b5a scripts/p2_27_retry_seed2.py는기록step0/체크포인트없음/터미널timeout/회수검증후최대1재시도. batch40871 실행, artifacts/p2-27-continuous-seed2-retry1 PID1556210 실제live/update23확인. 원본config정확일치,목표1024×24×1600동일. artifacts/p2-27-seed2-recovery.json 계보. 원본실패를삭제/덮어쓰지않음.
+
+full configs/reports/p2-27.json seed2 run을retry1로명시갱신(infrastructure_attempt원본연결). scripts/p2_27_cross_evaluate.py와stage_report도seed2 retry1경로대조. 완료된0/1/3그대로. 다음seed2새PID401/801/1201/1600,기본평가후cross --seeds2만실행(기존3seed중복금지),전체4보고서및16+원본실패회수감사. original batch39983는실패종료예상(확인필요),새batch40871가현재유효학습. 추가재시도없음.
+
+운영결함:run_job timeout시wrapper종료만확인해worker가남음. 향후소유프로세스회수경로를독립테스트로수정할것. 현재retry는정상학습중이므로재시작하지않음. 전체목표미완료.

@@ -95,9 +95,10 @@
       "foot": "GROUP",
       "condition": "train-continuous_eval-continuous",
       "seed": 2,
-      "run": "p2-27-continuous-seed2",
+      "run": "p2-27-continuous-seed2-retry1",
       "updates": 1600,
-      "reused": false
+      "reused": false,
+      "infrastructure_attempt": "p2-27-continuous-seed2"
     },
     {
       "foot": "GROUP",
@@ -129,10 +130,11 @@
       "foot": "GROUP",
       "condition": "train-continuous_eval-deck",
       "seed": 2,
-      "run": "p2-27-continuous-seed2",
+      "run": "p2-27-continuous-seed2-retry1",
       "updates": 1600,
       "reused": false,
-      "evaluation_run": "p2-27-p2-27-continuous-seed2-on-deck"
+      "evaluation_run": "p2-27-p2-27-continuous-seed2-retry1-on-deck",
+      "infrastructure_attempt": "p2-27-continuous-seed2"
     },
     {
       "foot": "GROUP",

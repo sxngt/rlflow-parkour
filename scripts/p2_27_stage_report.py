@@ -6,7 +6,7 @@ rows=[]
 keys=('episodes','successes','failures','valid_flights','landed_episodes')
 for source in ('p2-24-deck','p2-27-continuous'):
  for seed in range(4):
-  p=ROOT/'artifacts'/f'{source}-seed{seed}'
+  p=ROOT/'artifacts'/(f'{source}-seed{seed}'+('-retry1' if source=='p2-27-continuous' and seed==2 else ''))
   meta=json.loads((p/'run.json').read_text());f=p/'metrics.jsonl'
   metrics=[json.loads(x) for x in f.read_text().splitlines()] if f.exists() else []
   block=[m for m in metrics if 1<=m['iteration']<=400]

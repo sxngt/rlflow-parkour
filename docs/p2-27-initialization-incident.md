@@ -7,3 +7,10 @@ seed2 PID1522215가 Starting simulation 단계에서 학습 지표를 생성하�
 현재 자원 스냅샷은 artifacts/p2-27-resource-snapshot.json이다. 각 프로세스가 exclusive GPU lease를 소유하므로 학습step이 없어도 자원 점유 시간을 계상한다. GPU 프로세스 존재 시간·할당 시간은 CUDA 연산 시간이나GPU utilization과 다르다. 종료 전에는 전체실험의 최종손실로 확정하지 않는다.
 
 사전 실행 제한1800초를 유지한다. 같은PID와감독자상태를관측하고 실제종료전중복실행하지않는다. 종료시run.json과supervisor결과,프로세스소멸/GPU해제를대조한다. checkpoint가없는경우같은seed/설정의새attempt를최대1회검토하고원본실패를보존한다. 학습seed의성능결과교체로취급하지않으며기존시도의자원소비를별도계상한다. 재시도도정체하면동일무한재시도없이초기화경로의재현및설정진단으로전환한다.
+
+
+시간 제한 후 확인: 감독자는1801.33초에exit−15/timed_out=true를기록했으나자식PID1522215가PPID1로남고GPU1971MiB를점유했다. supervisor원본resource_released=false를보존했다. cmdline/소유PID/GPU를확인한뒤해당PID에만SIGKILL을보내고/proc소멸·GPU프로세스없음·lease획득가능을확인했다. artifacts/p2-27-seed2-orphan-cleanup.json.
+
+한번의동일설정재시도 p2-27-continuous-seed2-retry1(PID1556210)은초기화를통과해학습업데이트23이상을기록했다. 원본/새config정확일치. 계보와원본감독자/회수결과는artifacts/p2-27-seed2-recovery.json. 새모델이성능을달성했다는뜻은아니다. 최초초기화정체의내부원인은여전히미확정이다.
+
+운영결함후속: run_job은shell wrapper의SIGTERM종료만기다린뒤살아있는worker를강제정리하지못했다. timeout시소유프로세스그룹/기록PID를끝까지회수하는경로를독립프로세스테스트로수정할필요가있다. 원본오류를성공으로덮어쓰지않는다.
