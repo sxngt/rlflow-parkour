@@ -1099,3 +1099,7 @@ scripts/p2_38_evaluate.py(commitb11d06a) 추가:8모델×chain/deck-regression/c
 現在第二묶음실제IsaacPID1907667(continuous0)/1907791(continuous2)/1908071(deck3)/1908378(deck1). batchsession29971그대로유지。다음첫묶음감사완료결과확인→第二묶음checkpoint0생성후scripts/audit_policy_fork.py4개검증→학습800/native완료→全32평가실행。전체목표미완료。
 
 위감사session64986exit0최종확인,artifacts/p2-38-first-wave-completed-audit.json生成。第一묶음native코스 deck0=64/deck2=61/continuous1=42/continuous3=0 (각64)。짝조건평가아직없어우열결론불가。
+
+### 최신: P2-38 두번째 묶음 초기 복사 검증
+
+이전첫묶음완료/둘째실행은progress. 같은IsaacPID1907667/1907791/1908071/1908378실제생존확인. scripts/audit_policy_fork.py session98558exit0,第二묶음初期4복사모두passed artifacts/p2-38-second-wave-initialization-audit.jsonl. 초기확인56~81update후45초verifiedwait 및동일PID재확인. batch29971유지/再始動無. 다음같은第二묶음800/native완료→全8geometry/학습감사→scripts/p2_38_evaluate.py追加24→scripts/p2_38_report.py32평가比較. 전체목표미완료.
