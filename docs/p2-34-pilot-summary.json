@@ -10,5 +10,45 @@
     0
   ],
   "mean_update_seconds": 0.6930914997433623,
-  "initial_vs_parent_legacy_differences": []
+  "initial_vs_parent_legacy_differences": [],
+  "final_chain_successes": 0,
+  "final_chain_completed_hops_histogram": {
+    "0": 8,
+    "1": 56,
+    "2": 0
+  },
+  "final_single_by_distance": {
+    "0.0": {
+      "episodes": 16,
+      "successes": 16,
+      "launches_in_region": 16,
+      "travel_met": 16,
+      "first_touch_precise": 16,
+      "stabilized": 16
+    },
+    "0.05": {
+      "episodes": 16,
+      "successes": 16,
+      "launches_in_region": 16,
+      "travel_met": 16,
+      "first_touch_precise": 16,
+      "stabilized": 16
+    },
+    "0.1": {
+      "episodes": 16,
+      "successes": 16,
+      "launches_in_region": 16,
+      "travel_met": 16,
+      "first_touch_precise": 16,
+      "stabilized": 16
+    },
+    "0.15": {
+      "episodes": 16,
+      "successes": 15,
+      "launches_in_region": 16,
+      "travel_met": 15,
+      "first_touch_precise": 16,
+      "stabilized": 16
+    }
+  }
 }

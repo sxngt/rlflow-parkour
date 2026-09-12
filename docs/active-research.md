@@ -901,3 +901,10 @@ IsaacPython audit_policy_fork profile/smoke둘다passed artifacts/p2-34-initiali
 초기cp0단일continuous0/5/10/15평가 artifacts/p2-34-initial-seed2-single-regression session91884exit0:64/64,기존P231seed2regression의모든legacyepisode필드정확동일. strictchaincheckpoint+runtime1hop지원확인.
 
 학습후cp60평가2개진행중: artifacts/p2-34-profile-seed2-chain-evaluation session85266 GPU0, artifacts/p2-34-profile-seed2-single-regression session47386 GPU2. 다음live/terminal확인→chain/일반artifact감사→거리별회귀/코스성능해석→본학습착수게이트결정. 본학습아직시작안함. currentmeanpolicy와sampled학습성공차이를혼동하지말것. 전체목표미완료.
+
+
+### 최신: P2-34 파일럿 최종평가 및 본학습 착수
+
+이전파일럿완료/평가시작은progress. sessions85266/47386완료,chain56첫성공/0완주,단일16/16/16/15. scripts/audit_chained_evaluation.py양쪽passed artifacts/p2-34-profile-evaluations-audit.json. docs/p2-34-pilot-summary.json갱신. config만지정하는자동chain평가smoke artifacts/p2-34-auto-evaluation-smoke session40171exit0/SUCCEEDED. 부모복사/재개/학습도달/finite/중간성공done억제경로확인. 파일럿은본학습증거아님.
+
+scripts/p2_34_train.py구현:8개독립run800updates,seed짝수single→chain/홀수chain→single,각GPU1worker,본학습부모P231cp800새fork. 모든run부재/부모및smoke감사후실행. 본학습시작예정명령python3 scripts/p2_34_train.py > artifacts/p2-34-training-batch.log. 다음동일batch진행확인,학습중모델초기화감사/기본자동평가/조건별step합확인. 추가평가batch(deck1/chain2/continuousmixed/split15)아직미구현. 전체목표미완료.
