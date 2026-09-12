@@ -33,3 +33,12 @@ class CandidateTests(unittest.TestCase):
         old=env.candidate_plan[4].clone();install_candidates(env,2)
         self.assertTrue(torch.equal(env.candidate_plan[4],old))
         self.assertTrue(torch.allclose(env.candidate_plan[0,:,2:6,:,0],torch.full((2,4,2),-.08)))
+
+    def test_three_surface_horizon_leaves_fourth_unchanged(self):
+        from types import SimpleNamespace
+        from parkour.candidate_plan import install_candidates
+        plan=torch.zeros(2,5,2,3);plan[...,2]=.02
+        env=SimpleNamespace(num_envs=9,device='cpu',plan=plan,surface_rotations=torch.eye(3).repeat(5,1,1),surface_centers=torch.zeros(5,3),surface_halves=torch.full((5,2),.3))
+        c=install_candidates(env,1,3);self.assertEqual(c['horizon'],3)
+        self.assertTrue(torch.equal(env.candidate_plan[:,:,4],plan[None,:,4].expand(9,-1,-1,-1)))
+        with self.assertRaises(ValueError):install_candidates(env,1,4)

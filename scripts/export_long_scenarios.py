@@ -2,11 +2,11 @@
 import argparse,json,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'src'))
-from parkour.shared_terrain import build_long_shared_course,build_ten_gap_course,build_discrete_parkour,world_point
+from parkour.shared_terrain import build_long_shared_course,build_ten_gap_course,build_discrete_parkour,build_mixed_discrete,world_point
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--family',choices=['ten-transfer','ten-gap','discrete-parkour'],default='ten-transfer')
+    parser.add_argument('--family',choices=['ten-transfer','ten-gap','discrete-parkour','mixed-discrete'],default='ten-transfer')
     parser.add_argument('--approach-transfers',type=int,choices=[3,5],default=3)
     args=parser.parse_args()
     ten_gap=args.family=='ten-gap'
@@ -19,8 +19,8 @@ def main():
     family_name=args.family+('-60' if args.approach_transfers==5 else '')
     out=ROOT/f'result/scenarios/{family_name}-difficulty-designs';out.mkdir(parents=True,exist_ok=True)
     fig=plt.figure(figsize=(15,5));entries=[]
-    for index,level in enumerate(('easy','medium','hard')):
-        layout=build_ten_gap_course(level,1,approach_transfers=args.approach_transfers) if ten_gap else build_long_shared_course(level,1)
+    for index,level in enumerate(('quarter','half','full') if args.family=='mixed-discrete' else ('easy','medium','hard')):
+        layout=build_mixed_discrete(1,{'quarter':.25,'half':.5,'full':1.}[level]) if args.family=='mixed-discrete' else (build_ten_gap_course(level,1,approach_transfers=args.approach_transfers) if ten_gap else build_long_shared_course(level,1))
         if args.family=='discrete-parkour':layout=build_discrete_parkour(level,1)
         (out/(level+'.json')).write_text(json.dumps(layout,indent=2)+'\n')
         ax=fig.add_subplot(1,3,index+1,projection='3d')
@@ -37,11 +37,11 @@ def main():
         ax.yaxis.set_major_locator(MaxNLocator(3));ax.set_zticks([0.,.3,.6]);ax.tick_params(labelsize=8)
         ax.view_init(elev=30,azim=-65);ax.set_xlabel('X (m)');ax.set_ylabel('Y (m)');ax.set_zlabel('Z (m)')
         heights=[v[2] for v in p];max_step=max(abs(a-b) for a,b in zip(heights,heights[1:]))
-        label=f'{layout.get("planned_gap_count",0)} gaps / {layout["transitions"]} transfers' if (ten_gap or args.family=='discrete-parkour') else '10 transfers'
+        label=f'{layout.get("planned_gap_count",0)} gaps / {layout["transitions"]} transfers' if (ten_gap or args.family in ('discrete-parkour','mixed-discrete')) else '10 transfers'
         ax.set_title(f'{level.upper()} | {label}\npath {layout["nominal_path_length_m"]:.2f} m | max height change {max_step:.2f} m')
         entries.append({'level':level,'geometry_seed':1,'transfers':layout['transitions'],'planned_gap_count':layout.get('planned_gap_count'),'nominal_path_length_m':layout['nominal_path_length_m'],'max_center_height_change_m':max_step,'geometry':level+'.json'})
     fig.suptitle('Long shared-surface scenarios — geometry design, not demonstrated robot performance',fontsize=13)
-    fig.text(.5,.04,('Every consecutive platform is physically separated. Elevation, tilt and heading vary; feasibility is unverified.\nTransfer count is not measured jump count.' if args.family=='discrete-parkour' else 'One shared platform supports multiple feet. Easy projections can overlap; medium/hard add gaps, tilt and heading changes.\nTransfer count does not imply jump count or successful execution. Time is measured in each actual episode.'),ha='center',fontsize=10)
+    fig.text(.5,.04,('Every consecutive platform is physically separated. Elevation, tilt and heading vary; feasibility is unverified.\nTransfer count is not measured jump count.' if args.family in ('discrete-parkour','mixed-discrete') else 'One shared platform supports multiple feet. Easy projections can overlap; medium/hard add gaps, tilt and heading changes.\nTransfer count does not imply jump count or successful execution. Time is measured in each actual episode.'),ha='center',fontsize=10)
     fig.subplots_adjust(top=.84,bottom=.13,wspace=.04)
     fig.savefig(out/'difficulty-overview.png',dpi=180);fig.savefig(out/'difficulty-overview.svg');plt.close(fig)
     (out/'manifest.json').write_text(json.dumps({'kind':'scenario_geometry_catalog','not_policy_result':True,'entries':entries},indent=2)+'\n')
@@ -52,5 +52,7 @@ def main():
             readme=out/'README.md';readme.write_text(readme.read_text().replace('41개 공유 표면, 40회','61개 공유 표면, 60회'))
     if args.family=='discrete-parkour':
         (out/'README.md').write_text('# 완전히 분리된 파쿠르 코스 설계\n\n![코스](difficulty-overview.png)\n\n17개 발판 사이16개 실제 갭. 쉬움/중급/어려움 기본 간격18/35/55cm에 높낮이·경사·선회를 추가했습니다. 모든 인접 cuboid 전체의 투영 간격을 확보합니다. 설계는 통과 성공이 아닙니다. 쉬움15.3m는 진입 파일럿이며10초 주행을 보장하지 않습니다. 4스텝 Planner와 실행 연결은 별도 검증 대상입니다.\n')
+    if args.family=='mixed-discrete':
+        (out/'README.md').write_text('# 경사·회전·좁은 착지면 혼합 파쿠르 맵\n\n![난이도 비교](difficulty-overview.png)\n\n시작면과 24개 이동 구간. 첫 3회 접근은 기존 지도와 같고, 이후 착지면의 폭·경사·높이·방향·간격을 동시에 변화시킵니다. 완성 난이도는 최소 폭 50cm, 최대 갭 60cm, 최고 표면 중심 48cm입니다. 25%부터 단계적으로 학습합니다. 맵 설계이며 통과 성능은 별도 평가합니다. 정확한 값은 각 JSON에 보존합니다.\n')
     print(out)
 if __name__=='__main__':main()

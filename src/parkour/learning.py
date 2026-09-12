@@ -73,6 +73,7 @@ def read_checkpoint(path):
 
 
 def restore(data, config, alg, normalizer, env, training):
+    if data["config"].get("reset_jitter")!=config.get("reset_jitter"):raise ValueError("Reset jitter changed; use explicit fork")
     if data["config"].get("gap_clearance")!=config.get("gap_clearance"):raise ValueError("Gap clearance changed; use explicit fork")
     if data['config'].get('motion_control') != config.get('motion_control'):
         raise ValueError('Motion control changed; use explicit fork')
@@ -179,6 +180,9 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
         cfg.motion_control=validate_motion(config)
         from parkour.gap_clearance import validate_clearance
         cfg.gap_clearance=validate_clearance(config)
+        from parkour.reset_jitter import validate_jitter
+        jitter=validate_jitter(config)
+        cfg.reset_jitter=jitter if evaluation_support is None else None
         cfg.terminal_motion_cost=float(config.get('terminal_motion_cost',0.))
         if not 0<=cfg.terminal_motion_cost<=10:raise ValueError('Invalid terminal motion cost')
         if not 0<=cfg.gap_jump_bonus<=20:raise ValueError('Invalid gap jump bonus')

@@ -21,6 +21,7 @@ class ContinuousTrackerCfg(FootholdCfg):
     terminal_motion_cost=0.
     motion_control=None
     gap_clearance=None
+    reset_jitter=None
     observation_space=105
     episode_length_s=12.
     action_scale=.5
@@ -37,6 +38,9 @@ class ContinuousTrackerEnv(FootholdEnv):
             raise ValueError('Unexpected asset foot order')
         self.layout=cfg.support_contract['layout']
         self.calibration=copy.deepcopy(cfg.support_contract['calibration'])
+        if cfg.reset_jitter:
+            from parkour.reset_jitter import check_start_margin
+            check_start_margin(self.layout,self.calibration,cfg.reset_jitter)
         self.nominal_xy=torch.tensor(self.calibration['foot_xy_m'],device=self.device)
         self.calibrated_root=torch.tensor(self.calibration['root_state'],device=self.device)
         self.calibrated_joint_pos=torch.tensor(self.calibration['joint_positions'],device=self.device)
@@ -122,6 +126,9 @@ class ContinuousTrackerEnv(FootholdEnv):
         if self.gap_credit is not None:self.gap_credit.reset(ids,self.calibrated_root[:2].expand(len(ids),-1))
         self.current_valid[ids]=False;self.current_error[ids]=0
         root=self.calibrated_root.expand(len(ids),-1).clone();root[:,:3]+=self.scene.env_origins[ids]
+        if self.cfg.reset_jitter:
+            from parkour.reset_jitter import perturb
+            root=perturb(root,self.cfg.reset_jitter,self.generator)
         self.robot.write_root_pose_to_sim(root[:,:7],ids);self.robot.write_root_velocity_to_sim(root[:,7:],ids)
         q=self.calibrated_joint_pos.expand(len(ids),-1).clone()
         self.robot.write_joint_state_to_sim(q,torch.zeros_like(q),env_ids=ids)

@@ -49,8 +49,14 @@ def restore_airborne_state(env,payload,index,config,checkpoint_sha):
     if contract['schema_version']!=1 or contract['environment_hash']!=environment_hash(config) or contract['checkpoint_sha256']!=checkpoint_sha:
         raise ValueError('Planner state contract mismatch')
     if contract['physics_dt_s']!=env.physics_dt or contract['control_dt_s']!=env.step_dt:raise ValueError('Planner clock mismatch')
+    planner_only=contract.get('planner_only',False)
+    if planner_only and not getattr(env,'planner_rollout_only',False):raise ValueError('Forecast controller snapshots may only initialize lean planner rollouts')
     state=payload['states'][index]
-    if not state['flight']['air'] or any(state['environment']['contact_on']):raise ValueError('Only clean airborne state restoration supported')
+    if planner_only:
+        proof=state.get('physical_airborne_check',{})
+        if not 0<=proof.get('foot_force_max_N',float('inf'))<2 or not 0<=proof.get('nonfoot_force_max_N',float('inf'))<=1e-3:raise ValueError('Forecast snapshot is not clean airborne')
+    elif not state['flight']['air']:raise ValueError('Only clean airborne state restoration supported')
+    if any(state['environment']['contact_on']):raise ValueError('Only clean airborne state restoration supported')
     def fill(obj,record,fields):
         if set(record)!=set(fields):raise ValueError('Incomplete controller state')
         for k in fields:
@@ -64,9 +70,11 @@ def restore_airborne_state(env,payload,index,config,checkpoint_sha):
     dq=torch.tensor(state['joint_velocity'],device=env.device).repeat(env.num_envs,1)
     if root.shape!=(env.num_envs,13) or q.shape!=(env.num_envs,12) or dq.shape!=q.shape or not bool(torch.isfinite(torch.cat([root,q,dq],dim=1)).all()):raise ValueError('Invalid articulation state')
     env.robot.write_root_state_to_sim(root);env.robot.write_joint_state_to_sim(q,dq)
-    fill(env,state['environment'],ENV_FIELDS);fill(env.progress,state['progress'],PROGRESS_FIELDS);fill(env.flights,state['flight'],FLIGHT_FIELDS)
-    if (env.gap_credit is None)!=(state['gap_credit'] is None):raise ValueError('Gap state mismatch')
-    if env.gap_credit is not None:fill(env.gap_credit,state['gap_credit'],GAP_FIELDS)
+    fill(env,state['environment'],POLICY_FIELDS if planner_only else ENV_FIELDS);fill(env.progress,state['progress'],PROGRESS_FIELDS)
+    if not planner_only:
+        fill(env.flights,state['flight'],FLIGHT_FIELDS)
+        if (env.gap_credit is None)!=(state['gap_credit'] is None):raise ValueError('Gap state mismatch')
+        if env.gap_credit is not None:fill(env.gap_credit,state['gap_credit'],GAP_FIELDS)
     plan=torch.as_tensor(state.get('target_plan',env.plan),device=env.device,dtype=env.plan.dtype)
     if plan.shape!=env.plan.shape or not bool(torch.isfinite(plan).all()):raise ValueError('Invalid restored goal plan')
     local=torch.einsum('sji,sgfj->sgfi',env.surface_rotations,plan.permute(1,0,2,3)-env.surface_centers[:,None,None,:])
@@ -78,3 +86,31 @@ def restore_airborne_state(env,payload,index,config,checkpoint_sha):
     error=float((env.robot.data.body_pos_w[:,env.foot_ids]-env.scene.env_origins[:,None,:]-expected).abs().max())
     if error>.002:raise RuntimeError('Restored foot geometry differs by '+str(error)+'m')
     return {'foot_geometry_max_error_m':error,'scope':'Articulation/controller readback only; predictive rollout fidelity not yet validated'}
+
+
+POLICY_FIELDS=('actions','previous_actions','contact_on','episode_length_buf','final_hold','current_valid','current_error')
+
+def capture_prediction_state(env,config,checkpoint_sha,index,step):
+    """Policy/controller snapshot for pipelined prediction, never a training reset.
+
+    Lean rollouts do not update flight/reward statistics; none are serialized.
+    Actual articulation, contact mode, progress and actuator references are saved.
+    """
+    if not getattr(env,'planner_rollout_only',False):raise ValueError('Prediction capture requires planner mode')
+    force=env.contacts.data.net_forces_w[index]
+    if not bool(torch.isfinite(force).all()):return None
+    foot=float(force[env.contact_ids].norm(dim=-1).max());nonfoot=float(force[env.nonfoot_ids].norm(dim=-1).max())
+    if foot>=2 or nonfoot>1e-3 or bool(env.contact_on[index].any()):return None
+    def values(obj,names):return {k:getattr(obj,k)[index].detach().cpu().tolist() for k in names}
+    root=env.robot.data.root_state_w[index].clone();root[:3]-=env.scene.env_origins[index]
+    plan=getattr(env,'candidate_plan',None);plan=env.plan if plan is None else plan[index]
+    state={'target_plan':plan.cpu().tolist(),'control_step':step,'sim_seconds':step*env.step_dt,
+      'root_state_local':root.cpu().tolist(),'joint_position':env.robot.data.joint_pos[index].cpu().tolist(),
+      'joint_velocity':env.robot.data.joint_vel[index].cpu().tolist(),
+      'foot_position_local':(env.robot.data.body_pos_w[index,env.foot_ids]-env.scene.env_origins[index]).cpu().tolist(),
+      'environment':values(env,POLICY_FIELDS),'progress':values(env.progress,PROGRESS_FIELDS),
+      'physical_airborne_check':{'foot_force_max_N':foot,'nonfoot_force_max_N':nonfoot}}
+    contract={'schema_version':1,'planner_only':True,'environment_hash':environment_hash(config),'checkpoint_sha256':checkpoint_sha,
+      'physics_dt_s':env.physics_dt,'control_dt_s':env.step_dt,'source_env':index,
+      'scope':'Forecast articulation/controller clone for lean planning only. No flight/reward accounting or hidden PhysX solver checkpoint.'}
+    return {'contract':contract,'states':[state]}

@@ -153,7 +153,14 @@
     "step:p3-63-discrete-curriculum-stage2": "P3-63 · 24갭 난이도 2단계·동일 총예산",
     "step:p3-64-feasibility-baseline": "P3-64 · 지도 단위 검증·성공 평가기 기준선",
     "step:p3-65-selected-follow-illustration": "P3-65 · 선택 근거 명시·성공 사례 추적 재실행",
-    "step:p3-66-stronger-online-integration": "P3-66 · 26.5cm 갭·온라인 계획과 고정 계획"
+    "step:p3-66-stronger-online-integration": "P3-66 · 26.5cm 갭·온라인 계획과 고정 계획",
+    "step:p3-67-three-horizon": "P3-67 · 3스텝 계획 시간 검증",
+    "step:p3-68-stage3": "P3-68 · 35cm 갭 커리큘럼 최종 비교",
+    "step:p3-69-mixed-frozen": "P3-69 · 혼합 난이도 고정 모델 평가",
+    "step:p3-70-mixed-training": "P3-70 · 혼합 맵 · 초기 자세 변동 학습",
+    "step:p3-71-pipelined-planner": "P3-71 · 미래 상태 캐시 · 4스텝 계획",
+    "step:p3-72-mixed-difficulty": "P3-72 · 혼합 맵 25% 유지 / 50% 확장",
+    "step:p3-73-buffered-planning": "P3-73 · GPU 기록 버퍼 · 계획 지연 검증"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
@@ -817,6 +824,110 @@
     "p3-66-control-playback": [
       "phase:P3",
       "step:p3-66-stronger-online-integration"
+    ],
+    "p3-67-planner": [
+      "phase:P3",
+      "step:p3-67-three-horizon"
+    ],
+    "p3-67-executor": [
+      "phase:P3",
+      "step:p3-67-three-horizon"
+    ],
+    "p3-68-direct__final-evaluation": [
+      "phase:P3",
+      "step:p3-68-stage3"
+    ],
+    "p3-68-bridge__final-evaluation": [
+      "phase:P3",
+      "step:p3-68-stage3"
+    ],
+    "p3-68-bridge": [
+      "phase:P3",
+      "step:p3-68-stage3"
+    ],
+    "p3-68-direct": [
+      "phase:P3",
+      "step:p3-68-stage3"
+    ],
+    "p3-69-mixed-quarter-frozen": [
+      "phase:P3",
+      "step:p3-69-mixed-frozen"
+    ],
+    "p3-69-mixed-full-frozen": [
+      "phase:P3",
+      "step:p3-69-mixed-frozen"
+    ],
+    "p3-70-control-smoke": [
+      "phase:P3",
+      "step:p3-70-mixed-training"
+    ],
+    "p3-70-jitter-smoke": [
+      "phase:P3",
+      "step:p3-70-mixed-training"
+    ],
+    "p3-70-jitter": [
+      "phase:P3",
+      "step:p3-70-mixed-training"
+    ],
+    "p3-70-control-smoke__final-evaluation": [
+      "phase:P3",
+      "step:p3-70-mixed-training"
+    ],
+    "p3-70-control": [
+      "phase:P3",
+      "step:p3-70-mixed-training"
+    ],
+    "p3-70-jitter-smoke__final-evaluation": [
+      "phase:P3",
+      "step:p3-70-mixed-training"
+    ],
+    "p3-71-control-playback": [
+      "phase:P3",
+      "step:p3-71-pipelined-planner"
+    ],
+    "p3-71-online-playback": [
+      "phase:P3",
+      "step:p3-71-pipelined-planner"
+    ],
+    "p3-71-executor": [
+      "phase:P3",
+      "step:p3-71-pipelined-planner"
+    ],
+    "p3-71-planner": [
+      "phase:P3",
+      "step:p3-71-pipelined-planner"
+    ],
+    "p3-71-matched-control": [
+      "phase:P3",
+      "step:p3-71-pipelined-planner"
+    ],
+    "p3-71-control": [
+      "phase:P3",
+      "step:p3-71-pipelined-planner"
+    ],
+    "p3-73-planner": [
+      "phase:P3",
+      "step:p3-73-buffered-planning"
+    ],
+    "p3-73-executor": [
+      "phase:P3",
+      "step:p3-73-buffered-planning"
+    ],
+    "p3-73-control": [
+      "phase:P3",
+      "step:p3-73-buffered-planning"
+    ],
+    "p3-73-online-playback": [
+      "phase:P3",
+      "step:p3-73-buffered-planning"
+    ],
+    "p3-73-control-playback": [
+      "phase:P3",
+      "step:p3-73-buffered-planning"
+    ],
+    "p3-73-matched-control": [
+      "phase:P3",
+      "step:p3-73-buffered-planning"
     ]
   },
   "note": "Phase is work classification, not a completion claim. Explicit run research_tags override task defaults. Legacy annotations are derived without changing original artifacts."

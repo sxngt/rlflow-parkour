@@ -1,3 +1,7 @@
+# 최신 인계 · 2026-09-13 P3-73까지
+
+[혼합 맵·파이프라인 계획 최신 기록](p3-67-73-mixed-map-and-pipelined-planning.md)을 먼저 읽는다. P370 학습/평가 종료 후 P372(0/2 GPU)와 P373(1/3 GPU)이 각각 자동으로 이어진다. 상태 파일 artifacts/p3-70-continuation.json, p3-72-continuation.json, p3-73-integration.json 확인. 같은 output으로 driver를 재실행하지 않는다. 대표 원본 영상은 P363 bridge의 고정 env0이다.
+
 # Long-course research status — 2026-09-12
 
 Latest user objective: varied difficulty maps, roughly ten dynamic movements/jumps, more than ten seconds of actual scenario traversal, one robot recorded by a third-person following camera. PPO training remains parallel. Videos are original fixed-first-episode frames, with no padding or stitching, and detailed result/ archives. No qualifying final dynamic demo yet. Current contact buffer is scripted, not an autonomous Planner.

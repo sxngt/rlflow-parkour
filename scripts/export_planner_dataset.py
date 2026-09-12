@@ -8,6 +8,7 @@ def export(sources,out):
  out=Path(out);out.mkdir(parents=True,exist_ok=False);contexts=[];rows=[]
  for source in map(Path,sources):
   audit(source);run=json.loads((source/'run.json').read_text());report=json.loads((source/'planner-rollouts.json').read_text())
+  if report['contract']['horizon']!=4:raise ValueError('Dataset contract requires four-surface labels')
   state=json.loads((source/'source-state.json').read_text());context=digest(source/'source-state.json')
   checkpoint=report['checkpoint_sha256'];group=report['source']
   contexts.append({'context_id':context,'policy_sha256':checkpoint,'episode_group':group,'source_assay':str(source),

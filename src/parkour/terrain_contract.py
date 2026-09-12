@@ -20,6 +20,9 @@ def training_support(config):
         if spec['layout'].get('scenario_contract') in ('discrete_parkour_v1','discrete_parkour_v2','discrete_parkour_blend_v1'):
             from parkour.shared_terrain import build_discrete_parkour
             expected=build_discrete_parkour(spec['layout']['level'],spec['geometry_seed'],spec['layout']['transitions'],spec['layout'].get('preparation_fraction',1.))
+        if spec['layout'].get('scenario_contract')=='mixed_discrete_v1':
+            from parkour.shared_terrain import build_mixed_discrete
+            expected=build_mixed_discrete(spec['geometry_seed'],spec['layout']['difficulty_fraction'])
         if spec['layout']!=expected:
             raise ValueError('Shared training layout differs from generator')
         calibration=spec['calibration']

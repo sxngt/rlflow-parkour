@@ -15,6 +15,7 @@ def main():
  p.add_argument('--source',type=Path,required=True);p.add_argument('--out',type=Path,required=True)
  p.add_argument('--mailbox',type=Path,required=True);p.add_argument('--lifetime',type=float,default=180)
  p.add_argument('--fixed-plan',action='store_true')
+ p.add_argument('--horizon',type=int,choices=[3,4],default=4)
  p.add_argument('--lead-steps',type=int,default=75);p.add_argument('--threads',type=int,default=4);p.add_argument('--full-horizon',action='store_true')
  args=p.parse_args();source=json.loads((args.source/'run.json').read_text())
  if source['status']!='SUCCEEDED':raise ValueError('Incomplete source')
@@ -64,7 +65,7 @@ def main():
       predicted_articulation={'predicted_quaternion':env.robot.data.root_quat_w[4].cpu().tolist(),
         'predicted_joint_position':env.robot.data.joint_pos[4].cpu().tolist(),'predicted_velocity':env.robot.data.root_lin_vel_w[4].cpu().tolist()}
       start_surface=int(env.progress.target.max())+1
-      contract=install_candidates(env,start_surface);raw=env._get_observations()['policy']
+      contract=install_candidates(env,start_surface,args.horizon);raw=env._get_observations()['policy']
       plans=env.candidate_plan.clone();cost=torch.zeros(env.num_envs,device=env.device)
       reached=torch.zeros_like(failed);done=failed.clone();durations=torch.zeros(env.num_envs,device=env.device)
       branch_budget=150 if args.full_horizon else 15
@@ -72,7 +73,7 @@ def main():
        obs,_,term,trunc,extras=env.step(alg.policy.act_inference(norm(raw)));raw=obs['policy']
        active=~done
        metrics=extras['terminal_metrics']
-       now_reached=(metrics['front_accepted_index']>=start_surface+3)&(metrics['rear_accepted_index']>=start_surface+3)&~metrics['failure']
+       now_reached=(metrics['front_accepted_index']>=start_surface+args.horizon-1)&(metrics['rear_accepted_index']>=start_surface+args.horizon-1)&~metrics['failure']
        failed|=(term|trunc)&active&~now_reached
        reached|=now_reached&active
        speed=env.robot.data.root_lin_vel_w[:,:2].norm(dim=1)
@@ -89,7 +90,7 @@ def main():
         predicted_root=predicted_root,predicted_target=predicted_target,**predicted_articulation,
         start_surface=start_surface,plan=plans[winner].cpu().tolist(),contract=contract,
         physical_branch_seconds=(branch_step+1)*env.step_dt,prefix_seconds=request['lead_steps']*env.step_dt,
-        full_horizon=args.full_horizon,horizon_reached=reached.cpu().tolist(),switch_cost_margin=.002)
+        planning_horizon=args.horizon,full_horizon=args.full_horizon,horizon_reached=reached.cpu().tolist(),switch_cost_margin=.002)
     except (ValueError,RuntimeError) as error:response['rejection']=str(error)
     response['wall_seconds']=time.perf_counter()-t0;events.append(response)
     atomic_json(args.mailbox/('response-%04d.json'%request['id']),response)

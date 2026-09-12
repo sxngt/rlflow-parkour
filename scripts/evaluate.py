@@ -53,6 +53,7 @@ def main():
     p.add_argument('--video-follow-env-index',type=int,default=0)
     p.add_argument('--video-selection-reason',default='')
     p.add_argument('--shared-course-level',choices=['easy','medium','hard'])
+    p.add_argument('--mixed-course-fraction',type=float,choices=[.25,.5,.75,1.])
     p.add_argument('--shared-course-seed',type=int,default=101)
     p.add_argument('--shared-course-transfers',type=int,choices=[*range(10,41),60])
     p.add_argument('--support-mode', choices=['flat', 'continuous', 'split', 'deck', 'course', 'full-gap'])
@@ -157,6 +158,10 @@ def main():
         support=override_course(support,args.shared_course_level,args.shared_course_seed,args.shared_course_transfers)
     elif args.shared_course_transfers is not None:
         p.error('Explicit --shared-course-level required for a length override')
+    if args.mixed_course_fraction is not None:
+        if config['task']!='a1_continuous_tracker_v1' or args.shared_course_level is not None or args.support_mode:p.error('Mixed override requires continuous Tracker and no other terrain override')
+        from parkour.shared_terrain import build_mixed_discrete
+        support=copy.deepcopy(support);support['layout']=build_mixed_discrete(args.shared_course_seed,args.mixed_course_fraction);support['geometry_seed']=args.shared_course_seed
     if args.shared_course_level is not None:
         config['research_tags']=[t for t in config.get('research_tags',[]) if not t.startswith('difficulty:')]+['difficulty:'+args.shared_course_level]
     if config['task']=='a1_continuous_tracker_v1':
@@ -322,6 +327,8 @@ def main():
                 raise ValueError('Transition states require a multi-hop evaluation')
             env.capture_transition_states = True
         alg, norm = make_algorithm(config, env)
+        if config.get('reset_jitter'):
+            meta['evaluation_initialization']={'training_jitter':config['reset_jitter'],'evaluation_jitter':None,'contract':'fixed initial stance; training-only jitter disabled by evaluation support override'}
         from parkour.learning import model_profile
         meta['model_profile']=model_profile(config,alg,norm,env)
         if args.checkpoint:

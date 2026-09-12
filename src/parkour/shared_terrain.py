@@ -240,3 +240,42 @@ def build_discrete_parkour(level='easy',seed=1,transitions=16,preparation_fracti
         'catch_floor_z_m':-.8,'planned_gap_count':transitions,'gap_locations':gaps,
         'nominal_path_length_m':sum(math.dist(a['top_center_m'],b['top_center_m']) for a,b in zip(surfaces,surfaces[1:])),
         'scope':'Every consecutive cuboid separated; tilted elevated turning course. Not a feasibility certificate or autonomous planner.'}
+
+
+def build_mixed_discrete(seed=1,difficulty_fraction=1.):
+    """24 disjoint surfaces with narrow landings, larger gaps and sharp route bends.
+
+    First three transfers retain the learned stage2 approach. The remaining
+    geometry interpolates toward a mixed challenge; no feasibility claim.
+    """
+    import copy
+    if difficulty_fraction not in (.25,.5,.75,1.):raise ValueError('Invalid mixed difficulty fraction')
+    base=build_discrete_parkour('medium',seed,24,.75);f=difficulty_fraction
+    surfaces=copy.deepcopy(base['surfaces'][:4]);gaps=copy.deepcopy(base['gap_locations'][:3])
+    z_targets=[.12,.36,.48,.20,.28,.12,.42,.30,.12,.34,.20,.48,.30,.12,.38,.22,.40,.24,.12,.10,.0]
+    headings=[15,0,30,0,55,55,75,75,45,15,45,15,65,65,35,0,35,0,15,0,0]
+    clearances=[.28,.45,.30,.50,.40,.60,.35,.45,.30,.55,.35,.60,.40,.45,.30,.55,.35,.50,.40,.35,.25]
+    sizes=[(.60,.50),(.80,.65),(.58,.52),(.90,.70),(.65,.55),(.60,.50),(.75,.60)]
+    for i in range(4,25):
+        old=base['surfaces'][i];R=old['rotation_local_to_world'];j=i-4
+        old_angles=[math.degrees(math.atan2(R[2][1],R[2][2])),math.degrees(math.asin(-R[2][0])),math.degrees(math.atan2(R[1][0],R[0][0]))]
+        desired=(0.,0.,0.) if i==24 else ((-1 if i%2 else 1)*(10+i%3*3),(-1 if i%3 else 1)*(12+i%4*2),headings[j])
+        rpy=[a+f*(b-a) for a,b in zip(old_angles,desired)]
+        target_size=(1.2,1.2) if i==24 else sizes[j%len(sizes)]
+        size=[old['size_m'][k]+f*(target_size[k]-old['size_m'][k]) for k in (0,1)]+[.18]
+        z=old['top_center_m'][2]+f*(z_targets[j]-old['top_center_m'][2])
+        direction=[math.cos(math.radians(rpy[2])),math.sin(math.radians(rpy[2]))]
+        candidate=surface('surface_'+str(i),[0.,0.,z],size,rpy)
+        def half(s,axes):return sum(abs(sum(direction[k]*s['rotation_local_to_world'][k][axis] for k in (0,1)))*s['size_m'][axis]/2 for axis in axes)
+        clearance=base['gap_locations'][i-1]['full_box_clearance_m']+f*(clearances[j]-base['gap_locations'][i-1]['full_box_clearance_m'])
+        distance=half(surfaces[-1],range(3))+half(candidate,range(3))+clearance
+        top_gap=distance-half(surfaces[-1],range(2))-half(candidate,range(2))
+        xy=[surfaces[-1]['top_center_m'][k]+distance*direction[k] for k in (0,1)]
+        candidate=surface('surface_'+str(i),[*xy,z],size,rpy);candidate['scenario_role']='gap_landing';surfaces.append(candidate)
+        gaps.append({'arrival_surface_index':i,'projected_top_gap_m':top_gap,'full_box_clearance_m':clearance,'direction_xy':direction})
+    return {'schema_version':2,'geometry_contract':'oriented_shared_surfaces_v1','scenario_contract':'mixed_discrete_v1',
+        'kind':'mixed-discrete-challenge','level':'development','seed':seed,'difficulty_fraction':f,'transitions':24,'frame':'course_local',
+        'surfaces':surfaces,'start_position_m':[0.,0.,0.],'goal_position_m':surfaces[-1]['top_center_m'],
+        'catch_floor_z_m':-.8,'planned_gap_count':24,'gap_locations':gaps,
+        'nominal_path_length_m':sum(math.dist(a['top_center_m'],b['top_center_m']) for a,b in zip(surfaces,surfaces[1:])),
+        'scope':'Mixed-width, sharp-turn, high/low and longer-gap development challenge; first three transfers retain stage2 approach. No policy feasibility certificate.'}
