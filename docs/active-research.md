@@ -1227,3 +1227,10 @@ scripts/p2_40_train.py실행으로4검증학습/4평가200Hz 및영상hash/64cam
 scripts/p2_40_report.py준비:새P240weighted4와대조P239uniform4同부모/同목표/가중치외설정일치,전체환경지형배치·학습회계,새78,643,200과재사용同예산분리,32평가同시나리오·checkpoint800·영상/eventhash/64camera4·태그/1:1:1:3제목감사. compile/diffcheck통과. 현재RUNNING모델에서報告書生成차단 artifacts/p2-40-incomplete-report-check.log,최종doc없음. 실제완료후전체검증은아직남음.
 
 다음同batch/PID800/native완료→scripts/p2_40_evaluate.py追加12→scripts/p2_40_report.py全32검증→실패/노출/대표영상분석. 전체목표미완료.
+
+
+### 최신: P240 네 본학습/자동평가 완료, 추가12평가 실행
+
+이전同PID확인/poll은verified wait. 같은batch64470 최종exit0,네800학습과native최종평가/보관종료. artifacts/p2-40-all-training-completed-audit.json:4학습회계/전체환경지지면/예산총78,643,200step검증통과.
+
+scripts/p2_40_evaluate.py 실행 session41741,log artifacts/p2-40-evaluation-batch.log. 완료8학습과기존20평가게이트를통과하면새12평가를GPU별seed로실행. 다음동일session/PID상태확인→추가12완료→scripts/p2_40_report.py 전체32짝비교/영상hash감사→첫/둘째실패·노출·대표영상검수/결론. 이전학습workerは全terminal、再実行不要。전체목표미완료.
