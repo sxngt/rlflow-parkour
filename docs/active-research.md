@@ -1198,3 +1198,14 @@ docs/p2-40-protocol.md작성:네목표유지하고reset ticket[1,1,1,3] (15cm1/2
 GPU전체유휴확인후64환경12update/P231seed2cp800fork 두smoke시작. weighted session47749/GPU0/artifacts/p2-40-weighted-training-smoke, uniform회귀 session19648/GPU1/artifacts/p2-40-uniform-regression-smoke. 로그각동명-launch.log. 아직본학습없음.
 
 다음동일session/PID확인→학습완료회계/거리별draw/初期복사→weighted2updateresume→uniform을P239coverage64smoke와비교→profile1024/60 및평가보관게이트→본학습4개. 전체목표미완료.
+
+
+### 최신: P240 smoke 회계·균등 회귀 확인, 재개 및 profile
+
+이전가중치구현/smoke실행은progress. weighted47749/uniform19648 두session최종exit0. artifacts/p2-40-smoke-accounting-audit.jsonl 두12update/18432step감사통과. weighted singlestep1526/1651/1736/4303(합9216). artifacts/p2-40-uniform-smoke-comparison.json:이전P239coverage64smoke와거리별step/draw/task-hopstep/tasksuccess12행정확일치. 초기복사2감사session54032exit0, artifacts/p2-40-smoke-initialization-audit.jsonl.
+
+weighted재개 session5253/GPU2/artifacts/p2-40-weighted-training-resume. worker1955001 exit0,13~14update/3072step회계 artifacts/p2-40-resume-accounting-audit.jsonl 통과. 자동평가/보관의session최종상태는다음확인(학습worker성공과구별).
+
+scripts/p2_40_train.py(commitf9ba7c3) 준비:4파일럿학습/평가archive게이트,새제목1:1:1:3/태그,대조P239coverage와목표가중치외설정동일검사,같은P231부모4seed800. 아직게이트실행/본학습없음.
+
+profile1024env60update 시작 session81923/GPU0/artifacts/p2-40-weighted-profile-seed2,log동명-launch.log. 다음동일session/PID→完了회계/geometry/初期복사/처리량/자동평가→scripts/p2_40_train.pyゲート実行후本학습. 전체목표미완료.
