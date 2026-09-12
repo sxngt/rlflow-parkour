@@ -1091,3 +1091,11 @@ scripts/p2_38_evaluate.py(commitb11d06a) 추가:8모델×chain/deck-regression/c
 이전初期복사검증/평가행렬추가는progress. scripts/p2_38_report.py(commit6266ac0)작성:8학습의800/19660800step/과제회계/전체1024支持지형실제collider분할/plan재생성일치,동일부모/설정single_mode및태그만차이,32평가/64개pairedscenario/모델/원본trace/영상eventhash/학습지형제목검증후16짝결과생성. 총157286400 본학습step확인、파일럿/과거비교제외. 현재RUNNING첫모델에서보고서생성거부테스트 artifacts/p2-38-incomplete-report-check.log. 실제완성데이터검증은향후필요,결과파일아직없음.
 
 동일4PID1898154/1898155/1898164/1898156생존확인(196~225update),45초verifiedwait후재확인. 본학습batch29971유지,再始動無. 다음같은학습진행→첫묶음/native→第二묶음초기복사감사→全8완료후scripts/p2_38_evaluate.py실행. 全체목표미완료.
+
+### 최신: P2-38 첫묶음 완료 / 두번째 묶음 실행
+
+직전목표턴들은실제동일4PID확인후45초verifiedwait. 이번첫묶음4학습800완료/native순차완료후두번째조건자동시작확인. 第一묶음completed감사는처음continuous1 supervisor保存전호출되어FileNotFound(session15033exit1)로중단됐으나작업실패아님. 第二묶음시작확인후재실행session64986의결과확인필요,artifacts/p2-38-first-wave-completed-audit.json 생성여부검사。deck0첫결과64/64확인,全조건비교금지。
+
+現在第二묶음실제IsaacPID1907667(continuous0)/1907791(continuous2)/1908071(deck3)/1908378(deck1). batchsession29971그대로유지。다음첫묶음감사완료결과확인→第二묶음checkpoint0생성후scripts/audit_policy_fork.py4개검증→학습800/native완료→全32평가실행。전체목표미완료。
+
+위감사session64986exit0최종확인,artifacts/p2-38-first-wave-completed-audit.json生成。第一묶음native코스 deck0=64/deck2=61/continuous1=42/continuous3=0 (각64)。짝조건평가아직없어우열결론불가。
