@@ -66,7 +66,14 @@
     "condition:travel-reward-travel": "비행거리 보상 · 4",
     "step:p2-09-distance-expansion": "P2-09 · 수평 명령 확장",
     "condition:distance-15cm": "학습 거리 · 0–15cm",
-    "purpose:regression-smoke": "회귀 평가 경로 검증"
+    "purpose:regression-smoke": "회귀 평가 경로 검증",
+    "step:p3-09-four-hop-course": "P3-09 · 4회 도약 초기 평가",
+    "step:p3-10-four-hop-course": "P3-10 · 지도 경계 4회 도약",
+    "step:p3-11-extended-course": "P3-11 · 6·8회 연속 도약",
+    "step:p3-12-nonuniform-course": "P3-12 · 비균일 간격 코스",
+    "step:p4-01-spatial-friction": "P4-01 · 공간별 마찰 변화 평가",
+    "step:p4-02-friction-training": "P4-02 · 마찰 변화 학습 비교",
+    "purpose:closeup": "개별 로봇 근접 영상"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
