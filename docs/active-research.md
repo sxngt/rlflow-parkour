@@ -530,3 +530,12 @@ seed2 PID1522215는여전히Starting simulation/metrics없음,기존1800초감�
 직전정체자원계상턴은progress. 이번턴실제4PID확인/verified wait후seed0/1/3의1201전환검증:거리0–15cm/반경3cm/cap.05/reset_all=true,실제std min/max.05. 모든loss유한,checkpoint900/1000/1100/1200해시정상. 최신 [{"seed": 0, "pid": 1522303, "iteration": 1240, "transition1201_verified": true, "checkpoint1200_hash_ok": true}, {"seed": 1, "pid": 1522214, "iteration": 1257, "transition1201_verified": true, "checkpoint1200_hash_ok": true}, {"seed": 3, "pid": 1522200, "iteration": 1240, "transition1201_verified": true, "checkpoint1200_hash_ok": true}, {"seed": 2, "pid": 1522215, "live": true, "iteration": null, "elapsed_s": 1049.9855904579163}].
 
 seed2 PID1522215는여전히초기화정체,기존1800초감독제한유지. 다음3seed1600및자동평가종료감사. seed2가완료안되면전체비교를완료로표현하지않고각완료artifact는분석가능. 교차평가전체배치는현재4seed완료게이트유지. supervisor실제timeout종료후원본/자원해제확인하고동일seed새attempt1회복구검토. 아직재시도없음,전체목표미완료.
+
+
+### 최신: P2-27 세 seed 학습·교차평가 완료, seed2대기
+
+직전1201검증턴progress. 이번턴seed0/1/3의1600완료+auto평가3종료및실제프로세스소멸,artifacts/p2-27-first-three-audit.jsonl6감사통과. source32d09c7에서cross배치 --seeds 옵션추가(중복검사/각요청seed완료게이트),프로토콜에인프라완료순서평가허용/전체4seed요구유지명시. batch6916으로 --seeds0 1 3 교차평가6완료,artifacts/p2-27-cross-first-three-audit.jsonl6감사통과.
+
+configs/reports/p2-27-partial.json은미완료seed2를명시하고3seed12행만포함,4보고서완료. 기존deck→continuous전부0/유효비행0;신규continuous→continuous및deck모두48/64,0/5/10cm16각성공/15cm0거리미달.유효비행/최초정밀/안정화/최초투영포함64전부. 영상9hash/camera4/64env검증. docs/p2-27-partial-findings.md. 전체4seed결론/승격금지.
+
+마지막seed2 PID1522215 RUNNING실제live,elapsed1582초/metrics없음. 감독1800초까지약218초. 현재정상3GPU해제,seed2 GPU2여전히점유. 다음동일PID/감독batch39983관측→실제timeout종료및GPU/lease해제확인→원본실패보존/동일seed2설정새attempt최대1회. 새attempt경로를fullreport/cross/stage보고서명세에명시연결해야함. 이미완료된3seed교차평가중복실행금지. 아직재시도없음. 전체목표미완료.

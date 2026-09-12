@@ -1,0 +1,113 @@
+{
+  "title": "P2-27 \u00b7 \uc644\ub8cc\ub41c \uc138 seed\uc758 \uc911\uac04 \uad50\ucc28 \ud3c9\uac00",
+  "report": "p2-27-partial",
+  "protocol": "p2-27-protocol.md",
+  "description": "seed2\ub294 \ucd08\uae30\ud654 \uc815\uccb4\ub85c \ubbf8\uc644\ub8cc. \uc644\ub8cc\ub41c0/1/3\uc758 \uad50\ucc28 \ud3c9\uac00\ub9cc \ud45c\uc2dc\ud558\uba70 \uc804\uccb44seed \ube44\uad50\uac00 \uc544\ub2c8\ub2e4.",
+  "success_label": "\ubaa9\ud45c \ub3c4\uc57d \uc131\uacf5",
+  "trace_episode_index": 3,
+  "show_forward_trace": true,
+  "runs": [
+    {
+      "foot": "GROUP",
+      "condition": "train-deck_eval-deck",
+      "seed": 0,
+      "run": "p2-24-deck-seed0",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-deck_eval-deck",
+      "seed": 1,
+      "run": "p2-24-deck-seed1",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-deck_eval-deck",
+      "seed": 3,
+      "run": "p2-24-deck-seed3",
+      "updates": 1600,
+      "reused": true
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-deck_eval-continuous",
+      "seed": 0,
+      "run": "p2-24-deck-seed0",
+      "updates": 1600,
+      "reused": true,
+      "evaluation_run": "p2-27-p2-24-deck-seed0-on-continuous"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-deck_eval-continuous",
+      "seed": 1,
+      "run": "p2-24-deck-seed1",
+      "updates": 1600,
+      "reused": true,
+      "evaluation_run": "p2-27-p2-24-deck-seed1-on-continuous"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-deck_eval-continuous",
+      "seed": 3,
+      "run": "p2-24-deck-seed3",
+      "updates": 1600,
+      "reused": true,
+      "evaluation_run": "p2-27-p2-24-deck-seed3-on-continuous"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-continuous_eval-continuous",
+      "seed": 0,
+      "run": "p2-27-continuous-seed0",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-continuous_eval-continuous",
+      "seed": 1,
+      "run": "p2-27-continuous-seed1",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-continuous_eval-continuous",
+      "seed": 3,
+      "run": "p2-27-continuous-seed3",
+      "updates": 1600,
+      "reused": false
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-continuous_eval-deck",
+      "seed": 0,
+      "run": "p2-27-continuous-seed0",
+      "updates": 1600,
+      "reused": false,
+      "evaluation_run": "p2-27-p2-27-continuous-seed0-on-deck"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-continuous_eval-deck",
+      "seed": 1,
+      "run": "p2-27-continuous-seed1",
+      "updates": 1600,
+      "reused": false,
+      "evaluation_run": "p2-27-p2-27-continuous-seed1-on-deck"
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-continuous_eval-deck",
+      "seed": 3,
+      "run": "p2-27-continuous-seed3",
+      "updates": 1600,
+      "reused": false,
+      "evaluation_run": "p2-27-p2-27-continuous-seed3-on-deck"
+    }
+  ]
+}
