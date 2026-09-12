@@ -1166,3 +1166,12 @@ scripts/p2_39_train.py(commit35d6e52) 구현. smoke/resume/기존2목표smoke/pr
 scripts/p2_39_evaluate.py 준비: 새coverage4모델×4suite16개(native4재사용/새12), 기존P238continuous16평가재사용=32참조. dryrun artifacts/p2-39-evaluation-plan-dry-run.json, 기존대조16경로존재 확인. 모든8학습800/step감사 및재사용20완료게이트 후새12만실행, 기존attempt거부. 아직실행안함.
 
 scripts/p2_39_report.py 준비:같은부모/거리외설정동일,전체지지면배치/step회계,모델800/동일시나리오/32영상과이벤트hash/64camera4/phase태그/네거리제목. 새78,643,200과재사용78,643,200step분리. 현재RUNNING인모델에서보고서생성차단 확인 artifacts/p2-39-incomplete-report-check.log, docs최종결과파일없음. 실제완료후실행검증은남음. 다음같은본학습800/native완료→새12평가→최종32감사/실패분석. 전체목표미완료.
+
+
+### 최신: P2-39 본학습4개 완료 / 추가12평가 시작
+
+이전 동일PID 확인과45초poll은 verified wait. 같은batch39712 최종exit0, 각800완료/native평가까지종료. artifacts/p2-39-all-training-completed-audit.json: 전체4회계/지지면배치 검증, 총신규78,643,200step.
+
+추가평가 최초launcher가 사전검사에서종료: scripts/p2_39_evaluate.py 복사수정시 ==8→==20의광역치환이800을2000으로변경한오류. artifacts/p2-39-evaluation-batch.log의AssertionError보존. GPU평가job생성전실패였고학습실패아님. protocol800으로수정(commitd68d8d7), 재실행session85688/log artifacts/p2-39-evaluation-batch-retry1.log. 동일평가경로는아직없었으므로새12job으로실행. 이후종료/실패시동일handle먼저확인,중복실행금지.
+
+다음session85688/실제PID확인→12완료→scripts/p2_39_report.py 전체32감사→paired성과/실패/영상분석. 원본실패launcher로그유지,최종보고서아직없음. 전체목표미완료.
