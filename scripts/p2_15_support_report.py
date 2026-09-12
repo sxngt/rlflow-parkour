@@ -42,7 +42,10 @@ def main():
         support = meta['evaluation_support']
         assert support['mode'] in ('flat', 'deck', 'continuous', 'split') and support['matched_material']
         if support['mode'] == 'split':
-            assert np.allclose(distances, support['goal_forward_m'], atol=1e-7, rtol=0), 'Split landing-pad diagnosis requires landing goals'
+            target_travel = support['layout']['target_travel_m']
+            if 'goal_forward_m' in support:
+                assert np.isclose(support['goal_forward_m'], target_travel, atol=1e-7, rtol=0)
+            assert np.allclose(distances, target_travel, atol=1e-7, rtol=0), 'Split landing-pad diagnosis requires landing goals'
         calibration = calibration or support['reference_sha256']
         assert calibration == support['reference_sha256']
         policies.setdefault(item['run'], meta['checkpoint']['sha256'])

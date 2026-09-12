@@ -1,0 +1,3185 @@
+{
+  "rows": [
+    {
+      "foot": "GROUP",
+      "condition": "train-continuous_eval-continuous",
+      "seed": 0,
+      "run": "p2-29-continuous-seed0",
+      "evaluation_run": "p2-29-continuous-seed0__final-evaluation",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed0",
+      "successes": 64,
+      "success_and_contained": 64,
+      "all_first_spheres_contained": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 64,
+          "launches_in_region": 64,
+          "travel_met": 64,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "details": [
+        {
+          "scenario_id": "directed-jump-dev-20000",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20001",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20002",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20003",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20004",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20005",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20006",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20007",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20008",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20009",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20010",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20011",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20012",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20013",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20014",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20015",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20016",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20017",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20018",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20019",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20020",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20021",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20022",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20023",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20024",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20025",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20026",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20027",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20028",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20029",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20030",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20031",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20032",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20033",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20034",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20035",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20036",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20037",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20038",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20039",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20040",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20041",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20042",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20043",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20044",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20045",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20046",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20047",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20048",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20049",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20050",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20051",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20052",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20053",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20054",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20055",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20056",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20057",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20058",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20059",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20060",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20061",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20062",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20063",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        }
+      ]
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-split_eval-split",
+      "seed": 1,
+      "run": "p2-29-split-seed1",
+      "evaluation_run": "p2-29-split-seed1__final-evaluation",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed1",
+      "successes": 64,
+      "success_and_contained": 64,
+      "all_first_spheres_contained": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 64,
+          "launches_in_region": 64,
+          "travel_met": 64,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "details": [
+        {
+          "scenario_id": "directed-jump-dev-20000",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20001",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20002",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20003",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20004",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20005",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20006",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20007",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20008",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20009",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20010",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20011",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20012",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20013",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20014",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20015",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20016",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20017",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20018",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20019",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20020",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20021",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20022",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20023",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20024",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20025",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20026",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20027",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20028",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20029",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20030",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20031",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20032",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20033",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20034",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20035",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20036",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20037",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20038",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20039",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20040",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20041",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20042",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20043",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20044",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20045",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20046",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20047",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20048",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20049",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20050",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20051",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20052",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20053",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20054",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20055",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20056",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20057",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20058",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20059",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20060",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20061",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20062",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20063",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        }
+      ]
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-continuous_eval-continuous",
+      "seed": 2,
+      "run": "p2-29-continuous-seed2",
+      "evaluation_run": "p2-29-continuous-seed2__final-evaluation",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed2-retry1",
+      "successes": 64,
+      "success_and_contained": 64,
+      "all_first_spheres_contained": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 64,
+          "launches_in_region": 64,
+          "travel_met": 64,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "details": [
+        {
+          "scenario_id": "directed-jump-dev-20000",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20001",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20002",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20003",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20004",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20005",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20006",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20007",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20008",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20009",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20010",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20011",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20012",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20013",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20014",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20015",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20016",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20017",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20018",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20019",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20020",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20021",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20022",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20023",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20024",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20025",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20026",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20027",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20028",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20029",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20030",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20031",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20032",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20033",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20034",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20035",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20036",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20037",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20038",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20039",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20040",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20041",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20042",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20043",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20044",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20045",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20046",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20047",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20048",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20049",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20050",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20051",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20052",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20053",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20054",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20055",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20056",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20057",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20058",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20059",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20060",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20061",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20062",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20063",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        }
+      ]
+    },
+    {
+      "foot": "GROUP",
+      "condition": "train-split_eval-split",
+      "seed": 3,
+      "run": "p2-29-split-seed3",
+      "evaluation_run": "p2-29-split-seed3__final-evaluation",
+      "updates": 800,
+      "reused": false,
+      "source_parent_run": "p2-27-continuous-seed3",
+      "successes": 64,
+      "success_and_contained": 64,
+      "all_first_spheres_contained": 64,
+      "by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 64,
+          "launches_in_region": 64,
+          "travel_met": 64,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "details": [
+        {
+          "scenario_id": "directed-jump-dev-20000",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20001",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20002",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20003",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20004",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20005",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20006",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20007",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20008",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20009",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20010",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20011",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20012",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20013",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20014",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20015",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20016",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20017",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20018",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20019",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20020",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20021",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20022",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20023",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20024",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20025",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20026",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20027",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20028",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20029",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20030",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20031",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20032",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20033",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20034",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20035",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20036",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20037",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20038",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20039",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20040",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20041",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20042",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20043",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20044",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20045",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20046",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20047",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20048",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20049",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20050",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20051",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20052",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20053",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20054",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20055",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20056",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20057",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20058",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20059",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20060",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20061",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20062",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        },
+        {
+          "scenario_id": "directed-jump-dev-20063",
+          "goal_forward_m": 0.15000000596046448,
+          "success": true,
+          "contained_per_foot": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "success_and_contained": true
+        }
+      ]
+    }
+  ],
+  "calibration_sha256": "ae9b6a5489470941d07f99b43e4688aa028c41395e2552449000f99c0fb993ef",
+  "policy_hashes": {
+    "p2-29-continuous-seed0": "5b7462182f6bdc21f7b41b055e81493f8d866ab760e22ff66f1ea0139387a552",
+    "p2-29-split-seed1": "a3757ca9c68e85119bd9435994455449112aaa1751dd915d297610a6fde14aba",
+    "p2-29-continuous-seed2": "3b4124d85ae8e10f38cbe9031a6a6e56a52f5ae852b3593be3f495fc7368f63d",
+    "p2-29-split-seed3": "d923d3f1204bf61b73bdc509fcec8f4056d54a5a361a69accea5518f51b412a0"
+  },
+  "definition": "First >5N post-flight sample at 200Hz; sphere center z=2\u00b11cm and XY at least 2cm inside the expected support bounds (shared deck or named continuous bridge / split landing foot pad). Flat has no XY bounds. Geometric inference, not contact-pair identity or sustained support.",
+  "additional_training_steps": 0
+}

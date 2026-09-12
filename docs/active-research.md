@@ -659,3 +659,12 @@ continuous/split fork smoke각64env3update+auto평가/영상정상완료(34960/2
 동일 batch PID1608853을45초간격live재확인하며대기,첫continuous seed0/2 및 split seed1/3 학습800+native평가완료. 각64/64성공기록. 학습4+평가4 artifacts감사통과:artifacts/p2-29-first-batch-audit.jsonl. result영상4hash검증,64render IDs/camera framing_side4검증:artifacts/p2-29-first-batch-videos.json. 아직preview직접시각검수및교차지형/혼합거리회귀미완료.
 
 둘째묶음 continuous seed1/3, split seed0/2 RUNNING을run.json과동일live batch로확인. 본총8run완료아님. 다음둘째초기화audit실행및완료평가,이후p2_29_evaluate.py. 최초결과만으로terrain효과/champion승격/일반성공주장금지.
+
+
+### 최신: P2-29 둘째 초기화 감사 및 첫 묶음 원시 진단
+
+이전턴은첫묶음실제완료/평가/영상감사로progress. 둘째4run audit_policy_fork 통과(session52569exit0),artifacts/p2-29-second-initial-forks-audit.jsonl/log. seed1split preview.png 직접확인:중앙개체와발판보임/외곽일부crop,기존camera4유지. 둘째metrics188~203진행.
+
+첫묶음중간spec artifacts/p2-29-first-batch-intermediate.json. support보고서가native split metadata에goal_forward_m이없어KeyError 발생(원본실패log보존). 공통layout.target_travel_m사용+optionalgoal일치검사로수정. native첫4run256episode모두최초네발구투영포함/성공64각확인. 기존P2288평가512episode진단전체JSON동일검증으로override형식회귀확인. support retry/session85684정상. post_landing도전부최초접촉/안정화완료확인(session24433의postlandingexit0;앞선support오류는별도명시). docs/p2-29-first-batch-intermediate*중간결과/비교미완료문구보존.
+
+다음동일batch둘째학습과native평가완료확인→8학습/8native감사→p2_29_evaluate.py 교차8+회귀8→full primary/regression 보고서. 전체목표미완료.
