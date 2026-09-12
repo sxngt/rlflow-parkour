@@ -593,3 +593,12 @@ http://127.0.0.1:18710/api/health 정상/collector errors없음. step:p2-27-supp
 신규main/평가/초기실패GPU할당시간약2.0732h,실패supervisor1801.33초+회수확인57.22초별도계상. artifacts/p2-27-resource-accounting.json. 원본FAILED보존,retry1계보유지. 기존partial보고서는중간기록으로보존한다.
 
 다음P228 동결된P2274정책 continuous/split ×동일15cm64episode 전이진단. actual gap6cm,wholebody15cm갭주장금지. training path seed0/1/3 p2-27-continuous-seedS;seed2 p2-27-continuous-seed2-retry1. P226batch/report응용가능하나현재아직P228프로토콜/실행미착수. 새지도관측/보상스윕보다준비동작의실제gap전이실패구간을확인. 전체목표미완료.
+
+
+### 최신: P2-28 동결정책 gap전이 완료
+
+직전P227전체완료는progress. source6f84a2c P228프로토콜/배치,session2139정상종료. continuous/split4seed×64총8평가,artifacts/p2-28-audit.jsonl통과. scripts/p2_28_report.py 및 p2_28_failure_report.py 생성/실행. 영상8hash/camera4/64env/태그/seed2split preview확인.GPU전부해제/532GB.
+
+continuous와split성공모두0/0/64/0. split유효비행0/64/64/64,seed1/3정밀·안정화64지만비행거리11.09/11.31cm로12cm미달. seed2split평균14.74cm,64성공·최초투영포함64. seed0split유효비행전비발충돌64;continuous64episode모두stage0에서split gap위치발중심>5N지지관측,scenario0 FR.455초. counterfactual기하진단이며단일원인확정금지. docs/p2-28-findings.md. single-seed개발군성공/실제gap6cm,wholebody15cm/연속코스/실기성공주장금지. 승격안함.
+
+다음P229후보:기존P2274정책에서동일15cm목표로continuous추가학습vs split추가학습고정예산비교. split에기존5/10cm목표는부적합하므로연속거리curriculum복사금지. terrain_contract현재flat/deck/continuous만지원;split목표가용성검증과checkpoint fork(정책/normalizer초기화,새설정/RNG/optimizer규약명시)추가필요. 동일조건resume와구분,PPO새on-policy rollout. 최종split15cm/continuous혼합거리회귀평가유지. 아직프로토콜/코드/실행미착수. 먼저범위/비교예산을고정하고smoke/물리검증. 전체목표미완료.
