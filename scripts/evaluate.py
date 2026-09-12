@@ -106,8 +106,8 @@ def main():
         manifest['evaluation_support'] = support
     distance_change = None
     if args.evaluation_forward_m is not None:
-        if not args.checkpoint or args.support_mode not in ('continuous','split') or args.support_probe_offset is not None:
-            p.error('Distance override requires a checkpoint and explicit continuous/split support')
+        if not args.checkpoint or args.support_mode not in ('continuous','split','deck') or args.support_probe_offset is not None:
+            p.error('Distance override requires a checkpoint and explicit continuous/split/deck support')
         from parkour.evaluation_distance import distance_override
         manifest, distance_change = distance_override(config, support, args.evaluation_forward_m, args.episodes)
         support = copy.deepcopy(support)

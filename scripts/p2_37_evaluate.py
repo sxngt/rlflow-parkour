@@ -14,7 +14,7 @@ def evaluation_plan():
     return [dict(seed=seed, condition=condition,
                  source=f'artifacts/{prefix}-seed{seed}',
                  reference=f'artifacts/{prefix}-seed{seed}-regression',
-                 evaluation=f'artifacts/p2-37-{condition}-seed{seed}-deck-regression')
+                 evaluation=f'artifacts/p2-37-{condition}-seed{seed}-deck-regression-retry1')
             for seed in range(4) for condition, prefix in
             [('chain', 'p2-34-chain'), ('mixed', 'p2-36-mixed')]]
 

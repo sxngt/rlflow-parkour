@@ -5,8 +5,8 @@ from parkour.scenarios import directed_jump_scenarios
 
 
 def distance_override(config, support, distances, episodes):
-    if config['task']!='a1_directed_jump_v5' or not support or support['mode'] not in ('continuous','split'):
-        raise ValueError('Distance override currently requires explicit continuous or split support')
+    if config['task']!='a1_directed_jump_v5' or not support or support['mode'] not in ('continuous','split','deck'):
+        raise ValueError('Distance override currently requires explicit continuous, split or deck support')
     if not distances or len(set(distances))!=len(distances) or not all(math.isfinite(d) and d>=0 for d in distances):
         raise ValueError('Distances must be distinct finite nonnegative values')
     from parkour.support_geometry import expected_goal_surface
