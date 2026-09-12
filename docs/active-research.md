@@ -961,3 +961,9 @@ scripts/p2_34_evaluate.py 추가24평가 시작session5859,log artifacts/p2-34-e
 직전평가대기중사용자가웹fetch과부하/페이지네이션요청. monitor/backend/store.py DB필터/페이지/요약projection,overview집계경량화,relatedvideo조건조회,tags/files메타데이터projection. 프론트활성탭만fetch/24개목록/서버검색필터/50개파일/요청취소/10초갱신/compare증분/관련평가페이지. 썸네일캐시480×270추가/Pillowlock,필요ECharts모듈번들축소. 18710서비스restart배포,tests9/build/ChromiumQA통과. docs/monitoring-web.md및artifacts/monitor-pagination-validation기록. APIruns/videos응답items envelope로변경.
 
 연구는중단하지않음. artifacts/p2-34-evaluation-batch.log 최종4seedexit0확인(모니터링작업중종료). 다음session5859최종확인→scripts/p2_34_report.py전체32평가감사/paired보고서. 이미single학습seed1도chain64/64로연속학습특유효과없다는부분결과확인했고single4코스감사 artifacts/p2-34-single-trained-chain-audit.json. 나머지회귀/전체영상감사는아직. 전체연구목표미완료.
+
+### 최신: P2-34 전체 결과 검증 / P2-35 중간 checkpoint 진단 시작
+
+이전 사용자 모니터링 요청은 배포/검증을 완료한 progress. 이번 연구 재개에서 docs/p2-34-comparison 생성 성공 로그를 실제 확인했다. 8학습/32평가/16짝 시나리오 일치와 총157286400step 감사 완료. scripts/p2_34_archive_audit.py 실제 실행 session8952 exit0:32영상 hash/태그/64render/camera4 및 chain-events 원본/보관 일치,8개2hop진단 저장 artifacts/p2-34-archive-diagnosis.json. docs/p2-34-findings.md 결과 해석. 두 조건 모두 chain 성공 seed순0/64/0/0, 연속학습우위없음. chain0첫도약travel/finalfoot실패,chain2finalfoot실패;단일0/2두번째launch영역실패. continuous회귀크므로champion승격없음.
+
+P2-35 사전명세 docs/p2-35-protocol.md, scripts/p2_35_evaluate.py 작성/dry-run후 commit475dd61. chain4seed cp200/400/600 ×2suite(chain64,continuous0/5/10/15각16)=24새평가,추가학습0. cp800결과재사용하며기존P234판정대체안함. phase:P2/step:p2-35-chain-retention-timeline/각checkpoint태그,64render camera4. batch session24317 실제실행중 PID1846918;첫평가 실제Isaac Python1846968/1846969/1846976 및 seed1worker실행확인. log artifacts/p2-35-evaluation-batch.log. 다음동일session/PID상태확인,24평가완료뒤checkpoint시간경과보고서 구현/paired시나리오/진단/result검증. 중간모델선택편향없이모든seed/고정시점보고. 현재4GPU외부작업없고시작전메모리16~35MiB,저장528GB남음. 전체연구목표미완료,동일실행재시작금지.
