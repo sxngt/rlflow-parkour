@@ -1123,3 +1123,10 @@ scripts/p2_38_evaluate.py 실행 session39782, log artifacts/p2-38-evaluation-ba
 기존 scripts/p2_32_failure_report.analyze를 native8에 적용한 artifacts/p2-38-native-second-hop-diagnosis.json 생성(session55561 exit0). 최종 200Hz 발 좌표와 목표로 재계산한 반경 gate가 기록과 일치했다. seed1 continuous는 두번째 시도64개 중22개 최종 발 반경 불충족, deck은 두번째 시도9개 중5개 여러 gate 불충족. seed2 deck3/continuous1개 최종 반경 불충족. seed3 양조건 두번째 시도64개 모두 첫 접촉/이동/반경/지지 gate 불충족. 이는 종료 시점 조건 분류이며 접촉 물리 원인이나 미끄러짐을 확정하지 않는다.
 
 다음 동일session39782 종료 확인 → 전체32 보고서 감사 및 paired 결과 분석. 분석 파일은 artifacts에 있으며 연구 결론 문서는 아직 생성하지 않았다.
+
+
+### 최신: P2-38 전체32 평가 완료 및 결과 검증
+
+이전 turn은 native 진단 생성으로 progress. 동일session39782 최종exit0, seed별4개 batch exit0 확인. report session97764 exit0: 8개 학습 예산/배치 및32 평가 artifact 검증 통과. docs/p2-38-comparison.json/md와 p2-38-findings.md 생성. 대표 성공/실패 영상2개에서 각8frame 표본 육안 확인(artifacts/*-review.jpg). 전체 목표 미완료, champion 없음.
+
+혼합군 continuous회귀64/64/48/48(대조48/32/0/4), chain64/42/63/0(대조64/4/61/0), split0/64/64/64(대조모두0). 혼합seed2 10cm,seed3 제자리 실패. 다음은 거리분포0/15→0/5/10/15 비교를 준비: 계약/샘플링 검토→사전 프로토콜→smoke→같은부모4seed/고정예산, P238continuous대조 재사용 명시. 아직 새학습 없음. 모든P238 세션terminal이며 중복 실행하지 않는다.
