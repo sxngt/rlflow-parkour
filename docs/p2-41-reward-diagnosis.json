@@ -1,0 +1,45 @@
+{
+  "scope": "two frozen models; instrumentation equivalence on this evaluation only; grouped dense costs; not causal evidence",
+  "results": [
+    {
+      "seed": 1,
+      "evaluation": "artifacts/p2-41-reward-seed1-retry1",
+      "matched_episode_results": true,
+      "matched_all_motion_trace_arrays": true,
+      "successes": 64,
+      "max_step_error": 9.5367431640625e-07,
+      "mean_components": {
+        "dense": -1.2945118893067047,
+        "flight_event": 6.0,
+        "contact_event": 8.0,
+        "success": 16.0,
+        "failure": 0.0,
+        "apex_progress": 6.0,
+        "first_touch": 15.054665202274919,
+        "travel": 17.35056834667921
+      },
+      "mean_actual_return": 67.11072159059859,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p2-41-reward-seed1-retry1/manifest.json"
+    },
+    {
+      "seed": 3,
+      "evaluation": "artifacts/p2-41-reward-seed3-retry1",
+      "matched_episode_results": true,
+      "matched_all_motion_trace_arrays": true,
+      "successes": 0,
+      "max_step_error": 2.384185791015625e-07,
+      "mean_components": {
+        "dense": -1.6019453582193819,
+        "flight_event": 3.0,
+        "contact_event": 4.0,
+        "success": 0.0,
+        "failure": 0.0,
+        "apex_progress": 3.0,
+        "first_touch": 7.577439930289984,
+        "travel": 0.976953785866499
+      },
+      "mean_actual_return": 16.952448327261664,
+      "manifest": "result/2026-09-12__A1__T1J-v5__seed-3__updates-000800__p2-41-reward-seed3-retry1/manifest.json"
+    }
+  ]
+}

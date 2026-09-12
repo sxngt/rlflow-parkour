@@ -1259,3 +1259,12 @@ weighted chain64/64/64/0,continuous64/64/61/20,split0/64/64/0. uniform대비seed
 고정P240seed1성공모델평가 session98557/GPU0/artifacts/p2-41-reward-seed1, seed3실패 session68290/GPU1/artifacts/p2-41-reward-seed3. 각log동명-launch.log. 두hop64scenario/mean/200Hz/영상64camera4/phase:P2 step:p2-41-reward-audit. 새학습/보상변경없음.
 
 다음同session/PID확인→완료또는계측합불일치오류확인→기존P240native평가와scenario/episode/motiontrace대조→영상/event/새계측artifacthash검사→성분총합·성공실패분석. 계측무영향아직미검증,완료성능주장없음. 전체목표미완료。
+
+
+### 최신: P241 보상계측 무영향/합계 검증 완료
+
+이전계측구현/실행은progress. 최초98557/68290exit1: explicitchain指定にmatchedsupport없어CLI검사실패,sim起動前。原logs保全。configimplicit chain으로retry1세션22648/14310둘다exit0. scripts/p2_41_report.py실행11025exit0,docs/p2-41-reward-diagnosis.json/findings.md.
+
+same scenarios/episode모든필드/chainevents/motiontrace모든배열정확일치. reward성분합각step오차<1e-6,누적return/길이/mask검사,2영상/eventhash/64camera4검증. seed1두도약64성공reward67.11,seed3첫도약거리timeout64reward16.95;실패성공보상0/failure0/flight3/contact4/apex3/firsttouch7.577/travel.977/dense-1.602. 성공2hop vs실패1hop이므로총점직접인과비교금지.
+
+다음현재보상npz와chainevents로첫hop범위만동일하게집계해형상화보상기여분석. 필요시全seed고정계측확장하되범위명시. 후속학습/보상변경아직없음. 全P241세션terminal,전체목표미완료。
