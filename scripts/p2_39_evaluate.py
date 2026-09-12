@@ -61,7 +61,7 @@ if __name__ == '__main__':
         sys.exit(0)
     for source in sorted({p['source'] for p in plan}):
         record = check(ROOT / source)
-        assert record['updates'] == record['last_update'] == 2000 and record['first_update'] == 1
+        assert record['updates'] == record['last_update'] == 800 and record['first_update'] == 1
         assert record['new_steps'] == 19660800
     for item in plan:
         path = ROOT / item['evaluation']
