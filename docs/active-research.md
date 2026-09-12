@@ -1069,3 +1069,11 @@ scripts/evaluate.py --independent-support-clones 추가(commit e9541f4),explicit
 docs/p2-38-profile-summary.json: workerA75.2035s/B98.0668s,update총42.54/42.07s,update구간34663/35047step/s,전체worker19608/15036step/s;nonupdate32.66/55.99s는초기화만이아닌검사/저장/종료등포함. nvidia-smi샘플peakworker2965/2971MiB. 메인프로세스liveRSS/HWM스냅샷 artifacts/p2-38-profile-host-memory.json(A약4.4GB/B4.8GB,전체host합계아님).
 
 scripts/p2_38_pilot_evaluate.py(commit a730885) 두조건×chain/regression4작업,GPU0~3,명시적override64/진단/64rendercamera4/상세result태그. completedprofile게이트/중복방지후session87245시작 log artifacts/p2-38-pilot-evaluation-batch.log. 다음동일session/PID확인→4평가완료/시나리오/模型영상hash검증→모든P238착수게이트総括→새8본학습launcher구현/실행(아직本학습없음). 初期생성비교2영상保管hash검증도남음。전체목표미완료.
+
+### 최신: P2-38 파일럿 최종 게이트 검증 / 8개 본학습 시작
+
+이전프로파일링완료/파일럿평가실행은progress. session87245exit0/4평가exit0. 초기생성비교2+파일럿4 총6평가/원본200Hz chain검사 및 result 영상/eventhash/64camera4검증 docs/p2-38-pilot-evaluation-summary.json. A/B파일럿chain둘다0/64,continuous회귀A64/B57. 정확개선주장없음. profile초기복사2감사 session97296exit0 artifacts/p2-38-profile-initialization-audit.jsonl.
+
+scripts/p2_38_train.py 구현:8개학습800×1024×24,짝수deck→continuous/홀수반대,원P231부모전체4새fork,physicsprobe/scene/smoke/resume/profile/고정모델생성비교감사게이트,중복방지. scripts/collect_results.py title에학습지지면assignment/독립생성검증표시추가(파일명길이유지). commit478eda9. 현재batchsession29971/log artifacts/p2-38-training-batch.log실행중. 실제Isaac첫묶음PID1898154(deck0)/1898155(continuous1)/1898164(deck2)/1898156(continuous3)확인. 시작전GPU유휴/저장526GB. 아직첫묶음初期化단계,새학습초기checkpoint복사감사다음필요.
+
+다음:동일4worker상태/업데이트확인→초기복사검증→본학습/native첫묶음완료및둘째묶음자동시작확인. 후속평가행렬scripts아직없음:8모델×4suite=32참조(nativechain8재사용/새24),deck단일0/5/10/15각16(이전deck15のみ와다름),continuous同距離,split15×64. 모든model/同scenario/환경geometry/학습예산157286400/動画32検証필요. 본학습中設定변경금지/전체목표미완료.
