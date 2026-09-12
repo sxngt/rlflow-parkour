@@ -18,7 +18,8 @@ def analyze(directory):
         m, end = hop['metrics'], hop['episode_step']
         assert end > start
         prep_end = start + round(spec['settle_seconds'] / .02)
-        assert prep_end <= end
+        preparation_completed = prep_end <= end
+        prep_end = min(prep_end, end)
         origin = np.asarray(transition['launch_origin_xy_m'])
         prep_xy = trace['root_xy'][prep_end * 4 - 1, i]
         launch = np.array([m['launch_root_x_m'], m['launch_root_y_m']])
@@ -27,6 +28,8 @@ def analyze(directory):
         assert bool((final_errors <= spec['landing_radius_m']).all()) == m['final_all_feet_in_radius']
         rows.append({
             'env_index': i, 'success': m['success'], 'failure': m['failure'], 'timeout': m['timeout'],
+            'preparation_completed': preparation_completed,
+            'observed_preparation_steps': prep_end - start,
             'prep_body_delta_xy_m': (prep_xy - origin).tolist(),
             'prep_body_displacement_m': float(np.linalg.norm(prep_xy - origin)),
             'launch_after_prep_delta_xy_m': (launch - prep_xy).tolist() if m['launch_recorded'] else None,

@@ -104,6 +104,12 @@ def collect(evaluation, result_root=ROOT / 'result'):
     if parallel:
         title += f' | {len(visible_episodes)}개 로봇 병렬 평가'
         video_name = f'A1__{task_title}__{mode}-seed{seed}__{updates}업데이트__병렬{len(visible_episodes)}개_최종평가.mp4'
+    # Preserve the full human title in the manifest; filesystem components have
+    # byte limits, so shorten only overlong filenames with a stable digest.
+    if len(video_name.encode('utf-8')) > 240:
+        suffix = '__' + hashlib.sha256(video_name.encode('utf-8')).hexdigest()[:12] + '.mp4'
+        prefix = video_name[:-4].encode('utf-8')[:240-len(suffix.encode())].decode('utf-8', errors='ignore')
+        video_name = prefix + suffix
     record = {'research_tags':run.get('research_tags',run['config'].get('research_tags',[])), 'title':title, 'evaluation_run':evaluation.name, 'training_run':Path(model['path']).parent.name if model else None,
               'source_evaluation':os.path.relpath(evaluation, result_root), 'source_video_sha256':expected,
               'checkpoint':model, 'action_evaluation':action_evaluation, 'task':run['config']['task'], 'seed':seed, 'updates':updates,
