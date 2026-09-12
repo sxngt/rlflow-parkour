@@ -516,3 +516,10 @@ scripts/p2_27_stage_report.py로완료된update1–400만대조, docs/p2-27-firs
 직전턴첫400구간보고서생성은progress. 이번턴실제4PID를확인하고여러차례verified wait후seed0/1/3의801전환검증:거리0–15cm/반경4.5cm/cap.2/reset_all=true. 모든loss유한,checkpoint500/600/700/800해시정상. 최신 [{"seed": 0, "pid": 1522303, "iteration": 836, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"seed": 1, "pid": 1522214, "iteration": 857, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"seed": 3, "pid": 1522200, "iteration": 845, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"seed": 2, "pid": 1522215, "live": true, "iteration": null, "status": "initializing"}].
 
 seed2 PID1522215는여전히Starting simulation/metrics없음,기존1800초감독예산안에서진행중으로추적한다. 무단중복재시도없음. 다음정상3seed1201전환및1600평가,seed2종료또는실제진입확인. 교차평가전체배치는4seed완료조건이라현재실행불가;후속seed2복구attempt를진행하게되면명세/경로/계보를명시갱신할것. 전체목표미완료.
+
+
+### 최신: P2-27 초기화 정체 자원 계상
+
+직전801검증턴은progress. 이번턴실제4PID재확인후 docs/p2-27-initialization-incident.md 및 artifacts/p2-27-resource-snapshot.json 작성. 약789초 관측시점seed2기록학습step0/할당GPU시간하한.2193h/CPU11840초. 다른세seed918/935/924update. GPU프로세스존재와실제GPU연산시간을구분하고초기화정체의원인을확정하지않았다.
+
+기존1800초감독제한유지,종료후원본실패/로그/자원계상보존+같은seed설정새attempt최대1회검토라는제한적복구절차문서화. 아직재시도없고PID1522215살아있음. 다음1201전환검증및1600평가,seed2동일PID/감독자상태추적. 초기화실패의재시도는0학습step인프라복구이며성능이낮은seed교체와구분. 전체목표미완료.
