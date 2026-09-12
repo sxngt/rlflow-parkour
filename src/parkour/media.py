@@ -85,3 +85,50 @@ class ParallelRecorder:
             payload['contact_group']='all_four'
         atomic_json(self.out/('replay.json' if self.name=='evaluation' else self.name+'-replay.json'),payload)
         return payload
+
+
+class FollowRecorder:
+    """One original first episode, third-person camera following body yaw."""
+    def __init__(self,env,out,name='evaluation',env_index=0):
+        import math
+        if not 0<=env_index<env.num_envs:raise ValueError('Invalid followed environment')
+        self.env,self.out,self.name=env,out,name;self.ids=[env_index];self.frames=0;self.trace=[]
+        for i,path in enumerate(env.scene.env_prim_paths):
+            if i!=env_index:UsdGeom.Imageable(env.scene.stage.GetPrimAtPath(path)).MakeInvisible()
+        env.render_mode='rgb_array';env.cfg.viewer.resolution=(1280,720)
+        self.eye=None;self.look=None;self.yaw=None
+        self._camera()
+        for _ in range(40):env.render()
+        self.writer=imageio.get_writer(str(out/(name+'.mp4')),fps=25,codec='libx264')
+    def _camera(self):
+        import math
+        root=self.env.robot.data.root_state_w[self.ids[0]].detach().cpu().numpy()
+        w,x,y,z=root[3:7];yaw=math.atan2(2*(w*z+x*y),1-2*(y*y+z*z))
+        if self.yaw is None:self.yaw=yaw
+        else:self.yaw+=.16*math.atan2(math.sin(yaw-self.yaw),math.cos(yaw-self.yaw))
+        forward=np.array([math.cos(self.yaw),math.sin(self.yaw),0.]);right=np.array([math.sin(self.yaw),-math.cos(self.yaw),0.])
+        desired_eye=root[:3]-2.5*forward+.85*right+np.array([0,0,1.4])
+        desired_look=root[:3]+.5*forward+np.array([0,0,.08])
+        self.eye=desired_eye if self.eye is None else .2*desired_eye+.8*self.eye
+        self.look=desired_look if self.look is None else .2*desired_look+.8*self.look
+        self.env.sim.set_camera_view(self.eye,self.look)
+    def capture(self,step,finished=None,iteration=None):
+        if step%2:return
+        if finished is not None and bool(finished[self.ids[0]]):return
+        self._camera();frame=self.env.render()
+        if self.frames==0:
+            if frame.max()==0:raise RuntimeError('Black follow-camera output')
+            imageio.imwrite(self.out/('first-frame.png' if self.name=='evaluation' else self.name+'-preview.png'),frame)
+        self.writer.append_data(frame);self.frames+=1
+        i=self.ids[0]
+        self.trace.append({'sim_time_s':step*self.env.step_dt,'env_index':i,
+            'root_state_w':self.env.robot.data.root_state_w[i].tolist(),'eye_m':self.eye.tolist(),'look_at_m':self.look.tolist()})
+    def close(self,**metadata):
+        self.writer.close();self.writer=None
+        payload={'artifact_type':'original_simulation_frames','layout':'third_person_follow','visible_env_ids':self.ids,
+            'total_simulated_envs':self.env.num_envs,'fps':25,'frame_count':self.frames,'frame_dt_s':.04,
+            'video_start_sim_time_s':0.,'resolution':[1280,720],'trace':self.trace,
+            'camera':{'mode':'smoothed_body_yaw_third_person','behind_m':2.5,'side_m':.85,'above_body_m':1.4},
+            'scope':'Single first episode; no padding or stitching after failure/reset',**metadata}
+        atomic_json(self.out/('replay.json' if self.name=='evaluation' else self.name+'-replay.json'),payload)
+        return payload

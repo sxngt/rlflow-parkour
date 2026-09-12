@@ -80,7 +80,11 @@
     "step:p4-03-history-training": "P4-03 · 관측 이력 비교",
     "step:p3-16-full-gap-capability": "P3-16 · 거리 확장·실제 갭 검사",
     "step:p3-17-shared-terrain": "P3-17 · 공유 경사·회전 지형",
-    "step:p3-18-continuous-tracker": "P3-18 · 연속 앞뒤 접촉 Tracker"
+    "step:p3-18-continuous-tracker": "P3-18 · 연속 앞뒤 접촉 Tracker",
+    "step:p3-19-long-scenarios": "P3-19 · 10구간 장거리 시나리오",
+    "difficulty:easy": "난이도 · 쉬움",
+    "difficulty:medium": "난이도 · 중간",
+    "difficulty:hard": "난이도 · 어려움"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [

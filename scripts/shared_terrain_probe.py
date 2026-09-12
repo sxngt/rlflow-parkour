@@ -3,8 +3,8 @@ import argparse,json,math,sys,traceback
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src'))
 from parkour.runtime import begin_run,finish_run,launch_app,atomic_json,sha256
-from parkour.shared_terrain import build_shared_course
-p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);p.add_argument('--course',choices=['blocks','ramps','turns','mixed'],default='mixed');args=p.parse_args()
+from parkour.shared_terrain import build_shared_course,build_long_shared_course
+p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);p.add_argument('--course',choices=['blocks','ramps','turns','mixed','long-easy','long-medium','long-hard'],default='mixed');args=p.parse_args()
 config={'task':'shared_terrain_geometry_probe_v1','research_tags':['phase:P3','step:p3-17-shared-terrain','purpose:geometry-preview'],'course':args.course,'scope':'Terrain only; no robot policy or completed parkour claim'}
 meta=begin_run(args.out,config,'probe')
 try:
@@ -14,7 +14,7 @@ try:
     import isaaclab.sim as sim_utils
     from isaaclab.sensors import Camera,CameraCfg
     from omni.physx import get_physx_scene_query_interface
-    layout=build_shared_course(args.course)
+    layout=build_long_shared_course(args.course.split('-')[1],1) if args.course.startswith('long-') else build_shared_course(args.course)
     sim=sim_utils.SimulationContext(sim_utils.SimulationCfg(dt=.005,device='cuda:0',enable_scene_query_support=True))
     ground=sim_utils.GroundPlaneCfg();ground.func('/World/Ground',ground,translation=(0,0,layout['catch_floor_z_m']))
     light=sim_utils.DomeLightCfg(intensity=2500);light.func('/World/Light',light)
@@ -36,10 +36,12 @@ try:
         assert error<2e-5 and alignment>.9999,(s['id'],error,alignment)
         rays.append({'surface_id':s['id'],'hit_position_m':list(hit['position']),'hit_normal':list(hit['normal']),
                      'center_error_m':error,'normal_dot':alignment,'collider':str(hit['collision'])})
-    target=torch.tensor([[1.25,1.1,.05]],device='cuda:0')
+    centers=torch.tensor([s['top_center_m'] for s in layout['surfaces']],device='cuda:0')
+    target=centers.mean(dim=0,keepdim=True)
+    distance=max(5.5,float((centers.amax(dim=0)-centers.amin(dim=0)).norm())*1.3)
     def pose(index):
         angle=-.9+index/149*1.2
-        eye=target+torch.tensor([[5.5*math.cos(angle),5.5*math.sin(angle),3.6]],device='cuda:0')
+        eye=target+torch.tensor([[distance*math.cos(angle),distance*math.sin(angle),distance*.65]],device='cuda:0')
         camera.set_world_poses_from_view(eye,target)
     pose(0)
     for _ in range(30):sim.step();camera.update(.005)

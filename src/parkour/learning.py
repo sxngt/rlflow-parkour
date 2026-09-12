@@ -134,7 +134,7 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
     elif config['task']=='a1_continuous_tracker_v1':
         from parkour.continuous_tracker_task import ContinuousTrackerCfg,ContinuousTrackerEnv
         cfg,env_type=ContinuousTrackerCfg(),ContinuousTrackerEnv
-        cfg.scene.env_spacing=7.
+        cfg.scene.env_spacing=14.
     elif config['task'] == 'a1_t0_foothold_v1':
         cfg, env_type = FootholdCfg(), FootholdEnv
     else:

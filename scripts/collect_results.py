@@ -121,6 +121,9 @@ def collect(evaluation, result_root=ROOT / 'result'):
     if parallel:
         title += f' | {len(visible_episodes)}개 로봇 병렬 평가'
         video_name = f'A1__{task_title}__{mode}-seed{seed}__{updates}업데이트__병렬{len(visible_episodes)}개_최종평가.mp4'
+    if replay.get('layout')=='third_person_follow':
+        title+=' | 단일 로봇 3인칭 추적'
+        video_name='3인칭추적__'+video_name
     # Preserve the full human title in the manifest; filesystem components have
     # byte limits, so shorten only overlong filenames with a stable digest.
     if len(video_name.encode('utf-8')) > 240:

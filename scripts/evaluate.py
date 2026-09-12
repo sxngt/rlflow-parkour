@@ -42,6 +42,7 @@ def main():
     p.add_argument('--evaluation-forward-m', nargs='+', type=float, help='Explicit evaluation-only distances on continuous/split support')
     p.add_argument('--map-goal-forward-m', type=float, help='Select a geometric stance path from the support map to a forward goal')
     p.add_argument('--gap-travel-m', type=float, default=.5, help='Foot translation for disjoint whole-platform gap evaluation')
+    p.add_argument('--video-camera-mode',choices=['parallel','follow'])
     p.add_argument('--support-mode', choices=['flat', 'continuous', 'split', 'deck', 'course', 'full-gap'])
     p.add_argument('--support-matched-material', action='store_true')
     p.add_argument('--independent-support-clones', action='store_true', help='P2-38 all-deck scene construction validation only')
@@ -359,7 +360,11 @@ def main():
                 diagnostics = MotionDiagnostics(env, done)
         if args.video:
             from parkour.media import ParallelRecorder
-            recorder = ParallelRecorder(env,args.out,count=args.video_envs,camera_side=args.video_camera_side)
+            if (args.video_camera_mode or config.get('evaluation_camera_mode'))=='follow':
+                from parkour.media import FollowRecorder
+                recorder=FollowRecorder(env,args.out)
+            else:
+                recorder = ParallelRecorder(env,args.out,count=args.video_envs,camera_side=args.video_camera_side)
         with torch.inference_mode():
             for step in range(env.max_episode_length + 1):
                 if args.baseline == "zero":
@@ -392,8 +397,8 @@ def main():
             raise RuntimeError("Evaluation incomplete; missing scenario results")
         if recorder:
             recorder.close(episode=records[0], episodes=[records[i] for i in recorder.ids],
-                           recording_kind='parallel_evaluation',
-                           video_stop_rule='last visible first episode; subsequent auto-resets shown but excluded from metrics')
+                           recording_kind=('single_robot_follow_evaluation' if (args.video_camera_mode or config.get('evaluation_camera_mode'))=='follow' else 'parallel_evaluation'),
+                           video_stop_rule=('followed first episode only; recording ends on its termination' if (args.video_camera_mode or config.get('evaluation_camera_mode'))=='follow' else 'last visible first episode; subsequent auto-resets shown but excluded from metrics'))
             recorder = None
         if diagnostics:
             diagnostics.close(args.out, [s["id"] for s in manifest["episodes"]])
@@ -423,6 +428,13 @@ def main():
                 mean_rear_accepted_index=sum(r['rear_accepted_index'] for r in records)/count,
                 required_final_index=len(support['layout']['surfaces'])-1,
                 evaluation_scope='Scripted contact buffer; not autonomous map planning')
+            report['mean_measured_jump_count']=sum(r.get('measured_jump_count',0) for r in records)/count
+            report['mean_completed_surface_transfers']=sum(r.get('completed_surface_transfers',0) for r in records)/count
+            if config.get('demo_target'):
+                target=config['demo_target']
+                report['demo_eligible_scenario_ids']=[r['scenario_id'] for r in records if r['success'] and r['length']*env.step_dt>=target['minimum_actual_seconds'] and r.get('completed_surface_transfers',0)>=target['surface_transfers']]
+                report['demo_target']=target
+                report['followed_video_demo_eligible']=records[0]['scenario_id'] in report['demo_eligible_scenario_ids']
         if 'completed_contacts' in records[0]:
             report['required_contacts'] = 4 if config.get('jump') else config.get('sequence',{}).get('sequence_length',4)
             report['mean_completed_contacts'] = sum(row['completed_contacts'] for row in records)/count

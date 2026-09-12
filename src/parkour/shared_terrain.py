@@ -89,3 +89,52 @@ def build_easy_shared_course(seed=0):
             'frame':'course_local','surfaces':surfaces,'start_position_m':[0.,0.,0.],
             'goal_position_m':surfaces[-1]['top_center_m'],'catch_floor_z_m':-.8,
             'scope':'Easy development terrain with touching/overlapping projected blocks; not a gap-crossing benchmark'}
+
+
+def build_long_shared_course(level='easy',seed=0,transitions=10):
+    """Long scenario geometry; ten surface transfers are not ten proven jumps."""
+    import random
+    if level not in ('easy','medium','hard') or transitions!=10:
+        raise ValueError('Version1 long scenarios use easy/medium/hard and ten transfers')
+    step,tilt,height,turn={'easy':(.45,3.,.04,6.),'medium':(.65,10.,.12,15.),'hard':(.85,20.,.24,25.)}[level]
+    rng=random.Random(seed);surfaces=[];x=y=heading=0.
+    for i in range(transitions+1):
+        if i:
+            heading+=turn*math.sin(i*.7)+rng.uniform(-turn/4,turn/4)
+            distance=step+rng.uniform(-.025,.025)
+            if i==transitions:distance=max(distance,.6)  # Final rear stance must clear the previous block.
+            x+=distance*math.cos(math.radians(heading));y+=distance*math.sin(math.radians(heading))
+        z=0. if i==0 else height*(1.+.6*math.sin(i*.9))
+        roll,pitch=(0.,0.) if i in (0,transitions) else (rng.uniform(-tilt,tilt),rng.uniform(-tilt,tilt))
+        size=(1.,1.,.15) if i==0 else ((.7,.8,.15) if i==transitions else (.55,.7,.15))
+        surfaces.append(surface('surface_'+str(i),[x,y,z],size,(roll,pitch,heading)))
+    return {'schema_version':2,'geometry_contract':'oriented_shared_surfaces_v1','scenario_contract':'long_shared_course_v1',
+            'kind':'long-'+level,'level':level,'seed':seed,'transitions':transitions,'frame':'course_local',
+            'surfaces':surfaces,'start_position_m':[0.,0.,0.],'goal_position_m':surfaces[-1]['top_center_m'],
+            'catch_floor_z_m':-.8,'nominal_path_length_m':sum(math.dist(a['top_center_m'],b['top_center_m']) for a,b in zip(surfaces,surfaces[1:])),
+            'scope':'Ten shared-surface transfers with height, slope and heading variation; actual jumps and feasibility measured during execution'}
+
+
+def assert_script_contacts_unoccluded(layout,script):
+    """Independent local ray/slab check for other cuboids above contact points."""
+    for group in script['positions_m']:
+        for index,pair in enumerate(group):
+            selected=layout['surfaces'][index];n=selected['normal']
+            for point in pair:
+                origin=[p+.1*v for p,v in zip(point,n)]
+                direction=[-v for v in n]
+                for other in layout['surfaces']:
+                    if other['id']==selected['id']:continue
+                    R=other['rotation_local_to_world'];delta=[a-b for a,b in zip(origin,other['center_m'])]
+                    o=[sum(R[j][i]*delta[j] for j in range(3)) for i in range(3)]
+                    d=[sum(R[j][i]*direction[j] for j in range(3)) for i in range(3)]
+                    near,far=0.,.12-1e-6
+                    for axis,extent in enumerate(other['size_m']):
+                        h=extent/2
+                        if abs(d[axis])<1e-12:
+                            if not -h<=o[axis]<=h:near,far=1.,0.;break
+                        else:
+                            a,b=sorted(((-h-o[axis])/d[axis],(h-o[axis])/d[axis]))
+                            near=max(near,a);far=min(far,b)
+                    if near<=far:
+                        raise ValueError(f'Contact on {selected["id"]} occluded by {other["id"]}')

@@ -77,6 +77,7 @@ class FootholdEnv(DirectRLEnv):
             # Xform alone did not move the plane collider in this Isaac version.
             self.scene.stage.RemovePrim(self.cfg.terrain.prim_path)
             ground = sim_utils.GroundPlaneCfg(physics_material=self.cfg.terrain.physics_material)
+            if support['mode']=='shared-course':ground.size=(1000.,1000.)
             ground.func(self.cfg.terrain.prim_path, ground,
                         translation=(0., 0., support['layout']['catch_floor_z_m']))
             for surface in ([] if self.cfg.support_assignment else support['layout']['surfaces']):

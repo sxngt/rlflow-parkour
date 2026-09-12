@@ -26,3 +26,15 @@ class SharedTerrainTest(unittest.TestCase):
             distance=math.sqrt(sum((a-b)**2 for a,b in zip(front[-1][i],rear[-1][i])))
             self.assertAlmostEqual(distance,.36)
         self.assertEqual(front[0][0],[.114,.16,.02])
+    def test_long_maps_have_ten_transfers_and_visible_targets(self):
+        from parkour.shared_terrain import build_long_shared_course,scripted_pair_targets,assert_script_contacts_unoccluded
+        xy=[[.114,.16],[.114,-.16],[-.258,.16],[-.258,-.16]]
+        for level in ('easy','medium','hard'):
+            c=build_long_shared_course(level,1);self.assertEqual(len(c['surfaces']),11)
+            plan=scripted_pair_targets(c,xy);assert_script_contacts_unoccluded(c,plan)
+        # A deliberately raised duplicate block must reject an occluded target.
+        import copy
+        c=build_long_shared_course('easy',1);plan=scripted_pair_targets(c,xy)
+        extra=copy.deepcopy(c['surfaces'][2]);extra['id']='occluder'
+        extra['center_m'][2]+=.05;c['surfaces'].append(extra)
+        with self.assertRaises(ValueError):assert_script_contacts_unoccluded(c,plan)

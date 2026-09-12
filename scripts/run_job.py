@@ -123,14 +123,14 @@ def main():
             return 1
     if proc.returncode == 0 and run.get('kind') == 'train' and run.get('status') == 'SUCCEEDED' and resource_released and not args.skip_final_evaluation:
         evaluation_out = out.with_name(out.name + '__final-evaluation')
-        command = [sys.executable, str(ROOT/'scripts/run_job.py'), '--gpu', gpu, '--timeout', '180',
+        command = [sys.executable, str(ROOT/'scripts/run_job.py'), '--gpu', gpu, '--timeout', '360',
                    '--python', args.python, 'evaluate', '--config', str(out/'config.json'),
                    '--checkpoint', str(out/run['checkpoint']['path']), '--out', str(evaluation_out), '--video']
         if run.get('config',{}).get('evaluation_episodes'):
             command.extend(['--episodes',str(run['config']['evaluation_episodes'])])
         if run.get('config',{}).get('evaluation_diagnostics'):
             command.append('--diagnostics')
-        for field, flag in [('evaluation_video_envs', '--video-envs'), ('evaluation_camera_side', '--video-camera-side')]:
+        for field, flag in [('evaluation_camera_mode', '--video-camera-mode'), ('evaluation_video_envs', '--video-envs'), ('evaluation_camera_side', '--video-camera-side')]:
             if run.get('config', {}).get(field):
                 command.extend([flag, str(run['config'][field])])
         evaluation = subprocess.run(command, cwd=ROOT)
