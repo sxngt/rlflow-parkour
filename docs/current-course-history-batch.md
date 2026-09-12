@@ -1,13 +1,21 @@
+# Current work after this completed batch
+
+P3-16 currently training two seeds1200updates/1024env via scripts/p3_16_train.py, execsession86316, logartifacts/p3-16-training-batch.log. Each follows with full-gap50cm translation and continuous regression evaluations; native reach video also automatic. Script asserts curriculum changes atupdates301/601. Read p3-16-protocol.md. Short12update64env smoke/native evaluation passed. FrozenP3-15seed1 physicalgap probe0/64; sixfirst/lastclone PhysX rays verify actualemptygap withcatchfloor at-0.5m andplatforms0m. Gap parentartifact/eventaudit passed.
+
+Vectorized gate GPU8hop evaluation exactlymatches P3-11seed2 all64records,448transitions and20tracechannels; GPUmicrobenchmark now running onsession82076, GPU2 under run_job. Default remains reference pending measuredtimings. This paragraph supersedes prior active state below. Continue autonomously, do not stop atjoblaunch.
+
 # Current autonomous research batch
 
 User: continue until the final parkour objective or explicit stop. Do not finish the turn merely on launch or one small phase. Read actual process/supervisor/artifact state before repeating jobs.
 
-Active command: `python3 scripts/research_course_history_batch.py > artifacts/course-history-batch.log 2>&1`
+COMPLETED: all26 tasks succeeded, reports generated. History both seeds0/64 all common suites; zero controls retain some course capability. P3-15 reach seed1 succeeds through25cm,seed2 poor. See p4-03-findings.md and p3-15-findings.md.
+
+Historical command: `python3 scripts/research_course_history_batch.py > artifacts/course-history-batch.log 2>&1`
 Exec session21031, started after source commitf6c9192. Six training jobs (all800updates/1024env): P3-15 longer jump seeds1/2; P4-03 history and zero control seeds1/2. Same-seed P3-08 mapped source checkpoint800. Global new-step budget117,964,800. Four workers own GPU indices only through run_job UUID leases. Training priority; completed jobs enqueue their common evaluations, so free workers backfill evaluations while other training continues. Plan: artifacts/course-history-batch-plan.json. Completed/failed state: artifacts/course-history-batch-state.json. This finite batch runner is not a complete resource broker or an unbounded autonomous service.
 
 Each train includes native evaluation+64-robot video. Then P3-15 has4 common evaluations (reach and continuous for2seeds); P4-03 has16 (uniform8,friction0p2,friction0p05,continuous for4models). Total26 queued tasks plus6 native evaluations inside train wrappers. Reports scripts/p3_15_report.py and p4_03_report.py run only after all26 tasks succeed. Failure stops new admission but lets already executing jobs finish; artifacts are never overwritten. Investigate/recover missing tasks rather than rerunning successful training. State is persistent evidence, not automatic process resume.
 
-Completed prerequisites: history clock/reset/mask/shared-normalization/initial-mean equivalence tests3; legacy fork tests4; history64env12update smoke and2update resume with native videos; longer-distance64env12update smoke/native video. Main training is not yet evaluated.
+Completed prerequisites: history clock/reset/mask/shared-normalization/initial-mean equivalence tests3; legacy fork tests4; history64env12update smoke and2update resume with native videos; longer-distance64env12update smoke/native video. Main training and common evaluations are complete.
 
 Research status:
 - P3-11 uniform8 hops/1.2m foot goal: mapped seed1=48/64 seed2=64/64.

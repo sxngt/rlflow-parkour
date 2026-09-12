@@ -1,0 +1,29 @@
+{
+  "reference": "artifacts/p3-11-mapped-seed2-hops8",
+  "candidate": "artifacts/map-vectorized-seed2-hops8",
+  "successes": 64,
+  "episode_records_exact": true,
+  "chain_events_exact": true,
+  "trace_channels_exact": {
+    "time": true,
+    "valid": true,
+    "root_z": true,
+    "root_vz": true,
+    "root_xy": true,
+    "root_angular_velocity_b": true,
+    "foot_pos": true,
+    "foot_vel": true,
+    "force": true,
+    "nonfoot_peak": true,
+    "action": true,
+    "torque": true,
+    "active": true,
+    "stage": true,
+    "phase": true,
+    "segment": true,
+    "segment_start_step": true,
+    "target_xy": true,
+    "launch_origin_xy": true,
+    "all_feet_task": true
+  }
+}

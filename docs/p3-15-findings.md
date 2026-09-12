@@ -1,0 +1,3 @@
+# P3-15 reach extension result
+
+Both800-update,1024-environment runs and common evaluations completed. Seed1 reached48/64 on15/20/25/30cm (16/16 each through25cm,0/16 at30cm); seed2 reached3/64 (3/16 at15cm,0 beyond). Continuous regression22/64 and27/64. Seed1's30cm cases stabilized with precise first foot contacts but airborne root displacement approximately25.84–26.02cm remained below the27cm minimum. No metric relaxation is applied. These are wide-deck airborne displacement experiments, not physical whole-platform gap crossings. Further0–50cm curriculum is separately versioned in P3-16; no champion promotion.
