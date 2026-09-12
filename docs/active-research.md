@@ -1250,3 +1250,12 @@ weighted chain64/64/64/0,continuous64/64/61/20,split0/64/64/0. uniform대비seed
 이전全32비교완료는progress. scripts/p2_40_lineage_diagnosis.py 실행완료,docs/p2-40-lineage-diagnosis.json 4seed×P231/238/239/240 continuous16평가의同scenario검증/거리별종료조건. seed3부모긴목표실패지만P238에서10/15성공하므로부모원인단정불가. P240대표seed1/3영상전체범위6frame씩육안확인,findings보완.
 
 다음은보상성분계측(아직구현안함): JumpEnv dense/event/apex/success/failure, PrecisionJump firsttouch, Directed travel의실제각step기여를평가에서모으고합계reward일치/계측전후동작동일을검증. 성공8점은최종self.success사용하므로짧은실패도약에잘못지급된다고주장금지. 목적은거리실패지만안정착지한정책의보상누적을확인해다음학습가설결정. 보상변경/새학습아직없음,전체목표미완료。
+
+
+### 최신: P241 보상성분 계측 구현 / 고정모델2평가 실행
+
+이전P240계보분석은progress. commit a36707c: --reward-components평가flag,기존보상계산순서는유지하고JumpEnv dense/flight/contact/success/failure/apex,Precision firsttouch,Directed travel를extras에clone. RewardAudit는50Hz각step성분합과실제reward를atol2e-5/rtol2e-6검사,기존done mask이전terminalstep포함/후속reset제외. reward-components.json/npz저장 및run artifacthash등록. dense는비용묶음으로세부항별분해아님. tests2통과(session57754),compile통과. docs/p2-41-protocol.md사전기록.
+
+고정P240seed1성공모델평가 session98557/GPU0/artifacts/p2-41-reward-seed1, seed3실패 session68290/GPU1/artifacts/p2-41-reward-seed3. 각log동명-launch.log. 두hop64scenario/mean/200Hz/영상64camera4/phase:P2 step:p2-41-reward-audit. 새학습/보상변경없음.
+
+다음同session/PID확인→완료또는계측합불일치오류확인→기존P240native평가와scenario/episode/motiontrace대조→영상/event/새계측artifacthash검사→성분총합·성공실패분석. 계측무영향아직미검증,완료성능주장없음. 전체목표미완료。
