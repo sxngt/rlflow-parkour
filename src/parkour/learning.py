@@ -76,6 +76,10 @@ def restore(data, config, alg, normalizer, env, training):
     assert_same_support_assignment(data['config'], config)
     from parkour.chain_training import assert_same_chain_training
     assert_same_chain_training(data['config'], config)
+    if data['config'].get('body_progress_weight',0.) != config.get('body_progress_weight',0.):
+        raise ValueError('Checkpoint body progress reward differs')
+    if data['config'].get('contact_curriculum') != config.get('contact_curriculum'):
+        raise ValueError('Checkpoint contact curriculum differs')
     if data['config'].get('exploration') != config.get('exploration'):
         raise ValueError('Checkpoint exploration contract differs')
     from parkour.terrain_contract import assert_same_terrain
@@ -135,6 +139,8 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
         from parkour.continuous_tracker_task import ContinuousTrackerCfg,ContinuousTrackerEnv
         cfg,env_type=ContinuousTrackerCfg(),ContinuousTrackerEnv
         cfg.scene.env_spacing=14.
+        cfg.body_progress_weight=float(config.get('body_progress_weight',0.))
+        if not 0<=cfg.body_progress_weight<=100:raise ValueError('Invalid body progress weight')
     elif config['task'] == 'a1_t0_foothold_v1':
         cfg, env_type = FootholdCfg(), FootholdEnv
     else:

@@ -438,11 +438,14 @@ def main():
                 mean_rear_accepted_index=sum(r['rear_accepted_index'] for r in records)/count,
                 required_final_index=len(support['layout']['surfaces'])-1,
                 evaluation_scope='Scripted contact buffer; not autonomous map planning')
+            report['evaluation_contact_radius_m']=env.cfg.success_radius_m
             report['mean_measured_jump_count']=sum(r.get('measured_jump_count',0) for r in records)/count
             report['mean_completed_surface_transfers']=sum(r.get('completed_surface_transfers',0) for r in records)/count
             if config.get('demo_target'):
-                target=config['demo_target']
-                report['demo_eligible_scenario_ids']=[r['scenario_id'] for r in records if r['success'] and r['length']*env.step_dt>=target['minimum_actual_seconds'] and r.get('completed_surface_transfers',0)>=target['surface_transfers']]
+                target=dict(config['demo_target'])
+                target['minimum_measured_jumps']=target.get('minimum_measured_jumps',8)
+                target['eligibility_contract']='dynamic_long_course_v2'
+                report['demo_eligible_scenario_ids']=[r['scenario_id'] for r in records if r['success'] and r['length']*env.step_dt>=target['minimum_actual_seconds'] and r.get('completed_surface_transfers',0)>=target['surface_transfers'] and r.get('measured_jump_count',0)>=target['minimum_measured_jumps']]
                 report['demo_target']=target
                 report['followed_video_demo_eligible']=records[0]['scenario_id'] in report['demo_eligible_scenario_ids']
         if 'completed_contacts' in records[0]:

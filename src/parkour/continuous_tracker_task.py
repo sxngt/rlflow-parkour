@@ -10,6 +10,7 @@ from parkour.shared_terrain import scripted_pair_targets
 
 @configclass
 class ContinuousTrackerCfg(FootholdCfg):
+    body_progress_weight=0.
     observation_space=105
     episode_length_s=12.
     action_scale=.5
@@ -53,7 +54,16 @@ class ContinuousTrackerEnv(FootholdEnv):
             self.flights.update(self.contacts.data.net_forces_w[:,self.contact_ids],self.robot.data.root_pos_w[:,2],
                 self.robot.data.root_lin_vel_w[:,2],self.contacts.data.net_forces_w[:,self.nonfoot_ids].norm(dim=-1).amax(dim=1),dt)
         self.scene.update=update
+        self.body_progress_before=torch.zeros(self.num_envs,3,device=self.device)
+        self.body_waypoint=torch.zeros_like(self.body_progress_before)
+        self.stance_offset=self.calibrated_root[:3]-torch.cat([self.nominal_xy,torch.full((4,1),.02,device=self.device)],dim=1).mean(dim=0)
         self._sync_targets()
+    def _pre_physics_step(self,actions):
+        super()._pre_physics_step(actions)
+        if self.cfg.body_progress_weight:
+            from parkour.body_progress import waypoint
+            self.body_progress_before.copy_(self.robot.data.root_pos_w)
+            self.body_waypoint.copy_(waypoint(self.targets,self.stance_offset))
     def _sync_targets(self):
         pair=torch.arange(2,device=self.device)[None,:].expand(self.num_envs,-1)
         self.targets=self.plan[pair,self.progress.target].reshape(self.num_envs,4,3)+self.scene.env_origins[:,None,:]
@@ -114,6 +124,9 @@ class ContinuousTrackerEnv(FootholdEnv):
         dense-=.0001*self.robot.data.applied_torque.square().sum(dim=1)
         dense-=.01*(self.actions-self.previous_actions).square().sum(dim=1)
         reward=dense*self.step_dt+2.*self.accept_events.sum(dim=1)+5.*self.success-5.*self.failure
+        if self.cfg.body_progress_weight:
+            from parkour.body_progress import progress_reward
+            reward+=progress_reward(self.body_progress_before,self.robot.data.root_pos_w,self.body_waypoint,self.cfg.body_progress_weight)
         self.error_sum+=self.current_error.mean(dim=1);self.sample_count+=1;self.reward_sum+=reward
         self.extras['terminal_metrics']={'success':self.success.clone(),'failure':self.failure.clone(),'timeout':self.reset_time_outs.clone(),
             'length':self.episode_length_buf.clone(),'mean_error_m':(self.error_sum/self.sample_count.clamp_min(1)).clone(),
