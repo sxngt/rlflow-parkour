@@ -1234,3 +1234,12 @@ scripts/p2_40_report.py준비:새P240weighted4와대조P239uniform4同부모/同
 이전同PID확인/poll은verified wait. 같은batch64470 최종exit0,네800학습과native최종평가/보관종료. artifacts/p2-40-all-training-completed-audit.json:4학습회계/전체환경지지면/예산총78,643,200step검증통과.
 
 scripts/p2_40_evaluate.py 실행 session41741,log artifacts/p2-40-evaluation-batch.log. 완료8학습과기존20평가게이트를통과하면새12평가를GPU별seed로실행. 다음동일session/PID상태확인→추가12완료→scripts/p2_40_report.py 전체32짝비교/영상hash감사→첫/둘째실패·노출·대표영상검수/결론. 이전학습workerは全terminal、再実行不要。전체목표미완료.
+
+
+### 최신: P240 전체32 비교 완료 / seed1·2 회복, seed3 실패 유지
+
+이전학습완료/평가실행은progress. 同session41741最終exit0,report67225exit0. docs/p2-40-comparison.json/md,findings.md생성. 8학습예산/배치及32평가archive 검증통과. 진단session70307exit0, artifacts/p2-40-exposure-second-hop-diagnosis.json.
+
+weighted chain64/64/64/0,continuous64/64/61/20,split0/64/64/0. uniform대비seed1/2회복. seed3첫hop64개모두비행거리부족(약.079~.081m),접촉/반경/안정화통과지만둘째없음. seed2single5cm13/16;seed3거리0/5/10/15=15/5/0/0. 全seed안정성미충족/champion없음。
+
+다음대표영상육안검수(아직안함),seed3부모P231→P238/239/240실패/비행거리·노출비교;seed0split및seed2짧은거리회귀포함. 반복가중치sweep전에다음가설결정. 全P240セッションterminal、新학습없음。전체목표미완료.

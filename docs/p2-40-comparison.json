@@ -1,0 +1,1209 @@
+{
+  "new_main_training_steps": 78643200,
+  "reused_control_steps": 78643200,
+  "training_runs": [
+    {
+      "run": "artifacts/p2-39-coverage-seed0",
+      "accounting": {
+        "run": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p2-39-coverage-seed0",
+        "updates": 800,
+        "first_update": 1,
+        "last_update": 800,
+        "new_steps": 19660800,
+        "task_hop_environment_steps": [
+          [
+            5651168,
+            4179232
+          ],
+          [
+            9830400,
+            0
+          ]
+        ],
+        "task_successes": [
+          23073,
+          106926
+        ],
+        "scope": "completed run accounting, not performance or bitwise resume proof"
+      },
+      "worker_seconds": 707.4292130470276,
+      "update_seconds": 636.4734402042814,
+      "inspected_support_colliders": 2560,
+      "parent": {
+        "path": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p2-31-mixed-seed0/checkpoint-000800.pt",
+        "sha256": "fbb590275ccb1ccb4cd851ffcb15346b060d8af2d75d13f5850df8661a3c83ad"
+      }
+    },
+    {
+      "run": "artifacts/p2-40-weighted-seed0",
+      "accounting": {
+        "run": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p2-40-weighted-seed0",
+        "updates": 800,
+        "first_update": 1,
+        "last_update": 800,
+        "new_steps": 19660800,
+        "task_hop_environment_steps": [
+          [
+            7101072,
+            2729328
+          ],
+          [
+            9830400,
+            0
+          ]
+        ],
+        "task_successes": [
+          23543,
+          75102
+        ],
+        "scope": "completed run accounting, not performance or bitwise resume proof"
+      },
+      "worker_seconds": 692.9894578456879,
+      "update_seconds": 623.7537857075222,
+      "inspected_support_colliders": 2560,
+      "parent": {
+        "path": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p2-31-mixed-seed0/checkpoint-000800.pt",
+        "sha256": "fbb590275ccb1ccb4cd851ffcb15346b060d8af2d75d13f5850df8661a3c83ad"
+      }
+    },
+    {
+      "run": "artifacts/p2-39-coverage-seed1",
+      "accounting": {
+        "run": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p2-39-coverage-seed1",
+        "updates": 800,
+        "first_update": 1,
+        "last_update": 800,
+        "new_steps": 19660800,
+        "task_hop_environment_steps": [
+          [
+            6667429,
+            3162971
+          ],
+          [
+            9830400,
+            0
+          ]
+        ],
+        "task_successes": [
+          17454,
+          103714
+        ],
+        "scope": "completed run accounting, not performance or bitwise resume proof"
+      },
+      "worker_seconds": 707.4361841678619,
+      "update_seconds": 636.2770337550901,
+      "inspected_support_colliders": 2560,
+      "parent": {
+        "path": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p2-31-mixed-seed1/checkpoint-000800.pt",
+        "sha256": "b90e8b4060297f94d9924ecd050dbebdcd6eedbeaeefdcc83687fa3163dc66c9"
+      }
+    },
+    {
+      "run": "artifacts/p2-40-weighted-seed1",
+      "accounting": {
+        "run": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p2-40-weighted-seed1",
+        "updates": 800,
+        "first_update": 1,
+        "last_update": 800,
+        "new_steps": 19660800,
+        "task_hop_environment_steps": [
+          [
+            5591451,
+            4238949
+          ],
+          [
+            9830400,
+            0
+          ]
+        ],
+        "task_successes": [
+          36150,
+          99568
+        ],
+        "scope": "completed run accounting, not performance or bitwise resume proof"
+      },
+      "worker_seconds": 701.6155562400818,
+      "update_seconds": 631.6725432425737,
+      "inspected_support_colliders": 2560,
+      "parent": {
+        "path": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p2-31-mixed-seed1/checkpoint-000800.pt",
+        "sha256": "b90e8b4060297f94d9924ecd050dbebdcd6eedbeaeefdcc83687fa3163dc66c9"
+      }
+    },
+    {
+      "run": "artifacts/p2-39-coverage-seed2",
+      "accounting": {
+        "run": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p2-39-coverage-seed2",
+        "updates": 800,
+        "first_update": 1,
+        "last_update": 800,
+        "new_steps": 19660800,
+        "task_hop_environment_steps": [
+          [
+            7014987,
+            2815413
+          ],
+          [
+            9830400,
+            0
+          ]
+        ],
+        "task_successes": [
+          573,
+          99179
+        ],
+        "scope": "completed run accounting, not performance or bitwise resume proof"
+      },
+      "worker_seconds": 699.2604513168335,
+      "update_seconds": 629.551371911075,
+      "inspected_support_colliders": 2560,
+      "parent": {
+        "path": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p2-31-mixed-seed2/checkpoint-000800.pt",
+        "sha256": "974fae7559e64cb6a47e00a09e0bc2ebac1a67aa6f86464784088856efcf11e8"
+      }
+    },
+    {
+      "run": "artifacts/p2-40-weighted-seed2",
+      "accounting": {
+        "run": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p2-40-weighted-seed2",
+        "updates": 800,
+        "first_update": 1,
+        "last_update": 800,
+        "new_steps": 19660800,
+        "task_hop_environment_steps": [
+          [
+            7305750,
+            2524650
+          ],
+          [
+            9830400,
+            0
+          ]
+        ],
+        "task_successes": [
+          2801,
+          106112
+        ],
+        "scope": "completed run accounting, not performance or bitwise resume proof"
+      },
+      "worker_seconds": 715.934309720993,
+      "update_seconds": 644.6715666437522,
+      "inspected_support_colliders": 2560,
+      "parent": {
+        "path": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p2-31-mixed-seed2/checkpoint-000800.pt",
+        "sha256": "974fae7559e64cb6a47e00a09e0bc2ebac1a67aa6f86464784088856efcf11e8"
+      }
+    },
+    {
+      "run": "artifacts/p2-39-coverage-seed3",
+      "accounting": {
+        "run": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p2-39-coverage-seed3",
+        "updates": 800,
+        "first_update": 1,
+        "last_update": 800,
+        "new_steps": 19660800,
+        "task_hop_environment_steps": [
+          [
+            9830400,
+            0
+          ],
+          [
+            9830400,
+            0
+          ]
+        ],
+        "task_successes": [
+          0,
+          10445
+        ],
+        "scope": "completed run accounting, not performance or bitwise resume proof"
+      },
+      "worker_seconds": 674.6561763286591,
+      "update_seconds": 603.6160784461536,
+      "inspected_support_colliders": 2560,
+      "parent": {
+        "path": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p2-31-mixed-seed3/checkpoint-000800.pt",
+        "sha256": "dba8c57776b013a6fb6506162441eec0fb61ce32a9e78fd7bc9dbdae92820ddb"
+      }
+    },
+    {
+      "run": "artifacts/p2-40-weighted-seed3",
+      "accounting": {
+        "run": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p2-40-weighted-seed3",
+        "updates": 800,
+        "first_update": 1,
+        "last_update": 800,
+        "new_steps": 19660800,
+        "task_hop_environment_steps": [
+          [
+            9830400,
+            0
+          ],
+          [
+            9830400,
+            0
+          ]
+        ],
+        "task_successes": [
+          0,
+          13811
+        ],
+        "scope": "completed run accounting, not performance or bitwise resume proof"
+      },
+      "worker_seconds": 666.300749540329,
+      "update_seconds": 596.4933890695684,
+      "inspected_support_colliders": 2560,
+      "parent": {
+        "path": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p2-31-mixed-seed3/checkpoint-000800.pt",
+        "sha256": "dba8c57776b013a6fb6506162441eec0fb61ce32a9e78fd7bc9dbdae92820ddb"
+      }
+    }
+  ],
+  "comparisons": [
+    {
+      "seed": 0,
+      "suite": "chain",
+      "episodes": 64,
+      "uniform_training_successes": 64,
+      "weighted_training_successes": 64,
+      "uniform_only_successes": 0,
+      "weighted_only_successes": 0,
+      "uniform_training_first_hop_successes": 64,
+      "weighted_training_first_hop_successes": 64,
+      "uniform_training_by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 64,
+          "launches_in_region": 64,
+          "travel_met": 64,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "weighted_training_by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 64,
+          "launches_in_region": 64,
+          "travel_met": 64,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "manifests": [
+        "result/2026-09-12__A1__T1J-v5__seed-0__updates-000800__p2-39-coverage-seed0__final-evaluation/manifest.json",
+        "result/2026-09-12__A1__T1J-v5__seed-0__updates-000800__p2-40-weighted-seed0__final-evaluation/manifest.json"
+      ]
+    },
+    {
+      "seed": 0,
+      "suite": "deck-regression",
+      "episodes": 64,
+      "uniform_training_successes": 64,
+      "weighted_training_successes": 64,
+      "uniform_only_successes": 0,
+      "weighted_only_successes": 0,
+      "uniform_training_first_hop_successes": 64,
+      "weighted_training_first_hop_successes": 64,
+      "uniform_training_by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "weighted_training_by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "manifests": [
+        "result/2026-09-12__A1__T1J-v5__seed-0__updates-000800__p2-39-coverage-seed0-deck-regression/manifest.json",
+        "result/2026-09-12__A1__T1J-v5__seed-0__updates-000800__p2-40-weighted-seed0-deck-regression/manifest.json"
+      ]
+    },
+    {
+      "seed": 0,
+      "suite": "regression",
+      "episodes": 64,
+      "uniform_training_successes": 64,
+      "weighted_training_successes": 64,
+      "uniform_only_successes": 0,
+      "weighted_only_successes": 0,
+      "uniform_training_first_hop_successes": 64,
+      "weighted_training_first_hop_successes": 64,
+      "uniform_training_by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "weighted_training_by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "manifests": [
+        "result/2026-09-12__A1__T1J-v5__seed-0__updates-000800__p2-39-coverage-seed0-regression/manifest.json",
+        "result/2026-09-12__A1__T1J-v5__seed-0__updates-000800__p2-40-weighted-seed0-regression/manifest.json"
+      ]
+    },
+    {
+      "seed": 0,
+      "suite": "split15",
+      "episodes": 64,
+      "uniform_training_successes": 0,
+      "weighted_training_successes": 0,
+      "uniform_only_successes": 0,
+      "weighted_only_successes": 0,
+      "uniform_training_first_hop_successes": 0,
+      "weighted_training_first_hop_successes": 0,
+      "uniform_training_by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "weighted_training_by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "manifests": [
+        "result/2026-09-12__A1__T1J-v5__seed-0__updates-000800__p2-39-coverage-seed0-split15/manifest.json",
+        "result/2026-09-12__A1__T1J-v5__seed-0__updates-000800__p2-40-weighted-seed0-split15/manifest.json"
+      ]
+    },
+    {
+      "seed": 1,
+      "suite": "chain",
+      "episodes": 64,
+      "uniform_training_successes": 0,
+      "weighted_training_successes": 64,
+      "uniform_only_successes": 0,
+      "weighted_only_successes": 64,
+      "uniform_training_first_hop_successes": 0,
+      "weighted_training_first_hop_successes": 64,
+      "uniform_training_by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 64,
+          "travel_met": 0,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "weighted_training_by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 64,
+          "launches_in_region": 64,
+          "travel_met": 64,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "manifests": [
+        "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p2-39-coverage-seed1__final-evaluation/manifest.json",
+        "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p2-40-weighted-seed1__final-evaluation/manifest.json"
+      ]
+    },
+    {
+      "seed": 1,
+      "suite": "deck-regression",
+      "episodes": 64,
+      "uniform_training_successes": 48,
+      "weighted_training_successes": 64,
+      "uniform_only_successes": 0,
+      "weighted_only_successes": 16,
+      "uniform_training_first_hop_successes": 48,
+      "weighted_training_first_hop_successes": 64,
+      "uniform_training_by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "weighted_training_by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "manifests": [
+        "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p2-39-coverage-seed1-deck-regression/manifest.json",
+        "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p2-40-weighted-seed1-deck-regression/manifest.json"
+      ]
+    },
+    {
+      "seed": 1,
+      "suite": "regression",
+      "episodes": 64,
+      "uniform_training_successes": 48,
+      "weighted_training_successes": 64,
+      "uniform_only_successes": 0,
+      "weighted_only_successes": 16,
+      "uniform_training_first_hop_successes": 48,
+      "weighted_training_first_hop_successes": 64,
+      "uniform_training_by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "weighted_training_by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "manifests": [
+        "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p2-39-coverage-seed1-regression/manifest.json",
+        "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p2-40-weighted-seed1-regression/manifest.json"
+      ]
+    },
+    {
+      "seed": 1,
+      "suite": "split15",
+      "episodes": 64,
+      "uniform_training_successes": 0,
+      "weighted_training_successes": 64,
+      "uniform_only_successes": 0,
+      "weighted_only_successes": 64,
+      "uniform_training_first_hop_successes": 0,
+      "weighted_training_first_hop_successes": 64,
+      "uniform_training_by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 64,
+          "travel_met": 0,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "weighted_training_by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 64,
+          "launches_in_region": 64,
+          "travel_met": 64,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "manifests": [
+        "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p2-39-coverage-seed1-split15/manifest.json",
+        "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p2-40-weighted-seed1-split15/manifest.json"
+      ]
+    },
+    {
+      "seed": 2,
+      "suite": "chain",
+      "episodes": 64,
+      "uniform_training_successes": 0,
+      "weighted_training_successes": 64,
+      "uniform_only_successes": 0,
+      "weighted_only_successes": 64,
+      "uniform_training_first_hop_successes": 0,
+      "weighted_training_first_hop_successes": 64,
+      "uniform_training_by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 64,
+          "travel_met": 0,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "weighted_training_by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 64,
+          "launches_in_region": 64,
+          "travel_met": 64,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "manifests": [
+        "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p2-39-coverage-seed2__final-evaluation/manifest.json",
+        "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p2-40-weighted-seed2__final-evaluation/manifest.json"
+      ]
+    },
+    {
+      "seed": 2,
+      "suite": "deck-regression",
+      "episodes": 64,
+      "uniform_training_successes": 46,
+      "weighted_training_successes": 61,
+      "uniform_only_successes": 3,
+      "weighted_only_successes": 18,
+      "uniform_training_first_hop_successes": 46,
+      "weighted_training_first_hop_successes": 61,
+      "uniform_training_by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 14,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 14
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "weighted_training_by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 13,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 13
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "manifests": [
+        "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p2-39-coverage-seed2-deck-regression/manifest.json",
+        "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p2-40-weighted-seed2-deck-regression/manifest.json"
+      ]
+    },
+    {
+      "seed": 2,
+      "suite": "regression",
+      "episodes": 64,
+      "uniform_training_successes": 46,
+      "weighted_training_successes": 61,
+      "uniform_only_successes": 3,
+      "weighted_only_successes": 18,
+      "uniform_training_first_hop_successes": 46,
+      "weighted_training_first_hop_successes": 61,
+      "uniform_training_by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 14,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 14
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "weighted_training_by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 13,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 13
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "manifests": [
+        "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p2-39-coverage-seed2-regression/manifest.json",
+        "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p2-40-weighted-seed2-regression/manifest.json"
+      ]
+    },
+    {
+      "seed": 2,
+      "suite": "split15",
+      "episodes": 64,
+      "uniform_training_successes": 0,
+      "weighted_training_successes": 64,
+      "uniform_only_successes": 0,
+      "weighted_only_successes": 64,
+      "uniform_training_first_hop_successes": 0,
+      "weighted_training_first_hop_successes": 64,
+      "uniform_training_by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "weighted_training_by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 64,
+          "launches_in_region": 64,
+          "travel_met": 64,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "manifests": [
+        "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p2-39-coverage-seed2-split15/manifest.json",
+        "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p2-40-weighted-seed2-split15/manifest.json"
+      ]
+    },
+    {
+      "seed": 3,
+      "suite": "chain",
+      "episodes": 64,
+      "uniform_training_successes": 0,
+      "weighted_training_successes": 0,
+      "uniform_only_successes": 0,
+      "weighted_only_successes": 0,
+      "uniform_training_first_hop_successes": 0,
+      "weighted_training_first_hop_successes": 0,
+      "uniform_training_by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 64,
+          "travel_met": 0,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "weighted_training_by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 64,
+          "travel_met": 0,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "manifests": [
+        "result/2026-09-12__A1__T1J-v5__seed-3__updates-000800__p2-39-coverage-seed3__final-evaluation/manifest.json",
+        "result/2026-09-12__A1__T1J-v5__seed-3__updates-000800__p2-40-weighted-seed3__final-evaluation/manifest.json"
+      ]
+    },
+    {
+      "seed": 3,
+      "suite": "deck-regression",
+      "episodes": 64,
+      "uniform_training_successes": 16,
+      "weighted_training_successes": 20,
+      "uniform_only_successes": 11,
+      "weighted_only_successes": 15,
+      "uniform_training_first_hop_successes": 16,
+      "weighted_training_first_hop_successes": 20,
+      "uniform_training_by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "weighted_training_by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 15,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 15
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 5,
+          "launches_in_region": 16,
+          "travel_met": 5,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "manifests": [
+        "result/2026-09-12__A1__T1J-v5__seed-3__updates-000800__p2-39-coverage-seed3-deck-regression/manifest.json",
+        "result/2026-09-12__A1__T1J-v5__seed-3__updates-000800__p2-40-weighted-seed3-deck-regression/manifest.json"
+      ]
+    },
+    {
+      "seed": 3,
+      "suite": "regression",
+      "episodes": 64,
+      "uniform_training_successes": 16,
+      "weighted_training_successes": 20,
+      "uniform_only_successes": 11,
+      "weighted_only_successes": 15,
+      "uniform_training_first_hop_successes": 16,
+      "weighted_training_first_hop_successes": 20,
+      "uniform_training_by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "weighted_training_by_distance": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 15,
+          "launches_in_region": 16,
+          "travel_met": 16,
+          "first_touch_precise": 16,
+          "stabilized": 15
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 5,
+          "launches_in_region": 16,
+          "travel_met": 5,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0,
+          "launches_in_region": 16,
+          "travel_met": 0,
+          "first_touch_precise": 16,
+          "stabilized": 16
+        }
+      },
+      "manifests": [
+        "result/2026-09-12__A1__T1J-v5__seed-3__updates-000800__p2-39-coverage-seed3-regression/manifest.json",
+        "result/2026-09-12__A1__T1J-v5__seed-3__updates-000800__p2-40-weighted-seed3-regression/manifest.json"
+      ]
+    },
+    {
+      "seed": 3,
+      "suite": "split15",
+      "episodes": 64,
+      "uniform_training_successes": 0,
+      "weighted_training_successes": 0,
+      "uniform_only_successes": 0,
+      "weighted_only_successes": 0,
+      "uniform_training_first_hop_successes": 0,
+      "weighted_training_first_hop_successes": 0,
+      "uniform_training_by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 64,
+          "travel_met": 0,
+          "first_touch_precise": 64,
+          "stabilized": 64
+        }
+      },
+      "weighted_training_by_distance": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0,
+          "launches_in_region": 0,
+          "travel_met": 0,
+          "first_touch_precise": 0,
+          "stabilized": 0
+        }
+      },
+      "manifests": [
+        "result/2026-09-12__A1__T1J-v5__seed-3__updates-000800__p2-39-coverage-seed3-split15/manifest.json",
+        "result/2026-09-12__A1__T1J-v5__seed-3__updates-000800__p2-40-weighted-seed3-split15/manifest.json"
+      ]
+    }
+  ],
+  "scope": "four paired seeds, fixed final checkpoint, development evaluation; P2-39 uniform controls reused explicitly; pilots excluded"
+}
