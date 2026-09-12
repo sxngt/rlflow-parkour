@@ -144,6 +144,9 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
     cfg.sim.device = "cuda:0"
     from parkour.terrain_contract import training_support
     cfg.support_contract = copy.deepcopy(evaluation_support) if evaluation_support is not None else training_support(config)
+    if cfg.support_contract is not None:
+        from parkour.terrain_contract import validate_surface_materials
+        validate_surface_materials(cfg.support_contract)
     if chain_spec is not None and chain_hops is None:
         chain_hops = chain_spec['hops']
         chain_settle_mode = chain_spec['settle_command']

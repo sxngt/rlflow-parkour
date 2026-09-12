@@ -40,7 +40,12 @@ def inspect_collision_contract(env):
         assert surfaces, 'No support material inspected'
         for row in surfaces:
             material = row['physics_material']
-            assert material and material['static_friction'] == .5 and material['dynamic_friction'] == .5, row
+            expected = {'static_friction':.5, 'dynamic_friction':.5}
+            for surface_id, override in env.cfg.support_contract.get('surface_material_overrides', {}).items():
+                if '/Supports/'+surface_id+'/' in row['prim'] or row['prim'].endswith('/Supports/'+surface_id):
+                    expected = override
+                    break
+            assert material and all(abs(material[k]-v)<1e-7 for k,v in expected.items()), row
             assert material['restitution'] == 0 and material['friction_combine_mode'] == 'average', row
     return {'schema_version': 1, 'roots': roots, 'colliders': rows,
             'scope': 'Resolved USD binding in first/last environment and global ground. Null means unspecified; not a measured solver default.',

@@ -23,7 +23,7 @@ def validate_fork_configs(parent, target):
             c.pop(key,None)
         for key in ('train_forward_range_m','train_forward_choices_m','evaluation_forward_m','distance_curriculum','launch_curriculum'):
             c['jump'].pop(key,None)
-        for key in ('mode','layout'):
+        for key in ('mode','layout','friction_variation','surface_material_overrides'):
             c['terrain_contract'].pop(key,None)
         c['exploration'].pop('stages',None)
     if a!=b:

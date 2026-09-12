@@ -51,6 +51,11 @@ def collect(evaluation, result_root=ROOT / 'result'):
             task_title += '_동일물리재질'
     if run.get('chain_contract',{}).get('progress_criterion')=='mapped_contact_v1':
         task_title='지도접촉기준v1_몸체비행거리별도_'+task_title
+    if run.get('chain_contract', {}).get('spacing_contract') == 'nonuniform_horizontal_v1':
+        task_title += '_비균일간격' + '·'.join(f'{100*x:g}' for x in run['chain_contract']['step_lengths_m']) + 'cm'
+    if run.get('evaluation_support', {}).get('friction_variation'):
+        friction = run['evaluation_support']['friction_variation']
+        task_title += f"_발판{friction['start_station']}부터마찰재질{friction['authored_friction']:g}"
     if run.get('transition_restore'):
         task_title = '저장착지복원_후속도약만_전체코스평가아님_' + task_title
     model = run.get('checkpoint')

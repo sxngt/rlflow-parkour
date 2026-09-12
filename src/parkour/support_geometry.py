@@ -93,3 +93,36 @@ def expected_goal_surface(support, foot_index, nominal_xy, goal_forward_m, margi
     if len(matches)!=1:
         raise ValueError('Expected target must fit exactly one support surface')
     return matches[0]
+
+
+def vary_course_steps(layout, step_lengths):
+    """Generate a bounded nonuniform horizontal course; reject overlapping pads."""
+    import copy
+    if layout['mode'] != 'course' or not step_lengths or any(
+            not math.isfinite(x) or not .145 <= x <= .155 for x in step_lengths):
+        raise ValueError('Variable course steps require 14.5–15.5cm finite lengths')
+    if len(layout['surfaces']) != 4*(len(step_lengths)+1):
+        raise ValueError('Course horizon and step lengths disagree')
+    result = copy.deepcopy(layout)
+    offsets = [0.]
+    for length in step_lengths:
+        offsets.append(offsets[-1]+length)
+    for surface in result['surfaces']:
+        station = int(surface['role'].split('_')[-1])
+        delta = offsets[station]-station*layout['target_travel_m']
+        surface['center_m'][0] += delta
+        surface['bounds_xy_m'][0] += delta
+        surface['bounds_xy_m'][1] += delta
+    for i,a in enumerate(result['surfaces']):
+        for b in result['surfaces'][i+1:]:
+            ax0,ax1,ay0,ay1=a['bounds_xy_m'];bx0,bx1,by0,by1=b['bounds_xy_m']
+            if min(ax1,bx1)>max(ax0,bx0) and min(ay1,by1)>max(ay0,by0):
+                raise ValueError('Variable course creates overlapping supports')
+    for target in result['landing_targets']:
+        target['position_m'][0] += step_lengths[0]-layout['target_travel_m']
+    result['target_travel_m'] = None
+    result['gap_width_m'] = None
+    result['step_lengths_m'] = list(step_lengths)
+    result['same_foot_gaps_m'] = [x-.06 for x in step_lengths]
+    result['variation_contract'] = 'nonuniform_horizontal_v1'
+    return result

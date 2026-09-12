@@ -1,0 +1,30 @@
+[
+  {
+    "condition": "mapped",
+    "seed": 1,
+    "hops": 8,
+    "order": "short-first",
+    "exit_code": 1
+  },
+  {
+    "condition": "mapped",
+    "seed": 2,
+    "hops": 8,
+    "order": "short-first",
+    "exit_code": 1
+  },
+  {
+    "condition": "mapped",
+    "seed": 1,
+    "hops": 8,
+    "order": "long-first",
+    "exit_code": 1
+  },
+  {
+    "condition": "mapped",
+    "seed": 2,
+    "hops": 8,
+    "order": "long-first",
+    "exit_code": 1
+  }
+]

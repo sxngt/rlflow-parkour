@@ -43,3 +43,20 @@ class PlannerTest(unittest.TestCase):
             self.assertEqual(plan['status'],'planned')
             self.assertEqual(len(plan['contacts']),hops)
             self.assertEqual(plan_stances(layout,self.feet,.15*hops,max_hops=hops-1)['status'],'no_plan')
+
+    def test_nonuniform_map_and_rejected_overlaps(self):
+        from parkour.support_geometry import vary_course_steps
+        names=['FL','FR','RL','RR']
+        base=build_support_layout(names,self.feet,mode='course',course_hops=8)
+        for lengths in ([.145,.155]*4,[.155,.145]*4):
+            layout=vary_course_steps(base,lengths)
+            plan=plan_stances(layout,self.feet,sum(lengths),max_hops=8)
+            self.assertEqual(plan['status'],'planned')
+            self.assertEqual(len(plan['contacts']),8)
+            total=0.
+            for step,contact in zip(lengths,plan['contacts']):
+                total+=step
+                self.assertAlmostEqual(total,contact['forward_m'])
+        self.assertEqual(base['target_travel_m'],.15)
+        with self.assertRaises(ValueError):vary_course_steps(base,[.16]*8)
+        with self.assertRaises(ValueError):vary_course_steps(base,[.15]*6)

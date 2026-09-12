@@ -1,0 +1,3663 @@
+[
+  {
+    "condition": "mapped",
+    "seed": 1,
+    "hops": 8,
+    "order": "short-first",
+    "exit_code": 0,
+    "successes": 53,
+    "completed_hops_histogram": {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 1,
+      "5": 1,
+      "6": 4,
+      "7": 5,
+      "8": 53
+    },
+    "audit": {
+      "run": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p3-12-mapped-seed1-short-first-retry1",
+      "audit": "passed",
+      "episodes": 64,
+      "successes": 53,
+      "transitions": 439,
+      "results": [
+        {
+          "scenario_id": "directed-jump-dev-20000",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.017632950383523426,
+            0.019293892737408835,
+            0.01899010085930029,
+            0.013735372170319017,
+            0.017910752011671964,
+            0.013876942537621312,
+            0.01778549167965667
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20001",
+          "completed_hops": 7,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.018131299769226374,
+            0.019946143036057434,
+            0.018930717197114387,
+            0.017480278031786242,
+            0.02189623107542695,
+            0.013285499439510035,
+            0.030869013367807573
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20002",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01897122524038547,
+            0.019252686735826974,
+            0.018834227440595378,
+            0.017991347529364075,
+            0.019831791121969245,
+            0.017323021578116812,
+            0.017026189915558824
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20003",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.019651421213884745,
+            0.020556856868240218,
+            0.020394083180896205,
+            0.018984228977949234,
+            0.01964108922777497,
+            0.01770206661958481,
+            0.018015626222638397
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20004",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.019269550237110186,
+            0.017735324161910853,
+            0.018040638866583407,
+            0.01777535206498323,
+            0.018537253996533345,
+            0.02317434694809238,
+            0.021172503432868042
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20005",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01961331236401028,
+            0.02052408812271306,
+            0.01988040754679155,
+            0.017654363674410714,
+            0.021550128115595743,
+            0.022479790146899,
+            0.01829716344978158
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20006",
+          "completed_hops": 7,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.019717635665736914,
+            0.020534855887424305,
+            0.020522326887777834,
+            0.01713400591898137,
+            0.017977795261250193,
+            0.01190368568732822,
+            0.031442621906194124
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20007",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.02197381933763231,
+            0.018230235109037752,
+            0.020613422718806472,
+            0.01825754434309257,
+            0.019289796678226025,
+            0.018287594958836056,
+            0.017135311688240076
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20008",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.018725006667998017,
+            0.019108995048038115,
+            0.019679695422851237,
+            0.019242817376819647,
+            0.02167208317944084,
+            0.018875426788769203,
+            0.018969727396974598
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20009",
+          "completed_hops": 7,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.0181059080096549,
+            0.019727822746890902,
+            0.01865124452389753,
+            0.01722324580940621,
+            0.02089972219149927,
+            0.014723597863397414
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20010",
+          "completed_hops": 5,
+          "transition_count": 5,
+          "subsequent_launch_displacements_m": [
+            0.019219883937676666,
+            0.020432898390119282,
+            0.02005898609415654,
+            0.019028748994302774,
+            0.01754299176972159
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20011",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.02064013032785042,
+            0.015908919863312245,
+            0.013935662417428697,
+            0.016839606131146566,
+            0.01804468732705026,
+            0.013630924857954507,
+            0.01641568145926467
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20012",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.018006697835421963,
+            0.01983575348677642,
+            0.018717836263733266,
+            0.01715003531273819,
+            0.01654271524048658,
+            0.016888111682473984,
+            0.016540184230301267
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20013",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.019344818307333873,
+            0.019674693703548917,
+            0.020328146900317368,
+            0.02035197398097612,
+            0.018099097635322494,
+            0.015185226697971385,
+            0.017010228893791397
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20014",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.019643281035389686,
+            0.020567240921111753,
+            0.020356149275797705,
+            0.01945644897688581,
+            0.019569436767139833,
+            0.017243358553651555,
+            0.01909610783086517
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20015",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.018108639233913013,
+            0.019912775523054576,
+            0.018999638774538783,
+            0.016822535466286093,
+            0.020039911667096493,
+            0.013449711021225335,
+            0.020488687743181574
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20016",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.019009460036741,
+            0.01963444278979447,
+            0.018983008393421298,
+            0.017721733378937884,
+            0.020820973182018063,
+            0.017081663376314195,
+            0.013473845761015131
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20017",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.018775485230992917,
+            0.019085452641439713,
+            0.019251857610757105,
+            0.01862140813222395,
+            0.019772388692753093,
+            0.016589143777161353,
+            0.01818569198862193
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20018",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.020132925305946597,
+            0.020728274069263666,
+            0.015325453574880092,
+            0.01711270693609699,
+            0.019128215768813638,
+            0.019602279633904297,
+            0.017528360362913574
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20019",
+          "completed_hops": 7,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01813110972009957,
+            0.01967361492401901,
+            0.01845200545470756,
+            0.014704088278983925,
+            0.017078110240135946,
+            0.01015986868093284
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20020",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.018538626098932306,
+            0.017772561359016857,
+            0.01728859296813761,
+            0.014391670033924869,
+            0.01757476639824991,
+            0.016100046638769433,
+            0.0168677855554769
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20021",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.018076747292057667,
+            0.01972649617825256,
+            0.018560626328887695,
+            0.018204983597962125,
+            0.019117045284644762,
+            0.01381647844112792,
+            0.012400022404562542
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20022",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01802777479864365,
+            0.019816909329649246,
+            0.019172641257797315,
+            0.01824787806222636,
+            0.018226253385056675,
+            0.021009518458290154,
+            0.020711356805475152
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20023",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.018271010353558062,
+            0.015742350499833985,
+            0.017473002243101003,
+            0.012695906714671372,
+            0.012517201784902347,
+            0.013685584254687784,
+            0.011877319879614009
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20024",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01905714510419973,
+            0.0196742864936839,
+            0.019135874335210974,
+            0.017836745814982465,
+            0.020319019292053542,
+            0.016982564145586274,
+            0.020504607181864098
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20025",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01811305325066411,
+            0.019766330444358115,
+            0.01927639772491042,
+            0.018237333958698795,
+            0.01852916697988823,
+            0.018977777824559852,
+            0.02172555364989955
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20026",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.019292061679174372,
+            0.020327827178602462,
+            0.020462427187674517,
+            0.01495393967583974,
+            0.016077741069040634,
+            0.013290759502764787,
+            0.019421070270439225
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20027",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.019626891764952144,
+            0.02054962523591351,
+            0.0204506417170517,
+            0.015115068456381322,
+            0.01601767252924985,
+            0.011843405777748674,
+            0.01611190460691143
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20028",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.017990106214753145,
+            0.019861180747731983,
+            0.0186021378166876,
+            0.01705469661600597,
+            0.016516548228788647,
+            0.0175696715464307,
+            0.015809621152344917
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20029",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01740372720998942,
+            0.02021269177016111,
+            0.01681501328892423,
+            0.015026149039357131,
+            0.0171762014834688,
+            0.016462570529930495,
+            0.016111148246071374
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20030",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.0195319326475174,
+            0.020483447738483058,
+            0.02074441026861747,
+            0.01939850146363917,
+            0.02112561412605548,
+            0.022973306696896928,
+            0.018045891317194647
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20031",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.018672547766423703,
+            0.01918992239451942,
+            0.018430436357814543,
+            0.015196576998088145,
+            0.01886495717647746,
+            0.012885532190991228,
+            0.01294568151505553
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20032",
+          "completed_hops": 4,
+          "transition_count": 4,
+          "subsequent_launch_displacements_m": [
+            0.01595278196313136,
+            0.018681753965301487,
+            0.017691129059110824,
+            0.01666322764323166
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20033",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.016113183500079245,
+            0.01888365154126062,
+            0.017408924560934205,
+            0.01768131741378158,
+            0.01726055882994079,
+            0.013022569770610568,
+            0.018940602789545315
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20034",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.017294480354600503,
+            0.019863933191188687,
+            0.018756518072516788,
+            0.015321692019918011,
+            0.016129408565612513,
+            0.015653394285651906,
+            0.015847844453228233
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20035",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.016062650613233646,
+            0.01905569400362337,
+            0.018823738182471093,
+            0.02007097305650669,
+            0.017347684749868426,
+            0.01456656202391996,
+            0.027948491218710913
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20036",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01860786352681045,
+            0.019151543830092443,
+            0.01698199653122671,
+            0.016578043835893373,
+            0.020123891523305747,
+            0.018172069303810583,
+            0.02170822859921253
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20037",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01707760083185449,
+            0.019588403033653078,
+            0.020783635856547,
+            0.0150021861808156,
+            0.02104719713015261,
+            0.015440793545860173,
+            0.01804504818420788
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20038",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.017341551651064706,
+            0.019760089644103154,
+            0.014557617582972604,
+            0.014761235934786947,
+            0.015346792014726182,
+            0.02279005499619198,
+            0.023843006853866044
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20039",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01712691675375294,
+            0.019490174354448976,
+            0.019260991979282695,
+            0.013995829929489598,
+            0.018723411697629214,
+            0.02220832672381828,
+            0.017596600356295913
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20040",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.017393476048859373,
+            0.019493490431814576,
+            0.020317414227828207,
+            0.016909806782960068,
+            0.018975965770709896,
+            0.018084363450581235,
+            0.018217321341405752
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20041",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01638187882693036,
+            0.018321841962335217,
+            0.017621009609608832,
+            0.018163831471448365,
+            0.020184055299885418,
+            0.01895520099451204,
+            0.018264919302521217
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20042",
+          "completed_hops": 6,
+          "transition_count": 6,
+          "subsequent_launch_displacements_m": [
+            0.01979151546191837,
+            0.016201977973211164,
+            0.014156858293569021,
+            0.01557682387941248,
+            0.014982932984610633,
+            0.03319144964226626
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20043",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.020137151585601656,
+            0.016294291867411367,
+            0.013864175883690367,
+            0.015742870859445587,
+            0.017879083351087108,
+            0.010957237033303936,
+            0.014134404530437955
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20044",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.016394892557872836,
+            0.01824372190671572,
+            0.01805119050523001,
+            0.01837978348785882,
+            0.019210183679674073,
+            0.015698254185262103,
+            0.019059174869666094
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20045",
+          "completed_hops": 6,
+          "transition_count": 6,
+          "subsequent_launch_displacements_m": [
+            0.01984099279669141,
+            0.01808343038996342,
+            0.015169791991760778,
+            0.014813441577643409,
+            0.014833316547386713,
+            0.0345555980558858
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20046",
+          "completed_hops": 6,
+          "transition_count": 6,
+          "subsequent_launch_displacements_m": [
+            0.01965581499380866,
+            0.016692558168187998,
+            0.017257041788791498,
+            0.014974786072532473,
+            0.01613386058888433,
+            0.040550073972566616
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20047",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.016611806491730795,
+            0.017719486532487817,
+            0.017946556024082162,
+            0.01784554945902427,
+            0.025158768540472557,
+            0.01918157198447925,
+            0.018838923723531506
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20048",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.017292987825007745,
+            0.019747378148564067,
+            0.020246437030411523,
+            0.017045223797755787,
+            0.018028958703977235,
+            0.014959620321728559,
+            0.01829201215327464
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20049",
+          "completed_hops": 6,
+          "transition_count": 6,
+          "subsequent_launch_displacements_m": [
+            0.015822053540783598,
+            0.019922329627231877,
+            0.018770336323100812,
+            0.015717540433319226,
+            0.017643937896528912,
+            0.03844433712357934
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20050",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.017035573398701192,
+            0.02016019200434971,
+            0.01684793109437834,
+            0.01975517011158125,
+            0.024266198259277946,
+            0.018568705386156712,
+            0.017550354464295613
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20051",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.017383417017838795,
+            0.019796351888807212,
+            0.012811178902858687,
+            0.01826917038910479,
+            0.015511813133456105,
+            0.020311534418310254,
+            0.02384110673793964
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20052",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.02042577674585183,
+            0.017288683464464803,
+            0.019448557139127035,
+            0.01737102781887756,
+            0.02008838403670998,
+            0.01616729202033003,
+            0.019693856425372577
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20053",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.015933454714435944,
+            0.019870201761244266,
+            0.01834597172094352,
+            0.015888106779672475,
+            0.019115985312510467,
+            0.018489455384861717,
+            0.018937498289586442
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20054",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.0171662499371144,
+            0.019851738654238178,
+            0.018478015312340706,
+            0.017217513801900536,
+            0.016768897203768805,
+            0.014462910830044863,
+            0.011587902581859625
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20055",
+          "completed_hops": 7,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.017076807080176396,
+            0.018133513546903762,
+            0.018558756369823237,
+            0.01696029956265196,
+            0.018973557316989846,
+            0.01716428604338429,
+            0.019695818128312965
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20056",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.017095163541277176,
+            0.01813993626428123,
+            0.018986811396378162,
+            0.016962658486182353,
+            0.019219564384055365,
+            0.01677196967893101,
+            0.01874522375892203
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20057",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.018679090550737226,
+            0.01841596774167098,
+            0.020591729413406427,
+            0.01080579410542385,
+            0.012589291390616797,
+            0.02983319129618686,
+            0.017548016590033442
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20058",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01602180779138037,
+            0.019042003547000877,
+            0.018671894581341556,
+            0.017798073732073864,
+            0.018718690354227584,
+            0.017772780804964902,
+            0.019040647907939377
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20059",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.017148612451368648,
+            0.01984306900241173,
+            0.0185059593434849,
+            0.017211553531205674,
+            0.017275104007231996,
+            0.01713513562522209,
+            0.015279143736386743
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20060",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.015920043059032444,
+            0.018825478723771896,
+            0.017803989727649152,
+            0.017957379508041514,
+            0.016301023480457557,
+            0.016278785423358675,
+            0.01835095844276914
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20061",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01885260739651414,
+            0.018218505846491664,
+            0.01942930570184387,
+            0.011208234354803948,
+            0.018768905955424898,
+            0.013893660370683085,
+            0.01711348757784708
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20062",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.016554948247470225,
+            0.01780770535087838,
+            0.019370605453520925,
+            0.01706144827579081,
+            0.02593917691282297,
+            0.021012178817634307,
+            0.018360218002446745
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20063",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.017629738146656103,
+            0.019509946485001508,
+            0.018627324407341148,
+            0.014414074684874252,
+            0.020051901839110185,
+            0.01492514690201878,
+            0.01893267133679158
+          ]
+        }
+      ],
+      "scope": "event/trace consistency and runtime preserved-tensor checks; no claim of general policy robustness"
+    }
+  },
+  {
+    "condition": "mapped",
+    "seed": 2,
+    "hops": 8,
+    "order": "short-first",
+    "exit_code": 0,
+    "successes": 64,
+    "completed_hops_histogram": {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 64
+    },
+    "audit": {
+      "run": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p3-12-mapped-seed2-short-first-retry1",
+      "audit": "passed",
+      "episodes": 64,
+      "successes": 64,
+      "transitions": 448,
+      "results": [
+        {
+          "scenario_id": "directed-jump-dev-20000",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013367245889669819,
+            0.023383295911351246,
+            0.02119278549299062,
+            0.02381851932730898,
+            0.02166544563013477,
+            0.02212657307875934,
+            0.022113418316700877
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20001",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01034619426901169,
+            0.021813012070880666,
+            0.020253166256743657,
+            0.018488678553750512,
+            0.02160014697541916,
+            0.017976288447762393,
+            0.02122319562062446
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20002",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01324511404346558,
+            0.024091361186810007,
+            0.0214621882083764,
+            0.016767689349703616,
+            0.02059159494361008,
+            0.02142518498229914,
+            0.023512923648450833
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20003",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.011583641263532757,
+            0.020422068455739788,
+            0.022784191639916268,
+            0.020369301523478534,
+            0.01799108556535124,
+            0.020424822296923176,
+            0.02177896701027734
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20004",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012540819438691186,
+            0.02021365122039474,
+            0.02125054977349885,
+            0.014067415106411825,
+            0.02162905199667549,
+            0.019261875792123868,
+            0.01903036339886343
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20005",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.011583056909278704,
+            0.020568759013218512,
+            0.017848388578849395,
+            0.0192430169721352,
+            0.020598016625483117,
+            0.01643645151913338,
+            0.018063814174447815
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20006",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.011476176624416265,
+            0.020685782238480246,
+            0.021878999877639794,
+            0.016639600080966148,
+            0.017558043637926807,
+            0.021183863847459884,
+            0.0207568806388673
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20007",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013175564062955022,
+            0.019250805144228514,
+            0.020538250125379378,
+            0.014803878887636355,
+            0.02189496771927068,
+            0.01848921955308013,
+            0.018883572425720783
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20008",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012204855793954483,
+            0.022220879484575302,
+            0.02044373501199305,
+            0.0167549249141816,
+            0.021932793845600883,
+            0.016853389614694087,
+            0.018409273188230678
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20009",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013350721961513108,
+            0.02050764648553553,
+            0.025390860990670696,
+            0.01816668942932542,
+            0.02196507935883745,
+            0.017365490253027867,
+            0.017624253895462252
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20010",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.011980324596271063,
+            0.01967457745913226,
+            0.020274161535471465,
+            0.016047300995389008,
+            0.018250724503397618,
+            0.02187443729597841,
+            0.016347349148918066
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20011",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.009468943981785088,
+            0.02268494597880104,
+            0.028279324084743714,
+            0.022408362005060623,
+            0.022305742658728395,
+            0.017905813765689418,
+            0.021442274291335287
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20012",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013196512686238001,
+            0.025069502812840417,
+            0.02231663320369056,
+            0.02423787930946164,
+            0.022505338701822714,
+            0.018647786891250826,
+            0.02165563288560429
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20013",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.011975615770739039,
+            0.019569125561953657,
+            0.02030556531383742,
+            0.015982500898411234,
+            0.018094484861330536,
+            0.02167090362076306,
+            0.01810237023890866
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20014",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.011602950008706845,
+            0.02120777748288877,
+            0.02171978619125244,
+            0.017440060322237886,
+            0.021352212626275652,
+            0.014946415542556156,
+            0.018351880560652525
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20015",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.010304912513113258,
+            0.021824117499275635,
+            0.018249784049143958,
+            0.01826884806601801,
+            0.02027019010710126,
+            0.017141089178068922,
+            0.02164852413280231
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20016",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012282440758729985,
+            0.022308893612337247,
+            0.017695111976314265,
+            0.020362952695246867,
+            0.021152507221513222,
+            0.015301493736580966,
+            0.021153715403172294
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20017",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012189815794514175,
+            0.02287381118293741,
+            0.02435112151242814,
+            0.023517975283214313,
+            0.02664159080329084,
+            0.021795748913201258,
+            0.02144535078106421
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20018",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012019062379066957,
+            0.018176914207010227,
+            0.02220587983032861,
+            0.014554218759986791,
+            0.021731383621484895,
+            0.0146812750226331,
+            0.02014833323939979
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20019",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013400203877794881,
+            0.020502674237491875,
+            0.027358914686364023,
+            0.01825488941122792,
+            0.02040441911111601,
+            0.016242332285560827,
+            0.022491269583997945
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20020",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013091115556546035,
+            0.023260442817120267,
+            0.022791965122824616,
+            0.021326465844106163,
+            0.02571331164097746,
+            0.02246505326120372,
+            0.01891500615404681
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20021",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013335225419374555,
+            0.024224511901608663,
+            0.0224435283278239,
+            0.02391291920852088,
+            0.022499487341067676,
+            0.016922524555135557,
+            0.01939078580885621
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20022",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01327769154928787,
+            0.025071401924678934,
+            0.02216586788642735,
+            0.021071451026994238,
+            0.015180886635089262,
+            0.01978073602756814,
+            0.019137988797580805
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20023",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.009631202012823503,
+            0.022704438652890957,
+            0.028226984993617938,
+            0.016564558052147394,
+            0.019887858821761088,
+            0.02225614606355065,
+            0.016572809613869807
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20024",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012065231622079,
+            0.020633450211061583,
+            0.02318120964626767,
+            0.02172366739838076,
+            0.02599545394583191,
+            0.021879188280585955,
+            0.017652949968747274
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20025",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013371900881255902,
+            0.020409554019210567,
+            0.025265515205739966,
+            0.017544509431846524,
+            0.020754856355994854,
+            0.017592137404295025,
+            0.017765663153489545
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20026",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01196573337034932,
+            0.018704783406529146,
+            0.01634770705407934,
+            0.021074523719020813,
+            0.022068249144266326,
+            0.017668768690295024,
+            0.021604004368888614
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20027",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.011528376617960755,
+            0.02116600674828471,
+            0.02178060469819579,
+            0.01593183471401134,
+            0.022045213785408857,
+            0.014948967491298306,
+            0.01886848588501727
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20028",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013175976273911663,
+            0.02465658755994133,
+            0.023358527134193487,
+            0.018212168769907743,
+            0.022065831567519806,
+            0.017263488978251293,
+            0.017838158199682323
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20029",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.009796952946115264,
+            0.022107134299037705,
+            0.02778353411752655,
+            0.021101672379467532,
+            0.02023324005598033,
+            0.017506894599411522,
+            0.02351131174112468
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20030",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.011474692037011517,
+            0.021488251206462177,
+            0.017743700039734286,
+            0.017684739821631996,
+            0.02239898656975353,
+            0.018396064199198238,
+            0.018398222588507318
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20031",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012192128705850102,
+            0.022152051102271135,
+            0.024437969854604363,
+            0.02309821887425561,
+            0.026547890845353944,
+            0.022425589865801034,
+            0.01933896420752638
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20032",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012317300751974727,
+            0.022275987079148716,
+            0.017696113362785496,
+            0.02058740438580025,
+            0.02216936175576957,
+            0.01852064719912855,
+            0.01917048478223
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20033",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.0121331603716422,
+            0.019620771633431722,
+            0.02059839081370485,
+            0.016432060928101837,
+            0.02203144799402331,
+            0.01557784471998392,
+            0.019863078662884205
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20034",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013352550639247219,
+            0.020214083351340225,
+            0.025309162358410763,
+            0.01762044967874498,
+            0.02088988786802694,
+            0.01880400071825962,
+            0.02131350430207952
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20035",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012122049263146537,
+            0.019854924128820492,
+            0.02036137239523157,
+            0.016542028459800486,
+            0.01814944518111083,
+            0.023689689097860445,
+            0.020639433267385533
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20036",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012214824068735601,
+            0.02272164038364369,
+            0.02096364542077312,
+            0.021150314357085222,
+            0.017798460090180154,
+            0.01605935875355618,
+            0.018056488671276013
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20037",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012035478407798138,
+            0.02201971543318065,
+            0.02123284683524795,
+            0.021167353415132453,
+            0.02195743584284949,
+            0.020252712708238342,
+            0.016225878207826974
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20038",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013371129739085493,
+            0.024565908774784914,
+            0.02364314111880194,
+            0.016460109356720046,
+            0.022869549670752595,
+            0.016890446865342464,
+            0.02060242189388758
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20039",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012979393128916276,
+            0.024372996474223297,
+            0.022660441701287226,
+            0.021202258025130618,
+            0.015424596991291398,
+            0.021420018254549377,
+            0.019689403698173926
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20040",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01266749348825611,
+            0.01991166024437114,
+            0.01625112253068109,
+            0.020955190852313163,
+            0.021789512214808918,
+            0.02076272704521515,
+            0.019844375254553646
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20041",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.011973800392148841,
+            0.01866345930043251,
+            0.020790784046970663,
+            0.015251482288859444,
+            0.02025724141458591,
+            0.023180565528996933,
+            0.021318078364716057
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20042",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.0097877825987372,
+            0.022855899046865347,
+            0.028977685616035836,
+            0.0164864082915947,
+            0.019997231400622848,
+            0.022551498007437918,
+            0.028280428933020595
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20043",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.009535713152843843,
+            0.022116268945314176,
+            0.02839783565365862,
+            0.02264925119827363,
+            0.02018505381311212,
+            0.0175550069089581,
+            0.020542795562574358
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20044",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.011967941746011316,
+            0.018614305340411804,
+            0.020759248520815468,
+            0.015464704487684756,
+            0.018897166927197992,
+            0.020311527822060197,
+            0.022156628368331096
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20045",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.009700356478104855,
+            0.022649761487308028,
+            0.028774888965088407,
+            0.01662604169621504,
+            0.02233192361894501,
+            0.021996798868333167,
+            0.02321939807244982
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20046",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.009862911298336968,
+            0.022150594579857047,
+            0.02698496101538687,
+            0.02270496712334519,
+            0.020033436121247247,
+            0.017944025318142466,
+            0.020471635918079018
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20047",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.011526485750594659,
+            0.021331584317250633,
+            0.021509549490378196,
+            0.01932854441830095,
+            0.02074038243461225,
+            0.015885959337670067,
+            0.01870366772809008
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20048",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012664113040744863,
+            0.021139554962468526,
+            0.016321889745631615,
+            0.020167248465374647,
+            0.015032650000207495,
+            0.020673278485899366,
+            0.020534561626172135
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20049",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012224884574872794,
+            0.022705659227800552,
+            0.02156532421195426,
+            0.020111185109641466,
+            0.01596276486386794,
+            0.018582110235863918,
+            0.02113648887390799
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20050",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.010058416725269427,
+            0.020588490836984157,
+            0.026122403906352825,
+            0.017360518800869144,
+            0.021033460269993885,
+            0.02183636508700812,
+            0.021340968140784806
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20051",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013393680053674452,
+            0.024537390911614408,
+            0.022051270408645327,
+            0.02110106758825807,
+            0.020199967797173635,
+            0.017497368566014103,
+            0.019659439453996987
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20052",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012720796262247475,
+            0.01992258769218118,
+            0.020039521950881597,
+            0.01802683700850931,
+            0.019540776425434427,
+            0.02093412232074594,
+            0.0197934364418926
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20053",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012340651053652162,
+            0.022081392427592793,
+            0.017687914782070952,
+            0.02059257470457852,
+            0.022099703262561055,
+            0.018404107550222974,
+            0.019030404659169043
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20054",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.010708290943322117,
+            0.022621626315300496,
+            0.02116687910100518,
+            0.020819067924641905,
+            0.016474457647544554,
+            0.018993193579446312,
+            0.021931383703245003
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20055",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012004453418255037,
+            0.018168970514997457,
+            0.022178386898108547,
+            0.01448162365848733,
+            0.02204735918888181,
+            0.014288029712178955,
+            0.018153632098261187
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20056",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012313739074213664,
+            0.01970689122662105,
+            0.022469681564815745,
+            0.015802288458014492,
+            0.018652339250394893,
+            0.021315795820188804,
+            0.020803901795017465
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20057",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.010057728268151917,
+            0.020309362126503874,
+            0.02932555461115499,
+            0.015737358026862776,
+            0.01898772467433502,
+            0.022332900373829755,
+            0.015522138949949062
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20058",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012152246234120354,
+            0.022265948048336405,
+            0.017728014807345035,
+            0.020174562270250523,
+            0.017026262093990715,
+            0.020506671653549406,
+            0.017441112724492357
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20059",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.009986929123627863,
+            0.020525098505769935,
+            0.029022185376962457,
+            0.023232885814424276,
+            0.02094042364935515,
+            0.01774624439294575,
+            0.021383639341033583
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20060",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012109103910838945,
+            0.02215227024114526,
+            0.017636414313751805,
+            0.017342774580632842,
+            0.01987192713978004,
+            0.022078060382711057,
+            0.01907694438975944
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20061",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.010076793534991949,
+            0.020229105653116815,
+            0.027134007574279476,
+            0.025502794966597783,
+            0.022670782227419188,
+            0.01656832130673828,
+            0.01815958926883535
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20062",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012255116810499993,
+            0.01984542828087808,
+            0.01976585204129872,
+            0.01570449423364149,
+            0.01784365932964567,
+            0.02113844923317594,
+            0.02070425768592288
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20063",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013377218599288783,
+            0.024022458225397645,
+            0.01723472005534068,
+            0.01833670520906368,
+            0.018150557609374937,
+            0.02098072929789206,
+            0.021114805548520337
+          ]
+        }
+      ],
+      "scope": "event/trace consistency and runtime preserved-tensor checks; no claim of general policy robustness"
+    }
+  },
+  {
+    "condition": "mapped",
+    "seed": 1,
+    "hops": 8,
+    "order": "long-first",
+    "exit_code": 0,
+    "successes": 46,
+    "completed_hops_histogram": {
+      "0": 0,
+      "1": 2,
+      "2": 0,
+      "3": 0,
+      "4": 3,
+      "5": 2,
+      "6": 3,
+      "7": 8,
+      "8": 46
+    },
+    "audit": {
+      "run": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p3-12-mapped-seed1-long-first-retry1",
+      "audit": "passed",
+      "episodes": 64,
+      "successes": 46,
+      "transitions": 420,
+      "results": [
+        {
+          "scenario_id": "directed-jump-dev-20000",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.014872599886330353,
+            0.017476488813837364,
+            0.016410353480600284,
+            0.025048680903709007,
+            0.016258946427570194,
+            0.018284895259027913,
+            0.01587450038396142
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20001",
+          "completed_hops": 5,
+          "transition_count": 5,
+          "subsequent_launch_displacements_m": [
+            0.014815218785088478,
+            0.01699757199932604,
+            0.010200311641899443,
+            0.025122573026888195,
+            0.01053714044428959
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20002",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.014649069328592682,
+            0.01889018059537328,
+            0.012569977326534068,
+            0.017090104839300176,
+            0.022454507862459193,
+            0.020434334869236157,
+            0.011626693414084045
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20003",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.016070166267782002,
+            0.01929591374098808,
+            0.024835121340537253,
+            0.017808665564692638,
+            0.014607799584447842,
+            0.019510513666957593,
+            0.017890274819287368
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20004",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.017329954346335285,
+            0.01837412284427193,
+            0.01840388621365237,
+            0.01969455356718972,
+            0.018399826968209455,
+            0.023261248809345658,
+            0.017918303381023043
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20005",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.016053787043486173,
+            0.01923717852679501,
+            0.02238822419916326,
+            0.017892609551556433,
+            0.013570681810820464,
+            0.01182791920970185,
+            0.016018902780985424
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20006",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.016026945520708557,
+            0.018665107929446756,
+            0.022199127735798112,
+            0.020385717671952096,
+            0.022350250830196653,
+            0.017909711698532983,
+            0.013334099680188786
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20007",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.017511892513420037,
+            0.01832781407172283,
+            0.016973702956394568,
+            0.019052591800064588,
+            0.017105745284121565,
+            0.019112995545536325,
+            0.017865232387039673
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20008",
+          "completed_hops": 1,
+          "transition_count": 1,
+          "subsequent_launch_displacements_m": [
+            0.015203548104181149
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20009",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.015302743583727038,
+            0.016585608242576683,
+            0.010000753645867784,
+            0.017807881552198864,
+            0.010628894711714116,
+            0.013198955520327365,
+            0.012258815617369667
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20010",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013869832879653174,
+            0.01927160361943501,
+            0.014708963449716884,
+            0.019756915190126945,
+            0.01659430943430932,
+            0.020557938706603315,
+            0.02143394379484937
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20011",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.010744454518630427,
+            0.021075538267701942,
+            0.009930284528744962,
+            0.014914121359563293,
+            0.010306510120061386,
+            0.017424392311999132,
+            0.009203698135845774
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20012",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01527911757362613,
+            0.018772477667980864,
+            0.01359926352806135,
+            0.015449610256613193,
+            0.012765135281278088,
+            0.017357530218299097,
+            0.017136279691522774
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20013",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013609232803979621,
+            0.01976805679575323,
+            0.014479346961547769,
+            0.02586369817868221,
+            0.011084594581780582,
+            0.015495004702762796,
+            0.01294887503938139
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20014",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01616239811505742,
+            0.017620035962671678,
+            0.025414821025440907,
+            0.017616999662190234,
+            0.014151838324743125,
+            0.019698468310436385,
+            0.01860659578444805
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20015",
+          "completed_hops": 7,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.014739506972231527,
+            0.016904257647669164,
+            0.015446720693138296,
+            0.01586015813441671,
+            0.021364271065988275,
+            0.01899593528763967,
+            0.017403134412037197
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20016",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01427571277813575,
+            0.02085502193562184,
+            0.014775382712621632,
+            0.01777177193472869,
+            0.016343242974001807,
+            0.01623725678964702,
+            0.017722143761490217
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20017",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.014938542865497841,
+            0.020646603295359885,
+            0.014724294634069456,
+            0.019010869047610027,
+            0.019616938227932267,
+            0.017753376466769215,
+            0.016031216880026396
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20018",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.016919086313478302,
+            0.01828708792823952,
+            0.017773113037558005,
+            0.016857822533741622,
+            0.018080431918066676,
+            0.016147001339374696,
+            0.016507291002568005
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20019",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.015404772096057317,
+            0.016105656482963342,
+            0.010151822749443375,
+            0.01986973432743275,
+            0.016182462984790796,
+            0.017088067527423412,
+            0.016404581644043088
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20020",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.015309149758337609,
+            0.02073354598438232,
+            0.024581689655108128,
+            0.017753661351138476,
+            0.018089144725325367,
+            0.018428539893953533,
+            0.016121021440683798
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20021",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.015276738556238647,
+            0.01660031166611678,
+            0.00996487216384019,
+            0.01786302625372995,
+            0.011802654992714568,
+            0.025372275645777546,
+            0.014743152475740725
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20022",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.015292521533017897,
+            0.018743294477075147,
+            0.013558084317222366,
+            0.016715659313901857,
+            0.01662446931174444,
+            0.016592339796821114,
+            0.017357401905267005
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20023",
+          "completed_hops": 7,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.016108745522230926,
+            0.01778913336710173,
+            0.014024926968575052,
+            0.016157294822012908,
+            0.01736834666214773,
+            0.014095624410696476,
+            0.03425449117730211
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20024",
+          "completed_hops": 6,
+          "transition_count": 6,
+          "subsequent_launch_displacements_m": [
+            0.013894498724487028,
+            0.019372095028759438,
+            0.01399441189797126,
+            0.01925840235634157,
+            0.01516845429595925,
+            0.024727494666028405
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20025",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.015280851872533665,
+            0.016566243672230543,
+            0.010945010826930312,
+            0.0197298990549926,
+            0.01475602952816035,
+            0.014284316140287946,
+            0.020105241441001443
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20026",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01330414880197001,
+            0.020303695324825136,
+            0.015033303857449434,
+            0.023964962187228767,
+            0.020443341538155014,
+            0.019847189816561642,
+            0.017827111238843268
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20027",
+          "completed_hops": 7,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.016106950773522987,
+            0.019166923828053094,
+            0.02393722482797396,
+            0.01857296811110421,
+            0.01510089899240003,
+            0.02173027974289333,
+            0.01785060820954359
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20028",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01528967495846601,
+            0.01651771821871442,
+            0.010346555376603565,
+            0.017220787668943468,
+            0.014158675791720218,
+            0.016407259977781256,
+            0.011158343886693886
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20029",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.015966409994233845,
+            0.018412499820081536,
+            0.011972460674954891,
+            0.015198508105471301,
+            0.01140768017226715,
+            0.01554780228725312,
+            0.012510997191548766
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20030",
+          "completed_hops": 5,
+          "transition_count": 5,
+          "subsequent_launch_displacements_m": [
+            0.01333425643925518,
+            0.020310225086102435,
+            0.011008103944738772,
+            0.014415717820984813,
+            0.034137635021791485
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20031",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01501558456591362,
+            0.018457069575993797,
+            0.012924496692267168,
+            0.013523942264862825,
+            0.01841317814253155,
+            0.010083348231538182,
+            0.02100544929707679
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20032",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.0158748013263534,
+            0.021283411043902294,
+            0.012646382214125045,
+            0.01811111230408978,
+            0.01475410106736724,
+            0.02031257832519689,
+            0.01491386817109629
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20033",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.016155689047842803,
+            0.01713377213101289,
+            0.013100437902160221,
+            0.021255318692547695,
+            0.015155626226056535,
+            0.016247672336146133,
+            0.018890504853134215
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20034",
+          "completed_hops": 6,
+          "transition_count": 6,
+          "subsequent_launch_displacements_m": [
+            0.013746694587789897,
+            0.020207829169455623,
+            0.01739732957947087,
+            0.017720544311966718,
+            0.019016322783513787,
+            0.019704655291814394
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20035",
+          "completed_hops": 7,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01616966862596296,
+            0.017086608920738214,
+            0.015584483778839225,
+            0.022169221371499452,
+            0.019506698153491684,
+            0.02012881063375371,
+            0.02027079037719188
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20036",
+          "completed_hops": 7,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01579235643197345,
+            0.01735018960771445,
+            0.018147116177224407,
+            0.012535532916908254,
+            0.011394198206023992,
+            0.0160955526123344,
+            0.01524201913698101
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20037",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.018626392245389173,
+            0.01912599161122425,
+            0.018848005023341195,
+            0.023688884698479056,
+            0.023161142042894843,
+            0.015378992200126203,
+            0.017460591249223133
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20038",
+          "completed_hops": 7,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01384479353605528,
+            0.02061209474945844,
+            0.012154700022748864,
+            0.023909444867611082,
+            0.01572315013732334,
+            0.019213398715232515,
+            0.016898118075092033
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20039",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.014463623775243057,
+            0.020982150872372724,
+            0.013849241270908705,
+            0.017436488068064065,
+            0.01746505423367023,
+            0.025216086561168728,
+            0.018171747291271557
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20040",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01523381505111543,
+            0.01788805781628367,
+            0.017231974606199536,
+            0.01918561061260836,
+            0.016258733162134636,
+            0.01934683440835492,
+            0.014848067845004692
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20041",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01612855364323893,
+            0.0186842855530288,
+            0.017956811305977028,
+            0.022377601847784256,
+            0.019635093677059623,
+            0.018585832298767143,
+            0.017316695694146324
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20042",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.014907031562331578,
+            0.018777127396525962,
+            0.00813011116637199,
+            0.01975577685845291,
+            0.014008587655861573,
+            0.016414809442228475,
+            0.018310284229284837
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20043",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01574968064386123,
+            0.016232183709826948,
+            0.01278145703463261,
+            0.013251827309640921,
+            0.010340315396450755,
+            0.012409576285891294,
+            0.016357952159045903
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20044",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01621322430374694,
+            0.01889581578800859,
+            0.016922766820725556,
+            0.0211556652177455,
+            0.0194127941964127,
+            0.01815809766677694,
+            0.017548435440430398
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20045",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.014976990752761666,
+            0.01832592763356928,
+            0.011839392511309181,
+            0.01780280143628319,
+            0.009679688167694746,
+            0.01478274006818897,
+            0.012880639685460282
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20046",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.014987437416154535,
+            0.01682684844885945,
+            0.010724093991917757,
+            0.018859812742616167,
+            0.010490879950841457,
+            0.020585645415941174,
+            0.015669274457308167
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20047",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01637376787112444,
+            0.01891647191432337,
+            0.017184714888075804,
+            0.022704042776124884,
+            0.019286469445569495,
+            0.017892991311805967,
+            0.01385228523805187
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20048",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.014180410747487509,
+            0.020718420618536963,
+            0.019337726190662867,
+            0.01800152385956899,
+            0.015765330743396186,
+            0.028065984779500373,
+            0.019599937526049795
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20049",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.015827524482980634,
+            0.01939556230736356,
+            0.015836805747445892,
+            0.019828371329263225,
+            0.018619980530328758,
+            0.01929497118264446,
+            0.016202516681105703
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20050",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.018023087346985475,
+            0.020603787474008116,
+            0.01455798399129639,
+            0.013626142585326814,
+            0.013583635212152327,
+            0.012353778160939752,
+            0.014508582988110238
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20051",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013891922543638604,
+            0.02079280206617944,
+            0.014159033376187555,
+            0.018925932609165603,
+            0.014193380302373415,
+            0.017597814750238562,
+            0.011430099131026005
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20052",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013354838185869501,
+            0.019730384124956053,
+            0.012469915126893345,
+            0.01716755392976105,
+            0.013726166665245941,
+            0.018417746252011643,
+            0.017965176509334966
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20053",
+          "completed_hops": 7,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.016032022975123204,
+            0.01804657559651215,
+            0.01944602184551321,
+            0.017363691771970266,
+            0.016779647275716503,
+            0.017661977375737097,
+            0.017213775213343375
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20054",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01356415417354235,
+            0.020432129871522594,
+            0.013682718720105264,
+            0.01624084093511842,
+            0.013972295688588732,
+            0.017119172308309658,
+            0.02229598716903715
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20055",
+          "completed_hops": 4,
+          "transition_count": 4,
+          "subsequent_launch_displacements_m": [
+            0.018228366737957837,
+            0.019195465486286176,
+            0.01982722529832137,
+            0.01606854060041887
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20056",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.017926611553250305,
+            0.016749986477901414,
+            0.015152524985529953,
+            0.023415262758442634,
+            0.02552024010215158,
+            0.017778797042066603,
+            0.01936745622336997
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20057",
+          "completed_hops": 1,
+          "transition_count": 1,
+          "subsequent_launch_displacements_m": [
+            0.015449692856194729
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20058",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.017488308021726233,
+            0.018632300159035962,
+            0.018387131576148515,
+            0.017176359552238604,
+            0.01830678419510221,
+            0.015763828668740525,
+            0.015534736089412431
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20059",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013168629601448363,
+            0.02100313629181216,
+            0.010653321119014904,
+            0.02196957887357007,
+            0.017779009182532547,
+            0.016845668854993882,
+            0.013627688338480853
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20060",
+          "completed_hops": 6,
+          "transition_count": 6,
+          "subsequent_launch_displacements_m": [
+            0.013470527431051118,
+            0.02113863755039603,
+            0.014304136290962876,
+            0.018572844787150957,
+            0.014513674495046537,
+            0.019578600801233862
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20061",
+          "completed_hops": 7,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.014812091963618958,
+            0.020575399753435662,
+            0.014957774968988102,
+            0.019822223112528913,
+            0.01859928281793045,
+            0.015334437395853405,
+            0.0221644446490679
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20062",
+          "completed_hops": 4,
+          "transition_count": 4,
+          "subsequent_launch_displacements_m": [
+            0.016756622613505325,
+            0.017983951351100994,
+            0.014464055229891713,
+            0.023909669057062113
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20063",
+          "completed_hops": 4,
+          "transition_count": 4,
+          "subsequent_launch_displacements_m": [
+            0.01387833529086804,
+            0.02077339570885422,
+            0.014044180647125286,
+            0.018212875525083817
+          ]
+        }
+      ],
+      "scope": "event/trace consistency and runtime preserved-tensor checks; no claim of general policy robustness"
+    }
+  },
+  {
+    "condition": "mapped",
+    "seed": 2,
+    "hops": 8,
+    "order": "long-first",
+    "exit_code": 0,
+    "successes": 64,
+    "completed_hops_histogram": {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 64
+    },
+    "audit": {
+      "run": "/mnt/sdb1/sxngt/workspace/parkour/artifacts/p3-12-mapped-seed2-long-first-retry1",
+      "audit": "passed",
+      "episodes": 64,
+      "successes": 64,
+      "transitions": 448,
+      "results": [
+        {
+          "scenario_id": "directed-jump-dev-20000",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.0130077849342769,
+            0.02133877141292509,
+            0.015303538983078643,
+            0.02080221667375347,
+            0.023109455949277914,
+            0.02012646464852487,
+            0.015120110255468215
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20001",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01528903291484845,
+            0.020804714350968652,
+            0.02310807555697296,
+            0.024905217116117477,
+            0.021137614643538243,
+            0.0228974723097457,
+            0.022701849150244792
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20002",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013397502718340214,
+            0.021833440419555,
+            0.017986765361905053,
+            0.021205351370040468,
+            0.023613607682422464,
+            0.028496954081510373,
+            0.022446271711832173
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20003",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01231257336323107,
+            0.020385549260954757,
+            0.02539166577446241,
+            0.02113175818642839,
+            0.02029932845139165,
+            0.02078457929953254,
+            0.022864385661748275
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20004",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013396492579593487,
+            0.018980706609969956,
+            0.024692361745024545,
+            0.021621459343412287,
+            0.02252011522967011,
+            0.02551372780750439,
+            0.02167417414647284
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20005",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012313568603791226,
+            0.020419491151903075,
+            0.0215455831704896,
+            0.020665121132624864,
+            0.022156640567085904,
+            0.02182867081424131,
+            0.02265153640169724
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20006",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012388475458227893,
+            0.020384952053730233,
+            0.025121227623219788,
+            0.023479330844382973,
+            0.014717398286592276,
+            0.020785246553747527,
+            0.01550626221015069
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20007",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013546555609886967,
+            0.01898164833738421,
+            0.017733262267814385,
+            0.02156768524875974,
+            0.019093343126079892,
+            0.01897638907288649,
+            0.02160471742430356
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20008",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013014722544587035,
+            0.02126526612186445,
+            0.021668144950659465,
+            0.018128998736474732,
+            0.021768091641569953,
+            0.021013404751856812,
+            0.021573460976962625
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20009",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013839069299031751,
+            0.019395265127692303,
+            0.026605299204640612,
+            0.018455637996495883,
+            0.01868178820656326,
+            0.01718390729876413,
+            0.021563734027070295
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20010",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012855939469916042,
+            0.02075179715116566,
+            0.021764925913726217,
+            0.02649569528147563,
+            0.022202902790653106,
+            0.020122160593232113,
+            0.024359929670468936
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20011",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.010794881911212506,
+            0.025340375302616645,
+            0.023982010130805472,
+            0.021251559599880204,
+            0.01903541937401359,
+            0.02165374816662118,
+            0.02198459318157791
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20012",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013749661808974712,
+            0.02252569450716659,
+            0.023166207445700606,
+            0.01953963345815931,
+            0.02261407929705456,
+            0.01628426213160991,
+            0.02148460331073014
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20013",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012862338909128539,
+            0.02128204468768845,
+            0.02206026205082477,
+            0.02685691003460747,
+            0.021879683574116116,
+            0.019444779109390194,
+            0.021241974790367095
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20014",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012907560454015017,
+            0.021351681147506307,
+            0.021338484215326088,
+            0.022413957651686876,
+            0.019705013237353994,
+            0.01767511673473555,
+            0.018495762999838225
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20015",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.014959151382268675,
+            0.02079324200385402,
+            0.022601650818415246,
+            0.022354044040368653,
+            0.017030296568578004,
+            0.02136128893634205,
+            0.015932972729166436
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20016",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012826091483040288,
+            0.01920529446627777,
+            0.02141558814468257,
+            0.022624703948251258,
+            0.022574587892238762,
+            0.026822361317429443,
+            0.023458957013035717
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20017",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012973059582688002,
+            0.020965166364246786,
+            0.022650692614584158,
+            0.02245915798082035,
+            0.020082391223027768,
+            0.018539749573699783,
+            0.024958554603579874
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20018",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.010468964624501535,
+            0.020276144326904857,
+            0.024081132141812053,
+            0.021270952829236137,
+            0.022869360262870293,
+            0.025721999763458056,
+            0.021770393543289523
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20019",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013797421734428704,
+            0.021926730458822603,
+            0.02292259647761027,
+            0.019632610971619367,
+            0.021003607488698662,
+            0.016588268433739117,
+            0.02103689996728383
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20020",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013376155498482553,
+            0.021413429980660537,
+            0.01831687098432922,
+            0.020836504424265462,
+            0.022144629900980796,
+            0.02316778915222329,
+            0.0182905428426461
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20021",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013955083638666434,
+            0.02286561612967143,
+            0.025738870462385054,
+            0.02126131301573389,
+            0.018126642495750675,
+            0.02045139269661487,
+            0.01585243397823778
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20022",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013495201913129702,
+            0.020679886113564878,
+            0.02496069288208835,
+            0.02022229435814051,
+            0.016987218582095405,
+            0.02202538579211466,
+            0.017410544874056893
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20023",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.010846045938619498,
+            0.019934533263963918,
+            0.0257231434958259,
+            0.023078722484994,
+            0.020397515841160462,
+            0.019465941361686025,
+            0.023492031195895404
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20024",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013370881632185675,
+            0.021209765209848245,
+            0.023448823275297234,
+            0.02176750436412764,
+            0.02112516388704346,
+            0.02421129365647639,
+            0.02217952269236643
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20025",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013712491936884121,
+            0.020050167569629733,
+            0.024265234841851453,
+            0.01861986747839679,
+            0.018285415366452392,
+            0.0225051242511488,
+            0.018251300905728476
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20026",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013206349488206594,
+            0.021206537035645626,
+            0.015150080124377558,
+            0.020251745874435775,
+            0.021563092748430913,
+            0.017932992023321288,
+            0.016130523519639672
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20027",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012901855882007388,
+            0.02189733764768667,
+            0.021261661844416666,
+            0.019983756417116194,
+            0.01901903449801605,
+            0.018573660335123116,
+            0.02048462829173941
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20028",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013788959843337186,
+            0.02248838038701638,
+            0.023170362269954548,
+            0.019564002907181414,
+            0.02289018066610783,
+            0.01566561797210967,
+            0.01934447819892347
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20029",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.017208289849066576,
+            0.018620684211512778,
+            0.018032715244703165,
+            0.022269884013321056,
+            0.01738745449634291,
+            0.021406206114694824,
+            0.02275451675118765
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20030",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012909922196449234,
+            0.020659965242421325,
+            0.021667945884993635,
+            0.026249759047783292,
+            0.021856614425795257,
+            0.017613891822469866,
+            0.020179630650852497
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20031",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012855529688431353,
+            0.019508076894813986,
+            0.020597101025091734,
+            0.02198276107497782,
+            0.015784917532380937,
+            0.02121367373128983,
+            0.023682886366995445
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20032",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012743912360632192,
+            0.01875285921639609,
+            0.02476237096082565,
+            0.02270448489481278,
+            0.022812374020739868,
+            0.020121407068372663,
+            0.013962309285474088
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20033",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013420957530230327,
+            0.021210888164726594,
+            0.023422198672512756,
+            0.021779710743710684,
+            0.021208125771576523,
+            0.017414188166455156,
+            0.020733867393857644
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20034",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013760515670542412,
+            0.019869911508850566,
+            0.02420723639943927,
+            0.019252901408997238,
+            0.01741315209001752,
+            0.022517254118713064,
+            0.018318158260590914
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20035",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013368891002947518,
+            0.02125989557080763,
+            0.023437374161141538,
+            0.021742395358134995,
+            0.02124252620041756,
+            0.02494108975444981,
+            0.023334853017498842
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20036",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013077932717407852,
+            0.021702864684982198,
+            0.018239792181457153,
+            0.022175659421053456,
+            0.01592154555935063,
+            0.019667487386358158,
+            0.02187348558217309
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20037",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.010497573895965949,
+            0.01891659038346159,
+            0.020718918509489353,
+            0.014587789986155907,
+            0.019653427534695837,
+            0.015581425238864,
+            0.0206512899842472
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20038",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01362474665038231,
+            0.0218829701857254,
+            0.023293926730231816,
+            0.02707656545782952,
+            0.0216932447294107,
+            0.01940004299961597,
+            0.018049586135035715
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20039",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01317224805868707,
+            0.02176509410644347,
+            0.019124151745633113,
+            0.02102902792706743,
+            0.022362296727641732,
+            0.02281128791773589,
+            0.02570035329437575
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20040",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.010795712902110448,
+            0.021162924484796754,
+            0.013885213941458554,
+            0.018967691365111432,
+            0.023846278906055833,
+            0.022024645457758563,
+            0.014686295443406324
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20041",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01288266247814062,
+            0.02114072692935533,
+            0.021828755538844148,
+            0.02654347630361677,
+            0.022105513446748555,
+            0.016751316048071247,
+            0.016208402463419737
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20042",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.010842640601958596,
+            0.020131706161920615,
+            0.025746865406719242,
+            0.023135362725709468,
+            0.02043439142929656,
+            0.01960552891052375,
+            0.02415538908656934
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20043",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01077861177448809,
+            0.025245386190579252,
+            0.017668825909165613,
+            0.018657724829805582,
+            0.02283633175077413,
+            0.021506763851792336,
+            0.01978014229572193
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20044",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.0132397449098248,
+            0.02114361698314174,
+            0.015163056308091312,
+            0.01800110873756897,
+            0.021574357960404127,
+            0.01652526278143247,
+            0.01696122075719728
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20045",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01082105584791219,
+            0.02017294159159092,
+            0.025735651997353396,
+            0.021795174411713563,
+            0.01828406102967984,
+            0.02150390919479145,
+            0.02415687665060958
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20046",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.010439283933894136,
+            0.023766028522540252,
+            0.016518246379917067,
+            0.023220942537449944,
+            0.020317433752045387,
+            0.02075773283665541,
+            0.019662404942095122
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20047",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013045975789279867,
+            0.02145260900659349,
+            0.01428861212930694,
+            0.022022709641808535,
+            0.02370794967197087,
+            0.024599291367673488,
+            0.022796405626562585
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20048",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.010610772831770572,
+            0.020235894958477565,
+            0.023227986744857293,
+            0.015422462292437242,
+            0.02101095933193913,
+            0.019875303240593216,
+            0.020678988018073944
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20049",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013018981679038828,
+            0.01977108954532048,
+            0.02464882885388554,
+            0.02426112988402519,
+            0.01842195930726733,
+            0.016402375206149004,
+            0.01792031948036416
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20050",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.016833553683289714,
+            0.01920280442813736,
+            0.01874346129487698,
+            0.019478837973881478,
+            0.022939807927311456,
+            0.01923871337433035,
+            0.01874239142249948
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20051",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013153646537323094,
+            0.021791224669172618,
+            0.023171771295965336,
+            0.028794271235343404,
+            0.0228217043451356,
+            0.019098571553514746,
+            0.01980453837971425
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20052",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01079207494087146,
+            0.020506951923600438,
+            0.02491219554217551,
+            0.023826083577625713,
+            0.02198606149878397,
+            0.023383652457522587,
+            0.02307604568903022
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20053",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012728161398262263,
+            0.019205578182635633,
+            0.024799542194513646,
+            0.022467411025493697,
+            0.022782403052887208,
+            0.021309653985932507,
+            0.022420893858613376
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20054",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013968555456740032,
+            0.022501575279383384,
+            0.02331574351671538,
+            0.019545813627643703,
+            0.02266591875357032,
+            0.01571968016247985,
+            0.01985269549272178
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20055",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.010479875523746556,
+            0.020224058436643138,
+            0.02407401126617673,
+            0.021307739538017467,
+            0.022918550914700117,
+            0.025291305663166733,
+            0.021390135046552013
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20056",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.012781979600800684,
+            0.0197012307197129,
+            0.023731010669303866,
+            0.022234463651305224,
+            0.02183715778504451,
+            0.02398182244755449,
+            0.02231646666136614
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20057",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.016799787219565515,
+            0.02127717909612798,
+            0.015616324657429652,
+            0.021179256096448846,
+            0.01834448423593159,
+            0.021719031770621178,
+            0.016689966386046442
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20058",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.011805768715202376,
+            0.021299890152490387,
+            0.02372237200671576,
+            0.01716860501783489,
+            0.02029314796968002,
+            0.022392099223090517,
+            0.02135495615591672
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20059",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.01275894536286193,
+            0.021075525456678432,
+            0.024387179571810306,
+            0.020743657798792302,
+            0.016533435840498496,
+            0.02058411579167436,
+            0.018160995695100872
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20060",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.011882863364488237,
+            0.02143321108566844,
+            0.023935054828114873,
+            0.021176407064151616,
+            0.015837236555522025,
+            0.02414214736079032,
+            0.0178707278232526
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20061",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.017365774988410833,
+            0.021257636517968373,
+            0.023908286555788333,
+            0.02700949851257857,
+            0.022587544302326935,
+            0.019642780844187354,
+            0.01591419389798519
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20062",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.011748830375726844,
+            0.020311738486464198,
+            0.021601281358864945,
+            0.02164644865282438,
+            0.01996877647769312,
+            0.01546122294188036,
+            0.021291846764377433
+          ]
+        },
+        {
+          "scenario_id": "directed-jump-dev-20063",
+          "completed_hops": 8,
+          "transition_count": 7,
+          "subsequent_launch_displacements_m": [
+            0.013110736196896546,
+            0.021505221030242043,
+            0.018868123394696935,
+            0.021002975659106825,
+            0.018919183314222095,
+            0.019608745394348568,
+            0.01952427950634549
+          ]
+        }
+      ],
+      "scope": "event/trace consistency and runtime preserved-tensor checks; no claim of general policy robustness"
+    }
+  }
+]

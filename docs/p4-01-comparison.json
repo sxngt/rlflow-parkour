@@ -1,0 +1,497 @@
+{
+  "scope": "Supported foot-center movement is not proven slip; unequal survival changes exposure. Authored friction is not measured effective contact friction.",
+  "evaluations": [
+    {
+      "run": "p3-11-mapped-seed1-hops8",
+      "seed": 1,
+      "authored_later_pad_friction": 0.5,
+      "successes": 48,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 2,
+        "4": 2,
+        "5": 3,
+        "6": 2,
+        "7": 7,
+        "8": 48
+      },
+      "failure_diagnostics": {
+        "failure": 10,
+        "timeout": 6,
+        "nonfoot_collision": 10,
+        "launch_in_region": 15,
+        "first_touch_all_within": 15,
+        "precise_stabilized_once": 6,
+        "mapped_contact_ok": 9
+      },
+      "segments": [
+        {
+          "segment": 0,
+          "supported_foot_seconds": 211.20000000000002,
+          "supported_foot_center_travel_m": 12.563776969909668,
+          "supported_motion_m_per_foot_second": 0.05948758034995107
+        },
+        {
+          "segment": 1,
+          "supported_foot_seconds": 247.755,
+          "supported_foot_center_travel_m": 14.25589656829834,
+          "supported_motion_m_per_foot_second": 0.05754029815058562
+        },
+        {
+          "segment": 2,
+          "supported_foot_seconds": 254.995,
+          "supported_foot_center_travel_m": 12.88413143157959,
+          "supported_motion_m_per_foot_second": 0.05052699633945603
+        },
+        {
+          "segment": 3,
+          "supported_foot_seconds": 250.07,
+          "supported_foot_center_travel_m": 14.196744918823242,
+          "supported_motion_m_per_foot_second": 0.05677108377183686
+        },
+        {
+          "segment": 4,
+          "supported_foot_seconds": 255.24,
+          "supported_foot_center_travel_m": 14.109541893005371,
+          "supported_motion_m_per_foot_second": 0.05527950906208028
+        },
+        {
+          "segment": 5,
+          "supported_foot_seconds": 257.565,
+          "supported_foot_center_travel_m": 13.23754596710205,
+          "supported_motion_m_per_foot_second": 0.05139497201522742
+        },
+        {
+          "segment": 6,
+          "supported_foot_seconds": 222.3,
+          "supported_foot_center_travel_m": 12.621990203857422,
+          "supported_motion_m_per_foot_second": 0.05677908323822502
+        },
+        {
+          "segment": 7,
+          "supported_foot_seconds": 242.5,
+          "supported_foot_center_travel_m": 12.510042190551758,
+          "supported_motion_m_per_foot_second": 0.051587802847636116
+        }
+      ],
+      "audit": "passed",
+      "material_contract": null
+    },
+    {
+      "run": "p4-01-mapped-seed1-friction0.2",
+      "seed": 1,
+      "authored_later_pad_friction": 0.2,
+      "successes": 0,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 1,
+        "4": 34,
+        "5": 26,
+        "6": 3,
+        "7": 0,
+        "8": 0
+      },
+      "failure_diagnostics": {
+        "failure": 41,
+        "timeout": 23,
+        "nonfoot_collision": 9,
+        "launch_in_region": 32,
+        "first_touch_all_within": 31,
+        "precise_stabilized_once": 23,
+        "mapped_contact_ok": 8
+      },
+      "segments": [
+        {
+          "segment": 0,
+          "supported_foot_seconds": 211.20000000000002,
+          "supported_foot_center_travel_m": 12.563776969909668,
+          "supported_motion_m_per_foot_second": 0.05948758034995107
+        },
+        {
+          "segment": 1,
+          "supported_foot_seconds": 247.755,
+          "supported_foot_center_travel_m": 14.25589656829834,
+          "supported_motion_m_per_foot_second": 0.05754029815058562
+        },
+        {
+          "segment": 2,
+          "supported_foot_seconds": 254.995,
+          "supported_foot_center_travel_m": 12.884435653686523,
+          "supported_motion_m_per_foot_second": 0.05052818939071951
+        },
+        {
+          "segment": 3,
+          "supported_foot_seconds": 252.595,
+          "supported_foot_center_travel_m": 17.804428100585938,
+          "supported_motion_m_per_foot_second": 0.07048606702660756
+        },
+        {
+          "segment": 4,
+          "supported_foot_seconds": 447.59000000000003,
+          "supported_foot_center_travel_m": 23.068012237548828,
+          "supported_motion_m_per_foot_second": 0.05153826546068685
+        },
+        {
+          "segment": 5,
+          "supported_foot_seconds": 72.625,
+          "supported_foot_center_travel_m": 6.472670078277588,
+          "supported_motion_m_per_foot_second": 0.08912454496767763
+        },
+        {
+          "segment": 6,
+          "supported_foot_seconds": 18.625,
+          "supported_foot_center_travel_m": 0.9049060940742493,
+          "supported_motion_m_per_foot_second": 0.04858556209794627
+        },
+        {
+          "segment": 7,
+          "supported_foot_seconds": 0.0,
+          "supported_foot_center_travel_m": 0.0,
+          "supported_motion_m_per_foot_second": null
+        }
+      ],
+      "audit": "passed",
+      "material_contract": {
+        "version": "spatial_friction_v1",
+        "start_station": 4,
+        "authored_friction": 0.2,
+        "combine_mode": "average",
+        "scope": "Authored pad material; effective robot-pad friction is not directly measured"
+      }
+    },
+    {
+      "run": "p4-01-mapped-seed1-friction0p05",
+      "seed": 1,
+      "authored_later_pad_friction": 0.05,
+      "successes": 0,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 42,
+        "4": 19,
+        "5": 3,
+        "6": 0,
+        "7": 0,
+        "8": 0
+      },
+      "failure_diagnostics": {
+        "failure": 16,
+        "timeout": 48,
+        "nonfoot_collision": 11,
+        "launch_in_region": 59,
+        "first_touch_all_within": 53,
+        "precise_stabilized_once": 45,
+        "mapped_contact_ok": 4
+      },
+      "segments": [
+        {
+          "segment": 0,
+          "supported_foot_seconds": 211.20000000000002,
+          "supported_foot_center_travel_m": 12.563776969909668,
+          "supported_motion_m_per_foot_second": 0.05948758034995107
+        },
+        {
+          "segment": 1,
+          "supported_foot_seconds": 247.755,
+          "supported_foot_center_travel_m": 14.25589656829834,
+          "supported_motion_m_per_foot_second": 0.05754029815058562
+        },
+        {
+          "segment": 2,
+          "supported_foot_seconds": 254.995,
+          "supported_foot_center_travel_m": 12.883722305297852,
+          "supported_motion_m_per_foot_second": 0.050525391891205126
+        },
+        {
+          "segment": 3,
+          "supported_foot_seconds": 654.37,
+          "supported_foot_center_travel_m": 21.22071647644043,
+          "supported_motion_m_per_foot_second": 0.032429231897000824
+        },
+        {
+          "segment": 4,
+          "supported_foot_seconds": 177.16,
+          "supported_foot_center_travel_m": 9.261124610900879,
+          "supported_motion_m_per_foot_second": 0.05227548324057846
+        },
+        {
+          "segment": 5,
+          "supported_foot_seconds": 6.175,
+          "supported_foot_center_travel_m": 1.0077159404754639,
+          "supported_motion_m_per_foot_second": 0.16319286485432613
+        },
+        {
+          "segment": 6,
+          "supported_foot_seconds": 0.0,
+          "supported_foot_center_travel_m": 0.0,
+          "supported_motion_m_per_foot_second": null
+        },
+        {
+          "segment": 7,
+          "supported_foot_seconds": 0.0,
+          "supported_foot_center_travel_m": 0.0,
+          "supported_motion_m_per_foot_second": null
+        }
+      ],
+      "audit": "passed",
+      "material_contract": {
+        "version": "spatial_friction_v1",
+        "start_station": 4,
+        "authored_friction": 0.05,
+        "combine_mode": "average",
+        "scope": "Authored pad material; effective robot-pad friction is not directly measured"
+      }
+    },
+    {
+      "run": "p3-11-mapped-seed2-hops8",
+      "seed": 2,
+      "authored_later_pad_friction": 0.5,
+      "successes": 64,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 64
+      },
+      "failure_diagnostics": {
+        "failure": 0,
+        "timeout": 0,
+        "nonfoot_collision": 0,
+        "launch_in_region": 0,
+        "first_touch_all_within": 0,
+        "precise_stabilized_once": 0,
+        "mapped_contact_ok": 0
+      },
+      "segments": [
+        {
+          "segment": 0,
+          "supported_foot_seconds": 211.6,
+          "supported_foot_center_travel_m": 12.753891944885254,
+          "supported_motion_m_per_foot_second": 0.060273591421952995
+        },
+        {
+          "segment": 1,
+          "supported_foot_seconds": 268.81,
+          "supported_foot_center_travel_m": 12.773019790649414,
+          "supported_motion_m_per_foot_second": 0.04751690707432541
+        },
+        {
+          "segment": 2,
+          "supported_foot_seconds": 276.45,
+          "supported_foot_center_travel_m": 13.192092895507812,
+          "supported_motion_m_per_foot_second": 0.047719634275665807
+        },
+        {
+          "segment": 3,
+          "supported_foot_seconds": 278.89,
+          "supported_foot_center_travel_m": 13.115943908691406,
+          "supported_motion_m_per_foot_second": 0.047029093580592374
+        },
+        {
+          "segment": 4,
+          "supported_foot_seconds": 278.57,
+          "supported_foot_center_travel_m": 13.115962982177734,
+          "supported_motion_m_per_foot_second": 0.04708318549082002
+        },
+        {
+          "segment": 5,
+          "supported_foot_seconds": 278.595,
+          "supported_foot_center_travel_m": 13.174635887145996,
+          "supported_motion_m_per_foot_second": 0.04728956329850139
+        },
+        {
+          "segment": 6,
+          "supported_foot_seconds": 278.305,
+          "supported_foot_center_travel_m": 13.019960403442383,
+          "supported_motion_m_per_foot_second": 0.046783063198441936
+        },
+        {
+          "segment": 7,
+          "supported_foot_seconds": 278.095,
+          "supported_foot_center_travel_m": 13.0412015914917,
+          "supported_motion_m_per_foot_second": 0.04689477189986047
+        }
+      ],
+      "audit": "passed",
+      "material_contract": null
+    },
+    {
+      "run": "p4-01-mapped-seed2-friction0p2",
+      "seed": 2,
+      "authored_later_pad_friction": 0.2,
+      "successes": 0,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 26,
+        "4": 38,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0
+      },
+      "failure_diagnostics": {
+        "failure": 38,
+        "timeout": 26,
+        "nonfoot_collision": 33,
+        "launch_in_region": 44,
+        "first_touch_all_within": 26,
+        "precise_stabilized_once": 0,
+        "mapped_contact_ok": 26
+      },
+      "segments": [
+        {
+          "segment": 0,
+          "supported_foot_seconds": 211.6,
+          "supported_foot_center_travel_m": 12.753891944885254,
+          "supported_motion_m_per_foot_second": 0.060273591421952995
+        },
+        {
+          "segment": 1,
+          "supported_foot_seconds": 268.81,
+          "supported_foot_center_travel_m": 12.773019790649414,
+          "supported_motion_m_per_foot_second": 0.04751690707432541
+        },
+        {
+          "segment": 2,
+          "supported_foot_seconds": 276.45,
+          "supported_foot_center_travel_m": 13.192092895507812,
+          "supported_motion_m_per_foot_second": 0.047719634275665807
+        },
+        {
+          "segment": 3,
+          "supported_foot_seconds": 538.21,
+          "supported_foot_center_travel_m": 16.779590606689453,
+          "supported_motion_m_per_foot_second": 0.03117666079539483
+        },
+        {
+          "segment": 4,
+          "supported_foot_seconds": 114.855,
+          "supported_foot_center_travel_m": 16.044885635375977,
+          "supported_motion_m_per_foot_second": 0.13969688420509316
+        },
+        {
+          "segment": 5,
+          "supported_foot_seconds": 0.0,
+          "supported_foot_center_travel_m": 0.0,
+          "supported_motion_m_per_foot_second": null
+        },
+        {
+          "segment": 6,
+          "supported_foot_seconds": 0.0,
+          "supported_foot_center_travel_m": 0.0,
+          "supported_motion_m_per_foot_second": null
+        },
+        {
+          "segment": 7,
+          "supported_foot_seconds": 0.0,
+          "supported_foot_center_travel_m": 0.0,
+          "supported_motion_m_per_foot_second": null
+        }
+      ],
+      "audit": "passed",
+      "material_contract": {
+        "version": "spatial_friction_v1",
+        "start_station": 4,
+        "authored_friction": 0.2,
+        "combine_mode": "average",
+        "scope": "Authored pad material; effective robot-pad friction is not directly measured"
+      }
+    },
+    {
+      "run": "p4-01-mapped-seed2-friction0p05",
+      "seed": 2,
+      "authored_later_pad_friction": 0.05,
+      "successes": 0,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 64,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0
+      },
+      "failure_diagnostics": {
+        "failure": 0,
+        "timeout": 64,
+        "nonfoot_collision": 0,
+        "launch_in_region": 64,
+        "first_touch_all_within": 64,
+        "precise_stabilized_once": 59,
+        "mapped_contact_ok": 0
+      },
+      "segments": [
+        {
+          "segment": 0,
+          "supported_foot_seconds": 211.6,
+          "supported_foot_center_travel_m": 12.753891944885254,
+          "supported_motion_m_per_foot_second": 0.060273591421952995
+        },
+        {
+          "segment": 1,
+          "supported_foot_seconds": 268.81,
+          "supported_foot_center_travel_m": 12.773019790649414,
+          "supported_motion_m_per_foot_second": 0.04751690707432541
+        },
+        {
+          "segment": 2,
+          "supported_foot_seconds": 276.45,
+          "supported_foot_center_travel_m": 13.192092895507812,
+          "supported_motion_m_per_foot_second": 0.047719634275665807
+        },
+        {
+          "segment": 3,
+          "supported_foot_seconds": 911.82,
+          "supported_foot_center_travel_m": 20.518857955932617,
+          "supported_motion_m_per_foot_second": 0.02250318917761468
+        },
+        {
+          "segment": 4,
+          "supported_foot_seconds": 0.0,
+          "supported_foot_center_travel_m": 0.0,
+          "supported_motion_m_per_foot_second": null
+        },
+        {
+          "segment": 5,
+          "supported_foot_seconds": 0.0,
+          "supported_foot_center_travel_m": 0.0,
+          "supported_motion_m_per_foot_second": null
+        },
+        {
+          "segment": 6,
+          "supported_foot_seconds": 0.0,
+          "supported_foot_center_travel_m": 0.0,
+          "supported_motion_m_per_foot_second": null
+        },
+        {
+          "segment": 7,
+          "supported_foot_seconds": 0.0,
+          "supported_foot_center_travel_m": 0.0,
+          "supported_motion_m_per_foot_second": null
+        }
+      ],
+      "audit": "passed",
+      "material_contract": {
+        "version": "spatial_friction_v1",
+        "start_station": 4,
+        "authored_friction": 0.05,
+        "combine_mode": "average",
+        "scope": "Authored pad material; effective robot-pad friction is not directly measured"
+      }
+    }
+  ]
+}

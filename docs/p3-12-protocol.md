@@ -1,0 +1,5 @@
+# P3-12: nonuniform horizontal map execution
+
+Eight hops with alternating 14.5/15.5cm translations and the reverse order; total target 1.20m. Fixed P3-08 mapped seeds 1/2, four runs, 64 development cases each, no new training. Pads remain 6×12cm; same-foot gaps alternate 8.5/9.5cm. Generator rejects pad overlaps. Geometry planner independently reads surfaces; planned absolute contacts supply Tracker commands and each hop's displacement requirement. Initial and subsequent goals, numeric plan and nonuniform_horizontal_v1 spacing contract are recorded. This is modest spacing variation, not a broad gap distribution.
+
+Use map_envelope_v1, mapped_contact_v1, hold-last, 4s/hop. Same calibration/physics/observations. Keep 64-robot camera-side 4 MP4, 200Hz trace, chained audits and detailed result titles. Success auditing selects the actual planned surface for each hop, not an assumed 15cm sequence. Compare against uniform P3-11; investigate actual first failures before deciding training changes.

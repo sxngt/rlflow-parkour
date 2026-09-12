@@ -1,4 +1,4 @@
-"""Extend the completed policies to a four-hop mapped-contact course."""
+"""Reevaluate four-hop policies with the explicit map root boundary."""
 from concurrent.futures import ThreadPoolExecutor
 import json
 from pathlib import Path

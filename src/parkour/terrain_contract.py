@@ -53,9 +53,29 @@ def training_support(config):
                     for s in surfaces
                 ):
                     raise ValueError('Target foot projection range leaves support')
+    validate_surface_materials(spec)
     return copy.deepcopy(spec)
 
 
 def assert_same_terrain(old, new):
     if old.get('terrain_contract') != new.get('terrain_contract'):
         raise ValueError('Checkpoint terrain contract differs; this is not a resume')
+
+
+def validate_surface_materials(spec):
+    """Validate the explicit spatial friction contract before simulator startup."""
+    variation=spec.get('friction_variation')
+    overrides=spec.get('surface_material_overrides')
+    if variation is None and overrides is None:
+        return
+    if spec.get('mode') != 'course' or not isinstance(variation,dict):
+        raise ValueError('Material overrides require the spatial course contract')
+    coefficient=variation.get('authored_friction');start=variation.get('start_station')
+    if (not isinstance(coefficient,(int,float)) or not math.isfinite(coefficient) or not 0 <= coefficient <= .5
+            or type(start) is not int or start<1 or variation.get('version')!='spatial_friction_v1'
+            or variation.get('combine_mode')!='average'):
+        raise ValueError('Invalid spatial friction contract')
+    expected={surface['id']:{'static_friction':coefficient,'dynamic_friction':coefficient}
+              for surface in spec['layout']['surfaces'] if int(surface['role'].split('_')[-1])>=start}
+    if not expected or overrides!=expected:
+        raise ValueError('Material overrides disagree with the declared station schedule')

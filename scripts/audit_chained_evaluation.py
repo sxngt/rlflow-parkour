@@ -39,6 +39,8 @@ def check(directory):
         assert int(trace['valid'][:, i].sum()) == result['length'] * 4
         for h in local:
             m = h['metrics']
+            if contract.get('spacing_contract') == 'nonuniform_horizontal_v1':
+                assert abs(m['goal_forward_m']-contract['step_lengths_m'][h['segment']]) < 1e-6
             if m['success']:
                 gates = ('valid_flight', 'launch_in_region', 'first_touch_all_within', 'precise_stabilized_once')
                 assert all(m[k] for k in gates)
@@ -48,7 +50,7 @@ def check(directory):
                     sample = h['episode_step'] * 4 - 1
                     for foot, name in enumerate(('fl','fr','rl','rr')):
                         surface = expected_goal_surface(run['evaluation_support'], foot,
-                            run['nominal_foot_xy_m'][foot], .15*(h['segment']+1))
+                            run['nominal_foot_xy_m'][foot], contract['absolute_forward_targets_m'][h['segment']])
                         x0,x1,y0,y1 = surface['bounds_xy_m']
                         assert x0 <= m['first_touch_x_'+name] <= x1
                         assert y0 <= m['first_touch_y_'+name] <= y1

@@ -33,6 +33,9 @@ def load_report(directory):
     path = directory / 'evaluation.json'
     raw = path.read_bytes()
     report = json.loads(raw)
+    if report.get('chain_contract', {}).get('spacing_contract') == 'nonuniform_horizontal_v1':
+        validate_course_distances(report['results'], json.loads((directory/'scenarios.json').read_text())['episodes'], report['chain_contract']['step_lengths_m'])
+        return report
     if (report['results'] and 'goal_forward_m' in report['results'][0]
             and 'distance_requirement_met' in report['results'][0]):
         scenarios_path = directory / 'scenarios.json'
@@ -46,3 +49,21 @@ def load_report(directory):
                 'scope': 'by_distance only; episode records and aggregate outcomes unchanged'}
         report['by_distance'] = derived
     return report
+
+
+def validate_course_distances(records, scenarios, step_lengths):
+    if not records or len(records) != len(scenarios):
+        raise ValueError('Missing course episodes')
+    seen = set()
+    for record, scenario in zip(records, scenarios):
+        if record['scenario_id'] != scenario['id'] or scenario['id'] in seen:
+            raise ValueError('Course scenario identity mismatch or duplicate')
+        seen.add(scenario['id'])
+        segment = record['segment']
+        if type(segment) is not int or not 0 <= segment < len(step_lengths):
+            raise ValueError('Invalid course segment')
+        actual = record['goal_forward_m']
+        if not math.isfinite(actual) or abs(actual-step_lengths[segment]) > 1e-6:
+            raise ValueError('Executed segment distance differs from course')
+        if abs(scenario['goal_forward_m']-step_lengths[0]) > 1e-6:
+            raise ValueError('Initial scenario distance differs from course')

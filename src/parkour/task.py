@@ -4,6 +4,7 @@ Import only after AppLauncher. This is an oracle-state prerequisite, not parkour
 """
 from __future__ import annotations
 
+import copy
 import torch
 import isaaclab.sim as sim_utils
 from isaaclab.assets import Articulation
@@ -79,9 +80,15 @@ class FootholdEnv(DirectRLEnv):
             ground.func(self.cfg.terrain.prim_path, ground,
                         translation=(0., 0., support['layout']['catch_floor_z_m']))
             for surface in ([] if self.cfg.support_assignment else support['layout']['surfaces']):
+                material = self.cfg.terrain.physics_material if support.get('matched_material') else None
+                override = support.get('surface_material_overrides', {}).get(surface['id'])
+                if override is not None:
+                    material = copy.deepcopy(self.cfg.terrain.physics_material)
+                    material.static_friction = override['static_friction']
+                    material.dynamic_friction = override['dynamic_friction']
                 block = sim_utils.CuboidCfg(size=tuple(surface['size_m']),
                     collision_props=sim_utils.CollisionPropertiesCfg(),
-                    physics_material=self.cfg.terrain.physics_material if support.get('matched_material') else None,
+                    physics_material=material,
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(.3, .4, .5)))
                 block.func('/World/envs/env_0/Supports/' + surface['id'], block,
                            translation=tuple(surface['center_m']))

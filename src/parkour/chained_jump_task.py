@@ -116,6 +116,9 @@ class ChainedDirectedJumpEnv(DirectedJumpEnv):
         self.set_sequence_offsets(offsets, ids)
         # Absolute world targets advance to 30 cm; per-hop flight demand is 15 cm.
         self.goal_distance[ids] = .15
+        if hasattr(self, 'planned_step_lengths'):
+            lengths = torch.tensor(self.planned_step_lengths, device=self.device)
+            self.goal_distance[ids] = lengths[self.chain.completed[ids]]
         after = self._preserved_state()
         unchanged = {key: torch.equal(value, after[key]) for key, value in before.items()}
         if not all(unchanged.values()):

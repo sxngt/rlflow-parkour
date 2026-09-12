@@ -27,6 +27,9 @@ def main():
     p.add_argument("--transition-states", action="store_true", help="Record articulated successful-landing states; replay not yet validated")
     p.add_argument("--reward-components", action="store_true", help="Audit grouped control-step rewards without changing the policy or reward")
     p.add_argument('--chain-hops', type=int, choices=range(1,9), help='P2-32 frozen-policy deck evaluation; separate course success contract')
+    p.add_argument('--course-friction', type=float, help='Authored static/dynamic friction for later course pads')
+    p.add_argument('--friction-start-station', type=int, default=4)
+    p.add_argument('--course-step-lengths', type=float, nargs='+', help='Explicit bounded variable step lengths in metres')
     p.add_argument('--map-course-boundary', action='store_true', help='Use map surface envelope plus 20cm root margin instead of legacy 60cm radius')
     p.add_argument('--mapped-contact-progress', action='store_true', help='Separate mapped foothold course contract; retains strict trunk-flight metric')
     p.add_argument('--chain-settle-mode', choices=['default', 'hold-last'], default='default')
@@ -122,6 +125,18 @@ def main():
         support = copy.deepcopy(support)
         support.pop('goal_forward_m', None)
         manifest['evaluation_support'] = support
+    if args.course_step_lengths is not None:
+        if not args.map_course_boundary or args.map_goal_forward_m is None or args.support_mode != 'course' or len(args.course_step_lengths) != args.chain_hops:
+            p.error('Variable spacing requires matching course horizon, geometric goal and map boundary')
+        from parkour.support_geometry import vary_course_steps
+        support['layout'] = vary_course_steps(support['layout'], args.course_step_lengths)
+        support.pop('goal_forward_m', None)
+    if args.course_friction is not None:
+        if (not args.map_course_boundary or args.support_mode != 'course' or not math.isfinite(args.course_friction) or not 0 <= args.course_friction <= .5 or not 1 <= args.friction_start_station <= (args.chain_hops or 0)):
+            p.error('Friction override requires mapped course, valid station and finite friction in [0,.5]')
+        support['surface_material_overrides'] = {surface['id']: {'static_friction': args.course_friction, 'dynamic_friction': args.course_friction}
+            for surface in support['layout']['surfaces'] if int(surface['role'].split('_')[-1]) >= args.friction_start_station}
+        support['friction_variation'] = {'version':'spatial_friction_v1', 'start_station':args.friction_start_station, 'authored_friction':args.course_friction, 'combine_mode':'average', 'scope':'Authored pad material; effective robot-pad friction is not directly measured'}
     if args.mapped_contact_progress and ((support or {}).get('mode')!='course' or args.chain_hops not in range(2,9) or args.restore_transition):
         p.error('Mapped contact progression requires an original course evaluation')
     if args.chain_hops is not None and args.chain_hops > 4 and not args.map_course_boundary:
@@ -133,10 +148,16 @@ def main():
         from parkour.geometric_planner import plan_stances
         plan = plan_stances(support['layout'], support['calibration']['foot_xy_m'], args.map_goal_forward_m, max_hops=args.chain_hops)
         selected = [c['forward_m'] for c in plan['contacts']]
-        if plan['status'] != 'planned' or (len(selected)!=args.chain_hops or any(abs(x-.15*(i+1))>1e-7 for i,x in enumerate(selected))):
+        expected = [.15*(i+1) for i in range(args.chain_hops)]
+        if args.course_step_lengths is not None:
+            import itertools
+            expected = list(itertools.accumulate(args.course_step_lengths))
+        if plan['status'] != 'planned' or (len(selected)!=args.chain_hops or any(abs(x-expected[i])>1e-7 for i,x in enumerate(selected))):
             p.error('No geometric plan compatible with the current 15cm two-hop Tracker contract')
         for episode in manifest['episodes']:
             episode['foot_offsets_xy_m'] = [[selected[0], 0.] for _ in range(4)]
+            if args.course_step_lengths is not None:
+                episode['goal_forward_m'] = selected[0]
         manifest['geometric_plan'] = plan
     boundary = None
     if args.map_course_boundary:
@@ -166,6 +187,10 @@ def main():
             meta['chain_contract']['target_source'] = 'scenarios.episodes[*].foot_offsets_xy_m'
         if args.mapped_contact_progress:
             meta['chain_contract']['progress_criterion']='mapped_contact_v1'
+        if args.course_step_lengths is not None:
+            meta['chain_contract']['absolute_forward_targets_m'] = selected
+            meta['chain_contract']['step_lengths_m'] = args.course_step_lengths
+            meta['chain_contract']['spacing_contract'] = 'nonuniform_horizontal_v1'
         if boundary is not None:
             meta['chain_contract']['root_boundary'] = boundary
         manifest['chain_contract'] = meta['chain_contract']
@@ -186,6 +211,8 @@ def main():
         torch.manual_seed(10000)
         env = make_env(config, evaluation_support=support, chain_hops=args.chain_hops,
                        chain_settle_mode=args.chain_settle_mode, independent_support_clones=args.independent_support_clones, mapped_contact_progress=args.mapped_contact_progress)
+        if args.course_step_lengths is not None:
+            env.planned_step_lengths = args.course_step_lengths
         if boundary is not None:
             env.course_root_bounds = boundary['bounds_xy_m']
         if plan is not None:
@@ -260,6 +287,8 @@ def main():
             atomic_json(args.out/'transition-restore.json', restored)
             atomic_json(args.out/'scenarios.json', manifest)
             meta['scenario_sha256'] = sha256(args.out/'scenarios.json')
+        if args.course_step_lengths is not None:
+            env.goal_distance[:] = args.course_step_lengths[0]
         raw = env._get_observations()["policy"]
         done = torch.zeros(env.num_envs, dtype=torch.bool, device=env.device)
         if args.chain_hops is not None:
@@ -353,7 +382,13 @@ def main():
             report['success_interval_note']='같은 높이 명령을 거리별로 재사용하므로 전체 episode를 독립 표본으로 간주한 Wilson 구간은 제공하지 않습니다. 거리별 결과와 학습 seed별 변동을 확인하세요.'
             report['success_contract']='verified flight from launch region + minimum airborne travel + precise first touch + stabilization'
             from parkour.evaluation_summary import by_distance
-            report['by_distance'] = by_distance(records, manifest['episodes'])
+            if args.course_step_lengths is None:
+                report['by_distance'] = by_distance(records, manifest['episodes'])
+            else:
+                from parkour.evaluation_summary import validate_course_distances
+                validate_course_distances(records, manifest['episodes'], args.course_step_lengths)
+                report['by_distance'] = None
+                report['distance_summary_scope'] = 'Nonuniform course: per-hop targets and outcomes in chain-events.json'
         if 'active_foot' in records[0]:
             report['by_foot']={}
             for foot in env.foot_names:

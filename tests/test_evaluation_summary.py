@@ -37,3 +37,17 @@ class EvaluationSummaryTest(unittest.TestCase):
             bad=copy.deepcopy(records);bad[0][key]=value
             with self.assertRaises(ValueError):by_distance(bad,scenarios)
         with self.assertRaises(ValueError):by_distance([records[0]]*2,[scenarios[0]]*2)
+
+    def test_variable_course_checks_actual_segment(self):
+        from parkour.evaluation_summary import validate_course_distances
+        scenarios=[{'id':'a','goal_forward_m':.145}]
+        records=[{'scenario_id':'a','segment':1,'goal_forward_m':.155}]
+        validate_course_distances(records,scenarios,[.145,.155])
+        with self.assertRaises(ValueError):
+            validate_course_distances([dict(records[0],goal_forward_m=.145)],scenarios,[.145,.155])
+        report={'results':records,'by_distance':None,'chain_contract':{
+            'spacing_contract':'nonuniform_horizontal_v1','step_lengths_m':[.145,.155]}}
+        with tempfile.TemporaryDirectory() as tmp:
+            p=Path(tmp);(p/'evaluation.json').write_text(json.dumps(report))
+            (p/'scenarios.json').write_text(json.dumps({'episodes':scenarios}))
+            self.assertEqual(load_report(p),report)

@@ -1,0 +1,9 @@
+# P4-02: matched spatial-friction continuation training
+
+Following P4-01's loss of eight-hop completion after material changes, compare continued training with authored later-pad friction 0.2 versus a 0.5 material control. Each condition starts from the same-seed P3-08 mapped checkpoint (seeds 1/2), preserving policy/critic/normalizer and starting a fresh optimizer/RNG stream. All robot, observation, PPO and reward settings remain equal.
+
+Use the existing three-hop course during training; stations 2/3 have the condition's explicit material binding, station 0/1 remain 0.5. Both conditions use the same binding implementation. This is spatial variation training, not broad randomized friction or history adaptation. No privileged friction enters policy observations. The retained oracle body state and four contact bits are explicitly the current baseline.
+
+Main budget: 1024 environments ×24 rollout steps ×800 updates ×4 runs =78,643,200 new environment steps. Same exploration cap/floor schedule and 3-hop mapped_contact_v1/hold-last contract. Material schedule is part of terrain checkpoint identity; changed schedules cannot resume. A new fork may change only validated terrain material fields. Before main training, run a 64-env/12-update smoke and two-update resume with native evaluation/artifact checks. The smoke was launched during contract implementation; this document precedes the four main training runs.
+
+Evaluate final checkpoints on common eight-hop uniform 0.5 terrain, station4→end 0.2 and 0.05 terrain, and continuous 0/5/10/15cm regression. Retain native training-course evaluations separately. Fixed development initial conditions, mean actions, 64-robot camera-side 4 MP4, 200Hz diagnostics and phase:P4 tags. No champion promotion from training reward alone. Interpret support-foot motion as a diagnostic, not proof of slip or a unique failure cause. Comparison against continued 0.5 training controls for extra PPO budget.
