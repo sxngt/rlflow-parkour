@@ -1,0 +1,426 @@
+{
+  "schema_version": 1,
+  "task": "a1_continuous_tracker_v1",
+  "seed": 0,
+  "num_envs": 1024,
+  "iterations": 1200,
+  "episode_seconds": 12.0,
+  "target_offset_m": 0.06,
+  "surface_height_m": 0.0,
+  "success_radius_m": 0.06,
+  "success_dwell_s": 0.2,
+  "runner": {
+    "num_steps_per_env": 24,
+    "save_interval": 100,
+    "empirical_normalization": true,
+    "logger": "tensorboard",
+    "policy": {
+      "class_name": "ActorCritic",
+      "init_noise_std": 0.35,
+      "actor_hidden_dims": [
+        128,
+        128
+      ],
+      "critic_hidden_dims": [
+        128,
+        128
+      ],
+      "activation": "elu"
+    },
+    "algorithm": {
+      "class_name": "PPO",
+      "value_loss_coef": 1.0,
+      "use_clipped_value_loss": true,
+      "clip_param": 0.2,
+      "entropy_coef": 0.005,
+      "num_learning_epochs": 5,
+      "num_mini_batches": 4,
+      "learning_rate": 0.001,
+      "schedule": "adaptive",
+      "gamma": 0.99,
+      "lam": 0.95,
+      "desired_kl": 0.01,
+      "max_grad_norm": 1.0
+    }
+  },
+  "research_tags": [
+    "phase:P3",
+    "step:p3-18-continuous-tracker",
+    "purpose:shared-course-learning"
+  ],
+  "evaluation_diagnostics": true,
+  "terrain_contract": {
+    "schema_version": 2,
+    "mode": "shared-course",
+    "matched_material": true,
+    "foot_names": [
+      "FL_foot",
+      "FR_foot",
+      "RL_foot",
+      "RR_foot"
+    ],
+    "calibration": {
+      "physics_steps": 300,
+      "root_state": [
+        -0.04720878601074219,
+        0.0022640228271484375,
+        0.277654767036438,
+        0.999968945980072,
+        -0.0018939899746328592,
+        -0.006792317610234022,
+        0.0035308287478983402,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "joint_positions": [
+        0.11046929657459259,
+        -0.10680407285690308,
+        0.10644455254077911,
+        -0.10452435165643692,
+        0.9094340205192566,
+        0.9054018259048462,
+        0.9633494019508362,
+        0.9663541316986084,
+        -1.6527284383773804,
+        -1.6473263502120972,
+        -1.6828137636184692,
+        -1.6745795011520386
+      ],
+      "foot_xy_m": [
+        [
+          0.11318397521972656,
+          0.1624736785888672
+        ],
+        [
+          0.11574077606201172,
+          -0.1567840576171875
+        ],
+        [
+          -0.2577667236328125,
+          0.1582355499267578
+        ],
+        [
+          -0.2575645446777344,
+          -0.15825939178466797
+        ]
+      ],
+      "foot_normal_force_N": [
+        39.01641845703125,
+        37.77352523803711,
+        28.474130630493164,
+        27.736160278320312
+      ]
+    },
+    "reference_path": "artifacts/p2-11-curriculum-seed0__final-evaluation/run.json",
+    "reference_sha256": "ae9b6a5489470941d07f99b43e4688aa028c41395e2552449000f99c0fb993ef",
+    "layout": {
+      "schema_version": 2,
+      "geometry_contract": "oriented_shared_surfaces_v1",
+      "kind": "easy-shared",
+      "seed": 1,
+      "frame": "course_local",
+      "surfaces": [
+        {
+          "id": "surface_0",
+          "top_center_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "center_m": [
+            0.0,
+            0.0,
+            -0.075
+          ],
+          "size_m": [
+            1.0,
+            1.0,
+            0.15
+          ],
+          "orientation_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation_local_to_world": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              -0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "usable_half_extents_m": [
+            0.48,
+            0.48
+          ],
+          "material": {
+            "static_friction": 0.5,
+            "dynamic_friction": 0.5,
+            "combine_mode": "average"
+          },
+          "contact_ownership": "shared"
+        },
+        {
+          "id": "surface_1",
+          "top_center_m": [
+            0.45,
+            -0.029250860471007903,
+            0.02
+          ],
+          "center_m": [
+            0.4517130386912364,
+            -0.027002929573305898,
+            -0.054946729782702874
+          ],
+          "size_m": [
+            0.55,
+            0.7,
+            0.15
+          ],
+          "orientation_wxyz": [
+            0.9986375985566899,
+            0.0144151964216012,
+            -0.012138240980777123,
+            0.048660168176313044
+          ],
+          "rotation_local_to_world": [
+            [
+              0.9949697022778909,
+              -0.09753769724181707,
+              -0.022840515883151925
+            ],
+            [
+              0.09683779673001455,
+              0.9948487802903592,
+              -0.029972411969360076
+            ],
+            [
+              0.025646299411830727,
+              0.027609816579403156,
+              0.9992897304360384
+            ]
+          ],
+          "normal": [
+            -0.022840515883151925,
+            -0.029972411969360076,
+            0.9992897304360384
+          ],
+          "usable_half_extents_m": [
+            0.255,
+            0.32999999999999996
+          ],
+          "material": {
+            "static_friction": 0.5,
+            "dynamic_friction": 0.5,
+            "combine_mode": "average"
+          },
+          "contact_ownership": "shared"
+        },
+        {
+          "id": "surface_2",
+          "top_center_m": [
+            0.9,
+            -0.02961605350365263,
+            0.04
+          ],
+          "center_m": [
+            0.8977500207410396,
+            -0.028393639137454466,
+            -0.03495627589769625
+          ],
+          "size_m": [
+            0.55,
+            0.7,
+            0.15
+          ],
+          "orientation_wxyz": [
+            0.9998285246895909,
+            0.008042807961776852,
+            0.01506012136233638,
+            -0.007171276154042247
+          ],
+          "rotation_local_to_world": [
+            [
+              0.9994435310857483,
+              0.014582344242472057,
+              0.029999723452806295
+            ],
+            [
+              -0.01409784158647876,
+              0.9997677720768249,
+              -0.0162988582159755
+            ],
+            [
+              -0.030230432240597623,
+              0.01586685705916468,
+              0.9994170119692835
+            ]
+          ],
+          "normal": [
+            0.029999723452806295,
+            -0.0162988582159755,
+            0.9994170119692835
+          ],
+          "usable_half_extents_m": [
+            0.255,
+            0.32999999999999996
+          ],
+          "material": {
+            "static_friction": 0.5,
+            "dynamic_friction": 0.5,
+            "combine_mode": "average"
+          },
+          "contact_ownership": "shared"
+        },
+        {
+          "id": "surface_3",
+          "top_center_m": [
+            1.35,
+            -0.06210728656171384,
+            0.06
+          ],
+          "center_m": [
+            1.3508694021994552,
+            -0.059562877533043214,
+            -0.014951785319032934
+          ],
+          "size_m": [
+            0.55,
+            0.7,
+            0.15
+          ],
+          "orientation_wxyz": [
+            0.9976760259817317,
+            0.01730987201343873,
+            -0.004668997464705107,
+            -0.0657351958607575
+          ],
+          "rotation_local_to_world": [
+            [
+              0.9913141689756448,
+              0.13100321844989243,
+              -0.011592029326067623
+            ],
+            [
+              -0.13132649744407288,
+              0.9907585047120524,
+              -0.03392545371560835
+            ],
+            [
+              0.007040558017555464,
+              0.03515312356687144,
+              0.9993571375871059
+            ]
+          ],
+          "normal": [
+            -0.011592029326067623,
+            -0.03392545371560835,
+            0.9993571375871059
+          ],
+          "usable_half_extents_m": [
+            0.255,
+            0.32999999999999996
+          ],
+          "material": {
+            "static_friction": 0.5,
+            "dynamic_friction": 0.5,
+            "combine_mode": "average"
+          },
+          "contact_ownership": "shared"
+        },
+        {
+          "id": "surface_4",
+          "top_center_m": [
+            1.8,
+            -0.04112487996507848,
+            0.08
+          ],
+          "center_m": [
+            1.8,
+            -0.04112487996507848,
+            0.0050000000000000044
+          ],
+          "size_m": [
+            0.7,
+            0.8,
+            0.15
+          ],
+          "orientation_wxyz": [
+            0.9975845197541079,
+            0.0,
+            0.0,
+            -0.06946312652743121
+          ],
+          "rotation_local_to_world": [
+            [
+              0.9903497481060681,
+              0.13859067943497258,
+              0.0
+            ],
+            [
+              -0.13859067943497258,
+              0.9903497481060681,
+              -0.0
+            ],
+            [
+              -0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "normal": [
+            0.0,
+            -0.0,
+            1.0
+          ],
+          "usable_half_extents_m": [
+            0.32999999999999996,
+            0.38
+          ],
+          "material": {
+            "static_friction": 0.5,
+            "dynamic_friction": 0.5,
+            "combine_mode": "average"
+          },
+          "contact_ownership": "shared"
+        }
+      ],
+      "start_position_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "goal_position_m": [
+        1.8,
+        -0.04112487996507848,
+        0.08
+      ],
+      "catch_floor_z_m": -0.8,
+      "scope": "Easy development terrain with touching/overlapping projected blocks; not a gap-crossing benchmark"
+    },
+    "foot_projection_radius_m": 0.02,
+    "geometry_seed": 1
+  },
+  "evaluation_video_envs": 64,
+  "evaluation_camera_side": 4
+}

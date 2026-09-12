@@ -226,6 +226,10 @@ def main():
                 effective=alg.policy.std.detach().clamp(min=alg.policy.std_floor,max=alg.policy.std_cap)
                 row.update(exploration_std_cap=exploration_cap, exploration_std_min=float(effective.min()),
                            exploration_std_max=float(effective.max()),exploration_std_mean=float(effective.mean()))
+            if hasattr(env,'progress'):
+                row['live_mean_front_accepted_index']=float(env.progress.accepted[:,0].float().mean())
+                row['live_mean_rear_accepted_index']=float(env.progress.accepted[:,1].float().mean())
+                row['required_final_index']=env.progress.target_count-1
             if config.get('jump'):
                 row['launch_radius_m'] = active_radius
                 row['curriculum_reset_all'] = transition

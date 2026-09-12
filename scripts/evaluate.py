@@ -125,6 +125,13 @@ def main():
         from parkour.terrain_contract import training_support
         support = training_support(config)
         manifest['evaluation_support'] = support
+    if config['task']=='a1_continuous_tracker_v1':
+        if args.support_mode or args.chain_hops is not None or args.map_goal_forward_m is not None:
+            p.error('Continuous Tracker uses its explicit shared-course contract, not legacy runtime adapters')
+        manifest={'schema_version':2,'split':'development','contract':'shared_course_fixed_initial_state_v1',
+            'episodes':[{'id':f'shared-course-dev-{i:05d}','geometry_seed':support['geometry_seed']} for i in range(args.episodes)],
+            'evaluation_support':support,
+            'scope':'Repeated fixed course/initial stance; environment rows are not independent terrain samples'}
     distance_change = None
     if args.evaluation_forward_m is not None:
         if not args.checkpoint or args.support_mode not in ('continuous','split','deck') or args.support_probe_offset is not None:
@@ -294,7 +301,13 @@ def main():
             root[:, 0] += args.support_probe_offset
             env.robot.write_root_pose_to_sim(root[:, :7])
             env.robot.write_root_velocity_to_sim(root[:, 7:])
-        offsets = torch.tensor([episode["foot_offsets_xy_m"] for episode in manifest["episodes"]], device=env.device)
+        if config['task']=='a1_continuous_tracker_v1':
+            atomic_json(args.out/'target-script.json',env.target_script)
+            manifest['target_script']=env.target_script
+            meta['stance_calibration']=env.calibration
+            offsets=torch.zeros(env.num_envs,4,2,device=env.device)
+        else:
+            offsets = torch.tensor([episode["foot_offsets_xy_m"] for episode in manifest["episodes"]], device=env.device)
         if hasattr(env, 'set_sequence_offsets'):
             orders=None
             if 'episode_order_indices' in manifest['episodes'][0]:
@@ -303,7 +316,7 @@ def main():
             if config.get('jump'):
                 env.required_apex[:]=torch.tensor([e['required_apex_m'] for e in manifest['episodes']],device=env.device)
             meta['stance_calibration'] = env.calibration
-        else:
+        elif config['task']!='a1_continuous_tracker_v1':
             env.targets[:, :, :2] = env.scene.env_origins[:, None, :2] + env.nominal_xy + offsets
         atomic_json(args.out / "scenarios.json", manifest)
         meta["scenario_sha256"] = sha256(args.out / "scenarios.json")
@@ -339,7 +352,11 @@ def main():
         diagnostics = None
         if args.diagnostics:
             from parkour.diagnostics import MotionDiagnostics
-            diagnostics = MotionDiagnostics(env, done)
+            if config['task']=='a1_continuous_tracker_v1':
+                from parkour.continuous_diagnostics import ContinuousDiagnostics
+                diagnostics=ContinuousDiagnostics(env,done)
+            else:
+                diagnostics = MotionDiagnostics(env, done)
         if args.video:
             from parkour.media import ParallelRecorder
             recorder = ParallelRecorder(env,args.out,count=args.video_envs,camera_side=args.video_camera_side)
@@ -399,6 +416,13 @@ def main():
                   "mean_final_error_m": sum(row["final_error_m"] for row in records) / count,
                   "mean_episode_seconds": sum(row["length"] for row in records) * env.step_dt / count,
                   "results": records}
+        if config['task']=='a1_continuous_tracker_v1':
+            report.update(success_contract='continuous_front_rear_targets_v1 + final shared-platform support and stabilization',
+                success_wilson95=None,success_interval_note='Fixed course and initial state replicas, not independent terrain samples',
+                mean_front_accepted_index=sum(r['front_accepted_index'] for r in records)/count,
+                mean_rear_accepted_index=sum(r['rear_accepted_index'] for r in records)/count,
+                required_final_index=len(support['layout']['surfaces'])-1,
+                evaluation_scope='Scripted contact buffer; not autonomous map planning')
         if 'completed_contacts' in records[0]:
             report['required_contacts'] = 4 if config.get('jump') else config.get('sequence',{}).get('sequence_length',4)
             report['mean_completed_contacts'] = sum(row['completed_contacts'] for row in records)/count

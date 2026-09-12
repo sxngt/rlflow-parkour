@@ -90,8 +90,9 @@ class FootholdEnv(DirectRLEnv):
                     collision_props=sim_utils.CollisionPropertiesCfg(),
                     physics_material=material,
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(.3, .4, .5)))
+                orientation = {'orientation': tuple(surface['orientation_wxyz'])} if 'orientation_wxyz' in surface else {}
                 block.func('/World/envs/env_0/Supports/' + surface['id'], block,
-                           translation=tuple(surface['center_m']))
+                           translation=tuple(surface['center_m']), **orientation)
         if self.cfg.surface_height_m > 0:
             height = self.cfg.surface_height_m
             block = sim_utils.CuboidCfg(

@@ -9,6 +9,19 @@ def training_support(config):
     spec = config.get('terrain_contract')
     if spec is None:
         return None
+    if config['task']=='a1_continuous_tracker_v1':
+        from parkour.shared_terrain import build_easy_shared_course,scripted_pair_targets
+        if spec.get('schema_version')!=2 or spec.get('mode')!='shared-course' or spec.get('matched_material') is not True:
+            raise ValueError('Continuous Tracker requires explicit shared-surface geometry')
+        if spec['layout']!=build_easy_shared_course(spec['geometry_seed']):
+            raise ValueError('Shared training layout differs from generator')
+        calibration=spec['calibration']
+        if spec['foot_names']!=['FL_foot','FR_foot','RL_foot','RR_foot'] or len(calibration['root_state'])!=13 or len(calibration['joint_positions'])!=12:
+            raise ValueError('Invalid shared terrain calibration')
+        if not all(math.isfinite(v) for key in ('root_state','joint_positions') for v in calibration[key]):
+            raise ValueError('Nonfinite calibration')
+        scripted_pair_targets(spec['layout'],calibration['foot_xy_m'])
+        return copy.deepcopy(spec)
     if config['task'] != 'a1_directed_jump_v5' or spec.get('schema_version') != 1:
         raise ValueError('Unsupported terrain training contract')
     if spec['mode'] not in ('flat', 'deck', 'continuous', 'split', 'course') or spec.get('matched_material') is not True:

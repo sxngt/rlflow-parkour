@@ -17,3 +17,12 @@ class SharedTerrainTest(unittest.TestCase):
             self.assertTrue(all('foot' not in s and s['contact_ownership']=='shared' for s in c['surfaces']))
             self.assertNotIn('landing_targets',c)
         self.assertTrue(any(abs(s['normal'][0])>.01 for s in build_shared_course()['surfaces']))
+    def test_terminal_target_stance_not_four_feet_on_two_points(self):
+        from parkour.shared_terrain import scripted_pair_targets
+        c=build_shared_course();xy=[[.114,.16],[.114,-.16],[-.258,.16],[-.258,-.16]]
+        plan=scripted_pair_targets(c,xy);front,rear=plan['positions_m']
+        self.assertEqual(front[1:-1],rear[1:-1])
+        for i in range(2):
+            distance=math.sqrt(sum((a-b)**2 for a,b in zip(front[-1][i],rear[-1][i])))
+            self.assertAlmostEqual(distance,.36)
+        self.assertEqual(front[0][0],[.114,.16,.02])

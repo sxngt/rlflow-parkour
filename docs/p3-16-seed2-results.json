@@ -1,0 +1,18 @@
+[
+  {
+    "seed": 2,
+    "suite": "full-gap",
+    "out": "artifacts/p3-16-eval-seed2-full-gap",
+    "successes": 0,
+    "episodes": 64,
+    "audit": "passed"
+  },
+  {
+    "seed": 2,
+    "suite": "continuous",
+    "out": "artifacts/p3-16-eval-seed2-continuous",
+    "successes": 24,
+    "episodes": 64,
+    "audit": "passed"
+  }
+]

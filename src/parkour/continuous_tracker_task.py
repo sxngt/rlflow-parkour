@@ -1,0 +1,115 @@
+"""New shared-surface Tracker prototype; independent of the legacy jump task."""
+import copy,math
+import torch
+from isaaclab.utils import configclass
+from isaaclab.utils.math import quat_apply_inverse
+from parkour.task import FootholdCfg,FootholdEnv
+from isaaclab_assets import UNITREE_A1_CFG
+from parkour.pair_target_progress import PairTargetProgress
+from parkour.shared_terrain import scripted_pair_targets
+
+@configclass
+class ContinuousTrackerCfg(FootholdCfg):
+    observation_space=105
+    episode_length_s=12.
+    action_scale=.5
+    success_radius_m=.06
+    contact_hold_steps=3
+    final_hold_steps=10
+    robot=copy.deepcopy(UNITREE_A1_CFG).replace(prim_path='/World/envs/env_.*/Robot')
+    robot.spawn.articulation_props.enabled_self_collisions=True
+
+class ContinuousTrackerEnv(FootholdEnv):
+    def __init__(self,cfg,render_mode=None):
+        super().__init__(cfg,render_mode)
+        if self.foot_names!=['FL_foot','FR_foot','RL_foot','RR_foot']:
+            raise ValueError('Unexpected asset foot order')
+        self.layout=cfg.support_contract['layout']
+        self.calibration=copy.deepcopy(cfg.support_contract['calibration'])
+        self.nominal_xy=torch.tensor(self.calibration['foot_xy_m'],device=self.device)
+        self.calibrated_root=torch.tensor(self.calibration['root_state'],device=self.device)
+        self.calibrated_joint_pos=torch.tensor(self.calibration['joint_positions'],device=self.device)
+        self.target_script=scripted_pair_targets(self.layout,self.calibration['foot_xy_m'])
+        self.plan=torch.tensor(self.target_script['positions_m'],device=self.device)
+        self.surface_rotations=torch.tensor([s['rotation_local_to_world'] for s in self.layout['surfaces']],device=self.device)
+        self.surface_centers=torch.tensor([s['top_center_m'] for s in self.layout['surfaces']],device=self.device)
+        self.surface_normals=torch.tensor([s['normal'] for s in self.layout['surfaces']],device=self.device)
+        self.surface_halves=torch.tensor([s['usable_half_extents_m'] for s in self.layout['surfaces']],device=self.device)
+        self.progress=PairTargetProgress(self.num_envs,len(self.layout['surfaces']),self.device,cfg.contact_hold_steps,'both')
+        self.nonfoot_ids=[i for i in range(len(self.contacts.body_names)) if i not in self.contact_ids]
+        self.final_hold=torch.zeros(self.num_envs,dtype=torch.long,device=self.device)
+        self.accept_events=torch.zeros(self.num_envs,2,dtype=torch.bool,device=self.device)
+        self.current_valid=torch.zeros(self.num_envs,4,dtype=torch.bool,device=self.device)
+        self.current_error=torch.zeros(self.num_envs,4,device=self.device)
+        self.goal=torch.tensor(self.layout['goal_position_m'],device=self.device)
+        points=self.surface_centers[:,:2]
+        self.map_low=points.amin(dim=0)-1.;self.map_high=points.amax(dim=0)+1.
+        self._sync_targets()
+    def _sync_targets(self):
+        pair=torch.arange(2,device=self.device)[None,:].expand(self.num_envs,-1)
+        self.targets=self.plan[pair,self.progress.target].reshape(self.num_envs,4,3)+self.scene.env_origins[:,None,:]
+    def _reset_idx(self,ids):
+        if ids is None:ids=self.robot._ALL_INDICES
+        super()._reset_idx(ids)
+        self.progress.reset(ids);self.final_hold[ids]=0;self.accept_events[ids]=False
+        self.current_valid[ids]=False;self.current_error[ids]=0
+        root=self.calibrated_root.expand(len(ids),-1).clone();root[:,:3]+=self.scene.env_origins[ids]
+        self.robot.write_root_pose_to_sim(root[:,:7],ids);self.robot.write_root_velocity_to_sim(root[:,7:],ids)
+        q=self.calibrated_joint_pos.expand(len(ids),-1).clone()
+        self.robot.write_joint_state_to_sim(q,torch.zeros_like(q),env_ids=ids)
+        self._sync_targets()
+    def _get_observations(self):
+        self._sync_targets()
+        indices,mask=self.progress.lookahead()
+        pair=torch.arange(2,device=self.device)[None,:,None].expand(self.num_envs,2,2)
+        # N, pair, horizon, left/right, XYZ -> N, foot, horizon, XYZ.
+        points=self.plan[pair,indices].permute(0,1,3,2,4).reshape(self.num_envs,4,2,3)
+        normals=self.surface_normals[indices][:,:,None,:,:].expand(-1,-1,2,-1,-1).reshape(self.num_envs,4,2,3)
+        q=self.robot.data.root_quat_w[:,None,None,:].expand(-1,4,2,-1).reshape(-1,4)
+        relative=points+self.scene.env_origins[:,None,None,:]-self.robot.data.root_pos_w[:,None,None,:]
+        target_b=quat_apply_inverse(q,relative.reshape(-1,3)).reshape(self.num_envs,4,2,3)
+        normal_b=quat_apply_inverse(q,normals.reshape(-1,3)).reshape(self.num_envs,4,2,3)
+        foot_mask=mask[:,:,None,:].expand(-1,-1,2,-1).reshape(self.num_envs,4,2,1)
+        target_b*=foot_mask;normal_b*=foot_mask
+        proprio=torch.cat([self.robot.data.root_lin_vel_b,self.robot.data.root_ang_vel_b,self.robot.data.projected_gravity_b,
+            self.robot.data.joint_pos-self.robot.data.default_joint_pos,self.robot.data.joint_vel*.05,self.actions],dim=1)
+        obs=torch.cat([proprio,target_b.flatten(1),normal_b.flatten(1),(self.progress.age*self.step_dt).clamp_max(2.),
+            mask.flatten(1).float(),(self.progress.target==self.progress.target_count-1).float(),self.contact_on.float()],dim=1)
+        assert obs.shape==(self.num_envs,105)
+        return {'policy':obs}
+    def _get_dones(self):
+        indices=self.progress.target.repeat_interleave(2,dim=1)
+        foot=self.robot.data.body_pos_w[:,self.foot_ids]-self.scene.env_origins[:,None,:]
+        R=self.surface_rotations[indices];delta=foot-self.surface_centers[indices]
+        local=torch.einsum('nfji,nfj->nfi',R,delta)
+        forces=self.contacts.data.net_forces_w[:,self.contact_ids]
+        norm_force=(forces*self.surface_normals[indices]).sum(dim=2)
+        magnitude=forces.norm(dim=2)
+        self.contact_on=torch.where(self.contact_on,magnitude>2,magnitude>5)
+        self.current_error=(self.robot.data.body_pos_w[:,self.foot_ids]-self.targets).norm(dim=2)
+        inside=(local[:,:,:2].abs()<=self.surface_halves[indices]).all(dim=2)&(local[:,:,2]>=0)&(local[:,:,2]<=.04)
+        self.current_valid=inside&(norm_force>5)&(self.current_error<=self.cfg.success_radius_m)
+        decision=self.progress.update(self.current_valid);self.accept_events=decision['accepted_now']
+        nonfoot=self.contacts.data.net_forces_w_history[:,:,self.nonfoot_ids].norm(dim=-1).amax(dim=(1,2))>5
+        root=self.robot.data.root_pos_w-self.scene.env_origins
+        outside=((root[:,:2]<self.map_low)|(root[:,:2]>self.map_high)).any(dim=1)
+        self.failure=nonfoot|outside|(root[:,2]<self.layout['catch_floor_z_m']+.13)|(self.robot.data.projected_gravity_b[:,2]>-math.cos(math.radians(100)))
+        final=decision['sequence_completed']&self.current_valid.all(dim=1)&((root[:,:2]-self.goal[:2]).norm(dim=1)<.3)&(self.robot.data.root_lin_vel_b.norm(dim=1)<.2)&(self.robot.data.root_ang_vel_b.norm(dim=1)<1.)
+        self.final_hold=torch.where(final,self.final_hold+1,0)
+        self.success=(self.final_hold>=self.cfg.final_hold_steps)&~self.failure
+        term=self.success|self.failure
+        return term,(self.episode_length_buf>=self.max_episode_length)&~term
+    def _get_rewards(self):
+        # First baseline: contact progress, shaping, actuator/action costs. No mid-course stop reward.
+        dense=2.*(torch.exp(-self.current_error/.25).mean(dim=1)-1.)-.1
+        dense-=.0001*self.robot.data.applied_torque.square().sum(dim=1)
+        dense-=.01*(self.actions-self.previous_actions).square().sum(dim=1)
+        reward=dense*self.step_dt+2.*self.accept_events.sum(dim=1)+5.*self.success-5.*self.failure
+        self.error_sum+=self.current_error.mean(dim=1);self.sample_count+=1;self.reward_sum+=reward
+        self.extras['terminal_metrics']={'success':self.success.clone(),'failure':self.failure.clone(),'timeout':self.reset_time_outs.clone(),
+            'length':self.episode_length_buf.clone(),'mean_error_m':(self.error_sum/self.sample_count.clamp_min(1)).clone(),
+            'final_error_m':self.current_error.mean(dim=1).clone(),'return':self.reward_sum.clone(),
+            'front_accepted_index':self.progress.accepted[:,0].clone(),'rear_accepted_index':self.progress.accepted[:,1].clone(),
+            'front_target_index':self.progress.target[:,0].clone(),'rear_target_index':self.progress.target[:,1].clone(),
+            'final_hold_steps':self.final_hold.clone()}
+        return reward

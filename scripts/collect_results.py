@@ -13,7 +13,7 @@ from datetime import datetime, timezone, timedelta
 from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
-TASKS = {'a1_directed_jump_v5': ('T1J-v5', '평지_수평목표도약_출발영역_실비행이동'), 'a1_flat_jump_supported_v4': ('T1J-v4', '평지_정밀착지_지지유지_수직감쇠'), 'a1_flat_jump_precise_v3': ('T1J-v3', '평지_단일도약_최초접촉정밀성_착지안정화'), 'a1_flat_jump_shaped_v2': ('T1J-v2', '평지_단일도약_높이명령보상_착지자세'), 'a1_flat_jump_v1': ('T1J-v1', '평지_단일도약_비행확인_착지안정화'), 'a1_t0_shared_single_foot_v7': ('T0F-v7', '공유정책_네발단독이동_착지안정화'), 'a1_t0_foothold_v1': ('T0-v1', '정적_목표접촉'),
+TASKS = {'a1_continuous_tracker_v1': ('CT-v1', '공유지형_연속앞뒤접촉_스크립트목표'), 'a1_directed_jump_v5': ('T1J-v5', '평지_수평목표도약_출발영역_실비행이동'), 'a1_flat_jump_supported_v4': ('T1J-v4', '평지_정밀착지_지지유지_수직감쇠'), 'a1_flat_jump_precise_v3': ('T1J-v3', '평지_단일도약_최초접촉정밀성_착지안정화'), 'a1_flat_jump_shaped_v2': ('T1J-v2', '평지_단일도약_높이명령보상_착지자세'), 'a1_flat_jump_v1': ('T1J-v1', '평지_단일도약_비행확인_착지안정화'), 'a1_t0_shared_single_foot_v7': ('T0F-v7', '공유정책_네발단독이동_착지안정화'), 'a1_t0_foothold_v1': ('T0-v1', '정적_목표접촉'),
          'a1_t0_sequential_v2': ('T0S-v2', '순차_발디딤_4회'),
          'a1_t0_single_foot_continuous_v6': ('T0F-v6', '단독발이동_전단계네발정렬벌점'),
          'a1_t0_single_foot_aligned_v5': ('T0F-v5', '단독발이동_최종네발정렬벌점'),
@@ -45,10 +45,11 @@ def collect(evaluation, result_root=ROOT / 'result'):
     task, task_title = TASKS[run['config']['task']]
     if run.get('evaluation_support'):
         support = run['evaluation_support']
-        label = {'flat': '평지대조', 'continuous': '발별_연속지지면', 'split': '발별_분리지지면_갭6cm', 'deck': '단일발판_140x120cm', 'course': '불연속발판_발별15cm이동_패드6x12cm_갭9cm', 'full-gap': '분리된대형발판'}[support['mode']]
+        label = {'flat': '평지대조', 'continuous': '발별_연속지지면', 'split': '발별_분리지지면_갭6cm', 'deck': '단일발판_140x120cm', 'course': '불연속발판_발별15cm이동_패드6x12cm_갭9cm', 'shared-course': '공유블록_높이·경사·방향변화_앞뒤접촉', 'full-gap': '분리된대형발판'}[support['mode']]
         if support['mode']=='full-gap':
             label += f"_실제갭{100*support['layout']['gap_width_m']:.2f}cm_발목표전진{100*support['goal_forward_m']:g}cm"
         task_title = label + ('_목표전이15cm_고정정책' if support.get('goal_forward_m') == .15 else '_목표거리별평가')
+        if support['mode']=='shared-course':task_title=label+'_스크립트목표_자율계획아님'
         if support.get('matched_material'):
             task_title += '_기본재질·구간별마찰설정' if support.get('surface_material_overrides') else '_동일물리재질'
     if run.get('chain_contract',{}).get('progress_criterion')=='mapped_contact_v1':

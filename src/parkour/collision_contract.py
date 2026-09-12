@@ -83,7 +83,11 @@ def inspect_collision_contract(env):
                 assert abs(actual-z)<2e-5, (name,actual,z)
                 gap_queries.append({'env_index':index,'probe':name,'hit_z_local_m':actual,
                                     'expected_z_local_m':z,'collider':str(result.get('collision',''))})
-    return {'schema_version': 1, 'roots': roots, 'colliders': rows, 'elevated_support_bounds':elevated_bounds, 'full_gap_ray_queries':gap_queries,
+    shared_contacts=None
+    if env.cfg.support_contract.get('mode')=='shared-course':
+        from parkour.shared_contact_inspection import inspect_shared_contacts
+        shared_contacts=inspect_shared_contacts(env)
+    return {'schema_version': 1, 'roots': roots, 'colliders': rows, 'elevated_support_bounds':elevated_bounds, 'full_gap_ray_queries':gap_queries,'shared_contact_queries':shared_contacts,
             'scope': 'Resolved USD binding in first/last environment and global ground. Null means unspecified; not a measured solver default.',
             'matched_support_material': bool(env.cfg.support_contract.get('matched_material')) and all(
                 v==.5 for override in env.cfg.support_contract.get('surface_material_overrides',{}).values() for v in override.values()),

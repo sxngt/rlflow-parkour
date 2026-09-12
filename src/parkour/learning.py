@@ -131,6 +131,10 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
         if config['task'] in ('a1_t0_sequential_stable_v3','a1_t0_single_foot_v4','a1_t0_single_foot_aligned_v5','a1_t0_single_foot_continuous_v6','a1_t0_shared_single_foot_v7'):
             from parkour.stable_task import StableSequentialEnv
             env_type=StableSequentialEnv
+    elif config['task']=='a1_continuous_tracker_v1':
+        from parkour.continuous_tracker_task import ContinuousTrackerCfg,ContinuousTrackerEnv
+        cfg,env_type=ContinuousTrackerCfg(),ContinuousTrackerEnv
+        cfg.scene.env_spacing=7.
     elif config['task'] == 'a1_t0_foothold_v1':
         cfg, env_type = FootholdCfg(), FootholdEnv
     else:
@@ -161,7 +165,7 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
     if cfg.support_contract is not None:
         from parkour.terrain_contract import validate_surface_materials
         validate_surface_materials(cfg.support_contract)
-        if cfg.support_contract.get('mode')=='full-gap':
+        if cfg.support_contract.get('mode') in ('full-gap','shared-course'):
             cfg.sim.enable_scene_query_support=True
     if chain_spec is not None and chain_hops is None:
         chain_hops = chain_spec['hops']

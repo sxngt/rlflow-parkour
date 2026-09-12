@@ -1,0 +1,5 @@
+# P3-16 closed result — straight reach line not extended
+
+Both1200-update,1024-environment jobs completed (58,982,400 new steps), including actual range transitions atupdates301/601 and native evaluations. Native15/25/35/45/50cm reach successes were seed1:13/13,0/13,0/13,0/13,0/12; seed2:7/13,0/13,0/13,0/13,0/12. Shared original15cm goal only improved/retained in part; longer reach not achieved. Full physical8.65cm-gap evaluations0/64 for both; continuous0/5/10/15cm regression0/64 and24/64. All4 common event/artifact audits passed. No promotion. Report docs/p3-16-results.json and per-seed records; detailed titled videos automatically archived to result.
+
+After user video review, do not continue straight-distance reward/curriculum sweeps automatically. Main task changes to shared inclined/turning geometry and continuous front/rear contact tracking. See parkour-target-review-2026-09-12.md. These completed experiments constrain the legacy policy's ability; they do not show that the A1 hardware or the final parkour task is impossible.
