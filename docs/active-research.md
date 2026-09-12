@@ -981,3 +981,15 @@ P2-35 사전명세 docs/p2-35-protocol.md, scripts/p2_35_evaluate.py 작성/dry-
 src/parkour/chained_progress.py에선택target_hops int64vector 추가,기본은전환경기존hops. 성공/전체deadline만환경별요구도약수사용,reset에서과제계약유지,호출자tensoralias차단. tests/test_chained_progress.py mixed단일성공done/연속첫성공advance/비동기reset/deadline/실패우선순위/잘못된계약거부 추가. IsaacPython session36707exit0,5tests통과 artifacts/p2-36-progress-tests.log. 순수상태기계검증이며실제혼합시뮬레이션완료아님.
 
 다음필수구현:strict混合설정검증/fork/resume,ChainedDirectedJumpEnv에훈련전용정적과제할당및single목표reset,learning.make_env는명시적평가1/2hop일때혼합끄기. train.py기존intermediate판정segments<hops-1을환경별target_hops-1로변경(현재혼합을호출하지않아기존학습정상),task×hop/goal step회계구현. 기존goal_sample_values=[.15]상태로mixed0을추가하면합계오류이므로[0,.15]전체관측과single전용draw정의를명확히수정해야함. sharednormalizer/동일rollout유지. 그후strict테스트/기존cp0결과일치/64smoke+resume/1024×60파일럿후본학습. 현재GPU학습/평가작업없음,목표미완료.
+
+### 최신: P2-36 혼합 환경 연결·smoke/재개/파일럿 완료
+
+이전명세/순수상태기계검증은progress. strict retention_training 고정schema/fraction/choices/assignment검증과fork/resume연결; make_env는학습기본만retention활성,명시적평가1/2hop에서는비활성. DirectedJumpEnv 목표sampling hook기존기본동작유지,ChainedDirectedJumpEnv 고정ID512/512(작은env도반반),single0/15goal reset및counter. train.py intermediate는환경별target_hops,task×hop/종료/성공/보상/singlegoal회계추가. configs/p2-36-mixed.json. commit45c6f5c. IsaacPython chain tests9통과 artifacts/p2-36-contract-tests.log.
+
+64env×12smoke artifacts/p2-36-mixed-smoke session15808exit0,seed2P231cp800fork. 전체18432step중chain[8273,943],single9216,단일성공19/코스0. 초기commentary에서마지막update만보고두번째노출없다한내용은전체감사후943step으로정정함. 2update재개 artifacts/p2-36-mixed-smoke-resume session8920exit0,13/14정상. scripts/audit_retention_training.py(commit0197d1f) 2run회계감사 artifacts/p2-36-retention-smoke-audit.jsonl. 초기복사감사 artifacts/p2-36-initialization-audit.log passed.
+
+초기cp0 mixed config explicit1hop continuous평가 artifacts/p2-36-initial-seed2-regression session31127exit0:64/64,모든episode필드P234동일초기평가와정확일치 artifacts/p2-36-initial-equivalence.json. 200Hz chain감사 artifacts/p2-36-initial-regression-audit.json passed. 처음CLI --out누락호출은실패후수정완료.
+
+1024env×60파일럿 artifacts/p2-36-mixed-profile-seed2 session5843exit0(실제PID1862522live확인후45초wait),52.73worker초. 총1474560step,chain[717604,19676],single737280;sampledcourse1/single3201(평균정책평가성과아님). completed회계감사 artifacts/p2-36-profile-audit.jsonl passed. profile초기fork감사session96175exit0 artifacts/p2-36-profile-fork-audit.jsonl.
+
+현재파일럿cp60평가진행:chain session90793 GPU0 artifacts/p2-36-profile-seed2-chain,regression session55038 GPU1 artifacts/p2-36-profile-seed2-regression. 각64/진단/64render/camera4,태그purposepilot。다음동일session/PID검증→완료감사/파일럿결과문서→本학습4seed launchergates구현/실행(아직본학습없음). 원부모P231모두포함하고파일럿cp재개하지않음. 평가영상result保管후hash확인필요. 전체목표미완료.
