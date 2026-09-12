@@ -1085,3 +1085,9 @@ scripts/p2_38_train.py 구현:8개학습800×1024×24,짝수deck→continuous/�
 scripts/p2_38_evaluate.py(commitb11d06a) 추가:8모델×chain/deck-regression/continuousregression/split15=32참조,nativechain8재사용/새24. 两regression은0/5/10/15각16,split15×64. 64render/camera4/診断태그. 전체8학습800/신규step및native8완료게이트후실행,중복시도거부. dryrun artifacts/p2-38-evaluation-plan-dry-run.json. 아직evalbatch실행안함. 本학습batchsession29971그대로유지。
 
 다음같은학습완료/native第一묶음→두번째묶음자동시작/初期복사감사;完了前최종pairedreport코드구현가능(아직P238보고서없음). 全체32평가/geometry/지원배치/同부모/157286400step감사후결론. 전체목표미완료.
+
+### 최신: P2-38 최종 감사 코드 준비 / 동일 첫묶음 진행
+
+이전初期복사검증/평가행렬추가는progress. scripts/p2_38_report.py(commit6266ac0)작성:8학습의800/19660800step/과제회계/전체1024支持지형실제collider분할/plan재생성일치,동일부모/설정single_mode및태그만차이,32평가/64개pairedscenario/모델/원본trace/영상eventhash/학습지형제목검증후16짝결과생성. 총157286400 본학습step확인、파일럿/과거비교제외. 현재RUNNING첫모델에서보고서생성거부테스트 artifacts/p2-38-incomplete-report-check.log. 실제완성데이터검증은향후필요,결과파일아직없음.
+
+동일4PID1898154/1898155/1898164/1898156생존확인(196~225update),45초verifiedwait후재확인. 본학습batch29971유지,再始動無. 다음같은학습진행→첫묶음/native→第二묶음초기복사감사→全8완료후scripts/p2_38_evaluate.py실행. 全체목표미완료.
