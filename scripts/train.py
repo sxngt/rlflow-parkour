@@ -18,7 +18,9 @@ def main():
     p.add_argument("--seed", type=int)
     p.add_argument("--iterations", type=int)
     p.add_argument("--num-envs", type=int)
-    p.add_argument("--resume", type=Path)
+    initialization = p.add_mutually_exclusive_group()
+    initialization.add_argument("--resume", type=Path)
+    initialization.add_argument("--fork-from", type=Path)
     p.add_argument("--video", action="store_true", help="Record real parallel PPO updates for this bounded attempt")
     args = p.parse_args()
     config = json.loads(args.config.read_text())
@@ -61,6 +63,14 @@ def main():
             completed, total_steps = data["completed_iterations"], data["total_environment_steps"]
             meta["parent_checkpoint"] = {"path": str(args.resume.resolve()), "sha256": sha256(args.resume)}
             meta["resume_contract"] = data["resume_contract"]
+            if data.get("lineage") is not None:meta["lineage"] = data["lineage"]
+        elif args.fork_from:
+            from parkour.policy_fork import initialize_fork
+            data = read_checkpoint(args.fork_from)
+            meta["lineage"] = initialize_fork(data, config, alg, norm)
+            meta["lineage"]["parent_checkpoint"] = {"path": str(args.fork_from.resolve()), "sha256": sha256(args.fork_from)}
+            atomic_json(args.out / "run.json", meta)
+            save_checkpoint(args.out / "checkpoint-000000.pt", config, alg, norm, env, 0, 0, lineage=meta["lineage"])
         active_radius = radius_for_update(config, completed)
         active_distance = distance_for_update(config, completed)
         if config.get('jump', {}).get('distance_curriculum') is not None:
@@ -157,10 +167,10 @@ def main():
             meta["heartbeat_unix_s"] = time.time()
             atomic_json(args.out / "run.json", meta)
             if (iteration + 1) % config["runner"]["save_interval"] == 0:
-                save_checkpoint(args.out / f"checkpoint-{iteration + 1:06d}.pt", config, alg, norm, env, iteration + 1, total_steps)
+                save_checkpoint(args.out / f"checkpoint-{iteration + 1:06d}.pt", config, alg, norm, env, iteration + 1, total_steps, lineage=meta.get("lineage"))
         final = args.out / f"checkpoint-{iteration + 1:06d}.pt"
         if not final.exists():
-            save_checkpoint(final, config, alg, norm, env, iteration + 1, total_steps)
+            save_checkpoint(final, config, alg, norm, env, iteration + 1, total_steps, lineage=meta.get("lineage"))
         metrics_file.close()
         if recorder:
             payload=recorder.close(recording_kind='actual_parallel_ppo_training',

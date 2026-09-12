@@ -32,7 +32,7 @@ def make_algorithm(config, env):
     return alg, normalizer
 
 
-def save_checkpoint(path, config, alg, normalizer, env, completed_iterations, total_steps):
+def save_checkpoint(path, config, alg, normalizer, env, completed_iterations, total_steps, lineage=None):
     data = {
         "schema_version": 1, "config": config, "completed_iterations": completed_iterations,
         "total_environment_steps": total_steps, "model": alg.policy.state_dict(),
@@ -43,6 +43,7 @@ def save_checkpoint(path, config, alg, normalizer, env, completed_iterations, to
         "curriculum": checkpoint_state(config, completed_iterations),
         "resume_contract": "new_episode_boundary; unfinished episodes discarded; not bitwise replay",
     }
+    if lineage is not None:data["lineage"] = copy.deepcopy(lineage)
     path = Path(path)
     temp = path.with_suffix(".tmp")
     torch.save(data, temp)
