@@ -1,0 +1,86 @@
+{
+  "title": "P2-32 단일 도약 지형 대조",
+  "report": "p2-32-deck-control",
+  "protocol": "p2-32-protocol.md",
+  "description": "Frozen checkpoints; matched single-jump scenarios before non-reset chaining; no additional training.",
+  "success_label": "단일 도약 성공",
+  "evaluation_distances_m": [
+    0.15
+  ],
+  "show_forward_trace": true,
+  "trace_episode_index": 3,
+  "runs": [
+    {
+      "run": "p2-31-mixed-seed0",
+      "evaluation_run": "p2-31-mixed-seed0-split15",
+      "condition": "split-single",
+      "seed": 0,
+      "foot": "GROUP",
+      "updates": 800,
+      "reused": true
+    },
+    {
+      "run": "p2-31-mixed-seed0",
+      "evaluation_run": "p2-32-deck-single-seed0",
+      "condition": "deck-single",
+      "seed": 0,
+      "foot": "GROUP",
+      "updates": 800,
+      "reused": true
+    },
+    {
+      "run": "p2-31-mixed-seed1",
+      "evaluation_run": "p2-31-mixed-seed1-split15",
+      "condition": "split-single",
+      "seed": 1,
+      "foot": "GROUP",
+      "updates": 800,
+      "reused": true
+    },
+    {
+      "run": "p2-31-mixed-seed1",
+      "evaluation_run": "p2-32-deck-single-seed1",
+      "condition": "deck-single",
+      "seed": 1,
+      "foot": "GROUP",
+      "updates": 800,
+      "reused": true
+    },
+    {
+      "run": "p2-31-mixed-seed2",
+      "evaluation_run": "p2-31-mixed-seed2-split15",
+      "condition": "split-single",
+      "seed": 2,
+      "foot": "GROUP",
+      "updates": 800,
+      "reused": true
+    },
+    {
+      "run": "p2-31-mixed-seed2",
+      "evaluation_run": "p2-32-deck-single-seed2",
+      "condition": "deck-single",
+      "seed": 2,
+      "foot": "GROUP",
+      "updates": 800,
+      "reused": true
+    },
+    {
+      "run": "p2-31-mixed-seed3",
+      "evaluation_run": "p2-31-mixed-seed3-split15",
+      "condition": "split-single",
+      "seed": 3,
+      "foot": "GROUP",
+      "updates": 800,
+      "reused": true
+    },
+    {
+      "run": "p2-31-mixed-seed3",
+      "evaluation_run": "p2-32-deck-single-seed3",
+      "condition": "deck-single",
+      "seed": 3,
+      "foot": "GROUP",
+      "updates": 800,
+      "reused": true
+    }
+  ]
+}

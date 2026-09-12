@@ -814,3 +814,14 @@ Native split0/15각32:seed0,1,2각32/32,seed3=32/0. 제자리도약은4seed모�
 3spec×4보고서session48642exit0. 성공episode모두최초구투영포함. 16신규resulthash/render64/camera4/phase태그 artifacts/p2-31-videos-audit.json검증. GPUcompute없음/530GB. 대표P231직접시각검수남음.
 
 다음P232통합진단방향:동결P2314정책으로두연속도약(물리state/관절/속도reset없음) 계약설계. 단일도약대조후전환 bookkeeping/goal/launch기준/clock/접촉이력다루기. 현재JumpEnv는calibrated_root상수/episodeclock/flight와접촉latch/전역.6m이탈판정이므로단순reset재사용금지. 초기지형과범위선정/소스검토필요. 세성공seed로통합진단가능하되seed3도기록,일반성능/연속파쿠르완료주장금지. 아직P232코드/프로토콜/실행없음. 전체목표미완료.
+
+
+### 최신: P2-32 두 도약 계약 / 단일 deck 대조 완료
+
+이전턴P231결과/후속단계는progress. JumpEnv/SequentialEnv/DirectedJumpEnv/FirstTouch/FlightTravel 소스검토:현재reset이root/joint/velocity를쓰므로연속실행에재사용금지. 관측은body-frame target+velocity/joints/contact+phase/apexerror/clock. episodeclock과launchcalibration 분리필요.
+
+docs/p2-32-protocol.md source e5d99cb:동결4정책,기존deck상대조먼저;두도약목표nominal+.15→+.30,도약당4초/전체8초,전환시실제rootXY를둘째launch기준,물리state/접촉history/직전action유지,도약별clock/latch만초기화. 매도약.3초기존PD준비,즉시반동파쿠르주장아님. 첫성공에서auto-reset억제/두번째완료만course성공,금지write/reset·tensor불변검증필수.
+
+scripts/p2_32_deck_baseline.py실행session31819exit0,4모델deck단일15×64평가결과64/64/64/0. 기존split15시나리오정확일치,4artifact감사 artifacts/p2-32-deck-audit.jsonl. 결과는단일지형대조뿐. configs/reports/p2-32-deck-control.json8재사용학습행,보고서아직미생성.
+
+다음구현:기존JumpEnv에기본동작동일한maneuver clock/launch reference hook→chained subclass에per-env startstep/origin/completedhop. 성공첫도약의_get_dones는reset반환억제,보상/terminalmetric snapshot후도약bookkeeping전환,physics/joints/contacts/actions보존. FlightTravel.launch는origin perenvNx2사용시new mask맞춰선택해야함(현재origin[2]만지원). 전체timestamp/segment trace/collector·감사계약별도설계. 아직두도약실행코드없음. 전체목표미완료.
