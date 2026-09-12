@@ -133,6 +133,7 @@ def main():
             p.error('Shared-course evaluation override requires continuous Tracker')
         from parkour.shared_evaluation import override_course
         support=override_course(support,args.shared_course_level,args.shared_course_seed)
+        config['research_tags']=[t for t in config.get('research_tags',[]) if not t.startswith('difficulty:')]+['difficulty:'+args.shared_course_level]
     if config['task']=='a1_continuous_tracker_v1':
         if args.support_mode or args.chain_hops is not None or args.map_goal_forward_m is not None:
             p.error('Continuous Tracker uses its explicit shared-course contract, not legacy runtime adapters')

@@ -49,7 +49,9 @@ def collect(evaluation, result_root=ROOT / 'result'):
         if support['mode']=='full-gap':
             label += f"_실제갭{100*support['layout']['gap_width_m']:.2f}cm_발목표전진{100*support['goal_forward_m']:g}cm"
         task_title = label + ('_목표전이15cm_고정정책' if support.get('goal_forward_m') == .15 else '_목표거리별평가')
-        if support['mode']=='shared-course':task_title=label+'_스크립트목표_자율계획아님'
+        if support['mode']=='shared-course':
+            layout=support['layout'];level={'easy':'쉬움','medium':'중간','hard':'어려움'}.get(layout.get('level'),'개발')
+            task_title=f"{level}_{len(layout['surfaces'])-1}구간_경사·회전_스크립트목표_자율계획아님
         if support.get('matched_material'):
             task_title += '_기본재질·구간별마찰설정' if support.get('surface_material_overrides') else '_동일물리재질'
     if run.get('chain_contract',{}).get('progress_criterion')=='mapped_contact_v1':

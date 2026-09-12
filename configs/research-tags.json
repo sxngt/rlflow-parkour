@@ -83,9 +83,10 @@
     "step:p3-18-continuous-tracker": "P3-18 · 연속 앞뒤 접촉 Tracker",
     "step:p3-19-long-scenarios": "P3-19 · 10구간 장거리 시나리오",
     "step:p3-20-long-contact-curriculum": "P3-20 · 긴 코스 접촉 정밀도 커리큘럼",
-    "difficulty:easy": "난이도 · 쉬움",
-    "difficulty:medium": "난이도 · 중간",
-    "difficulty:hard": "난이도 · 어려움"
+    "difficulty:easy": "쉬움",
+    "difficulty:medium": "중간",
+    "difficulty:hard": "어려움",
+    "step:p3-21-long-body-progress": "P3-21 · 긴 코스 몸체 이동 보상"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
@@ -541,6 +542,12 @@
       "condition:paired-fork",
       "terrain:continuous",
       "purpose:regression-smoke"
+    ],
+    "p3-19-heldout-medium101-interim500": [
+      "phase:P3",
+      "step:p3-19-long-scenarios",
+      "difficulty:medium",
+      "purpose:continuous-parkour"
     ]
   },
   "note": "Phase is work classification, not a completion claim. Explicit run research_tags override task defaults. Legacy annotations are derived without changing original artifacts."

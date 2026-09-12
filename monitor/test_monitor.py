@@ -133,6 +133,19 @@ class MonitorTests(unittest.TestCase):
             self.assertEqual(r['samples'][0]['stage'],2)
             self.assertEqual(client.get('/api/replay',params={'path':'result/replay.json','env':3}).status_code,400)
 
+    def test_single_follow_trace_channels(self):
+        p=self.root/'result/replay.json'
+        p.write_text(json.dumps({'layout':'third_person_follow','visible_env_ids':[0], 'trace':[
+            {'sim_time_s':.04,'root_state_w':[1,2,.3]+[0]*10,'foot_positions_w':[[0,0,.02]]*4,
+             'accepted_indices':[3,2],'target_indices':[4,3],'measured_jump_count':2,
+             'foot_normal_force_N':[10,20,0,0],'actions':[.1]*12}]}))
+        with TestClient(api.app) as client:
+            result=client.get('/api/replay',params={'path':'result/replay.json'}).json()
+            row=result['samples'][0]
+            self.assertEqual(row['root_z'],.3);self.assertEqual(row['accepted_indices'],[3,2])
+            self.assertEqual(row['measured_jump_count'],2);self.assertEqual(row['feet_z'],[.02]*4)
+            self.assertIn('actions',result['available_channels'])
+
     def test_server_pagination_search_and_small_video_payload(self):
         with store.connect() as db:
             for i in range(65):

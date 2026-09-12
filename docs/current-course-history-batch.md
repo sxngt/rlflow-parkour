@@ -1,3 +1,11 @@
+## Latest execution update (2026-09-12 19:39 KST)
+
+- P3-19 baseline seeds1/2 still active on GPUs0/1 (session48387), roughly1700/3000 updates, no first-surface progress. Checkpoint500 native easy diagnostic:0/16, all30s timeout,0jumps. Corrected-config retry completed. Held-out medium geometryseed101 evaluation and 200Hz audit completed0/16, with follow video. All archived in result.
+- GPU3 P3-20 `artifacts/p3-20-long-contact-seed1`, session46250,2400updates,1024env. Curriculum tolerance .25→.18→.12→.08→.06 and stdfloor.12. Still zero progression nearupdate600. Smoke and explicit resume12→14 + native evaluation audits passed. Evaluation always strict6cm.
+- GPU2 P3-21 `artifacts/p3-21-long-body-seed1-pilot600`, session46482,600updates first budget,1024env. Only extra reward relative to P3-20 is within-step progress toward current body waypoint. Smoke+nativephysicsaudit passed. Do not extend a zero-progress result; inspect completion first. Config contains full2400schedule for possible later continuation.
+- All4 GPUs currently leased by owned training jobs. Do not collide with native final evaluation stages. Medium/hard geometry previews copied to result/previews with explicit no-policy labels.
+- Latest commit ce513cc. Web built and backend health verified18710; continuous diagnostics no longer crashes old frontend, new follow traces include feet/forces/actions/indices. Final demo eligibility dynamic_long_course_v2 requires10transfers,>=10actuals,>=8measuredjumps,successfulcourse; no qualifying result yet.
+
 # Active handoff — P3-19 long scenarios (2026-09-12)
 
 Latest user requirement supersedes parallel final videos: difficulty-tiered long courses, about ten dynamic movements and over ten seconds of actual successful running, single-robot third-person follow. Training stays parallel.
