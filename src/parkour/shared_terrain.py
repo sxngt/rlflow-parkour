@@ -201,3 +201,36 @@ def build_ten_gap_course(level='medium',seed=1,gap_scale=1.,approach_transfers=3
     if approach_transfers!=3:result.update(scenario_contract='long_ten_gap_course_v2',approach_transfers=approach_transfers)
     if gap_rise_m:result.update(scenario_contract='long_ten_gap_course_v3',approach_transfers=approach_transfers,gap_rise_m=gap_rise_m)
     return result
+
+
+def build_discrete_parkour(level='easy',seed=1):
+    """Sixteen disjoint oriented platforms; conservative full-cuboid separation."""
+    import random
+    if level not in ('easy','medium','hard') or type(seed) is not int or seed<0:raise ValueError('Invalid discrete course')
+    gap,tilt,height,turn={'easy':(.18,7.,.10,12.),'medium':(.35,12.,.18,22.),'hard':(.55,18.,.28,32.)}[level]
+    rng=random.Random(seed);surfaces=[];gaps=[];x=y=heading=0.
+    for i in range(17):
+        if i:heading+=turn*math.sin(i*.85)
+        # Gentle initial transition; challenging slopes and elevation changes later.
+        blend=min(i/3.,1.)
+        z=height*blend*(1.+math.sin(i*.8)) if i else 0.
+        roll,pitch=(0.,0.) if i in (0,16) else (rng.uniform(-tilt,tilt)*blend,rng.uniform(-tilt,tilt)*blend)
+        size=(1.,1.,.18) if i in (0,16) else (.7,.75,.18)
+        candidate=surface('surface_'+str(i),[0.,0.,z],size,(roll,pitch,heading))
+        if i:
+            direction=[math.cos(math.radians(heading)),math.sin(math.radians(heading))]
+            def half(s,axes):
+                return sum(abs(sum(direction[a]*s['rotation_local_to_world'][a][j] for a in (0,1)))*s['size_m'][j]/2 for j in axes)
+            clearance=gap*rng.uniform(.9,1.1)
+            distance=half(surfaces[-1],range(3))+half(candidate,range(3))+clearance
+            top_gap=distance-half(surfaces[-1],range(2))-half(candidate,range(2))
+            x+=distance*direction[0];y+=distance*direction[1]
+            gaps.append({'arrival_surface_index':i,'projected_top_gap_m':top_gap,'direction_xy':direction,'full_box_clearance_m':clearance})
+        candidate=surface('surface_'+str(i),[x,y,z],size,(roll,pitch,heading))
+        candidate['scenario_role']='start' if i==0 else 'gap_landing';surfaces.append(candidate)
+    return {'schema_version':2,'geometry_contract':'oriented_shared_surfaces_v1','scenario_contract':'discrete_parkour_v1',
+        'kind':'discrete-parkour-'+level,'level':level,'seed':seed,'transitions':16,'frame':'course_local',
+        'surfaces':surfaces,'start_position_m':[0.,0.,0.],'goal_position_m':surfaces[-1]['top_center_m'],
+        'catch_floor_z_m':-.8,'planned_gap_count':16,'gap_locations':gaps,
+        'nominal_path_length_m':sum(math.dist(a['top_center_m'],b['top_center_m']) for a,b in zip(surfaces,surfaces[1:])),
+        'scope':'Every consecutive cuboid separated; tilted elevated turning course. Not a feasibility certificate or autonomous planner.'}

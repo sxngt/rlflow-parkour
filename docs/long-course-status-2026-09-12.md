@@ -42,3 +42,6 @@ Update: P339800nativeevaluations audited. Braking:0/64full,mean59.92/60,12.56s t
 P340rise05 frozen1600:48/64pureRLsuccess;firstrobot12.24sepisode,11.52stravel,60transfers,59cleantravelairborne,0strict3cmjumps. P340rise10:0/64. Both physics trace audits pass. Representative user-facing video index updated at result/long-course-follow/README.md.
 P342 newgeometryseed101 easy/medium/hard all0/64;easy/medium reachnearend,hardfailsfirsttransfer. Artifact-onlyauditpassed, no physics traces enabled for these probes. See docs/p3-42-long-course-generalization.md.
 P343easy GPU1session91161 andmediumGPU0session85802,1200updates×1024env each, parentP340rise05checkpoint1600; automatic finaleval/video enabled. Hardconfigpreparednotlaunched. Seed101 now usedfortraining, cannotclaimheldoutafterthis. P339resume2400 brakingGPU3session13116/controlGPU2session42131 remain active/finishing; inspect results before further runs.
+
+## 2026-09-13 user steering: motion realism and genuine discrete planning
+See docs/p3-45-motion-realism.md and docs/p3-46-controlled-discrete.md. Four P346 retraining jobs active plus persistent bounded P347 continuation process2439797. Do NOT restart already active jobs. New4stepplanner is standalone geometry only; Tracker still scripted. Implement physical rollout and runtime integration next, not more claims of autonomous planning.

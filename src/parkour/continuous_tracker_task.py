@@ -19,6 +19,7 @@ class ContinuousTrackerCfg(FootholdCfg):
     body_progress_reference='pair_midpoint'
     gap_jump_bonus=0.
     terminal_motion_cost=0.
+    motion_control=None
     observation_space=105
     episode_length_s=12.
     action_scale=.5
@@ -90,6 +91,10 @@ class ContinuousTrackerEnv(FootholdEnv):
         self.stance_offset=self.calibrated_root[:3]-torch.cat([self.nominal_xy,torch.full((4,1),.02,device=self.device)],dim=1).mean(dim=0)
         self._sync_targets()
     def _pre_physics_step(self,actions):
+        if self.cfg.motion_control is not None:
+            from parkour.motion_control import limit_reference
+            actions=limit_reference(actions.clamp(-self.cfg.action_limit,self.cfg.action_limit),self.actions,
+                self.cfg.action_scale,self.step_dt,self.cfg.motion_control['joint_reference_rate_rad_s'])
         super()._pre_physics_step(actions)
         if self.cfg.body_progress_weight:
             from parkour.body_progress import waypoint
@@ -183,6 +188,13 @@ class ContinuousTrackerEnv(FootholdEnv):
             final_targets=(self.progress.target==self.progress.target_count-1).all(dim=1)
             motion=self.robot.data.root_lin_vel_b.square().sum(dim=1)+.1*self.robot.data.root_ang_vel_b.square().sum(dim=1)
             dense-=self.cfg.terminal_motion_cost*motion*final_targets
+        if self.cfg.motion_control is not None:
+            spec=self.cfg.motion_control
+            terminal=(self.progress.target==self.progress.target_count-1).all(dim=1)
+            target=(~terminal)*spec['target_speed_mps']
+            speed=self.robot.data.root_lin_vel_w[:,:2].norm(dim=1)
+            dense-=spec['speed_cost']*(speed-target).square()
+            dense-=spec['joint_speed_cost']*(self.robot.data.joint_vel.abs()-spec['joint_speed_soft_rad_s']).clamp_min(0).square().sum(dim=1)
         reward=dense*self.step_dt+2.*self.accept_events.sum(dim=1)+5.*self.success-5.*self.failure
         reward+=self.cfg.gap_jump_bonus*self.new_gap_credit
         if self.cfg.body_progress_weight:

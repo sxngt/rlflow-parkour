@@ -52,6 +52,9 @@ def validate_continuous_fork(parent, target):
         raise ValueError('Continuous fork cannot change task')
     a,b=copy.deepcopy(parent),copy.deepcopy(target)
     for config in (a,b):
+        from parkour.motion_control import validate_motion
+        validate_motion(config)
+        config.pop("motion_control",None)
         terminal_cost=config.pop('terminal_motion_cost',0.)
         if not isinstance(terminal_cost,(int,float)) or not math.isfinite(terminal_cost) or not 0<=terminal_cost<=10:
             raise ValueError('Invalid terminal motion cost')
@@ -123,6 +126,8 @@ def initialize_fork(data, config, alg, normalizer):
             'body_progress_reference':config.get('body_progress_reference','pair_midpoint'),
             'parent_gap_jump_bonus':data['config'].get('gap_jump_bonus',0.),
             'gap_jump_bonus':config.get('gap_jump_bonus',0.),
+            'parent_motion_control':data['config'].get('motion_control'),
+            'motion_control':config.get('motion_control'),
             'parent_terminal_motion_cost':data['config'].get('terminal_motion_cost',0.),
             'terminal_motion_cost':config.get('terminal_motion_cost',0.),
             'initial_learning_rate':alg.learning_rate,

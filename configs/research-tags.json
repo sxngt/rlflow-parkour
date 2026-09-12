@@ -132,7 +132,9 @@
     "step:p3-42-long-course-generalization": "P3-42 · 장거리 정책 지형 일반화 평가",
     "step:p3-43-tiered-long-course": "P3-43 · 난이도별 장거리 시나리오 학습",
     "step:p3-44-long-course-transfer": "P3-44 · 추가 학습 정책 지형 전이",
-    "step:p3-45-motion-realism": "P3-45 · 주행 속도와 구동기 현실성 진단"
+    "step:p3-45-motion-realism": "P3-45 · 주행 속도와 구동기 현실성 진단",
+    "step:p3-46-controlled-discrete": "P3-46 · 속도 제어와 불연속 파쿠르 학습",
+    "step:p3-47-constrained-transfer": "P3-47 · 동작 제한 적응 후 불연속 코스 학습"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
