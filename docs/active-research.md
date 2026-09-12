@@ -1013,3 +1013,9 @@ scripts/collect_results.py 신규혼합모델제목에학습step50:50명시/파�
 직전두목표턴은같은4IsaacPID를실제확인한verifiedwait이며300checkpoint4hash/step감사 artifacts/p2-36-checkpoint300-audit.json도완료. 이번동일PID계속확인/45초단위대기후batchsession97849exit0,4seedworkerexit0. 전체800학습및native4감사 artifacts/p2-36-main-native-audit.json passed. native두도약성공seed0/1/2/3=64/4/61/1 (P234대조0/64/0/0). 개선seed와퇴화seed혼재,아직단일/회귀평가없어종합판단금지.
 
 scripts/p2_36_evaluate.py 추가12평가 실행중 session26832(같은exec내main-native감사후실행),실제batchPID1874382확인. log artifacts/p2-36-evaluation-batch.log. 다음동일session/PID추적→12완료→scripts/p2_36_report.py 전체32결과/예산/영상검증→거리회귀/첫두번째실패해석,보고서/필요대표영상검수. 새본학습이미종료,추가학습재시작금지. 전체목표미완료.
+
+### 최신: P2-36 최종 검증 완료 / P2-37 지지면 비교 시작
+
+이전turn은본학습완료/추가평가실행progress. 같은PID1874382생존확인후45초verifiedwait,session26832exit0/4seedexit0. scripts/p2_36_report.py session1983exit0,전체4pair학습예산/32평가/영상hash/시나리오/태그검증통과 artifacts/p2-36-comparison-build.log. docs/p2-36-comparison.json/md,findings작성. 혼합chain성공64/4/61/1,continuous합48/32/0/16,decksingle64/9/64/64,split모두0. 신규78643200step. 개선/퇴화혼재및회귀때문에champion승격없음. seed0원본영상1FPS3프레임view_image확인 artifacts/p2-36-seed0-video-review.png;전체영상정밀검수아님.
+
+다음P237사전명세 docs/p2-37-protocol.md:8모델(P234chain4+P236mixed4)같은0/5/10/15single목표deck신규8평가,continuous8재사용,학습0step. seed2deck15성공64인데continuous全거리0인차이를분리해관측. scripts/p2_37_evaluate.py작성 commit614d694,실행session27226/log artifacts/p2-37-evaluation-batch.log. 다음같은session/PID생존확인→8평가완료→同거리/시나리오/모델/평가계약비교및200Hz/result검증/거리별실패gate표. P237보고서스크립트아직없음. 전체연구목표미완료.
