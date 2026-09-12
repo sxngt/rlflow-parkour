@@ -726,3 +726,10 @@ scripts/p2_30_evaluate.py 작성(아직실행안함):seed별parent split0/15×32
 평가distance_override split지원추가:expected_goal_surface로각목표2cm여유단일표면가용성검사,0/.15허용/.05/.1거절。기존학습config불변. unit75통과(session24173),artifacts/p2-30-evaluation-unit-tests.log. 실제split override실행은본batch완료후parent평가가첫검증이므로시나리오동일성/거리별분모반드시확인.
 
 다음동일본batch진행확인/둘째초기화감사/전체완료후p2_30_evaluate.py. 본학습완료전중복실행금지. 전체목표미완료.
+
+
+### 최신: P2-30 모니터링 연결 및 이전 영상 검수
+
+이전턴 평가배치/spec/초기화검증은progress. 본PID1674488 live확인,API첫4run249~253update/goal_environment_steps합24576/phase·step·condition태그정상. health오류없음 artifacts/p2-30-live-monitor-check.json. GPU33~34도/약3.1GB/디스크531GB.
+
+P229남은대표교차/회귀영상검수:continuous0-on-split와split2-regression의preview및ffmpeg0.8초추출프레임직접확인. artifacts/*-review-0p8s.png 보존. 구도/렌더링정상,세부발접촉은trace기준,전체프레임육안검수주장금지. findings갱신. 다음동일P230batch진행확인→첫native/둘째묶음→전체완료후20평가. 전체목표미완료.
