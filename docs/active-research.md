@@ -439,3 +439,10 @@ mean성공56/32/48/21,유효비행·최초정밀모두64,안정화64/64/64/53. s
 직전 턴은조합설정검증/학습착수로progress. 이번 턴동일실제PID확인 후verified wait 및401의거리0–10cm/launch6cm/cap.35/reset_all=true 네seed검증. checkpoint100/300/400 hash정상,모든loss유한. 최신 [{"run": "p2-25-deck-seed0", "pid": 1495130, "live": true, "iteration": 438, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"run": "p2-25-deck-seed1", "pid": 1495129, "live": true, "iteration": 434, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"run": "p2-25-deck-seed2", "pid": 1495128, "live": true, "iteration": 441, "transition401_verified": true, "checkpoint400_hash_ok": true}, {"run": "p2-25-deck-seed3", "pid": 1495131, "live": true, "iteration": 439, "transition401_verified": true, "checkpoint400_hash_ok": true}]
 
 다음801거리20cm/cap.2,1201cap.05/launch3cm,1600최종평가8감사/4보고서. batch98960유지,중복실행금지. 전체목표미완료.
+
+
+### 최신: P2-25 거리20cm 전환 검증
+
+직전 턴은401검증으로progress. 이번 턴동일실제PID확인 후verified wait 및801의거리0–20cm/launch4.5cm/cap.2/reset_all=true 네seed검증. checkpoint500/800 hash정상,모든loss유한/std상한준수. 최신 [{"run": "p2-25-deck-seed0", "pid": 1495130, "live": true, "iteration": 856, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"run": "p2-25-deck-seed1", "pid": 1495129, "live": true, "iteration": 849, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"run": "p2-25-deck-seed2", "pid": 1495128, "live": true, "iteration": 862, "transition801_verified": true, "checkpoint800_hash_ok": true}, {"run": "p2-25-deck-seed3", "pid": 1495131, "live": true, "iteration": 856, "transition801_verified": true, "checkpoint800_hash_ok": true}]
+
+다음1201의cap.05/launch3cm 및1600최종평가8감사/4보고서. batch98960 유지,중복실행금지. 전체목표미완료.
