@@ -767,3 +767,12 @@ Native split0/15각32개성공:fixedseed0~3 0/32모두, mixed0=29/32,mixed1=0/32
 primary4보고서session20788exit0,regression/retention8보고서session38072exit0. 첫분모검사에서과거P229원본by_distance누락으로assert발생했으나기존load_report정정뷰사용후3군각12행scenario정확일치/거리별64및성공합계검증 artifacts/p2-30-scenario-pairing-audit.json. 원본수정없음.28새result영상hash/render64/camera4/step태그 artifacts/p2-30-videos-audit.json. GPUcompute없음/530GB. 대표P230영상시각검수남음.
 
 다음P230실패단계진단(특히mixed1/2의0cm,0~2의5cm),대표영상검수,다음학습출발점고려:능력을이미잃은P229부모로부터복구대신P227부모에서직접혼합으로유지가능성. P229같은부모15전용대조를재사용가능한지계약/예산/조건검토. 아직P231프로토콜/실행없음. 전체목표미완료.
+
+
+### 최신: P2-30 실패 진단 / P2-31 직접 유지 비교 시작
+
+이전턴 P230보고서/전체평가검증은progress. P230mixed1/2 split0cm32전부유효도약미발생timeout. 실제200Hz최대상승2.953/2.496cm(<3cm),네발2N미만공중구간최대.125/.145초는있음. artifacts/p2-30-failure-gates.json,p2-30-no-flight-physics.json. mixed0/3남은0cm및mixed0~2 5cm실패는최초접촉이후안정화미달. findings추가.
+
+P231프로토콜 docs/p2-31-protocol.md/config p2-31-mixed.json,source1e0f719. P227continuous4부모에서직접split0/15혼합800update,새4run78,643,200step. 같은부모/예산의P229split15전용대조재사용,4seed설정은목표분포/eval/tags외정확일치확인(session81580exit0). P230은출발/예산다르므로주비교에서제외.
+
+scripts/p2_31_train.py 실행시작session96480,log artifacts/p2-31-main-batch.log. seed별P227부모split0/15×32평가→새mixed800→auto native. seed2부모retry1. 본학습은parent평가exit0후자동시작하되성공률로seed를거르지않음. 기존출력거절/부모완료감사. 다음실제PID/parent평가상태확인,부모·새모델scenario동일성/실제fork/목표별계상감사. 평가배치/3spec는미작성:신규4model continuous혼합회귀+split15×64각4(8추가),대조P229split의split혼합은P230parent평가재사용、continuous回帰/15維持はP229再使用。全体目標未完了。
