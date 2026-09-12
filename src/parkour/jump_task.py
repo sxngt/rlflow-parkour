@@ -61,9 +61,23 @@ class JumpEnv(SequentialEnv):
         super()._pre_physics_step(actions)
         self.actions[self.maneuver_time_s()<self.jump['settle_seconds']]=0
 
+    def launch_rise_m(self):
+        rise=self.robot.data.root_pos_w[:,2]-self.scene.env_origins[:,2]-self.calibrated_root[2]
+        if hasattr(self, 'planned_support_heights'):
+            heights=torch.tensor(self.planned_support_heights,device=self.device)
+            rise=rise-heights[self.chain.completed]
+        return rise
+
+    def landing_height_error_m(self, segment=None):
+        error=self.robot.data.root_pos_w[:,2]-self.scene.env_origins[:,2]-self.calibrated_root[2]
+        if hasattr(self, 'planned_support_heights'):
+            heights=torch.tensor(self.planned_support_heights,device=self.device)
+            error=error-heights[(self.chain.completed if segment is None else segment)+1]
+        return error
+
     def _get_observations(self):
         base=FootholdEnv._get_observations(self)['policy']
-        rise=self.robot.data.root_pos_w[:,2]-self.scene.env_origins[:,2]-self.calibrated_root[2]
+        rise=self.launch_rise_m()
         clock=(self.maneuver_time_s()/self.jump['settle_seconds']).clamp_max(1)
         return {'policy':torch.cat([base,torch.nn.functional.one_hot(self.phase,3),
             (self.required_apex-rise)[:,None],clock[:,None]],dim=1)}
@@ -76,7 +90,8 @@ class JumpEnv(SequentialEnv):
         self.contact_on=torch.where(self.contact_on,force>2,force>5)
         self.nonfoot_collision=history[:,:,self.nonfoot_ids].amax(dim=(1,2))>5
         height=self.robot.data.root_pos_w[:,2]-self.scene.env_origins[:,2]
-        rise=height-self.calibrated_root[2]
+        rise=self.launch_rise_m()
+        landing_error=self.landing_height_error_m()
         vz=self.robot.data.root_lin_vel_w[:,2]
         settled=self.maneuver_time_s()>=spec['settle_seconds']
         air_samples=(feet_history<2).all(dim=2)
@@ -92,7 +107,7 @@ class JumpEnv(SequentialEnv):
         # Only post-confirmation, pre-touch flight heights qualify for apex success.
         self.apex=torch.where(self.flight_seen&~self.landed&air_window,torch.maximum(self.apex,rise),self.apex)
         values=jump_transition(self.flight_seen,self.landed,self.touched,self.contact_on,air_window,settled,rise,vz,
-            self._errors(),self.apex,self.required_apex,self.robot.data.root_ang_vel_b.norm(dim=1),rise,supported,
+            self._errors(),self.apex,self.required_apex,self.robot.data.root_ang_vel_b.norm(dim=1),landing_error,supported,
             self.failure,self.hold_steps,self.step_dt,spec)
         self.flight_seen,self.landed,self.touched,self.hold_steps,self.flight_event,self.new_touch,self.success=values
         self.apex=torch.where(self.flight_event,torch.maximum(self.apex,rise),self.apex)
@@ -112,7 +127,7 @@ class JumpEnv(SequentialEnv):
         dense-=.02*self.robot.data.root_ang_vel_b.square().sum(dim=1)
         dense-=.002*(self.actions-self.previous_actions).square().sum(dim=1)
         dense-=.00002*self.robot.data.applied_torque.square().sum(dim=1)
-        rise=self.robot.data.root_pos_w[:,2]-self.scene.env_origins[:,2]-self.calibrated_root[2]
+        rise=self.landing_height_error_m(getattr(self, "segment_before", None))
         dense-=self.jump.get('landing_height_weight',0)*landing_height_cost(rise,self.landed,self.jump['final_height_error_max_m'])
         dense-=landing_settle_cost(self.robot.data.root_lin_vel_w[:,2],self.contact_on,self.landed,
             self.jump.get('landing_vz_weight',0),self.jump.get('landing_support_weight',0))

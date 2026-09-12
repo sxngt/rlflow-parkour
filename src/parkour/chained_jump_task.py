@@ -62,6 +62,13 @@ class ChainedDirectedJumpEnv(DirectedJumpEnv):
             mask = (self.chain.completed > 0) & (self.maneuver_time_s() < self.jump['settle_seconds'])
             self.actions[mask] = self.settle_action[mask]
 
+    def _apply_planned_target_height(self, env_ids):
+        if hasattr(self, 'planned_support_heights'):
+            heights=torch.tensor(self.planned_support_heights,device=self.device)
+            z=self.scene.env_origins[env_ids,2]+heights[self.chain.completed[env_ids]+1]+.02
+            self.targets[env_ids,:,2]=z[:,None]
+            self.landing_goals[env_ids,:,2]=z[:,None]
+
     def _reset_idx(self, env_ids):
         super()._reset_idx(env_ids)
         if hasattr(self, 'chain'):
@@ -69,6 +76,7 @@ class ChainedDirectedJumpEnv(DirectedJumpEnv):
                 env_ids = self.robot._ALL_INDICES
             self.chain.reset(env_ids, self.calibrated_root[:2])
             self.settle_action[env_ids] = 0
+            self._apply_planned_target_height(env_ids)
 
     def _get_dones(self):
         super()._get_dones()
@@ -114,6 +122,7 @@ class ChainedDirectedJumpEnv(DirectedJumpEnv):
             values = torch.tensor(self.planned_forward_targets, device=self.device)
             offsets[:, :, 0] = values[self.chain.completed[ids], None]
         self.set_sequence_offsets(offsets, ids)
+        self._apply_planned_target_height(ids)
         # Absolute world targets advance to 30 cm; per-hop flight demand is 15 cm.
         self.goal_distance[ids] = .15
         if hasattr(self, 'planned_step_lengths'):

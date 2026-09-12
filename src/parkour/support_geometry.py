@@ -126,3 +126,19 @@ def vary_course_steps(layout, step_lengths):
     result['same_foot_gaps_m'] = [x-.06 for x in step_lengths]
     result['variation_contract'] = 'nonuniform_horizontal_v1'
     return result
+
+
+def vary_course_heights(layout, heights):
+    import copy
+    if (layout['mode']!='course' or len(layout['surfaces'])!=4*len(heights) or heights[0]!=0.
+            or any(not math.isfinite(z) or abs(z)>.05 for z in heights)):
+        raise ValueError('Course requires one finite height per station, initial zero and absolute heights <=5cm')
+    result=copy.deepcopy(layout)
+    for surface in result['surfaces']:
+        station=int(surface['role'].split('_')[-1]);z=heights[station]
+        surface['center_m'][2]=z-surface['size_m'][2]/2
+        surface['top_z_m']=z
+    for target in result['landing_targets']:target['position_m'][2]=heights[1]
+    result['station_heights_m']=list(heights)
+    result['height_contract']='level_stance_heights_v1'
+    return result

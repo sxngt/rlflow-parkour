@@ -27,6 +27,7 @@ def main():
     p.add_argument("--transition-states", action="store_true", help="Record articulated successful-landing states; replay not yet validated")
     p.add_argument("--reward-components", action="store_true", help="Audit grouped control-step rewards without changing the policy or reward")
     p.add_argument('--chain-hops', type=int, choices=range(1,9), help='P2-32 frozen-policy deck evaluation; separate course success contract')
+    p.add_argument('--course-station-heights', type=float, nargs='+', help='Initial and landing support heights, one per station')
     p.add_argument('--course-friction', type=float, help='Authored static/dynamic friction for later course pads')
     p.add_argument('--friction-start-station', type=int, default=4)
     p.add_argument('--course-step-lengths', type=float, nargs='+', help='Explicit bounded variable step lengths in metres')
@@ -131,6 +132,11 @@ def main():
         from parkour.support_geometry import vary_course_steps
         support['layout'] = vary_course_steps(support['layout'], args.course_step_lengths)
         support.pop('goal_forward_m', None)
+    if args.course_station_heights is not None:
+        if (not args.map_course_boundary or args.map_goal_forward_m is None or not args.mapped_contact_progress or args.support_mode!='course' or len(args.course_station_heights)!=(args.chain_hops or 0)+1):
+            p.error('Elevated course requires mapped geometric plan and one height per station')
+        from parkour.support_geometry import vary_course_heights
+        support['layout']=vary_course_heights(support['layout'],args.course_station_heights)
     if args.course_friction is not None:
         if (not args.map_course_boundary or args.support_mode != 'course' or not math.isfinite(args.course_friction) or not 0 <= args.course_friction <= .5 or not 1 <= args.friction_start_station <= (args.chain_hops or 0)):
             p.error('Friction override requires mapped course, valid station and finite friction in [0,.5]')
@@ -146,7 +152,7 @@ def main():
         if args.support_mode != 'course' or args.chain_hops not in range(2,9):
             p.error('Geometric execution currently requires the two-hop course adapter')
         from parkour.geometric_planner import plan_stances
-        plan = plan_stances(support['layout'], support['calibration']['foot_xy_m'], args.map_goal_forward_m, max_hops=args.chain_hops)
+        plan = plan_stances(support['layout'], support['calibration']['foot_xy_m'], args.map_goal_forward_m, max_hops=args.chain_hops, max_step_height_m=.03 if args.course_station_heights is not None else None)
         selected = [c['forward_m'] for c in plan['contacts']]
         expected = [.15*(i+1) for i in range(args.chain_hops)]
         if args.course_step_lengths is not None:
@@ -187,6 +193,12 @@ def main():
             meta['chain_contract']['target_source'] = 'scenarios.episodes[*].foot_offsets_xy_m'
         if args.mapped_contact_progress:
             meta['chain_contract']['progress_criterion']='mapped_contact_v1'
+        if args.course_station_heights is not None:
+            chosen_heights=[0.]+[c['support_height_m'] for c in plan['contacts']]
+            if any(abs(a-b)>1e-7 for a,b in zip(chosen_heights,args.course_station_heights)):
+                raise ValueError('Planned heights disagree with generated stations')
+            meta['chain_contract']['support_heights_m']=chosen_heights
+            meta['chain_contract']['height_contract']='launch_and_landing_surface_relative_v1'
         if args.course_step_lengths is not None:
             meta['chain_contract']['absolute_forward_targets_m'] = selected
             meta['chain_contract']['step_lengths_m'] = args.course_step_lengths
@@ -211,6 +223,8 @@ def main():
         torch.manual_seed(10000)
         env = make_env(config, evaluation_support=support, chain_hops=args.chain_hops,
                        chain_settle_mode=args.chain_settle_mode, independent_support_clones=args.independent_support_clones, mapped_contact_progress=args.mapped_contact_progress)
+        if args.course_station_heights is not None:
+            env.planned_support_heights=chosen_heights
         if args.course_step_lengths is not None:
             env.planned_step_lengths = args.course_step_lengths
         if boundary is not None:
@@ -289,6 +303,8 @@ def main():
             meta['scenario_sha256'] = sha256(args.out/'scenarios.json')
         if args.course_step_lengths is not None:
             env.goal_distance[:] = args.course_step_lengths[0]
+        if args.course_station_heights is not None:
+            env._apply_planned_target_height(env.robot._ALL_INDICES)
         raw = env._get_observations()["policy"]
         done = torch.zeros(env.num_envs, dtype=torch.bool, device=env.device)
         if args.chain_hops is not None:

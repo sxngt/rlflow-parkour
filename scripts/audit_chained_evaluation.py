@@ -41,6 +41,12 @@ def check(directory):
             m = h['metrics']
             if contract.get('spacing_contract') == 'nonuniform_horizontal_v1':
                 assert abs(m['goal_forward_m']-contract['step_lengths_m'][h['segment']]) < 1e-6
+            if contract.get('height_contract'):
+                sample=h['episode_step']*4-1
+                height=contract['support_heights_m'][h['segment']+1]
+                assert np.allclose(trace['target_z'][sample,i],height+.02,atol=2e-6,rtol=0)
+                expected_error=trace['root_z'][sample,i]-run['stance_calibration']['root_state'][2]-height
+                assert abs(m['final_height_error_m']-expected_error)<2e-6
             if m['success']:
                 gates = ('valid_flight', 'launch_in_region', 'first_touch_all_within', 'precise_stabilized_once')
                 assert all(m[k] for k in gates)
@@ -55,7 +61,7 @@ def check(directory):
                         assert x0 <= m['first_touch_x_'+name] <= x1
                         assert y0 <= m['first_touch_y_'+name] <= y1
                         x,y,z = trace['foot_pos'][sample,i,foot]
-                        assert x0 <= x <= x1 and y0 <= y <= y1 and 0 <= z <= .04
+                        assert x0 <= x <= x1 and y0 <= y <= y1 and surface['top_z_m'] <= z <= surface['top_z_m']+.04
                         assert trace['force'][sample,i,foot,2] > 2
                 else:
                     assert m['travel_requirement_met']

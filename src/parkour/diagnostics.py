@@ -39,6 +39,9 @@ class MotionDiagnostics:
                 target_xy=cpu(e.targets[:, :, :2]-e.scene.env_origins[:, None, :2]),
                 launch_origin_xy=cpu(e.chain.launch_origin))
 
+        if hasattr(e, 'planned_support_heights'):
+            self.samples[-1]['target_z']=cpu(e.targets[:,:,2]-e.scene.env_origins[:,None,2])
+
     def close(self,out,scenario_ids):
         self.env.scene.update=self.original_update
         arrays={k:np.stack([s[k] for s in self.samples]) for k in self.samples[0]}

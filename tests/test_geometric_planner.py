@@ -60,3 +60,14 @@ class PlannerTest(unittest.TestCase):
         self.assertEqual(base['target_travel_m'],.15)
         with self.assertRaises(ValueError):vary_course_steps(base,[.16]*8)
         with self.assertRaises(ValueError):vary_course_steps(base,[.15]*6)
+
+    def test_height_aware_stances_and_vertical_reach(self):
+        from parkour.support_geometry import vary_course_heights
+        layout=vary_course_heights(self.layout,[0.,.01,.02])
+        self.assertEqual(plan_stances(layout,self.feet,.3)['status'],'no_plan')
+        planned=plan_stances(layout,self.feet,.3,max_step_height_m=.03)
+        self.assertEqual(planned['status'],'planned')
+        self.assertEqual([x['support_height_m'] for x in planned['contacts']],[.01,.02])
+        self.assertEqual(plan_stances(layout,self.feet,.3,max_step_height_m=.005)['status'],'no_plan')
+        with self.assertRaises(ValueError):vary_course_heights(self.layout,[.01,.01,.02])
+        with self.assertRaises(ValueError):vary_course_heights(self.layout,[0.,float('nan'),.02])
