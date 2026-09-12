@@ -1023,3 +1023,11 @@ scripts/p2_36_evaluate.py 추가12평가 실행중 session26832(같은exec내mai
 P237 실행상태정정:첫session27226은실제terminal exit1,4첫chain평가모두CLI의distance override continuous/split제한으로시뮬레이터전거부됨(LOST표시지만인프라실종아닌입력검증). 원본log/시도보존. 지원면내목표검사expected_goal_surface는이미deck지원. scripts/evaluate.py 및 evaluation_distance.py허용목록deck추가,동일scenario/원본config불변/발판밖거리거부테스트추가. tests3통과 artifacts/p2-37-distance-tests.log. commit4088b1a.
 
 원본plan artifacts/p2-37-rejected-evaluation-plan.json보존,새평가이름전부-retry1. 현재batchsession53482,log artifacts/p2-37-evaluation-retry1-batch.log. 이전27226재시작아닌수정된새시도. 다음실제PID/동일session확인후완료감사. 전체목표미완료.
+
+### 최신: P2-37 전체 완료 / 지지면 이전 실패 확인
+
+이전CLI수정/새시도는progress. 실제batchPID1881149확인,session53482exit0 및4seedexit0. scripts/p2_37_report.py추가:16평가/32거리짝,모델/행동/chain계약/설정(연구tag제외)/보정동일,지원mode/layout만다름,시나리오일치,200Hz/result 영상/eventhash검증. 최초보고서config전체assert는연구tag차이로실패해실제diff확인후tag만제외. 재실행session99995exit0 artifacts/p2-37-comparison-build.log passed. docs/p2-37-comparison.json/md 및findings작성.
+
+핵심mixedseed0/2 deck0/5/10/15 전부16/16,continuous0/16/16/16 및0/0/0/0. 혼합목표능력전부소실이아닌지지면이전실패요소확인. seed1/3은deck내거리실패도남음. 정확접촉원인미확정. 다음P238명세/구현후보:동일P236목표step분할 유지,chain환경deck/single환경continuous와기존all-deck대조,부모4/동일총step. 실제환경별geometry/충돌분리/마찰보정검증먼저필요. 관련생성 src/parkour/task.py72~80,learning.py support계약,collision_contract.py. 아직P238명세/코드/학습없음.
+
+현재모든GPU유휴(16~35MiB),저장527GB. 실행중batch없음. P236미승격유지. 전체목표미완료.
