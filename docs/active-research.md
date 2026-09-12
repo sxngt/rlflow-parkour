@@ -1019,3 +1019,7 @@ scripts/p2_36_evaluate.py 추가12평가 실행중 session26832(같은exec내mai
 이전turn은본학습완료/추가평가실행progress. 같은PID1874382생존확인후45초verifiedwait,session26832exit0/4seedexit0. scripts/p2_36_report.py session1983exit0,전체4pair학습예산/32평가/영상hash/시나리오/태그검증통과 artifacts/p2-36-comparison-build.log. docs/p2-36-comparison.json/md,findings작성. 혼합chain성공64/4/61/1,continuous합48/32/0/16,decksingle64/9/64/64,split모두0. 신규78643200step. 개선/퇴화혼재및회귀때문에champion승격없음. seed0원본영상1FPS3프레임view_image확인 artifacts/p2-36-seed0-video-review.png;전체영상정밀검수아님.
 
 다음P237사전명세 docs/p2-37-protocol.md:8모델(P234chain4+P236mixed4)같은0/5/10/15single목표deck신규8평가,continuous8재사용,학습0step. seed2deck15성공64인데continuous全거리0인차이를분리해관측. scripts/p2_37_evaluate.py작성 commit614d694,실행session27226/log artifacts/p2-37-evaluation-batch.log. 다음같은session/PID생존확인→8평가완료→同거리/시나리오/모델/평가계약비교및200Hz/result검증/거리별실패gate표. P237보고서스크립트아직없음. 전체연구목표미완료.
+
+P237 실행상태정정:첫session27226은실제terminal exit1,4첫chain평가모두CLI의distance override continuous/split제한으로시뮬레이터전거부됨(LOST표시지만인프라실종아닌입력검증). 원본log/시도보존. 지원면내목표검사expected_goal_surface는이미deck지원. scripts/evaluate.py 및 evaluation_distance.py허용목록deck추가,동일scenario/원본config불변/발판밖거리거부테스트추가. tests3통과 artifacts/p2-37-distance-tests.log. commit4088b1a.
+
+원본plan artifacts/p2-37-rejected-evaluation-plan.json보존,새평가이름전부-retry1. 현재batchsession53482,log artifacts/p2-37-evaluation-retry1-batch.log. 이전27226재시작아닌수정된새시도. 다음실제PID/동일session확인후완료감사. 전체목표미완료.
