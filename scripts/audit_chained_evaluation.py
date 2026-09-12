@@ -18,7 +18,8 @@ def check(directory):
     contract = run['chain_contract']
     assert contract == report['chain_contract'] == events['contract'] == scenarios['chain_contract']
     count, hops = report['episodes'], contract['hops']
-    trace = np.load(directory / 'motion-trace.npz')
+    with np.load(directory / 'motion-trace.npz') as archive:
+        trace = {key: archive[key] for key in archive.files}
     assert np.allclose(np.diff(trace['time']), .005, atol=1e-8)
     rows = []
     assert all(0 <= h['env_index'] < count for h in events['hops'])

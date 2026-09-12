@@ -1,0 +1,461 @@
+{
+  "training": [
+    {
+      "run": "p3-08-mapped-seed1",
+      "new_steps": 19660800,
+      "updates": 800
+    },
+    {
+      "run": "p3-08-mapped-seed2",
+      "new_steps": 19660800,
+      "updates": 800
+    },
+    {
+      "run": "p3-08-strict-seed1",
+      "new_steps": 19660800,
+      "updates": 800
+    },
+    {
+      "run": "p3-08-strict-seed2",
+      "new_steps": 19660800,
+      "updates": 800
+    }
+  ],
+  "new_training_steps": 78643200,
+  "comparability": "same scenarios, terrain, chain and action contracts within each suite; plan and video hashes verified",
+  "scope": "two preselected development seeds, not final-test generalization",
+  "evaluations": [
+    {
+      "condition": "parent",
+      "seed": 1,
+      "suite": "mapped3",
+      "out": "artifacts/p3-08-eval-parent-seed1-mapped3",
+      "episodes": 64,
+      "successes": 0,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 37,
+        "2": 27,
+        "3": 0
+      },
+      "by_goal": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0
+        }
+      },
+      "video_manifest": "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p3-08-eval-parent-seed1-mapped3/manifest.json"
+    },
+    {
+      "condition": "parent",
+      "seed": 1,
+      "suite": "strict2",
+      "out": "artifacts/p3-08-eval-parent-seed1-strict2",
+      "episodes": 64,
+      "successes": 0,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 64,
+        "2": 0
+      },
+      "by_goal": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0
+        }
+      },
+      "video_manifest": "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p3-08-eval-parent-seed1-strict2/manifest.json"
+    },
+    {
+      "condition": "parent",
+      "seed": 1,
+      "suite": "continuous",
+      "out": "artifacts/p3-08-eval-parent-seed1-continuous",
+      "episodes": 64,
+      "successes": 32,
+      "completed_hops_histogram": {
+        "0": 32,
+        "1": 32
+      },
+      "by_goal": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 16
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 0
+        }
+      },
+      "video_manifest": "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p3-08-eval-parent-seed1-continuous/manifest.json"
+    },
+    {
+      "condition": "mapped",
+      "seed": 1,
+      "suite": "mapped3",
+      "out": "artifacts/p3-08-eval-mapped-seed1-mapped3",
+      "episodes": 64,
+      "successes": 64,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 64
+      },
+      "by_goal": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 64
+        }
+      },
+      "video_manifest": "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p3-08-eval-mapped-seed1-mapped3/manifest.json"
+    },
+    {
+      "condition": "mapped",
+      "seed": 1,
+      "suite": "strict2",
+      "out": "artifacts/p3-08-eval-mapped-seed1-strict2",
+      "episodes": 64,
+      "successes": 0,
+      "completed_hops_histogram": {
+        "0": 64,
+        "1": 0,
+        "2": 0
+      },
+      "by_goal": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0
+        }
+      },
+      "video_manifest": "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p3-08-eval-mapped-seed1-strict2/manifest.json"
+    },
+    {
+      "condition": "mapped",
+      "seed": 1,
+      "suite": "continuous",
+      "out": "artifacts/p3-08-eval-mapped-seed1-continuous",
+      "episodes": 64,
+      "successes": 48,
+      "completed_hops_histogram": {
+        "0": 16,
+        "1": 48
+      },
+      "by_goal": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 16
+        }
+      },
+      "video_manifest": "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p3-08-eval-mapped-seed1-continuous/manifest.json"
+    },
+    {
+      "condition": "strict",
+      "seed": 1,
+      "suite": "mapped3",
+      "out": "artifacts/p3-08-eval-strict-seed1-mapped3",
+      "episodes": 64,
+      "successes": 0,
+      "completed_hops_histogram": {
+        "0": 64,
+        "1": 0,
+        "2": 0,
+        "3": 0
+      },
+      "by_goal": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0
+        }
+      },
+      "video_manifest": "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p3-08-eval-strict-seed1-mapped3/manifest.json"
+    },
+    {
+      "condition": "strict",
+      "seed": 1,
+      "suite": "strict2",
+      "out": "artifacts/p3-08-eval-strict-seed1-strict2",
+      "episodes": 64,
+      "successes": 0,
+      "completed_hops_histogram": {
+        "0": 64,
+        "1": 0,
+        "2": 0
+      },
+      "by_goal": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0
+        }
+      },
+      "video_manifest": "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p3-08-eval-strict-seed1-strict2/manifest.json"
+    },
+    {
+      "condition": "strict",
+      "seed": 1,
+      "suite": "continuous",
+      "out": "artifacts/p3-08-eval-strict-seed1-continuous",
+      "episodes": 64,
+      "successes": 16,
+      "completed_hops_histogram": {
+        "0": 48,
+        "1": 16
+      },
+      "by_goal": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 0
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 0
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 16
+        }
+      },
+      "video_manifest": "result/2026-09-12__A1__T1J-v5__seed-1__updates-000800__p3-08-eval-strict-seed1-continuous/manifest.json"
+    },
+    {
+      "condition": "parent",
+      "seed": 2,
+      "suite": "mapped3",
+      "out": "artifacts/p3-08-eval-parent-seed2-mapped3",
+      "episodes": 64,
+      "successes": 0,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 64,
+        "2": 0,
+        "3": 0
+      },
+      "by_goal": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0
+        }
+      },
+      "video_manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p3-08-eval-parent-seed2-mapped3/manifest.json"
+    },
+    {
+      "condition": "parent",
+      "seed": 2,
+      "suite": "strict2",
+      "out": "artifacts/p3-08-eval-parent-seed2-strict2",
+      "episodes": 64,
+      "successes": 0,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 64,
+        "2": 0
+      },
+      "by_goal": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 0
+        }
+      },
+      "video_manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p3-08-eval-parent-seed2-strict2/manifest.json"
+    },
+    {
+      "condition": "parent",
+      "seed": 2,
+      "suite": "continuous",
+      "out": "artifacts/p3-08-eval-parent-seed2-continuous",
+      "episodes": 64,
+      "successes": 48,
+      "completed_hops_histogram": {
+        "0": 16,
+        "1": 48
+      },
+      "by_goal": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 16
+        }
+      },
+      "video_manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p3-08-eval-parent-seed2-continuous/manifest.json"
+    },
+    {
+      "condition": "mapped",
+      "seed": 2,
+      "suite": "mapped3",
+      "out": "artifacts/p3-08-eval-mapped-seed2-mapped3",
+      "episodes": 64,
+      "successes": 64,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 64
+      },
+      "by_goal": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 64
+        }
+      },
+      "video_manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p3-08-eval-mapped-seed2-mapped3/manifest.json"
+    },
+    {
+      "condition": "mapped",
+      "seed": 2,
+      "suite": "strict2",
+      "out": "artifacts/p3-08-eval-mapped-seed2-strict2",
+      "episodes": 64,
+      "successes": 64,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 0,
+        "2": 64
+      },
+      "by_goal": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 64
+        }
+      },
+      "video_manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p3-08-eval-mapped-seed2-strict2/manifest.json"
+    },
+    {
+      "condition": "mapped",
+      "seed": 2,
+      "suite": "continuous",
+      "out": "artifacts/p3-08-eval-mapped-seed2-continuous",
+      "episodes": 64,
+      "successes": 40,
+      "completed_hops_histogram": {
+        "0": 24,
+        "1": 40
+      },
+      "by_goal": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 0
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 8
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 16
+        }
+      },
+      "video_manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p3-08-eval-mapped-seed2-continuous/manifest.json"
+    },
+    {
+      "condition": "strict",
+      "seed": 2,
+      "suite": "mapped3",
+      "out": "artifacts/p3-08-eval-strict-seed2-mapped3",
+      "episodes": 64,
+      "successes": 61,
+      "completed_hops_histogram": {
+        "0": 3,
+        "1": 0,
+        "2": 0,
+        "3": 61
+      },
+      "by_goal": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 61
+        }
+      },
+      "video_manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p3-08-eval-strict-seed2-mapped3/manifest.json"
+    },
+    {
+      "condition": "strict",
+      "seed": 2,
+      "suite": "strict2",
+      "out": "artifacts/p3-08-eval-strict-seed2-strict2",
+      "episodes": 64,
+      "successes": 64,
+      "completed_hops_histogram": {
+        "0": 0,
+        "1": 0,
+        "2": 64
+      },
+      "by_goal": {
+        "0.15": {
+          "episodes": 64,
+          "successes": 64
+        }
+      },
+      "video_manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p3-08-eval-strict-seed2-strict2/manifest.json"
+    },
+    {
+      "condition": "strict",
+      "seed": 2,
+      "suite": "continuous",
+      "out": "artifacts/p3-08-eval-strict-seed2-continuous",
+      "episodes": 64,
+      "successes": 58,
+      "completed_hops_histogram": {
+        "0": 6,
+        "1": 58
+      },
+      "by_goal": {
+        "0.0": {
+          "episodes": 16,
+          "successes": 10
+        },
+        "0.05": {
+          "episodes": 16,
+          "successes": 16
+        },
+        "0.1": {
+          "episodes": 16,
+          "successes": 16
+        },
+        "0.15": {
+          "episodes": 16,
+          "successes": 16
+        }
+      },
+      "video_manifest": "result/2026-09-12__A1__T1J-v5__seed-2__updates-000800__p3-08-eval-strict-seed2-continuous/manifest.json"
+    }
+  ]
+}
