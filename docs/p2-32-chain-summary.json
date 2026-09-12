@@ -1,0 +1,46 @@
+[
+  {
+    "seed": 0,
+    "episodes": 64,
+    "first_success": 64,
+    "course_success": 0,
+    "second_attempts": 64,
+    "second_failures": 64,
+    "second_timeouts": 0,
+    "second_launch_outside": 64,
+    "second_precise_first_touch": 0
+  },
+  {
+    "seed": 1,
+    "episodes": 64,
+    "first_success": 64,
+    "course_success": 1,
+    "second_attempts": 64,
+    "second_failures": 0,
+    "second_timeouts": 63,
+    "second_launch_outside": 0,
+    "second_precise_first_touch": 64
+  },
+  {
+    "seed": 2,
+    "episodes": 64,
+    "first_success": 64,
+    "course_success": 0,
+    "second_attempts": 64,
+    "second_failures": 64,
+    "second_timeouts": 0,
+    "second_launch_outside": 64,
+    "second_precise_first_touch": 0
+  },
+  {
+    "seed": 3,
+    "episodes": 64,
+    "first_success": 0,
+    "course_success": 0,
+    "second_attempts": 0,
+    "second_failures": 0,
+    "second_timeouts": 0,
+    "second_launch_outside": 0,
+    "second_precise_first_touch": 0
+  }
+]
