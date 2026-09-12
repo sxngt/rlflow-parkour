@@ -10,6 +10,7 @@ from parkour.shared_terrain import scripted_pair_targets
 
 @configclass
 class ContinuousTrackerCfg(FootholdCfg):
+    contact_target_mode='point'
     pair_contact_quorum='both'
     initial_rear_target='own_stance'
     bound_reward_per_second=0.
@@ -39,6 +40,8 @@ class ContinuousTrackerEnv(FootholdEnv):
         self.surface_centers=torch.tensor([s['top_center_m'] for s in self.layout['surfaces']],device=self.device)
         self.surface_normals=torch.tensor([s['normal'] for s in self.layout['surfaces']],device=self.device)
         self.surface_halves=torch.tensor([s['usable_half_extents_m'] for s in self.layout['surfaces']],device=self.device)
+        self.surface_box_centers=torch.tensor([s['center_m'] for s in self.layout['surfaces']],device=self.device)
+        self.surface_box_sizes=torch.tensor([s['size_m'] for s in self.layout['surfaces']],device=self.device)
         self.progress=PairTargetProgress(self.num_envs,len(self.layout['surfaces']),self.device,cfg.contact_hold_steps,cfg.pair_contact_quorum,cfg.initial_rear_target=='front_stance')
         self.nonfoot_ids=[i for i in range(len(self.contacts.body_names)) if i not in self.contact_ids]
         self.final_hold=torch.zeros(self.num_envs,dtype=torch.long,device=self.device)
@@ -111,6 +114,10 @@ class ContinuousTrackerEnv(FootholdEnv):
         self.current_error=(self.robot.data.body_pos_w[:,self.foot_ids]-self.targets).norm(dim=2)
         inside=(local[:,:,:2].abs()<=self.surface_halves[indices]).all(dim=2)&(local[:,:,2]>=0)&(local[:,:,2]<=.04)
         self.current_valid=inside&(norm_force>5)&(self.current_error<=self.cfg.success_radius_m)
+        if self.cfg.contact_target_mode=='surface_region':
+            from parkour.surface_region import exposed_projection
+            exposed=exposed_projection(foot,indices,self.surface_rotations,self.surface_centers,self.surface_box_centers,self.surface_box_sizes)
+            self.current_valid=inside&(norm_force>5)&exposed
         decision=self.progress.update(self.current_valid);self.accept_events=decision['accepted_now']
         nonfoot=self.contacts.data.net_forces_w_history[:,:,self.nonfoot_ids].norm(dim=-1).amax(dim=(1,2))>5
         root=self.robot.data.root_pos_w-self.scene.env_origins

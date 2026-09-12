@@ -91,7 +91,9 @@
     "step:p3-23-thesis-transfer": "P3-23 · 졸업 연구 보행 정책 전이",
     "step:p3-24-initial-rear-sequence": "P3-24 · 앞발 자리로 뒷발 진행",
     "step:p3-25-either-foot-progression": "P3-25 · 연속 접촉 전환·정밀도 학습",
-    "step:p3-26-medium-transfer": "P3-26 · 중급 경사·갭 전이 학습"
+    "step:p3-26-medium-transfer": "P3-26 · 중급 경사·갭 전이 학습",
+    "step:p3-27-precision-refinement": "P3-27 · 탐색 잡음 축소·정밀화",
+    "step:p3-28-surface-region": "P3-28 · 공유 발판 영역 기반 연속 이동"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [

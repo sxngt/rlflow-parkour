@@ -72,6 +72,8 @@ def read_checkpoint(path):
 
 
 def restore(data, config, alg, normalizer, env, training):
+    if data['config'].get('contact_target_mode','point') != config.get('contact_target_mode','point'):
+        raise ValueError('Checkpoint contact target mode differs; not a resume')
     from parkour.support_assignment import assert_same_support_assignment
     assert_same_support_assignment(data['config'], config)
     from parkour.chain_training import assert_same_chain_training
@@ -146,6 +148,10 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
     elif config['task']=='a1_continuous_tracker_v1':
         from parkour.continuous_tracker_task import ContinuousTrackerCfg,ContinuousTrackerEnv
         cfg,env_type=ContinuousTrackerCfg(),ContinuousTrackerEnv
+        cfg.contact_target_mode=config.get('contact_target_mode','point')
+        if cfg.contact_target_mode not in ('point','surface_region'):raise ValueError('Invalid contact target mode')
+        if cfg.contact_target_mode=='surface_region' and config.get('contact_curriculum') is not None:
+            raise ValueError('Surface regions cannot use point-radius curriculum')
         cfg.scene.env_spacing=14.
         cfg.pair_contact_quorum=config.get('pair_contact_quorum','both')
         if cfg.pair_contact_quorum not in ('both','either'):raise ValueError('Invalid pair quorum')

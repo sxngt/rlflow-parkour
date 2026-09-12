@@ -21,6 +21,14 @@ class ContinuousForkTest(unittest.TestCase):
     def test_generated_difficulty_and_schedules_allowed(self):
         validate_fork_configs(self.parent,self.target)
 
+    def test_region_is_explicit_new_success_contract(self):
+        self.target['contact_target_mode']='surface_region'
+        with self.assertRaises(ValueError):validate_fork_configs(self.parent,self.target)
+        self.target.pop('contact_curriculum')
+        validate_fork_configs(self.parent,self.target)
+        self.target['contact_target_mode']='anything'
+        with self.assertRaises(ValueError):validate_fork_configs(self.parent,self.target)
+
     def test_incompatible_contracts_and_unversioned_geometry_rejected(self):
         for key,value in [('seed',42),('action_limit',4),('body_progress_weight',20),('pair_contact_quorum','both'),('initial_rear_target','own_stance'),('success_radius_m',.12),('episode_seconds',40)]:
             with self.subTest(key=key):

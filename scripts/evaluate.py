@@ -465,6 +465,10 @@ def main():
             report['initial_rear_target']=env.cfg.initial_rear_target
             report['contact_body_names']=env.contacts.body_names
             report['evaluation_contact_radius_m']=env.cfg.success_radius_m
+            report['contact_target_mode']=env.cfg.contact_target_mode
+            if env.cfg.contact_target_mode=='surface_region':
+                report['evaluation_contact_radius_m']=None
+                report['contact_region_contract']='selected exposed shared top; 2cm edge margin; normal offset 0..4cm; normal force>5N; geometric attribution'
             report['mean_measured_jump_count']=sum(r.get('measured_jump_count',0) for r in records)/count
             report['mean_completed_surface_transfers']=sum(r.get('completed_surface_transfers',0) for r in records)/count
             if config.get('demo_target'):

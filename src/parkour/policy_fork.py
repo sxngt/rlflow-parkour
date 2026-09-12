@@ -47,6 +47,11 @@ def validate_continuous_fork(parent, target):
         raise ValueError('Continuous fork cannot change task')
     a,b=copy.deepcopy(parent),copy.deepcopy(target)
     for config in (a,b):
+        mode=config.pop('contact_target_mode','point')
+        if mode not in ('point','surface_region'):
+            raise ValueError('Invalid contact target mode')
+        if mode=='surface_region' and config.get('contact_curriculum') is not None:
+            raise ValueError('Region fork cannot use point precision curriculum')
         support=training_support(config)
         if support is None or support['mode']!='shared-course':
             raise ValueError('Continuous fork requires validated shared terrain')
@@ -91,6 +96,8 @@ def initialize_fork(data, config, alg, normalizer):
     alg.policy.std_cap.fill_(cap_for_update(config,0))
     alg.policy.std_floor.fill_(config['exploration']['min_std'])
     return {'contract':'policy_critic_normalizer_copy; fresh_optimizer_rng_curriculum; new_episode_boundary',
+            'parent_contact_target_mode':data['config'].get('contact_target_mode','point'),
+            'contact_target_mode':config.get('contact_target_mode','point'),
             'parent_completed_iterations':data['completed_iterations'],
             'parent_environment_steps':data['total_environment_steps'],
             'initial_completed_iterations':0,'initial_environment_steps':0,
