@@ -740,3 +740,12 @@ P229남은대표교차/회귀영상검수:continuous0-on-split와split2-regressi
 이전턴 모니터링/영상검수는progress. 이번 동일PID1674488 live확인후45초단위verified wait,첫fixed0/2 mixed1/3각800학습+native평가완료. artifacts/p2-30-first-batch-audit.jsonl 학습4+평가4감사통과. 거리0/15각32개:fixed0=0/32,fixed2=0/32,mixed1=0/32,mixed3=31/32. 여기서쌍의첫수는0cm성공수/둘째수는15cm성공수이며각분모32. 전체조건효과결론아님.
 
 4영상hash/camera4/64render/혼합이산제목검증 artifacts/p2-30-first-batch-summary.json. 둘째mixed0/2 fixed1/3 RUNNING확인. 다음둘째fork감사와완료native확인→전체감사→scripts/p2_30_evaluate.py20jobs→primary/regression/retention3spec보고서. 부모split혼합평가시실제scenario동일성확인필수. 전체목표미완료.
+
+
+### 최신: P2-30 둘째 초기화 감사 및 목표별 실제 학습량
+
+이전턴첫묶음완료/평가감사는progress. 본PID1674488 live,둘째mixed0/2 fixed1/3 실제fork감사통과(session67104exit0),artifacts/p2-30-second-fork-audit.jsonl/log. metrics170~194확인.
+
+scripts/goal_exposure_report.py 추가:완료artifact감사후spec의새run만선택,각update 목표별step합과resetdraw합을검증하고초기reset배정/rollout중배정/실제환경step을분리집계. 부모재사용예산제외. 첫묶음실제4run적용 artifacts/p2-30-first-batch-intermediate.json→docs/p2-30-first-batch-intermediate-goal-exposure.json,log artifacts/p2-30-first-batch-exposure.log. mixed1 0cmreset49.805%/step65.143%,mixed3 reset49.915%/step52.002%. 초기폐기reset은별도필드보존. 이는노출량이며단일실패원인이나통계적효과주장아님.
+
+다음동일batch완료후8학습/8native감사 및20평가. 전체결과에는goal_exposure_report.py configs/reports/p2-30-primary.json도실행. 현재전체예산추가/조건변경없음. 전체목표미완료.
