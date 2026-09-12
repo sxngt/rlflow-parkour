@@ -77,7 +77,10 @@
     "step:p3-13-height-course": "P3-13 · 발판 높이 변화",
     "step:p3-14-reach-envelope": "P3-14 · 도약 거리 범위 평가",
     "step:p3-15-longer-jump-training": "P3-15 · 15–30cm 도약 학습",
-    "step:p4-03-history-training": "P4-03 · 관측 이력 비교"
+    "step:p4-03-history-training": "P4-03 · 관측 이력 비교",
+    "step:p3-16-full-gap-capability": "P3-16 · 거리 확장·실제 갭 검사",
+    "step:p3-17-shared-terrain": "P3-17 · 공유 경사·회전 지형",
+    "step:p3-18-continuous-tracker": "P3-18 · 연속 앞뒤 접촉 Tracker"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
