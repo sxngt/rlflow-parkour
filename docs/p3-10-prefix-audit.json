@@ -1,0 +1,90 @@
+[
+  {
+    "condition": "mapped",
+    "seed": 1,
+    "successes": 62,
+    "common_valid_prefix_max_errors": {
+      "root_xy": 0.0,
+      "root_z": 0.0,
+      "foot_pos": 0.0,
+      "action": 0.0
+    },
+    "root_boundary": {
+      "version": "map_envelope_v1",
+      "margin_m": 0.2,
+      "bounds_xy_m": [
+        -0.48776672363281254,
+        0.9457407760620118,
+        -0.418259391784668,
+        0.4224736785888672
+      ],
+      "scope": "root XY outer envelope; foot support and collision checks unchanged"
+    }
+  },
+  {
+    "condition": "mapped",
+    "seed": 2,
+    "successes": 64,
+    "common_valid_prefix_max_errors": {
+      "root_xy": 0.0,
+      "root_z": 0.0,
+      "foot_pos": 0.0,
+      "action": 0.0
+    },
+    "root_boundary": {
+      "version": "map_envelope_v1",
+      "margin_m": 0.2,
+      "bounds_xy_m": [
+        -0.48776672363281254,
+        0.9457407760620118,
+        -0.418259391784668,
+        0.4224736785888672
+      ],
+      "scope": "root XY outer envelope; foot support and collision checks unchanged"
+    }
+  },
+  {
+    "condition": "strict",
+    "seed": 1,
+    "successes": 0,
+    "common_valid_prefix_max_errors": {
+      "root_xy": 0.0,
+      "root_z": 0.0,
+      "foot_pos": 0.0,
+      "action": 0.0
+    },
+    "root_boundary": {
+      "version": "map_envelope_v1",
+      "margin_m": 0.2,
+      "bounds_xy_m": [
+        -0.48776672363281254,
+        0.9457407760620118,
+        -0.418259391784668,
+        0.4224736785888672
+      ],
+      "scope": "root XY outer envelope; foot support and collision checks unchanged"
+    }
+  },
+  {
+    "condition": "strict",
+    "seed": 2,
+    "successes": 61,
+    "common_valid_prefix_max_errors": {
+      "root_xy": 0.0,
+      "root_z": 0.0,
+      "foot_pos": 0.0,
+      "action": 0.0
+    },
+    "root_boundary": {
+      "version": "map_envelope_v1",
+      "margin_m": 0.2,
+      "bounds_xy_m": [
+        -0.48776672363281254,
+        0.9457407760620118,
+        -0.418259391784668,
+        0.4224736785888672
+      ],
+      "scope": "root XY outer envelope; foot support and collision checks unchanged"
+    }
+  }
+]

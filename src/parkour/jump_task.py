@@ -83,7 +83,12 @@ class JumpEnv(SequentialEnv):
         air_window=air_samples.all(dim=1)
         supported=(feet_history>2).all(dim=(1,2))
         self.air_time+=air_samples.sum(dim=1)*self.physics_dt*settled
-        self.failure=self.nonfoot_collision|(height<.13)|(self.robot.data.projected_gravity_b[:,2]>-.5)|((self.robot.data.root_pos_w[:,:2]-self.scene.env_origins[:,:2]).norm(dim=1)>.6)
+        root_xy = self.robot.data.root_pos_w[:,:2]-self.scene.env_origins[:,:2]
+        bounds = getattr(self, 'course_root_bounds', None)
+        outside = root_xy.norm(dim=1)>.6 if bounds is None else (
+            (root_xy[:,0]<bounds[0]) | (root_xy[:,0]>bounds[1]) |
+            (root_xy[:,1]<bounds[2]) | (root_xy[:,1]>bounds[3]))
+        self.failure=self.nonfoot_collision|(height<.13)|(self.robot.data.projected_gravity_b[:,2]>-.5)|outside
         # Only post-confirmation, pre-touch flight heights qualify for apex success.
         self.apex=torch.where(self.flight_seen&~self.landed&air_window,torch.maximum(self.apex,rise),self.apex)
         values=jump_transition(self.flight_seen,self.landed,self.touched,self.contact_on,air_window,settled,rise,vz,

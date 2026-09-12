@@ -34,3 +34,12 @@ class PlannerTest(unittest.TestCase):
         p=plan_stances(self.layout,self.feet,.20)
         self.assertEqual(p['status'],'planned')
         self.assertEqual([c['forward_m'] for c in p['contacts']],[.1,.2])
+
+    def test_extended_course_and_horizon(self):
+        for hops in (6, 8):
+            layout = build_support_layout(['FL','FR','RL','RR'], self.feet, mode='course', course_hops=hops)
+            self.assertEqual(len(layout['surfaces']), 4*(hops+1))
+            plan = plan_stances(layout,self.feet,.15*hops,max_hops=hops)
+            self.assertEqual(plan['status'],'planned')
+            self.assertEqual(len(plan['contacts']),hops)
+            self.assertEqual(plan_stances(layout,self.feet,.15*hops,max_hops=hops-1)['status'],'no_plan')

@@ -26,7 +26,8 @@ def main():
     p.add_argument("--restore-transition", type=Path, help="Probe a saved landing state; success is for the remaining hop only")
     p.add_argument("--transition-states", action="store_true", help="Record articulated successful-landing states; replay not yet validated")
     p.add_argument("--reward-components", action="store_true", help="Audit grouped control-step rewards without changing the policy or reward")
-    p.add_argument('--chain-hops', type=int, choices=[1, 2, 3, 4], help='P2-32 frozen-policy deck evaluation; separate course success contract')
+    p.add_argument('--chain-hops', type=int, choices=range(1,9), help='P2-32 frozen-policy deck evaluation; separate course success contract')
+    p.add_argument('--map-course-boundary', action='store_true', help='Use map surface envelope plus 20cm root margin instead of legacy 60cm radius')
     p.add_argument('--mapped-contact-progress', action='store_true', help='Separate mapped foothold course contract; retains strict trunk-flight metric')
     p.add_argument('--chain-settle-mode', choices=['default', 'hold-last'], default='default')
     p.add_argument('--action-mode', choices=['mean', 'sampled'], default='mean')
@@ -42,7 +43,7 @@ def main():
     p.add_argument('--support-calibration', type=Path, help='Frozen flat evaluation run.json for support transfer')
     p.add_argument('--support-probe-offset', type=float, choices=[.075], help='Zero-action geometry probe only: start feet above the gap')
     args = p.parse_args()
-    if args.chain_settle_mode != 'default' and args.chain_hops not in (2,3,4):
+    if args.chain_settle_mode != 'default' and args.chain_hops not in range(2,9):
         p.error('Holding last action requires two-hop chain evaluation')
     if args.chain_hops is not None and ((args.chain_hops >= 2 and args.support_mode not in ('deck', 'course')) or not args.support_matched_material
             or args.support_preserve_goals or args.support_probe_offset is not None
@@ -121,11 +122,13 @@ def main():
         support = copy.deepcopy(support)
         support.pop('goal_forward_m', None)
         manifest['evaluation_support'] = support
-    if args.mapped_contact_progress and ((support or {}).get('mode')!='course' or args.chain_hops not in (2,3,4) or args.restore_transition):
+    if args.mapped_contact_progress and ((support or {}).get('mode')!='course' or args.chain_hops not in range(2,9) or args.restore_transition):
         p.error('Mapped contact progression requires an original course evaluation')
+    if args.chain_hops is not None and args.chain_hops > 4 and not args.map_course_boundary:
+        p.error('Extended courses require the explicit map boundary contract')
     plan = None
     if args.map_goal_forward_m is not None:
-        if args.support_mode != 'course' or args.chain_hops not in (2,3,4):
+        if args.support_mode != 'course' or args.chain_hops not in range(2,9):
             p.error('Geometric execution currently requires the two-hop course adapter')
         from parkour.geometric_planner import plan_stances
         plan = plan_stances(support['layout'], support['calibration']['foot_xy_m'], args.map_goal_forward_m, max_hops=args.chain_hops)
@@ -135,6 +138,15 @@ def main():
         for episode in manifest['episodes']:
             episode['foot_offsets_xy_m'] = [[selected[0], 0.] for _ in range(4)]
         manifest['geometric_plan'] = plan
+    boundary = None
+    if args.map_course_boundary:
+        if plan is None or args.restore_transition:
+            p.error('Map boundary requires an original geometric course evaluation')
+        bounds = [surface['bounds_xy_m'] for surface in support['layout']['surfaces']]
+        boundary = {'version': 'map_envelope_v1', 'margin_m': .2,
+                    'bounds_xy_m': [min(b[0] for b in bounds)-.2, max(b[1] for b in bounds)+.2,
+                                    min(b[2] for b in bounds)-.2, max(b[3] for b in bounds)+.2],
+                    'scope': 'root XY outer envelope; foot support and collision checks unchanged'}
     manifest["task"] = config["task"]
     if config.get("sequence"):manifest["sequence_contract"] = config["sequence"]
     config["num_envs"] = args.episodes
@@ -154,6 +166,8 @@ def main():
             meta['chain_contract']['target_source'] = 'scenarios.episodes[*].foot_offsets_xy_m'
         if args.mapped_contact_progress:
             meta['chain_contract']['progress_criterion']='mapped_contact_v1'
+        if boundary is not None:
+            meta['chain_contract']['root_boundary'] = boundary
         manifest['chain_contract'] = meta['chain_contract']
     if plan is not None:
         atomic_json(args.out/'geometric-plan.json', plan)
@@ -172,6 +186,8 @@ def main():
         torch.manual_seed(10000)
         env = make_env(config, evaluation_support=support, chain_hops=args.chain_hops,
                        chain_settle_mode=args.chain_settle_mode, independent_support_clones=args.independent_support_clones, mapped_contact_progress=args.mapped_contact_progress)
+        if boundary is not None:
+            env.course_root_bounds = boundary['bounds_xy_m']
         if plan is not None:
             env.planned_forward_targets = [c['forward_m'] for c in plan['contacts']]
         if args.independent_support_clones:
@@ -184,7 +200,7 @@ def main():
             contract = inspect_collision_contract(env)
             atomic_json(args.out/'collision-contract.json', contract)
         if args.transition_states:
-            if args.chain_hops not in (2,3,4):
+            if args.chain_hops not in range(2,9):
                 raise ValueError('Transition states require two-hop evaluation')
             env.capture_transition_states = True
         alg, norm = make_algorithm(config, env)
@@ -235,7 +251,7 @@ def main():
         meta["baseline"] = args.baseline
         meta["nominal_foot_xy_m"] = env.nominal_xy.tolist()
         if args.restore_transition:
-            if args.chain_hops not in (2,3,4) or args.transition_states or args.action_mode != 'mean':
+            if args.chain_hops not in range(2,9) or args.transition_states or args.action_mode != 'mean':
                 raise ValueError('Restore probe requires two-hop mean policy without nested capture')
             from parkour.transition_states import restore_transition_states
             restored = restore_transition_states(env, args.restore_transition, args.checkpoint, support)

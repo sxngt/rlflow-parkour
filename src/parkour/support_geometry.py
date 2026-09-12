@@ -13,8 +13,8 @@ def build_support_layout(foot_names, foot_xy, *, mode, travel_m=0.15,
                          thickness_m=0.10, catch_floor_z_m=-0.5, course_hops=2):
     if mode not in ('continuous', 'split', 'deck', 'course'):
         raise ValueError('Support mode must be continuous, split, deck or course')
-    if type(course_hops) is not int or course_hops not in (1,2,3,4):
-        raise ValueError('Course supports one to four hops')
+    if type(course_hops) is not int or course_hops not in range(1,9):
+        raise ValueError('Course supports one to eight hops')
     if mode == 'course':
         # Rear final pads approach front departure pads: 9 cm pads overlap.
         pad_length_m = .06
