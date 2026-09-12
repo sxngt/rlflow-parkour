@@ -15,3 +15,5 @@ scripts/p3_04_evaluate.py는4개신규모델+2개부모×course/deck/continuous�
 scripts/p3_04_report.py는각suite의scenario/support/chain/action동일성,checkpoint/plan/영상hash,64camera4,태그를검사하고비교표와거리별통계를작성한다. 현시점컴파일확인만했고최종데이터전체감사는실험완료후실행한다. 다음명령: python3 scripts/p3_04_evaluate.py (본batch정상종료확인후), 이어 python3 scripts/p3_04_report.py. 보고서불일치시실제계약차이를조사하고검증을우회하지않는다.
 
 본학습실제4PID생존및iteration169~186까지진행확인. 활성session47669와artifacts/p3-04-training-batch.log를계속관찰한다. 아직최종성능을주장하지않는다.
+
+실행중update11~60구간50개를고정해처리량확인:동일seed2 course단독profile33,871step/s,4작업동시32,518step/s,약1.042배slowdown. docs/p3-04-throughput-pilot.json. update시간만비교하며초기화/저장/평가비용제외,무작위scheduler벤치마크가아니다. GPU낮은utilization만으로env/batch를변경하지않는다. 실제학습473/471/489/498update관찰,session47669계속running. 완료까지같은예산/프로세스로진행한다.

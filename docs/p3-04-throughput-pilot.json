@@ -1,0 +1,31 @@
+{
+  "scope": "fixed update11..60 same-seed course profile versus four concurrent independent runs; per-update timing excludes init/save/eval; not a randomized scheduler benchmark",
+  "runs": {
+    "p3-04-course-profile": {
+      "updates": 50,
+      "seconds": 36.2791363298893,
+      "steps_per_second": 33870.707087026996
+    },
+    "p3-04-course-seed1": {
+      "updates": 50,
+      "seconds": 37.52770581096411,
+      "steps_per_second": 32743.808166418567
+    },
+    "p3-04-course-seed2": {
+      "updates": 50,
+      "seconds": 37.788288169074804,
+      "steps_per_second": 32518.011784551432
+    },
+    "p3-04-deck-seed1": {
+      "updates": 50,
+      "seconds": 37.34561776742339,
+      "steps_per_second": 32903.45891859588
+    },
+    "p3-04-deck-seed2": {
+      "updates": 50,
+      "seconds": 33.911169081926346,
+      "steps_per_second": 36235.84893317388
+    }
+  },
+  "same_seed_course_slowdown": 1.0415983397582198
+}
