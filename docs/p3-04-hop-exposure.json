@@ -1,0 +1,54 @@
+[
+  {
+    "condition": "course",
+    "seed": 1,
+    "hop_steps": [
+      11977380,
+      7683420
+    ],
+    "second_fraction": 0.3907989501953125,
+    "hop_successes": [
+      83144,
+      1
+    ]
+  },
+  {
+    "condition": "course",
+    "seed": 2,
+    "hop_steps": [
+      10544231,
+      9116569
+    ],
+    "second_fraction": 0.4636926778157552,
+    "hop_successes": [
+      76979,
+      1
+    ]
+  },
+  {
+    "condition": "deck",
+    "seed": 1,
+    "hop_steps": [
+      13481312,
+      6179488
+    ],
+    "second_fraction": 0.31430501302083336,
+    "hop_successes": [
+      45441,
+      1
+    ]
+  },
+  {
+    "condition": "deck",
+    "seed": 2,
+    "hop_steps": [
+      10986179,
+      8674621
+    ],
+    "second_fraction": 0.4412140401204427,
+    "hop_successes": [
+      62322,
+      241
+    ]
+  }
+]

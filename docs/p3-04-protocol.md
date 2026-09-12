@@ -5,3 +5,5 @@
 조건A:12패드 course. 조건B:기존 deck. 두 조건 모두 homogeneous 두hop,hold-last준비명령,schema2 chain 계약,15cm/hop,4초/hop이다. 기존 mixed single/chain에서 새실험으로fork:policy/critic/normalizer복사,optimizer/RNG/curriculum새시작. 보상/관측/PD/성공판정/timeout처리는유지한다. 실험간 차이는terrain mode/layout만. 각1024env×24step×800update=19,660,800step,2조건×2seed총78,643,200step. 시작 전64env12update+2update resume로계약/저장/재개/native최종평가를검증하고1024env60update로비용측정한다. 이 smoke/profile은본예산과별도기록,부모모델로사용하지않는다.
 
 평가:각후보 course/hold-last64개와 deck64개,continuous단일0/5/10/15cm64개를고정시나리오에서평가한다. 부모와동일계약평가를확보해전후/대조를비교한다. 전체완주,첫/두번째도약,회귀성능,200Hz진단을보고한다.64로봇camera4영상/result상세제목/phase:P3/step:p3-04-course-training태그. 아직지도계획은같은고정경로이므로학습과정에계획탐색을중복하지않는다. 자동champion승격없음.800update종료후실패조건에따라결정하고무한sweep하지않는다.
+
+결과 진단용 추가 영상:course 학습seed1/2의동일64episode평가를각각1로봇/camera_side1로추가렌더링한다. 본64로봇평가영상은유지한다. 정책/시나리오/성공기준변경없고독립연구비교표본으로중복계수하지않는다. action/trace/episode일치검증후근접화면으로행동을검토한다.

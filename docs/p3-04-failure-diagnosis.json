@@ -1,0 +1,575 @@
+{
+  "scope": "development per-hop criterion counts; not exclusive cause labels or proof of causality",
+  "results": [
+    {
+      "condition": "parent",
+      "seed": 1,
+      "suite": "course",
+      "hops": {
+        "0": {
+          "attempts": 64,
+          "counts": {
+            "success": 51,
+            "failure": 9,
+            "timeout": 4,
+            "valid_flight": 55,
+            "launch_in_region": 55,
+            "first_touch_all_within": 55,
+            "travel_requirement_met": 55,
+            "precise_stabilized_once": 51,
+            "nonfoot_collision": 9
+          },
+          "local_steps_min_max": [
+            29,
+            200
+          ],
+          "recorded_flight_distance_min_max_m": [
+            0.14621639251708984,
+            0.1499471664428711
+          ]
+        },
+        "1": {
+          "attempts": 51,
+          "counts": {
+            "success": 0,
+            "failure": 51,
+            "timeout": 0,
+            "valid_flight": 51,
+            "launch_in_region": 0,
+            "first_touch_all_within": 0,
+            "travel_requirement_met": 0,
+            "precise_stabilized_once": 0,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": [
+            24,
+            25
+          ],
+          "recorded_flight_distance_min_max_m": null
+        }
+      }
+    },
+    {
+      "condition": "parent",
+      "seed": 1,
+      "suite": "deck",
+      "hops": {
+        "0": {
+          "attempts": 64,
+          "counts": {
+            "success": 64,
+            "failure": 0,
+            "timeout": 0,
+            "valid_flight": 64,
+            "launch_in_region": 64,
+            "first_touch_all_within": 64,
+            "travel_requirement_met": 64,
+            "precise_stabilized_once": 64,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": [
+            62,
+            62
+          ],
+          "recorded_flight_distance_min_max_m": [
+            0.15242648124694824,
+            0.1552438735961914
+          ]
+        },
+        "1": {
+          "attempts": 64,
+          "counts": {
+            "success": 0,
+            "failure": 64,
+            "timeout": 0,
+            "valid_flight": 64,
+            "launch_in_region": 0,
+            "first_touch_all_within": 0,
+            "travel_requirement_met": 0,
+            "precise_stabilized_once": 0,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": [
+            24,
+            25
+          ],
+          "recorded_flight_distance_min_max_m": null
+        }
+      }
+    },
+    {
+      "condition": "course",
+      "seed": 1,
+      "suite": "course",
+      "hops": {
+        "0": {
+          "attempts": 64,
+          "counts": {
+            "success": 64,
+            "failure": 0,
+            "timeout": 0,
+            "valid_flight": 64,
+            "launch_in_region": 64,
+            "first_touch_all_within": 64,
+            "travel_requirement_met": 64,
+            "precise_stabilized_once": 64,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": [
+            68,
+            68
+          ],
+          "recorded_flight_distance_min_max_m": [
+            0.1542348861694336,
+            0.15878009796142578
+          ]
+        },
+        "1": {
+          "attempts": 64,
+          "counts": {
+            "success": 0,
+            "failure": 15,
+            "timeout": 49,
+            "valid_flight": 64,
+            "launch_in_region": 64,
+            "first_touch_all_within": 64,
+            "travel_requirement_met": 0,
+            "precise_stabilized_once": 50,
+            "nonfoot_collision": 15
+          },
+          "local_steps_min_max": [
+            48,
+            200
+          ],
+          "recorded_flight_distance_min_max_m": [
+            0.07697129249572754,
+            0.09013509750366211
+          ]
+        }
+      }
+    },
+    {
+      "condition": "course",
+      "seed": 1,
+      "suite": "deck",
+      "hops": {
+        "0": {
+          "attempts": 64,
+          "counts": {
+            "success": 64,
+            "failure": 0,
+            "timeout": 0,
+            "valid_flight": 64,
+            "launch_in_region": 64,
+            "first_touch_all_within": 64,
+            "travel_requirement_met": 64,
+            "precise_stabilized_once": 64,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": [
+            68,
+            68
+          ],
+          "recorded_flight_distance_min_max_m": [
+            0.15407562255859375,
+            0.1587991714477539
+          ]
+        },
+        "1": {
+          "attempts": 64,
+          "counts": {
+            "success": 0,
+            "failure": 0,
+            "timeout": 64,
+            "valid_flight": 64,
+            "launch_in_region": 64,
+            "first_touch_all_within": 64,
+            "travel_requirement_met": 0,
+            "precise_stabilized_once": 64,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": [
+            200,
+            200
+          ],
+          "recorded_flight_distance_min_max_m": [
+            0.07655477523803711,
+            0.08851909637451172
+          ]
+        }
+      }
+    },
+    {
+      "condition": "deck",
+      "seed": 1,
+      "suite": "course",
+      "hops": {
+        "0": {
+          "attempts": 64,
+          "counts": {
+            "success": 0,
+            "failure": 64,
+            "timeout": 0,
+            "valid_flight": 0,
+            "launch_in_region": 0,
+            "first_touch_all_within": 0,
+            "travel_requirement_met": 0,
+            "precise_stabilized_once": 0,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": [
+            44,
+            44
+          ],
+          "recorded_flight_distance_min_max_m": null
+        },
+        "1": {
+          "attempts": 0,
+          "counts": {
+            "success": 0,
+            "failure": 0,
+            "timeout": 0,
+            "valid_flight": 0,
+            "launch_in_region": 0,
+            "first_touch_all_within": 0,
+            "travel_requirement_met": 0,
+            "precise_stabilized_once": 0,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": null,
+          "recorded_flight_distance_min_max_m": null
+        }
+      }
+    },
+    {
+      "condition": "deck",
+      "seed": 1,
+      "suite": "deck",
+      "hops": {
+        "0": {
+          "attempts": 64,
+          "counts": {
+            "success": 64,
+            "failure": 0,
+            "timeout": 0,
+            "valid_flight": 64,
+            "launch_in_region": 64,
+            "first_touch_all_within": 64,
+            "travel_requirement_met": 64,
+            "precise_stabilized_once": 64,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": [
+            70,
+            106
+          ],
+          "recorded_flight_distance_min_max_m": [
+            0.1418290138244629,
+            0.14415550231933594
+          ]
+        },
+        "1": {
+          "attempts": 64,
+          "counts": {
+            "success": 0,
+            "failure": 0,
+            "timeout": 64,
+            "valid_flight": 64,
+            "launch_in_region": 64,
+            "first_touch_all_within": 64,
+            "travel_requirement_met": 0,
+            "precise_stabilized_once": 64,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": [
+            200,
+            200
+          ],
+          "recorded_flight_distance_min_max_m": [
+            0.06542491912841797,
+            0.07775402069091797
+          ]
+        }
+      }
+    },
+    {
+      "condition": "parent",
+      "seed": 2,
+      "suite": "course",
+      "hops": {
+        "0": {
+          "attempts": 64,
+          "counts": {
+            "success": 0,
+            "failure": 64,
+            "timeout": 0,
+            "valid_flight": 0,
+            "launch_in_region": 0,
+            "first_touch_all_within": 0,
+            "travel_requirement_met": 0,
+            "precise_stabilized_once": 0,
+            "nonfoot_collision": 64
+          },
+          "local_steps_min_max": [
+            43,
+            45
+          ],
+          "recorded_flight_distance_min_max_m": null
+        },
+        "1": {
+          "attempts": 0,
+          "counts": {
+            "success": 0,
+            "failure": 0,
+            "timeout": 0,
+            "valid_flight": 0,
+            "launch_in_region": 0,
+            "first_touch_all_within": 0,
+            "travel_requirement_met": 0,
+            "precise_stabilized_once": 0,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": null,
+          "recorded_flight_distance_min_max_m": null
+        }
+      }
+    },
+    {
+      "condition": "parent",
+      "seed": 2,
+      "suite": "deck",
+      "hops": {
+        "0": {
+          "attempts": 64,
+          "counts": {
+            "success": 64,
+            "failure": 0,
+            "timeout": 0,
+            "valid_flight": 64,
+            "launch_in_region": 64,
+            "first_touch_all_within": 64,
+            "travel_requirement_met": 64,
+            "precise_stabilized_once": 64,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": [
+            67,
+            67
+          ],
+          "recorded_flight_distance_min_max_m": [
+            0.12992429733276367,
+            0.13046932220458984
+          ]
+        },
+        "1": {
+          "attempts": 64,
+          "counts": {
+            "success": 0,
+            "failure": 64,
+            "timeout": 0,
+            "valid_flight": 64,
+            "launch_in_region": 0,
+            "first_touch_all_within": 0,
+            "travel_requirement_met": 0,
+            "precise_stabilized_once": 0,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": [
+            33,
+            50
+          ],
+          "recorded_flight_distance_min_max_m": null
+        }
+      }
+    },
+    {
+      "condition": "course",
+      "seed": 2,
+      "suite": "course",
+      "hops": {
+        "0": {
+          "attempts": 64,
+          "counts": {
+            "success": 64,
+            "failure": 0,
+            "timeout": 0,
+            "valid_flight": 64,
+            "launch_in_region": 64,
+            "first_touch_all_within": 64,
+            "travel_requirement_met": 64,
+            "precise_stabilized_once": 64,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": [
+            64,
+            65
+          ],
+          "recorded_flight_distance_min_max_m": [
+            0.15037059783935547,
+            0.15144109725952148
+          ]
+        },
+        "1": {
+          "attempts": 64,
+          "counts": {
+            "success": 0,
+            "failure": 0,
+            "timeout": 64,
+            "valid_flight": 0,
+            "launch_in_region": 0,
+            "first_touch_all_within": 0,
+            "travel_requirement_met": 0,
+            "precise_stabilized_once": 0,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": [
+            200,
+            200
+          ],
+          "recorded_flight_distance_min_max_m": null
+        }
+      }
+    },
+    {
+      "condition": "course",
+      "seed": 2,
+      "suite": "deck",
+      "hops": {
+        "0": {
+          "attempts": 64,
+          "counts": {
+            "success": 64,
+            "failure": 0,
+            "timeout": 0,
+            "valid_flight": 64,
+            "launch_in_region": 64,
+            "first_touch_all_within": 64,
+            "travel_requirement_met": 64,
+            "precise_stabilized_once": 64,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": [
+            65,
+            65
+          ],
+          "recorded_flight_distance_min_max_m": [
+            0.15024566650390625,
+            0.15082287788391113
+          ]
+        },
+        "1": {
+          "attempts": 64,
+          "counts": {
+            "success": 0,
+            "failure": 0,
+            "timeout": 64,
+            "valid_flight": 0,
+            "launch_in_region": 0,
+            "first_touch_all_within": 0,
+            "travel_requirement_met": 0,
+            "precise_stabilized_once": 0,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": [
+            200,
+            200
+          ],
+          "recorded_flight_distance_min_max_m": null
+        }
+      }
+    },
+    {
+      "condition": "deck",
+      "seed": 2,
+      "suite": "course",
+      "hops": {
+        "0": {
+          "attempts": 64,
+          "counts": {
+            "success": 0,
+            "failure": 64,
+            "timeout": 0,
+            "valid_flight": 0,
+            "launch_in_region": 0,
+            "first_touch_all_within": 0,
+            "travel_requirement_met": 0,
+            "precise_stabilized_once": 0,
+            "nonfoot_collision": 44
+          },
+          "local_steps_min_max": [
+            27,
+            44
+          ],
+          "recorded_flight_distance_min_max_m": null
+        },
+        "1": {
+          "attempts": 0,
+          "counts": {
+            "success": 0,
+            "failure": 0,
+            "timeout": 0,
+            "valid_flight": 0,
+            "launch_in_region": 0,
+            "first_touch_all_within": 0,
+            "travel_requirement_met": 0,
+            "precise_stabilized_once": 0,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": null,
+          "recorded_flight_distance_min_max_m": null
+        }
+      }
+    },
+    {
+      "condition": "deck",
+      "seed": 2,
+      "suite": "deck",
+      "hops": {
+        "0": {
+          "attempts": 64,
+          "counts": {
+            "success": 39,
+            "failure": 0,
+            "timeout": 25,
+            "valid_flight": 64,
+            "launch_in_region": 64,
+            "first_touch_all_within": 64,
+            "travel_requirement_met": 64,
+            "precise_stabilized_once": 39,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": [
+            77,
+            200
+          ],
+          "recorded_flight_distance_min_max_m": [
+            0.1349637508392334,
+            0.15049076080322266
+          ]
+        },
+        "1": {
+          "attempts": 39,
+          "counts": {
+            "success": 0,
+            "failure": 1,
+            "timeout": 38,
+            "valid_flight": 39,
+            "launch_in_region": 38,
+            "first_touch_all_within": 0,
+            "travel_requirement_met": 0,
+            "precise_stabilized_once": 0,
+            "nonfoot_collision": 0
+          },
+          "local_steps_min_max": [
+            23,
+            200
+          ],
+          "recorded_flight_distance_min_max_m": [
+            0.024857521057128906,
+            0.05594015121459961
+          ]
+        }
+      }
+    }
+  ]
+}
