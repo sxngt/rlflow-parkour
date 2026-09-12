@@ -1,0 +1,103 @@
+{
+  "scope": "First 400 updates, sampled training-policy terminated episodes. Not fixed-policy evaluation; different policies produce different episode counts. Pending rows excluded from totals and never treated as zero performance. No seed-pooled improvement claim.",
+  "rows": [
+    {
+      "run": "p2-24-deck-seed0",
+      "seed": 0,
+      "complete": true,
+      "observed_updates": 400,
+      "totals": {
+        "episodes": 50545,
+        "successes": 0,
+        "failures": 4685,
+        "valid_flights": 15920,
+        "landed_episodes": 14819
+      }
+    },
+    {
+      "run": "p2-24-deck-seed1",
+      "seed": 1,
+      "complete": true,
+      "observed_updates": 400,
+      "totals": {
+        "episodes": 50673,
+        "successes": 0,
+        "failures": 5187,
+        "valid_flights": 4576,
+        "landed_episodes": 3231
+      }
+    },
+    {
+      "run": "p2-24-deck-seed2",
+      "seed": 2,
+      "complete": true,
+      "observed_updates": 400,
+      "totals": {
+        "episodes": 51558,
+        "successes": 0,
+        "failures": 5856,
+        "valid_flights": 25086,
+        "landed_episodes": 23553
+      }
+    },
+    {
+      "run": "p2-24-deck-seed3",
+      "seed": 3,
+      "complete": true,
+      "observed_updates": 400,
+      "totals": {
+        "episodes": 49769,
+        "successes": 0,
+        "failures": 2585,
+        "valid_flights": 1160,
+        "landed_episodes": 539
+      }
+    },
+    {
+      "run": "p2-27-continuous-seed0",
+      "seed": 0,
+      "complete": true,
+      "observed_updates": 400,
+      "totals": {
+        "episodes": 93538,
+        "successes": 0,
+        "failures": 66670,
+        "valid_flights": 50534,
+        "landed_episodes": 48981
+      }
+    },
+    {
+      "run": "p2-27-continuous-seed1",
+      "seed": 1,
+      "complete": true,
+      "observed_updates": 400,
+      "totals": {
+        "episodes": 95495,
+        "successes": 0,
+        "failures": 68497,
+        "valid_flights": 54390,
+        "landed_episodes": 53061
+      }
+    },
+    {
+      "run": "p2-27-continuous-seed2",
+      "seed": 2,
+      "complete": false,
+      "observed_updates": 0,
+      "totals": null
+    },
+    {
+      "run": "p2-27-continuous-seed3",
+      "seed": 3,
+      "complete": true,
+      "observed_updates": 400,
+      "totals": {
+        "episodes": 99271,
+        "successes": 0,
+        "failures": 73776,
+        "valid_flights": 60218,
+        "landed_episodes": 58707
+      }
+    }
+  ]
+}

@@ -500,3 +500,12 @@ scripts/p2_15_support_report.py continuous명시지원:발별기대pad의XY경�
 seed2 PID1522215는metrics/checkpoint미생성이고Starting simulation단계로로그정체. 실제CPU작동하며 /proc thread 두표본91초간carb.tasking CPU ticks지속증가를확인: artifacts/p2-27-seed2-threads.json 및 thread-deltas.json. gdb스택조회는ptrace_scope1로거절;sudo -n도password required. 보안설정변경/비밀번호요청/정상worker중단안함. deadlock원인확정금지. 기존run_job1800초timeout계약유지하며실제종료전중복재시작금지. 해당초기화손실은인프라시간으로계상할것.
 
 다음seed2동일PID및지표진입여부/감독자실제상태확인,정상3seed801/1201전환. seed2가실제timeout종료한다면원본FAILED/로그를보존하고GPU해제를검증한뒤학습step0부터같은seed/설정새attempt의제한적재시도검토(성능실패seed교체와구분). 아직재시도없음. batch39983유지,전체목표미완료.
+
+
+### 최신: P2-27 첫400구간의 기준선 대조
+
+직전턴401전환/정체진단은progress. 이번턴동일실제4PID확인,seed2여전히초기화중(약7분CPU누적증가)/metrics없음. 다른3seed진행중 [{"seed": 0, "pid": 1522303, "iteration": 531}, {"seed": 1, "pid": 1522214, "iteration": 543}, {"seed": 2, "pid": 1522215, "iteration": null}, {"seed": 3, "pid": 1522200, "iteration": 540}].
+
+scripts/p2_27_stage_report.py로완료된update1–400만대조, docs/p2-27-first-stage.md/json생성. 기존P2244seed도초기성공0;새3seed성공0,유효비행/재접촉있으나실패수가많다. episode수다르므로rawcount로개선주장금지. pending seed2를실패0/성공0수치로넣지않고명시적미완료행으로보존. 고정평가와구분.
+
+다음801/1201 및checkpoint검증. seed2는기존1800초감독timeout까지동일PID관측,종료가권위있는상태로확인되면실패원본/lease/GPU해제확인후한번의동일seed새attempt재시도검토. 아직살아있고재시도없음. 전체목표미완료.
