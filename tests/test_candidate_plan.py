@@ -23,3 +23,13 @@ class CandidateTests(unittest.TestCase):
         self.assertTrue(torch.equal(env.candidate_plan[:,:,5:],plan[None,:,5:].expand(18,-1,-1,-1,-1)))
         env.surface_halves.fill_(.1)
         with self.assertRaises(ValueError):install_candidates(env)
+
+    def test_existing_baseline_is_preserved_without_offset_accumulation(self):
+        from types import SimpleNamespace
+        from parkour.candidate_plan import install_candidates
+        plan=torch.zeros(2,8,2,3);plan[...,2]=.02
+        env=SimpleNamespace(num_envs=9,device='cpu',plan=plan,surface_rotations=torch.eye(3).repeat(8,1,1),surface_centers=torch.zeros(8,3),surface_halves=torch.full((8,2),.3))
+        env.candidate_plan=plan[None].repeat(9,1,1,1,1);env.candidate_plan[:,:,2:6,:,0]=.03
+        old=env.candidate_plan[4].clone();install_candidates(env,2)
+        self.assertTrue(torch.equal(env.candidate_plan[4],old))
+        self.assertTrue(torch.allclose(env.candidate_plan[0,:,2:6,:,0],torch.full((2,4,2),-.08)))

@@ -27,3 +27,14 @@ class DiscreteTests(unittest.TestCase):
         self.assertEqual(long['planned_gap_count'],24)
         self.assertEqual(len(long['surfaces']),25)
         self.assertGreater(long['nominal_path_length_m'],22.)
+
+    def test_medium_preparation_remains_disjoint_and_explicit(self):
+        easy=build_discrete_parkour('easy',1,24);full=build_discrete_parkour('medium',1,24)
+        bridge=build_discrete_parkour('medium',1,24,.5)
+        self.assertEqual(bridge['scenario_contract'],'discrete_parkour_blend_v1')
+        self.assertEqual(bridge['preparation_fraction'],.5)
+        self.assertEqual(bridge,build_discrete_parkour('medium',1,24,.5))
+        for a,b,c in zip(easy['gap_locations'],bridge['gap_locations'],full['gap_locations']):
+            self.assertLess(a['full_box_clearance_m'],b['full_box_clearance_m'])
+            self.assertLess(b['full_box_clearance_m'],c['full_box_clearance_m'])
+        with self.assertRaises(ValueError):build_discrete_parkour('easy',1,24,.5)

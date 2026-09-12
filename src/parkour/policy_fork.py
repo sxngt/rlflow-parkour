@@ -52,6 +52,9 @@ def validate_continuous_fork(parent, target):
         raise ValueError('Continuous fork cannot change task')
     a,b=copy.deepcopy(parent),copy.deepcopy(target)
     for config in (a,b):
+        from parkour.gap_clearance import validate_clearance
+        validate_clearance(config)
+        config.pop("gap_clearance",None)
         from parkour.motion_control import validate_motion
         validate_motion(config)
         config.pop("motion_control",None)
@@ -126,6 +129,8 @@ def initialize_fork(data, config, alg, normalizer):
             'body_progress_reference':config.get('body_progress_reference','pair_midpoint'),
             'parent_gap_jump_bonus':data['config'].get('gap_jump_bonus',0.),
             'gap_jump_bonus':config.get('gap_jump_bonus',0.),
+            'parent_gap_clearance':data['config'].get('gap_clearance'),
+            'gap_clearance':config.get('gap_clearance'),
             'parent_motion_control':data['config'].get('motion_control'),
             'motion_control':config.get('motion_control'),
             'parent_terminal_motion_cost':data['config'].get('terminal_motion_cost',0.),

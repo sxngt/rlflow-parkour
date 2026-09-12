@@ -140,7 +140,14 @@
     "step:p3-50-prefix-rollouts": "P3-50 · 주행 상태 재현과 후보 분기",
     "step:p3-51-long-discrete-curriculum": "P3-51 · 능력 기반 장거리 불연속 커리큘럼",
     "step:p3-52-discrete-capability": "P3-52 · 불연속 코스 능력 평가",
-    "step:p3-53-speed-progress-balance": "P3-53 · 속도와 전진 보상 균형 비교"
+    "step:p3-53-speed-progress-balance": "P3-53 · 속도와 전진 보상 균형 비교",
+    "step:p3-54-airborne-branches": "P3-54 · 비행 상태 복제·4스텝 후보 검증",
+    "step:p3-55-gap-clearance": "P3-55 · 중급 갭 도약 높이 비교",
+    "step:p3-56-exploration": "P3-56 · 중급 정책 탐색 범위 비교",
+    "step:p3-57-online-planner": "P3-57 · 비동기 온라인 발 디딤 계획",
+    "step:p3-58-full-horizon": "P3-58 · 네 착지 물리 검증·계획 지연",
+    "step:p3-59-actor-diagnostics": "P3-59 · 정책 출력 포화 진단",
+    "step:p3-60-long-discrete-curriculum": "P3-60 · 24갭 중급·단계적 난이도 비교"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [

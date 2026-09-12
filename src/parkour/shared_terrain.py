@@ -170,6 +170,8 @@ def build_ten_gap_course(level='medium',seed=1,gap_scale=1.,approach_transfers=3
     if type(approach_transfers) is not int or approach_transfers not in (3,5):raise ValueError('Three or five approach transfers required')
     if gap_rise_m not in (0.,.05,.1):raise ValueError('Gap elevation increments must be 0/5/10cm')
     stride=approach_transfers+1;transitions=10*stride
+    if preparation_fraction not in (.25,.5,.75,1.) or (preparation_fraction!=1. and level!='medium'):raise ValueError('Invalid discrete medium preparation fraction')
+    if preparation_fraction!=1.:gap,tilt,height,turn=[a+(b-a)*preparation_fraction for a,b in zip((.18,7.,.10,12.),(gap,tilt,height,turn))]
     rng=random.Random(seed);surfaces=[];gaps=[];x=y=heading=0.
     for i in range(transitions+1):
         is_gap=i>0 and i%stride==0
@@ -203,12 +205,14 @@ def build_ten_gap_course(level='medium',seed=1,gap_scale=1.,approach_transfers=3
     return result
 
 
-def build_discrete_parkour(level='easy',seed=1,transitions=16):
+def build_discrete_parkour(level='easy',seed=1,transitions=16,preparation_fraction=1.):
     """Sixteen disjoint oriented platforms; conservative full-cuboid separation."""
     import random
     if level not in ('easy','medium','hard') or type(seed) is not int or seed<0:raise ValueError('Invalid discrete course')
     if transitions not in (16,24):raise ValueError('Discrete course requires sixteen or twenty-four transfers')
     gap,tilt,height,turn={'easy':(.18,7.,.10,12.),'medium':(.35,12.,.18,22.),'hard':(.55,18.,.28,32.)}[level]
+    if preparation_fraction not in (.25,.5,.75,1.) or (preparation_fraction!=1. and level!='medium'):raise ValueError('Invalid discrete medium preparation fraction')
+    if preparation_fraction!=1.:gap,tilt,height,turn=[a+(b-a)*preparation_fraction for a,b in zip((.18,7.,.10,12.),(gap,tilt,height,turn))]
     rng=random.Random(seed);surfaces=[];gaps=[];x=y=heading=0.
     for i in range(transitions+1):
         if i:heading+=turn*math.sin(i*.85)
@@ -229,7 +233,8 @@ def build_discrete_parkour(level='easy',seed=1,transitions=16):
             gaps.append({'arrival_surface_index':i,'projected_top_gap_m':top_gap,'direction_xy':direction,'full_box_clearance_m':clearance})
         candidate=surface('surface_'+str(i),[x,y,z],size,(roll,pitch,heading))
         candidate['scenario_role']='start' if i==0 else 'gap_landing';surfaces.append(candidate)
-    return {'schema_version':2,'geometry_contract':'oriented_shared_surfaces_v1','scenario_contract':'discrete_parkour_v1' if transitions==16 else 'discrete_parkour_v2',
+    return {'schema_version':2,'geometry_contract':'oriented_shared_surfaces_v1','scenario_contract':('discrete_parkour_v1' if transitions==16 else 'discrete_parkour_v2') if preparation_fraction==1. else 'discrete_parkour_blend_v1',
+        **({'preparation_fraction':preparation_fraction} if preparation_fraction!=1. else {}),
         'kind':'discrete-parkour-'+level,'level':level,'seed':seed,'transitions':transitions,'frame':'course_local',
         'surfaces':surfaces,'start_position_m':[0.,0.,0.],'goal_position_m':surfaces[-1]['top_center_m'],
         'catch_floor_z_m':-.8,'planned_gap_count':transitions,'gap_locations':gaps,

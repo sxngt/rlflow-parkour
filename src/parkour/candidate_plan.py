@@ -15,16 +15,19 @@ def install_candidates(env,start_surface=1):
     if env.num_envs%9:raise ValueError('Use equal replication: environment count divisible by nine')
     if start_surface<1 or env.plan.shape[1]<start_surface+5:raise ValueError('Need four intermediate surfaces and an unchanged terminal stance')
     offsets=[(x,y) for x in (-.08,0.,.08) for y in (-.04,0.,.04)]
-    env.candidate_plan=env.plan[None].repeat(env.num_envs,1,1,1,1)
+    previous=getattr(env,'candidate_plan',None)
+    env.candidate_plan=env.plan[None].repeat(env.num_envs,1,1,1,1) if previous is None else previous.clone()
     ids=torch.arange(env.num_envs,device=env.device)%9
     for surface in range(start_surface,start_surface+4):
         local=torch.tensor([[*offsets[int(i)],0.] for i in ids.cpu()],device=env.device)
         world=local@env.surface_rotations[surface].T
-        env.candidate_plan[:,:,surface]+=world[:,None,None,:]
+        candidate=env.plan[None,:,surface]+world[:,None,None,:]
+        # Candidate4 carries the existing plan, including earlier accepted changes.
+        env.candidate_plan[:,:,surface]=torch.where((ids==4)[:,None,None,None],env.candidate_plan[:,:,surface],candidate)
         # Geometry gate for every shifted foot center on the selected surface.
         relative=env.candidate_plan[:,:,surface]-env.surface_centers[surface]
         uv=relative@env.surface_rotations[surface]
         if not bool((uv[...,:2].abs()<=env.surface_halves[surface]).all()):raise ValueError('Candidate violates surface margin')
-    return {'contract':'four_step_candidate_rollout_v1','horizon':4,'start_surface':start_surface,'offsets_surface_xy_m':offsets,
+    return {'contract':'four_step_candidate_rollout_v1','horizon':4,'start_surface':start_surface,'baseline_candidate_id':4,'baseline_kind':'preserve_existing_plan','offsets_surface_xy_m':offsets,
         'candidate_id_by_environment':ids.cpu().tolist(),'replicates_per_candidate':env.num_envs//9,
         'scope':'Nine target-offset sequences starting at start_surface; same checkpoint. Physical policy rollouts; replay validation is recorded separately when branching after a prefix. No real-time planning claim.'}

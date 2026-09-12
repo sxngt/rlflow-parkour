@@ -268,6 +268,7 @@ def main():
     recorder = None
     candidate_contract = None
     prefix_replay = None
+    planner_state_recorder = None
     try:
         launch_app(args.video)
         import numpy as np
@@ -433,8 +434,12 @@ def main():
                 recorder=FollowRecorder(env,args.out)
             else:
                 recorder = ParallelRecorder(env,args.out,count=args.video_envs,camera_side=args.video_camera_side)
+        if diagnostics and config['task']=='a1_continuous_tracker_v1' and args.checkpoint and not (args.four_step_candidate_probe or args.thesis_policy or args.terminal_policy or args.terminal_pose_hold):
+            from parkour.planner_states import PlannerStateRecorder
+            planner_state_recorder=PlannerStateRecorder(env,config,sha256(args.checkpoint))
         with torch.inference_mode():
             for step in range(env.max_episode_length + 1):
+                if planner_state_recorder is not None:planner_state_recorder.capture(step,done)
                 if prefix_replay is not None and step==prefix_replay.steps:
                     valid=prefix_replay.validate()
                     atomic_json(args.out/'prefix-validation.json',prefix_replay.metadata)
@@ -496,6 +501,7 @@ def main():
                            recording_kind=('single_robot_follow_evaluation' if (args.video_camera_mode or config.get('evaluation_camera_mode'))=='follow' else 'parallel_evaluation'),
                            video_stop_rule=('followed first episode only; recording ends on its termination' if (args.video_camera_mode or config.get('evaluation_camera_mode'))=='follow' else 'last visible first episode; subsequent auto-resets shown but excluded from metrics'))
             recorder = None
+        if planner_state_recorder is not None:planner_state_recorder.close(args.out)
         if diagnostics:
             diagnostics.close(args.out, [s["id"] for s in manifest["episodes"]])
         if reward_audit:
@@ -631,7 +637,7 @@ def main():
         atomic_json(args.out / "evaluation.json", report)
         meta["evaluation"] = {key: value for key, value in report.items() if key != "results"}
         meta["artifacts"] = {file.name: sha256(file) for file in args.out.iterdir()
-                             if file.suffix in (".mp4", ".png") or file.name in ("prefix-validation.json", "candidate-rollouts.json", "transition-restore.json", "transition-states.json", "transition-states.npz", "geometric-plan.json", "collision-contract.json", "terrain.json", "evaluation.json", "scenarios.json", "replay.json", "diagnostics.json", "motion-trace.npz", "reward-components.json", "reward-components.npz")}
+                             if file.suffix in (".mp4", ".png") or file.name in ("planner-states.json", "prefix-validation.json", "candidate-rollouts.json", "transition-restore.json", "transition-states.json", "transition-states.npz", "geometric-plan.json", "collision-contract.json", "terrain.json", "evaluation.json", "scenarios.json", "replay.json", "diagnostics.json", "motion-trace.npz", "reward-components.json", "reward-components.npz")}
         if args.chain_hops is not None:
             meta['artifacts']['chain-events.json'] = sha256(args.out / 'chain-events.json')
         if args.independent_support_clones:

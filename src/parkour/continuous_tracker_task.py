@@ -20,6 +20,7 @@ class ContinuousTrackerCfg(FootholdCfg):
     gap_jump_bonus=0.
     terminal_motion_cost=0.
     motion_control=None
+    gap_clearance=None
     observation_space=105
     episode_length_s=12.
     action_scale=.5
@@ -72,6 +73,7 @@ class ContinuousTrackerEnv(FootholdEnv):
         original_update=self.scene.update
         def update(dt):
             original_update(dt)
+            if getattr(self,"planner_rollout_only",False):return
             if dt<=0:return
             self.active_motion_steps+=(self.robot.data.root_lin_vel_w.norm(dim=1)>.15)
             self.travel_motion_steps+=(self.robot.data.root_lin_vel_w.norm(dim=1)>.15)&~(self.progress.target==self.progress.target_count-1).all(dim=1)
@@ -96,7 +98,7 @@ class ContinuousTrackerEnv(FootholdEnv):
             actions=limit_reference(actions.clamp(-self.cfg.action_limit,self.cfg.action_limit),self.actions,
                 self.cfg.action_scale,self.step_dt,self.cfg.motion_control['joint_reference_rate_rad_s'])
         super()._pre_physics_step(actions)
-        if self.cfg.body_progress_weight:
+        if self.cfg.body_progress_weight and not getattr(self,"planner_rollout_only",False):
             from parkour.body_progress import waypoint
             self.body_progress_before.copy_(self.robot.data.root_pos_w)
             self.body_waypoint.copy_(waypoint(self.targets,self.stance_offset))
@@ -171,13 +173,18 @@ class ContinuousTrackerEnv(FootholdEnv):
         peaks=self.contacts.data.net_forces_w_history[:,:,self.nonfoot_ids].norm(dim=-1).amax(dim=1)
         self.failure_nonfoot_id=torch.tensor(self.nonfoot_ids,device=self.device)[peaks.argmax(dim=1)]
         self.failure=nonfoot|outside|self.failure_low|self.failure_tilt
-        if self.gap_credit is not None:self.new_gap_credit=self.gap_credit.settle(self.progress.accepted,self.failure)
+        if self.gap_credit is not None and not getattr(self,"planner_rollout_only",False):self.new_gap_credit=self.gap_credit.settle(self.progress.accepted,self.failure)
         final=decision['sequence_completed']&self.current_valid.all(dim=1)&((root[:,:2]-self.goal[:2]).norm(dim=1)<.3)&(self.robot.data.root_lin_vel_b.norm(dim=1)<.2)&(self.robot.data.root_ang_vel_b.norm(dim=1)<1.)
         self.final_hold=torch.where(final,self.final_hold+1,0)
         self.success=(self.final_hold>=self.cfg.final_hold_steps)&~self.failure
         term=self.success|self.failure
         return term,(self.episode_length_buf>=self.max_episode_length)&~term
     def _get_rewards(self):
+        if getattr(self,'planner_rollout_only',False):
+            self.extras['terminal_metrics']={'front_accepted_index':self.progress.accepted[:,0].clone(),
+                'rear_accepted_index':self.progress.accepted[:,1].clone(),'failure':self.failure.clone(),
+                'success':self.success.clone(),'timeout':self.reset_time_outs.clone(),'length':self.episode_length_buf.clone()}
+            return torch.zeros(self.num_envs,device=self.device)
         # First baseline: contact progress, shaping, actuator/action costs. No mid-course stop reward.
         dense=2.*(torch.exp(-self.current_error/.25).mean(dim=1)-1.)-.1
         if self.cfg.bound_reward_per_second:
@@ -197,6 +204,13 @@ class ContinuousTrackerEnv(FootholdEnv):
             speed=self.robot.data.root_lin_vel_w[:,:2].norm(dim=1)
             dense-=spec['speed_cost']*(speed-target).square()
             dense-=spec['joint_speed_cost']*(self.robot.data.joint_vel.abs()-spec['joint_speed_soft_rad_s']).clamp_min(0).square().sum(dim=1)
+        if self.cfg.gap_clearance:
+            from parkour.gap_clearance import height_reference
+            spec=self.cfg.gap_clearance
+            root=self.robot.data.root_pos_w-self.scene.env_origins
+            reference,active=height_reference(root[:,:2],self.surface_centers,self.progress.target[:,0],self.calibrated_root[2],spec['apex_m'])
+            active&=self.gap_surfaces[self.progress.target[:,0]]&~(self.progress.target==self.progress.target_count-1).all(dim=1)
+            dense-=spec['height_cost']*(root[:,2]-reference).square()*active
         reward=dense*self.step_dt+2.*self.accept_events.sum(dim=1)+5.*self.success-5.*self.failure
         reward+=self.cfg.gap_jump_bonus*self.new_gap_credit
         if self.cfg.body_progress_weight:

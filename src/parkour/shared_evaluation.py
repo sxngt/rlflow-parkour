@@ -6,7 +6,7 @@ def override_course(support,level,seed,transitions=None):
     if support.get('mode')!='shared-course' or type(seed) is not int or seed<0:
         raise ValueError('Shared course and nonnegative geometry seed required')
     changed=copy.deepcopy(support)
-    if support['layout'].get('scenario_contract') in ('discrete_parkour_v1','discrete_parkour_v2'):
+    if support['layout'].get('scenario_contract') in ('discrete_parkour_v1','discrete_parkour_v2','discrete_parkour_blend_v1'):
         from parkour.shared_terrain import build_discrete_parkour
         if transitions not in (None,16,24):raise ValueError('Discrete parkour requires sixteen transfers')
         changed['layout']=build_discrete_parkour(level,seed,transitions or support['layout']['transitions'])
