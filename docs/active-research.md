@@ -1148,3 +1148,12 @@ GPU전체유휴 확인후64env12update smoke시작: session92600, artifacts/p2-3
 재개 session17191 exit0 (artifacts/p2-39-coverage-training-resume,13~14update/3072step), 기존2목표 회귀 session7376 exit0(artifacts/p2-39-endpoint-regression-smoke,12update/18432step). 두 작업 자동평가 및 result보관까지종료. 세학습 회계 artifacts/p2-39-smoke-resume-accounting-audit.jsonl 모두통과. 이전P238continuous64smoke와 새2목표smoke의12개행 single거리step/resetdraw/task-hopstep/tasksuccess 각각정확일치(artifacts/p2-39-endpoint-smoke-comparison.json), 전체물리bitwise주장아님.
 
 1024환경60update profile 시작 session22798, artifacts/p2-39-coverage-profile-seed2/GPU0/P231seed2cp800fork, log동명-launch.log, timeout600. 아직본학습 없음. 다음 동일profilePID/session확인→완료geometry/노출/초기복사/시간측정 및 자동평가archive 감사. smoke/resume/endpoint의평가3개chain200Hz/영상hash 감사도필요. 통과후같은부모4seed800update 본학습launcher 준비/실행. 전체목표미완료.
+
+
+### 최신: P2-39 프로파일링·평가 보관 게이트 통과, 네 seed 본학습 시작
+
+이전 smoke/재개 완료와 profile실행은 progress. 실제PID1933619가초기화후업데이트하는것확인, 같은session22798 최종exit0. profile60update/1,474,560step 회계 artifacts/p2-39-profile-accounting-audit.jsonl 통과, 초기복사 session29135 exit0. artifacts/p2-39-profile-summary.json: worker97.811초/update42.435초/기타55.376초, update34,749step/s/전체worker15,076step/s. 기타는초기화·지형검사·저장·종료합계. 네목표single 노출109775/136906/235079/255520 합737280.
+
+scripts/p2_39_train.py(commit35d6e52) 구현. smoke/resume/기존2목표smoke/profile 학습4개와 각최종평가4개의200Hz chain 및 result MP4/events hash,64camera4검증, 설정차이는목표거리만인지와4부모/대조예산검사 모두통과(artifacts/p2-39-training-gates.json).
+
+본학습 batch session39712 실행중, log artifacts/p2-39-training-batch.log. 실제IsaacPID seed0=1935335,seed1=1935326,seed2=1935332,seed3=1935314. GPU별1run/원P231부모/1024환경800update,새학습총78,643,200step. 다음동일PID/session 진행→checkpoint0와metrics확보후4초기복사감사→최종800/native4완료. 후속12평가(각seed deck/continuous0·5·10·15,split15)+native4와재사용P238대조16=총32참조 비교 scripts작성필요. 새source와기존대조모델/시나리오/목표외설정/영상검증. 본학습성능아직주장없음/전체목표미완료.
