@@ -453,3 +453,12 @@ mean성공56/32/48/21,유효비행·최초정밀모두64,안정화64/64/64/53. s
 직전 턴은 영상 설정 확인만으로 no progress로 분류하고, 이번 턴 실제 PID 네 개를 다시 확인한 뒤 verified wait 및 1201 전환을 검증했다. 거리0–20cm/launch3cm/cap.05/reset_all=true, 실제 std min/max .05, 모든 loss 유한, checkpoint1000/1200 hash 정상. 최신 [{"run": "p2-25-deck-seed0", "pid": 1495130, "live": true, "iteration": 1254, "transition1201_verified": true, "checkpoint1200_hash_ok": true}, {"run": "p2-25-deck-seed1", "pid": 1495129, "live": true, "iteration": 1248, "transition1201_verified": true, "checkpoint1200_hash_ok": true}, {"run": "p2-25-deck-seed2", "pid": 1495128, "live": true, "iteration": 1267, "transition1201_verified": true, "checkpoint1200_hash_ok": true}, {"run": "p2-25-deck-seed3", "pid": 1495131, "live": true, "iteration": 1262, "transition1201_verified": true, "checkpoint1200_hash_ok": true}]
 
 변경 직전 checkpoint1200의 model 및 normalizer 모든 tensor가 P2-21의 같은 seed와 정확히 일치했다. artifacts/p2-25-preintervention-comparison.json. GPU 온도34–35C, VRAM약3GB씩, 저장533GB여유. batch98960 및 기존PID 유지. 다음1600완료+mean평가8감사/4보고서, 거리·유지성능 및 탐색적2×2 상호작용 분석. 영상64env/camera_side4 유지. 전체연구 미완료.
+
+
+### 최신: P2-25 학습 및 최종 평가 완료
+
+직전 턴은1201전환·변경전tensor대조로progress. 이번 턴 기존 실제PID를 확인해 verified wait 후4학습/4mean평가 종료와프로세스소멸확인. artifacts/p2-25-audit.jsonl 8감사통과. configs/reports/p2-25.json 비교/height/support/post-landing 4보고서생성, result4영상hash/camera4/64env/태그 및seed2preview 시각확인. GPU4개해제됨.
+
+성공32/29/64/48, 최초정밀·유효비행64전부,안정화64/44/64/50. 거리별seed0=16/16/0/0,seed1=16/13/0/0,seed2=16/16/16/16,seed3=16/16/16/0. 평균43.25/64이나P224대비seed0−24/seed1−3회귀.2×2차이의차이+24/+33/−4/+1,평균+13.5/64 기술통계이며사후설계/작은seed한계. champion승격안함. docs/p2-25-findings.md.
+
+다음은추가작은상한sweep대신P2-26 동결된현재4정책의지지면전이진단. deck/continuous/split 각각동일15cm목표·64episode·동일물리재질 비교,200Hz 준비동작/유효비행/최초접촉/유지 분석. scripts/p2_14_evaluate.py는이전P211고정구현이므로새프로토콜/배치작성,현재학습terrain과evaluation override호환 및동일calibration 확인이필요. scripts/evaluate.py --support-mode/--support-calibration/--support-matched-material 경로존재. --support-preserve-goals 없이15cm고정 override. 네seed모두평가하며좋은seed만선별금지. 현재미착수,추가학습없음. 전체연구미완료.
