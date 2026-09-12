@@ -602,3 +602,14 @@ http://127.0.0.1:18710/api/health 정상/collector errors없음. step:p2-27-supp
 continuous와split성공모두0/0/64/0. split유효비행0/64/64/64,seed1/3정밀·안정화64지만비행거리11.09/11.31cm로12cm미달. seed2split평균14.74cm,64성공·최초투영포함64. seed0split유효비행전비발충돌64;continuous64episode모두stage0에서split gap위치발중심>5N지지관측,scenario0 FR.455초. counterfactual기하진단이며단일원인확정금지. docs/p2-28-findings.md. single-seed개발군성공/실제gap6cm,wholebody15cm/연속코스/실기성공주장금지. 승격안함.
 
 다음P229후보:기존P2274정책에서동일15cm목표로continuous추가학습vs split추가학습고정예산비교. split에기존5/10cm목표는부적합하므로연속거리curriculum복사금지. terrain_contract현재flat/deck/continuous만지원;split목표가용성검증과checkpoint fork(정책/normalizer초기화,새설정/RNG/optimizer규약명시)추가필요. 동일조건resume와구분,PPO새on-policy rollout. 최종split15cm/continuous혼합거리회귀평가유지. 아직프로토콜/코드/실행미착수. 먼저범위/비교예산을고정하고smoke/물리검증. 전체목표미완료.
+
+
+### 최신: P2-29 비교계약·split 목표가용성·지지검증
+
+직전P228완료턴progress. 이번턴sourceed92871 docs/p2-29-protocol.md 및 configs/p2-29-continuous.json/split.json 확정. P2274부모정책×2지형,각1024×24×800 신규157286400step. 목표15cm고정/launch3cm/초기cap.1 마지막400cap.05. policy+critic+normalizer계승/optimizer·RNG새초기화의fork를명시하되아직코드구현전. 두config는terrain/tags외정확일치검증. paired order seed0/2continuous먼저,1/3split먼저. primary각2지형15cm64/회귀continuous혼합거리64평가계획.
+
+terrain_contract.py split지원추가,각uniform목표구간전체가하나의pad안에2cm여유로들어가는지검증. [0,.15]양끝점이각각지지돼도중간gap이있으므로거절. eval5cm/curriculumgap횡단거절/개별eval0,15허용테스트포함62unit통과. 기존continuous테스트유지. artifacts/p2-29-contract-tests.log.
+
+zero split probe session51362정상종료,artifacts/p2-29-zero-split-support 감사통과.64대4초실패0/settle후모든200Hz표본네발>2N. autoresult영상생성. 이것은초기지지검증이며학습성공아님. 현재새학습없음.
+
+다음train --fork-from(또는명시명칭) 구현:동일조건resume와상호배타,부모hash/계보/config허용변경리스트,model/normalizer호환tensor검증,새optimizer/RNG/0iteration규약. restore기존strict검사우회로사용금지. 부모model std_cap버퍼.05를복사한뒤새일정.1이rollout전에적용되는지확인. learning.py save_checkpoint에계보보존규약검토. 평가회귀의명시적거리override(부모학습config변경과구분)구현필요;현재sourceconfigevaluation_forward_m15only이므로 --support-preserve-goals만으로혼합거리회귀는안됨. fork양지형smoke/재개/평가검증후본8학습. 아직본학습미착수,전체목표미완료.
