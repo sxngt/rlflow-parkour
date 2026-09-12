@@ -52,6 +52,8 @@ def collect(evaluation, result_root=ROOT / 'result'):
     model = run.get('checkpoint')
     if run.get('chain_contract'):
         task_title += f"_리셋없는{run['chain_contract']['hops']}회도약_안정화후재도약"
+        if run['chain_contract'].get('settle_command') == 'hold-last':
+            task_title += '_준비구간직전관절명령유지'
     seed, updates = 'NA', 0
     train_run = None
     if model:

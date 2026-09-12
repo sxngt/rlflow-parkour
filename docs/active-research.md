@@ -852,3 +852,12 @@ P232 deck 대조 8행 보고서와 높이/접촉/착지 후 분석 파일 생성
 이전 어댑터 구현/본평가 시작 턴은 progress. session34083 exit0, 4평가 완료. scripts/audit_chained_evaluation.py 추가: hash/종료/계보 감사 후 first episode별 hop 순서/완료수/시간한도, 192전환의200Hz 전후segment/target/startstep/origin 검사 통과. artifacts/p2-32-chain-main-audit.json. seed0/1/2 첫64성공, seed3 첫0. 코스성공0/1/0/0. seed0/2 두번째64건모두launch반경위반; seed1최초접촉64정밀/시간초과63/성공1. 시간초과를 단순 안정화 실패로 확정하지 말고 travel/apex/height 등 지표 추가 분리 필요.
 
 4result영상 hash/64render/camera4/리셋없는2회도약 제목 확인 artifacts/p2-32-chain-videos-audit.json. seed1 1.8초프레임 artifacts/p2-32-chain-seed1-review.png 직접검수. docs/p2-32-findings.md 및 chain-summary.json 작성. 전체목표미완료. 다음원시진단으로 실패단계분리→착지후초기상태 학습 대조 프로토콜. 기존 baseline과 성공 기준 유지. 금지write/reset 호출감시 보강 및 chain-events result 복사 추가는 아직 남음.
+
+
+### 최신: P2-32 실패 분리 / P2-33 준비 명령 대조
+
+이전 본평가 감사는 progress. scripts/p2_32_failure_report.py로 terminal gate 및 200Hz 준비 구간 이동량 분석, docs/p2-32-failure-diagnosis.json 생성. seed1의63timeout은 모두 FR 최종반경위반이고 나머지 주요 종료gate통과. seed0 준비이동7.38~7.53cm; seed2 3.76~4.23cm. 비행 중 종료된seed0/2의 착지gate미충족은 원인으로 취급하지 말 것.
+
+P233사전프로토콜 docs/p2-33-protocol.md. default 준비결과 P232재사용 vs hold-last(첫성공 마지막실행action을두번째.3초준비에유지), 나머지clock/판정/정책/seed/지형불변. --chain-settle-mode 옵션 및 subclass 명령유지 구현, collector상세제목. scripts/p2_33_evaluate.py4seedbatch준비. 아직본평가시작안함.
+
+smoke artifacts/p2-33-hold-last-smoke 실행 시작. 다음 실제process/session검사→완료감사, trace action이전환직전action과준비구간내같은지검증→4seed본평가. 전체목표미완료.

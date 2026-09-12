@@ -10,10 +10,14 @@ from parkour.directed_jump_task import DirectedJumpEnv
 
 
 class ChainedDirectedJumpEnv(DirectedJumpEnv):
-    def __init__(self, cfg, render_mode=None, hops=2):
+    def __init__(self, cfg, render_mode=None, hops=2, settle_mode='default'):
         if hops not in (1, 2):
             raise ValueError('P2-32 supports one-hop control or two-hop evaluation')
+        if settle_mode not in ('default', 'hold-last'):
+            raise ValueError('Unknown inter-hop settle command')
         super().__init__(cfg, render_mode)
+        self.chain_settle_mode = settle_mode
+        self.settle_action = torch.zeros_like(self.actions)
         self.chain = ChainedProgress(self.num_envs, self.device, hops=hops,
                                      hop_steps=round(4. / self.step_dt))
         self.chain.reset(self.robot._ALL_INDICES, self.calibrated_root[:2])
@@ -28,12 +32,19 @@ class ChainedDirectedJumpEnv(DirectedJumpEnv):
     def launch_reference_xy(self):
         return self.chain.launch_origin if hasattr(self, 'chain') else super().launch_reference_xy()
 
+    def _pre_physics_step(self, actions):
+        super()._pre_physics_step(actions)
+        if self.chain_settle_mode == 'hold-last':
+            mask = (self.chain.completed > 0) & (self.maneuver_time_s() < self.jump['settle_seconds'])
+            self.actions[mask] = self.settle_action[mask]
+
     def _reset_idx(self, env_ids):
         super()._reset_idx(env_ids)
         if hasattr(self, 'chain'):
             if env_ids is None:
                 env_ids = self.robot._ALL_INDICES
             self.chain.reset(env_ids, self.calibrated_root[:2])
+            self.settle_action[env_ids] = 0
 
     def _get_dones(self):
         super()._get_dones()
@@ -61,6 +72,7 @@ class ChainedDirectedJumpEnv(DirectedJumpEnv):
         before = self._preserved_state()
         root_xy = self.robot.data.root_pos_w[:, :2] - self.scene.env_origins[:, :2]
         ids = self.chain.commit(self.episode_length_buf, root_xy)
+        self.settle_action[ids] = self.actions[ids]
         # Deliberately no _reset_idx, robot.reset, scene.update or state writes.
         for value in (self.flight_seen, self.landed, self.touched, self.apex,
                       self.air_time, self.flight_event, self.new_touch,

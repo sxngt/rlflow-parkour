@@ -93,7 +93,7 @@ def restore(data, config, alg, normalizer, env, training):
         env.generator.set_state(data["rng_scenario"])
 
 
-def make_env(config, evaluation_support=None, chain_hops=None):
+def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode='default'):
     from parkour.task import FootholdCfg, FootholdEnv
     if config['task'] in ('a1_flat_jump_v1','a1_flat_jump_shaped_v2','a1_flat_jump_precise_v3','a1_flat_jump_supported_v4','a1_directed_jump_v5'):
         from parkour.jump_task import JumpCfg,JumpEnv
@@ -131,5 +131,5 @@ def make_env(config, evaluation_support=None, chain_hops=None):
             raise ValueError('Chained evaluation requires directed jump on the explicit deck')
         from parkour.chained_jump_task import ChainedDirectedJumpEnv
         cfg.episode_length_s = 4. * chain_hops
-        return ChainedDirectedJumpEnv(cfg, hops=chain_hops)
+        return ChainedDirectedJumpEnv(cfg, hops=chain_hops, settle_mode=chain_settle_mode)
     return env_type(cfg)

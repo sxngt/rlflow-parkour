@@ -24,6 +24,7 @@ def main():
     p.add_argument("--video-camera-side", type=int, help="Camera distance in grid-side units; 4 preserves the 16-robot framing")
     p.add_argument("--diagnostics", action="store_true")
     p.add_argument('--chain-hops', type=int, choices=[1, 2], help='P2-32 frozen-policy deck evaluation; separate course success contract')
+    p.add_argument('--chain-settle-mode', choices=['default', 'hold-last'], default='default')
     p.add_argument('--action-mode', choices=['mean', 'sampled'], default='mean')
     p.add_argument('--action-seed', type=int, default=20000)
     p.add_argument("--research-tag", action="append", default=[])
@@ -35,6 +36,8 @@ def main():
     p.add_argument('--support-calibration', type=Path, help='Frozen flat evaluation run.json for support transfer')
     p.add_argument('--support-probe-offset', type=float, choices=[.075], help='Zero-action geometry probe only: start feet above the gap')
     args = p.parse_args()
+    if args.chain_settle_mode != 'default' and args.chain_hops != 2:
+        p.error('Holding last action requires two-hop chain evaluation')
     if args.chain_hops is not None and (args.support_mode != 'deck' or not args.support_matched_material
             or args.support_preserve_goals or args.support_probe_offset is not None
             or args.baseline != 'policy' or args.action_mode != 'mean' or args.launch_radius is not None):
@@ -115,6 +118,7 @@ def main():
     meta = begin_run(args.out, config, "evaluate")
     if args.chain_hops is not None:
         meta['chain_contract'] = {'schema_version': 1, 'hops': args.chain_hops,
+            'settle_command': args.chain_settle_mode,
             'absolute_forward_targets_m': [.15 * (i + 1) for i in range(args.chain_hops)],
             'hop_seconds': 4., 'episode_seconds': 4. * args.chain_hops,
             'transition': 'stabilize then jump; physical state preserved; local bookkeeping only',
@@ -131,7 +135,8 @@ def main():
         import torch
         from parkour.learning import make_env, make_algorithm, read_checkpoint, restore
         torch.manual_seed(10000)
-        env = make_env(config, evaluation_support=support, chain_hops=args.chain_hops)
+        env = make_env(config, evaluation_support=support, chain_hops=args.chain_hops,
+                       chain_settle_mode=args.chain_settle_mode)
         if support:
             from parkour.collision_contract import inspect_collision_contract
             contract = inspect_collision_contract(env)
