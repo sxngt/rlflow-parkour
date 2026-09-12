@@ -1189,3 +1189,12 @@ scripts/p2_39_report.py 준비:같은부모/거리외설정동일,전체지지�
 이전P239전체비교완료는progress. scripts/p2_39_exposure.py 실행완료,docs/p2-39-exposure.json:15cm single실제step비율seed0~3 .5386/.5463/.6296/.6687. seed0성공유지,seed1두번째훈련노출오히려증가로단순노출원인단정불가. 원본reward성분없어원인분해주장안함. P239대표seed0/1영상각6frame전체범위육안확인,findings보완.
 
 docs/p2-40-protocol.md작성:네목표유지하고reset ticket[1,1,1,3] (15cm1/2,기타1/6). 같은P231부모4새fork800/1024,재사용P239uniform대조동일예산. 아직구현/새학습없음. 다음strict optional가중치계약/샘플링 및metric·제목·resume검사→smoke12/resume2/기존uniform runtime검사/profile60→본학습4+평가16/대조16. 이전모든세션terminal,전체목표미완료.
+
+
+### 최신: P240 가중치 구현 / 두 smoke 시작
+
+이전P239노출분석과P240프로토콜작성은progress. commit1a4f9d5: optional single_goal_weights=[1,1,1,3] strict계약, retention_sampling.sample_goal_indices의정수6ticket→0/1/2/3/3/3매핑. 기존uniform은원래randint경로유지. learning에서가중치전달, 같은거리별step/draw기록활용, result제목에선택비중표시. configs/p2-40-weighted.json,새RNG경계/빈batch/60000표본빈도/기존uniform동일RNG/잘못된가중치/resume변경거부테스트3개통과(session53400),기존chain계약5개통과(session34754). py_compile통과.
+
+GPU전체유휴확인후64환경12update/P231seed2cp800fork 두smoke시작. weighted session47749/GPU0/artifacts/p2-40-weighted-training-smoke, uniform회귀 session19648/GPU1/artifacts/p2-40-uniform-regression-smoke. 로그각동명-launch.log. 아직본학습없음.
+
+다음동일session/PID확인→학습완료회계/거리별draw/初期복사→weighted2updateresume→uniform을P239coverage64smoke와비교→profile1024/60 및평가보관게이트→본학습4개. 전체목표미완료.
