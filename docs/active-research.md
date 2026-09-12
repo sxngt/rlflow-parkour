@@ -794,3 +794,12 @@ scripts/p2_31_evaluate.py 작성(아직실행안함):각새모델continuous회�
 이전턴부모검증/평가명세는progress. 이번P231batch PID1725396 live,새4run119~126update관측. P230남은대표시각검수로mixedseed1/3원본MP4의0.8초프레임ffmpeg추출후직접확인. 중앙로봇/발판렌더링및camera4유지,전체영상육안검수주장아님. artifacts/p2-30-mixed-seed1-review-0p8s.png,seed3동일파일보존. P230findings검수상태갱신.
 
 다음동일P231batch업데이트증가/완료확인→4학습/4native감사→scripts/p2_31_evaluate.py8평가→3spec분석. 전체목표미완료.
+
+
+### 최신: P2-31 본학습 완료 / 회귀평가 실행 중
+
+이전턴영상검수는progress. 동일PID1725396 live재확인후45초단위대기,최종session96480exit0/PID없음/4seedexit0로그확인. 학습4/native4감사통과 artifacts/p2-31-training-native-audit.jsonl. goal_exposure_report총신규78,643,200step검증 docs/p2-31-primary-goal-exposure.json.
+
+Native split0/15각32:seed0,1,2각32/32,seed3=32/0. 제자리도약은4seed모두보존,15cm동시수행은3seed만확인. 전체성공/승격주장금지. sourceconfig/보상/예산변경없음.
+
+추가8평가 scripts/p2_31_evaluate.py 시작session83105,log artifacts/p2-31-evaluation-batch.log. 다음실제PID/세션확인·완료감사→3spec×4보고서/거리별pairing/영상hash/camera/tags/대표검수→seed3 15cm실패원인과중간거리회귀분석. 전체목표미완료.
