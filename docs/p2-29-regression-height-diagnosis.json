@@ -1,0 +1,86 @@
+[
+  {
+    "run": "p2-27-continuous-seed0",
+    "condition": "parent",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.03397534787654877,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-continuous-seed0",
+    "condition": "train-continuous",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.01720528118312359,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-split-seed0",
+    "condition": "train-split",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.055481940507888794,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-27-continuous-seed1",
+    "condition": "parent",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.05277308076620102,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-continuous-seed1",
+    "condition": "train-continuous",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.01175731047987938,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-split-seed1",
+    "condition": "train-split",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.03337383270263672,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-27-continuous-seed2-retry1",
+    "condition": "parent",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.007993536069989204,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-continuous-seed2",
+    "condition": "train-continuous",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.008566068485379219,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-split-seed2",
+    "condition": "train-split",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.00568809499964118,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-27-continuous-seed3",
+    "condition": "parent",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.01771288737654686,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-continuous-seed3",
+    "condition": "train-continuous",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.007674884051084518,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-split-seed3",
+    "condition": "train-split",
+    "seed": 3,
+    "mean_terminal_base_rise_m": 0.003941845148801804,
+    "terminal_height_outside_tolerance": 0
+  }
+]

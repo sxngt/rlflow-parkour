@@ -10,6 +10,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src'))
 from parkour.diagnostics import jump_first_touches
+from parkour.evaluation_summary import load_report
 
 
 def main():
@@ -30,7 +31,7 @@ def main():
     for item in spec['runs']:
         path = ROOT / 'artifacts' / item.get('evaluation_run', item['run']+'__final-evaluation')
         meta = json.loads((path / 'run.json').read_text())
-        report = json.loads((path / 'evaluation.json').read_text())
+        report = load_report(path)
         scenarios = json.loads((path / 'scenarios.json').read_text())['episodes']
         assert meta['status'] == 'SUCCEEDED' and len(scenarios) == report['episodes'] == 64
         distances = [r['goal_forward_m'] for r in report['results']]
@@ -84,7 +85,8 @@ def main():
         rows.append({**item, 'successes': report['successes'],
                      'success_and_contained': sum(d['success_and_contained'] for d in details),
                      'all_first_spheres_contained': sum(all(d['contained_per_foot']) for d in details),
-                     'by_distance': report['by_distance'], 'details': details})
+                     'by_distance': report['by_distance'], 'details': details,
+                     **({'summary_derivation': report['summary_derivation']} if 'summary_derivation' in report else {})})
     summary = {'rows': rows, 'calibration_sha256': calibration, 'policy_hashes': policies,
                'definition': 'First >5N post-flight sample at 200Hz; sphere center z=2±1cm and XY at least 2cm inside the expected support bounds (shared deck or named continuous bridge / split landing foot pad). Flat has no XY bounds. Geometric inference, not contact-pair identity or sustained support.',
                'additional_training_steps': 0}

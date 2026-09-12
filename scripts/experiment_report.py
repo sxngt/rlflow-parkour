@@ -1,5 +1,5 @@
 """Descriptive, first-episode research reports from an explicit run manifest."""
-import argparse,json
+import argparse,json,sys
 from pathlib import Path
 from collections import Counter
 import numpy as np
@@ -7,10 +7,12 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/'src'))
+from parkour.evaluation_summary import load_report
 
 def summarize(entry):
  train=ROOT/'artifacts'/entry['run'];ev=ROOT/'artifacts'/entry.get('evaluation_run',train.name+'__final-evaluation')
- meta=json.loads((ev/'run.json').read_text());r=json.loads((ev/'evaluation.json').read_text())
+ meta=json.loads((ev/'run.json').read_text());r=load_report(ev)
  d=json.loads((ev/'diagnostics.json').read_text());sc=json.loads((ev/'scenarios.json').read_text())
  metrics=[json.loads(s) for s in (train/'metrics.jsonl').read_text().splitlines()]
  assert meta['status']=='SUCCEEDED' and json.loads((train/'run.json').read_text())['status']=='SUCCEEDED'
@@ -59,6 +61,7 @@ def summarize(entry):
 
   if 'by_distance' in r:
    row['by_distance']=r['by_distance']
+   if 'summary_derivation' in r:row['summary_derivation']=r['summary_derivation']
    row['launch_radius_m']=meta['config']['jump']['launch_radius_m']
    origin=np.asarray(meta['stance_calibration']['root_state'][:2])
    distances=[float(np.linalg.norm(np.asarray([record['launch_root_x_m'],record['launch_root_y_m']])-origin)) if record['launch_recorded'] else None for record in r['results']]

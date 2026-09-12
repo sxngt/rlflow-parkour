@@ -675,3 +675,12 @@ continuous/split fork smoke각64env3update+auto평가/영상정상완료(34960/2
 이전턴은둘째fork감사/첫묶음진단수정으로progress. 이번동일batch PID1608853을live재확인후45초단위대기. 최종PID종료+batch로그4seed exit0 확인. 8run각800update·19,660,800step,총신규157,286,400step정확일치. 8native평가모두64/64성공,16artifact감사통과 artifacts/p2-29-training-native-audit.jsonl. 8result영상hash/64env/camera4 검증 artifacts/p2-29-training-native-summary.json. 전체비교/회귀결론은미확정.
 
 이어서 scripts/p2_29_evaluate.py 실행시작:session57789,log artifacts/p2-29-cross-regression-batch.log. seed별continuous학습→split평가→continuous혼합거리회귀→split학습→continuous평가→continuous혼합거리회귀 순. 총16평가. 동일세션/실제PID재확인,중복실행금지. 다음완료후평가16감사,두spec에experiment_report/jump_trace_report/p2_15_support_report/post_landing_report 실행,부모/지형간차이와회귀분석. 전체목표미완료.
+
+
+### 최신: P2-29 교차·회귀 완료 및 집계 오류 수정
+
+이전턴8학습완료/평가시작은progress. session57789정상종료,PID1645482없음+4seedexit0. 교차8/회귀8감사 artifacts/p2-29-cross-regression-audit.jsonl통과. continuous→split15/64/64/64,split→continuous64각. 회귀continuous추가64/48/48/48,split추가64/49/48/48. 모든5/10/15cm16각,0cm만회귀. docs/p2-29-findings.md.
+
+거리override시evaluation.json by_distance가config15only로누락됨을발견;個episode/scenarioはmixed正しく全体success不変。src/parkour/evaluation_summary.py by_distance(records,scenarios)+load_report追加、ID/距離/重複確認、原本不変/sha系譜を添付。evaluate future生成修正、experiment_report/support報告load_report適用。2tests通過、実16評価で距離別episode/成功合計一致。artifacts/p2-29-derived-distance-summary.json。原本書換なし。
+
+primary24行/regression12行の4種報告生成session83437exit0。GPUcomputeプロセス空/531GB。次:モニタリング過去by_distance補正(APIとUI集計経路確認、原本保存)、16新video hash/camera/tags/preview、0cm回帰とcontinuous0split失敗trace診断、P230能力維持計画。全体目標未完了。

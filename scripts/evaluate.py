@@ -246,12 +246,8 @@ def main():
             report['success_wilson95']=None
             report['success_interval_note']='같은 높이 명령을 거리별로 재사용하므로 전체 episode를 독립 표본으로 간주한 Wilson 구간은 제공하지 않습니다. 거리별 결과와 학습 seed별 변동을 확인하세요.'
             report['success_contract']='verified flight from launch region + minimum airborne travel + precise first touch + stabilization'
-            report['by_distance']={}
-            for distance in config['jump']['evaluation_forward_m']:
-                subset=[r for r in records if abs(r['goal_forward_m']-distance)<1e-6]
-                if subset:report['by_distance'][str(distance)]={'episodes':len(subset),'successes':sum(r['success'] for r in subset),
-                    'launches_in_region':sum(r['launch_in_region'] for r in subset),'travel_met':sum(r['distance_requirement_met'] for r in subset),
-                    'first_touch_precise':sum(r['first_touch_all_within'] for r in subset),'stabilized':sum(r['stabilized_once'] for r in subset)}
+            from parkour.evaluation_summary import by_distance
+            report['by_distance'] = by_distance(records, manifest['episodes'])
         if 'active_foot' in records[0]:
             report['by_foot']={}
             for foot in env.foot_names:

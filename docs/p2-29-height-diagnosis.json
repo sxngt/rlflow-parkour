@@ -1,0 +1,170 @@
+[
+  {
+    "run": "p2-27-continuous-seed0",
+    "condition": "parent-on-continuous",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.029892481863498688,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-27-continuous-seed0",
+    "condition": "parent-on-split",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.11980988085269928,
+    "terminal_height_outside_tolerance": 64
+  },
+  {
+    "run": "p2-29-continuous-seed0",
+    "condition": "train-continuous_eval-continuous",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.01948227733373642,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-continuous-seed0",
+    "condition": "train-continuous_eval-split",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.005863892380148172,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-split-seed0",
+    "condition": "train-split_eval-continuous",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.05627625435590744,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-split-seed0",
+    "condition": "train-split_eval-split",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.05615988001227379,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-27-continuous-seed1",
+    "condition": "parent-on-continuous",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.053893402218818665,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-27-continuous-seed1",
+    "condition": "parent-on-split",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.05391239374876022,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-continuous-seed1",
+    "condition": "train-continuous_eval-continuous",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.012594399973750114,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-continuous-seed1",
+    "condition": "train-continuous_eval-split",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.012299133464694023,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-split-seed1",
+    "condition": "train-split_eval-continuous",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.029759638011455536,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-split-seed1",
+    "condition": "train-split_eval-split",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.029239840805530548,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-27-continuous-seed2-retry1",
+    "condition": "parent-on-continuous",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.009389837272465229,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-27-continuous-seed2-retry1",
+    "condition": "parent-on-split",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.01839589886367321,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-continuous-seed2",
+    "condition": "train-continuous_eval-continuous",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.02143271081149578,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-continuous-seed2",
+    "condition": "train-continuous_eval-split",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.01951690763235092,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-split-seed2",
+    "condition": "train-split_eval-continuous",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.023794997483491898,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-split-seed2",
+    "condition": "train-split_eval-split",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.023710988461971283,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-27-continuous-seed3",
+    "condition": "parent-on-continuous",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.017724674195051193,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-27-continuous-seed3",
+    "condition": "parent-on-split",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.01758304424583912,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-continuous-seed3",
+    "condition": "train-continuous_eval-continuous",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.020226798951625824,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-continuous-seed3",
+    "condition": "train-continuous_eval-split",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.020241424441337585,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-split-seed3",
+    "condition": "train-split_eval-continuous",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.014432845637202263,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-split-seed3",
+    "condition": "train-split_eval-split",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.014688019640743732,
+    "terminal_height_outside_tolerance": 0
+  }
+]
