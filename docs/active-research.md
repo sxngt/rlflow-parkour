@@ -1007,3 +1007,9 @@ scripts/collect_results.py 신규혼합모델제목에학습step50:50명시/파�
 이전본학습착수/평가명세는progress. scripts/p2_36_report.py(commit0ca7ae6) 추가:혼합4/기존대조4의동일부모/설정(혼합태그만차이)/800×24576전체step계수,신규78643200/재사용대조78643200/파일럿1496064분리. 최종32평가모델경로/paired시나리오/64개200Hzchaintrace/영상및eventhash/혼합태그와제목50%검사,16짝성공및거리별결과보고. 미완료run에서명시적으로중단확인 artifacts/p2-36-incomplete-report-check.log,최종결과파일아직없음. 실제4config비교도통과.
 
 동일IsaacPID1865235/1865236/1865221/1865220 모두live확인(약210update),45초verifiedwait후재확인. batchsession97849유지,재시작없음. 다음같은학습완료/native감사→scripts/p2_36_evaluate.py추가12실행→전체완료scripts/p2_36_report.py검증/해석. 전체연구목표미완료.
+
+### 최신: P2-36 본학습/native 완료 / 추가12평가 실행
+
+직전두목표턴은같은4IsaacPID를실제확인한verifiedwait이며300checkpoint4hash/step감사 artifacts/p2-36-checkpoint300-audit.json도완료. 이번동일PID계속확인/45초단위대기후batchsession97849exit0,4seedworkerexit0. 전체800학습및native4감사 artifacts/p2-36-main-native-audit.json passed. native두도약성공seed0/1/2/3=64/4/61/1 (P234대조0/64/0/0). 개선seed와퇴화seed혼재,아직단일/회귀평가없어종합판단금지.
+
+scripts/p2_36_evaluate.py 추가12평가 실행중 session26832(같은exec내main-native감사후실행),실제batchPID1874382확인. log artifacts/p2-36-evaluation-batch.log. 다음동일session/PID추적→12완료→scripts/p2_36_report.py 전체32결과/예산/영상검증→거리회귀/첫두번째실패해석,보고서/필요대표영상검수. 새본학습이미종료,추가학습재시작금지. 전체목표미완료.
