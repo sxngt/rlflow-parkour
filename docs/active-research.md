@@ -803,3 +803,14 @@ scripts/p2_31_evaluate.py 작성(아직실행안함):각새모델continuous회�
 Native split0/15각32:seed0,1,2각32/32,seed3=32/0. 제자리도약은4seed모두보존,15cm동시수행은3seed만확인. 전체성공/승격주장금지. sourceconfig/보상/예산변경없음.
 
 추가8평가 scripts/p2_31_evaluate.py 시작session83105,log artifacts/p2-31-evaluation-batch.log. 다음실제PID/세션확인·완료감사→3spec×4보고서/거리별pairing/영상hash/camera/tags/대표검수→seed3 15cm실패원인과중간거리회귀분석. 전체목표미완료.
+
+
+### 최신: P2-31 전체 평가·보고서 완료
+
+이전턴본학습완료/추가평가시작은progress. session83105exit0/PID1741683없음/4seedexit0. 추가8감사 artifacts/p2-31-additional-audit.jsonl,3평가군각12행scenario동일성/거리별합 artifacts/p2-31-pairing-audit.json 통과.
+
+새seed0/1/2 continuous0/5/10/15각16/16,split15×64=64. seed3continuous16/16/0/0,split15=0. seed3split15유효flight15/launch반경내0/실패15timeout49,착지기록없어flight_forward=-1결측값임. docs/p2-31-findings.md. source각4조건0cm유지/15cm3seed성공,한seed실패포함.
+
+3spec×4보고서session48642exit0. 성공episode모두최초구투영포함. 16신규resulthash/render64/camera4/phase태그 artifacts/p2-31-videos-audit.json검증. GPUcompute없음/530GB. 대표P231직접시각검수남음.
+
+다음P232통합진단방향:동결P2314정책으로두연속도약(물리state/관절/속도reset없음) 계약설계. 단일도약대조후전환 bookkeeping/goal/launch기준/clock/접촉이력다루기. 현재JumpEnv는calibrated_root상수/episodeclock/flight와접촉latch/전역.6m이탈판정이므로단순reset재사용금지. 초기지형과범위선정/소스검토필요. 세성공seed로통합진단가능하되seed3도기록,일반성능/연속파쿠르완료주장금지. 아직P232코드/프로토콜/실행없음. 전체목표미완료.
