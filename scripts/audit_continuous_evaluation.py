@@ -24,6 +24,8 @@ def check(path):
                 z['root_velocity_world'][valid,i,2],z['nonfoot_force_max'][valid,i],.005)
             assert sum(e['counted_jump'] for e in events)==row['measured_jump_count']
             assert int(z['measured_jump_count'][valid,i][-1])==row['measured_jump_count']
+            if 'clean_airborne_count' in row:
+                assert sum(e['air_seconds']>=.02-1e-7 and not e['nonfoot_collision'] for e in events)==row['clean_airborne_count']
         if 'active_motion_seconds' in row:
             measured=float((np.linalg.norm(z['root_velocity'][valid,i],axis=-1)>.15).sum()*.005)
             assert abs(measured-row['active_motion_seconds'])<.011

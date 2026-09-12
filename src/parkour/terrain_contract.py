@@ -14,9 +14,9 @@ def training_support(config):
         if spec.get('schema_version')!=2 or spec.get('mode')!='shared-course' or spec.get('matched_material') is not True:
             raise ValueError('Continuous Tracker requires explicit shared-surface geometry')
         expected=(build_long_shared_course(spec['layout']['level'],spec['geometry_seed'],spec['layout'].get('transitions',10),spec['layout'].get('preparation_fraction',1.)) if spec['layout'].get('scenario_contract') in ('long_shared_course_v1','long_shared_course_v2','long_shared_blend_v1') else build_easy_shared_course(spec['geometry_seed']))
-        if spec['layout'].get('scenario_contract')=='long_ten_gap_course_v1':
+        if spec['layout'].get('scenario_contract') in ('long_ten_gap_course_v1','long_ten_gap_course_v2'):
             from parkour.shared_terrain import build_ten_gap_course
-            expected=build_ten_gap_course(spec['layout']['level'],spec['geometry_seed'],spec['layout']['gap_scale'])
+            expected=build_ten_gap_course(spec['layout']['level'],spec['geometry_seed'],spec['layout']['gap_scale'],spec['layout'].get('approach_transfers',3))
         if spec['layout']!=expected:
             raise ValueError('Shared training layout differs from generator')
         calibration=spec['calibration']

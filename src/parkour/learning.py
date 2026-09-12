@@ -73,6 +73,10 @@ def read_checkpoint(path):
 
 
 def restore(data, config, alg, normalizer, env, training):
+    if data['config'].get('terminal_motion_cost',0.) != config.get('terminal_motion_cost',0.):
+        raise ValueError('Checkpoint terminal motion reward differs; use an explicit fork')
+    if data['config'].get('gap_jump_bonus',0.) != config.get('gap_jump_bonus',0.):
+        raise ValueError('Checkpoint gap reward differs; use an explicit fork')
     if data['config'].get('body_progress_reference','pair_midpoint') != config.get('body_progress_reference','pair_midpoint'):
         raise ValueError('Checkpoint body reference differs; use an explicit fork')
     if data['config'].get('bound_reward_scope','all') != config.get('bound_reward_scope','all'):
@@ -167,6 +171,10 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
         cfg.bound_reward_per_second=float(config.get('bound_reward_per_second',0.))
         if not 0<=cfg.bound_reward_per_second<=10:raise ValueError('Invalid bound reward rate')
         cfg.body_progress_weight=float(config.get('body_progress_weight',0.))
+        cfg.gap_jump_bonus=float(config.get('gap_jump_bonus',0.))
+        cfg.terminal_motion_cost=float(config.get('terminal_motion_cost',0.))
+        if not 0<=cfg.terminal_motion_cost<=10:raise ValueError('Invalid terminal motion cost')
+        if not 0<=cfg.gap_jump_bonus<=20:raise ValueError('Invalid gap jump bonus')
         cfg.body_progress_reference=config.get('body_progress_reference','pair_midpoint')
         if cfg.body_progress_reference not in ('pair_midpoint','gap_landing'):raise ValueError('Invalid body progress reference')
         if not 0<=cfg.body_progress_weight<=100:raise ValueError('Invalid body progress weight')

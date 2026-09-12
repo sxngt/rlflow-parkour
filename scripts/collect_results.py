@@ -202,7 +202,9 @@ def collect(evaluation, result_root=ROOT / 'result'):
                 if 'mean_completed_contacts' in report:
                     text += f'- 평균 순차 접촉 완료: **{report["mean_completed_contacts"]:.2f}/{report.get("required_contacts",4)}회**\n'
                 if 'required_final_index' in report:
-                    text += f'- 긴 코스: 평균 **{report["mean_completed_surface_transfers"]:.2f}/{report["required_final_index"]}구간**, 실제 비행 점프 **{report["mean_measured_jump_count"]:.2f}회**, episode **{report["mean_episode_seconds"]:.2f}초**\n'
+                    text += f'- 긴 코스: 평균 **{report["mean_completed_surface_transfers"]:.2f}/{report["required_final_index"]}구간**, 몸체 상승 3cm 이상 도약 **{report["mean_measured_jump_count"]:.2f}회**, episode **{report["mean_episode_seconds"]:.2f}초**\n'
+                    if 'mean_clean_airborne_count' in report:
+                        text += f'- 20ms 이상 네 발 비접촉 후 재접촉: 평균 **{report["mean_clean_airborne_count"]:.2f}회**. 낮은 바운딩과 하강을 포함하며, 비발 충돌은 제외합니다. 갭 통과 횟수와 별도입니다.\n'
                     text += '- 접촉 판정: '+('노출된 선택 발판의 안전 영역. 6cm 점 정밀도 결과와 별도.' if report.get('contact_target_mode')=='surface_region' else '지정 점의 6cm 반경 및 선택 발판 접촉.')+'\n'
                     text += '- 영상의 동적 긴 코스 데모 조건: '+('충족' if report.get('followed_video_demo_eligible') else '미충족')+'\n'
                 if parallel:

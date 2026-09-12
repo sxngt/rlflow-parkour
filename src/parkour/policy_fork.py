@@ -52,6 +52,12 @@ def validate_continuous_fork(parent, target):
         raise ValueError('Continuous fork cannot change task')
     a,b=copy.deepcopy(parent),copy.deepcopy(target)
     for config in (a,b):
+        terminal_cost=config.pop('terminal_motion_cost',0.)
+        if not isinstance(terminal_cost,(int,float)) or not math.isfinite(terminal_cost) or not 0<=terminal_cost<=10:
+            raise ValueError('Invalid terminal motion cost')
+        bonus=config.pop('gap_jump_bonus',0.)
+        if not isinstance(bonus,(int,float)) or not math.isfinite(bonus) or not 0<=bonus<=20:
+            raise ValueError('Invalid gap jump bonus')
         if config.pop('body_progress_reference','pair_midpoint') not in ('pair_midpoint','gap_landing'):
             raise ValueError('Invalid body progress reference')
         learning_rate=config['runner']['algorithm'].pop('learning_rate')
@@ -115,6 +121,10 @@ def initialize_fork(data, config, alg, normalizer):
             'bound_reward_scope':config.get('bound_reward_scope','all'),
             'parent_body_progress_reference':data['config'].get('body_progress_reference','pair_midpoint'),
             'body_progress_reference':config.get('body_progress_reference','pair_midpoint'),
+            'parent_gap_jump_bonus':data['config'].get('gap_jump_bonus',0.),
+            'gap_jump_bonus':config.get('gap_jump_bonus',0.),
+            'parent_terminal_motion_cost':data['config'].get('terminal_motion_cost',0.),
+            'terminal_motion_cost':config.get('terminal_motion_cost',0.),
             'initial_learning_rate':alg.learning_rate,
             'initial_actor_function_preserved':data['config'].get('exploration',{}).get('kind')==config.get('exploration',{}).get('kind'),
             'exploration_contract':config.get('exploration',{}).get('kind'),

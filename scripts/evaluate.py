@@ -50,7 +50,7 @@ def main():
     p.add_argument('--video-camera-mode',choices=['parallel','follow'])
     p.add_argument('--shared-course-level',choices=['easy','medium','hard'])
     p.add_argument('--shared-course-seed',type=int,default=101)
-    p.add_argument('--shared-course-transfers',type=int,choices=range(10,41))
+    p.add_argument('--shared-course-transfers',type=int,choices=[*range(10,41),60])
     p.add_argument('--support-mode', choices=['flat', 'continuous', 'split', 'deck', 'course', 'full-gap'])
     p.add_argument('--support-matched-material', action='store_true')
     p.add_argument('--independent-support-clones', action='store_true', help='P2-38 all-deck scene construction validation only')
@@ -500,6 +500,12 @@ def main():
                 report['evaluation_contact_radius_m']=None
                 report['contact_region_contract']='selected exposed shared top; 2cm edge margin; normal offset 0..4cm; normal force>5N; geometric attribution'
             report['mean_measured_jump_count']=sum(r.get('measured_jump_count',0) for r in records)/count
+            report['mean_clean_airborne_count']=sum(r.get('clean_airborne_count',0) for r in records)/count
+            report['airborne_count_contract']='All feet below 2N >=20ms, then foot recontact, no nonfoot force >5N during flight; includes low running bounds and drops, not necessarily a gap crossing'
+            report['measured_jump_contract']='Clean airborne event plus root rise >=3cm and world vertical velocity >0.2m/s; unchanged strict criterion'
+            if env.gap_credit is not None:
+                report['mean_credited_gap_jumps']=sum(r['credited_gap_jumps'] for r in records)/count
+                report['gap_jump_credit_contract']='Valid forward flight >= half projected gap width, followed by both pair acceptance; once per gap; reward diagnostic, not independent collision-pair attribution'
             report['mean_active_motion_seconds']=sum(r.get('active_motion_seconds',0) for r in records)/count
             report['active_motion_contract']='200Hz body linear speed norm >0.15m/s; accumulated moving time, excludes stationary waiting'
             report['mean_travel_motion_seconds']=sum(r.get('travel_motion_seconds',0) for r in records)/count

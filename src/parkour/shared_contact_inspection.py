@@ -1,6 +1,17 @@
 """Ray-audit planned contact points against actual cloned terrain colliders."""
 import math
 
+def position_tolerance(origin,expected):
+    """Base ray tolerance plus two float32 ULPs per world-coordinate axis."""
+    ulps=[]
+    for a,b in zip(origin,expected):
+        scale=max(abs(a),abs(b))
+        if not math.isfinite(scale):raise ValueError('Nonfinite ray coordinates')
+        ulps.append(2.**(math.frexp(scale)[1]-24) if scale else 2.**-149)
+    tolerance=5e-5+2*math.sqrt(sum(u*u for u in ulps))
+    if tolerance>1e-3:raise ValueError('World-coordinate precision exceeds 1mm audit budget')
+    return tolerance
+
 def inspect_shared_contacts(env):
     from omni.physx import get_physx_scene_query_interface
     query=get_physx_scene_query_interface();rows=[]
@@ -19,7 +30,8 @@ def inspect_shared_contacts(env):
                     assert f'/env_{env_id}/Supports/{surface["id"]}/' in collider,collider
                     error=math.sqrt(sum((float(a)-b)**2 for a,b in zip(hit['position'],expected)))
                     alignment=sum(float(a)*b for a,b in zip(hit['normal'],normal))
-                    assert error<5e-5 and alignment>.9999,(collider,error,alignment)
+                    tolerance=position_tolerance(origin,expected)
+                    assert error<tolerance and alignment>.9999,(collider,error,alignment,tolerance)
                     rows.append({'env':env_id,'group':group,'target_index':index,'foot_in_pair':foot,
-                        'collider':collider,'point_error_m':error,'normal_dot':alignment})
+                        'collider':collider,'point_error_m':error,'position_tolerance_m':tolerance,'normal_dot':alignment})
     return {'passed':True,'rays':rows,'scope':'Noninitial scripted foot targets in first/last clones; initial robot contacts checked separately'}

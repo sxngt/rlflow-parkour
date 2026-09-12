@@ -135,6 +135,7 @@ def main():
             completed_contacts = []
             input_action_clips=torch.zeros((),dtype=torch.long,device=env.device)
             terminal_transfers,terminal_jumps,terminal_seconds=[],[],[]
+            terminal_gap_credits=[]
             jump_flights,jump_landings,jump_apex_met=0,0,0
             jump_apices=[]
             if hasattr(env, 'chain'):
@@ -196,6 +197,7 @@ def main():
                         if 'completed_surface_transfers' in metrics:
                             terminal_transfers.extend(metrics['completed_surface_transfers'][dones].tolist())
                             terminal_jumps.extend(metrics['measured_jump_count'][dones].tolist())
+                            if 'credited_gap_jumps' in metrics:terminal_gap_credits.extend(metrics['credited_gap_jumps'][dones].tolist())
                             terminal_seconds.extend((metrics['length'][dones]*env.step_dt).tolist())
                         if 'valid_flight' in metrics:
                             jump_flights+=int(metrics['valid_flight'][dones].sum())
@@ -250,6 +252,7 @@ def main():
                 row['terminal_surface_transfer_histogram']=dict(Counter(map(str,terminal_transfers)))
                 row['terminal_mean_surface_transfers']=sum(terminal_transfers)/len(terminal_transfers) if terminal_transfers else None
                 row['terminal_mean_measured_jumps']=sum(terminal_jumps)/len(terminal_jumps) if terminal_jumps else None
+                if terminal_gap_credits:row['terminal_mean_credited_gap_jumps']=sum(terminal_gap_credits)/len(terminal_gap_credits)
                 row['terminal_mean_episode_seconds']=sum(terminal_seconds)/len(terminal_seconds) if terminal_seconds else None
                 row['contact_target_mode']=env.cfg.contact_target_mode
                 row['live_mean_front_accepted_index']=float(env.progress.accepted[:,0].float().mean())

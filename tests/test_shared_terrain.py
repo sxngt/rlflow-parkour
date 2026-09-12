@@ -2,6 +2,18 @@ import math
 import unittest
 from parkour.shared_terrain import surface,local_point,world_point,contains_contact_center,build_shared_course
 class SharedTerrainTest(unittest.TestCase):
+    def test_longer_approaches_keep_ten_gaps_and_old_map_exact(self):
+        import json
+        from pathlib import Path
+        from parkour.shared_terrain import build_ten_gap_course,scripted_pair_targets,assert_script_contacts_unoccluded
+        stored=json.loads(Path('configs/p3-36-mean-bounded.json').read_text())['terrain_contract']
+        self.assertEqual(build_ten_gap_course('medium',1),stored['layout'])
+        for level in ('easy','medium','hard'):
+            c=build_ten_gap_course(level,1,1.25,5)
+            self.assertEqual(c['transitions'],60);self.assertEqual(len(c['surfaces']),61)
+            self.assertEqual([g['arrival_surface_index'] for g in c['gap_locations']],list(range(6,61,6)))
+            self.assertGreater(c['nominal_path_length_m'],build_ten_gap_course(level,1,1.25)['nominal_path_length_m']+8.)
+            assert_script_contacts_unoccluded(c,scripted_pair_targets(c,stored['calibration']['foot_xy_m']))
     def test_ten_gap_route_projected_width_and_exposed_targets(self):
         from parkour.shared_terrain import build_ten_gap_course,scripted_pair_targets,assert_script_contacts_unoccluded
         xy=[[.114,.16],[.114,-.16],[-.258,.16],[-.258,-.16]]

@@ -11,6 +11,7 @@ type CourseReport = {
   planned_gap_count?: number | null; planned_gap_widths_m?: number[];
   terminal_policy?: {contract: string};
   input_action_clip_fraction?: number;
+  mean_clean_airborne_count?: number;
   completed_hops_histogram?: Record<string, number>;
   chain_contract?: {hops: number; absolute_forward_targets_m?: number[]; step_lengths_m?: number[];
     progress_criterion?: string; spacing_contract?: string; root_boundary?: {version: string}};
@@ -21,7 +22,8 @@ export function CourseEvaluation({report}: {report: CourseReport}) {
     {report.terminal_policy && <p>실행 구성: 주행 RL + 종점 안정화 RL 정책 연결 · 단일 정책 평가와 별도</p>}
     <p><strong>{report.successes}/{report.episodes}회 완주</strong> · 목표 {report.required_final_index}구간</p>
     {report.planned_gap_count!=null && <p>설계된 갭 {report.planned_gap_count}곳 · 실제 비행 횟수는 아래 계측값으로 확인합니다.</p>}
-    <p>평균 완료 구간 {report.mean_completed_surface_transfers?.toFixed(2)} · 실제 점프 {report.mean_measured_jump_count?.toFixed(2)}회 · 실제 episode {report.mean_episode_seconds?.toFixed(2)}초</p>
+    <p>평균 완료 구간 {report.mean_completed_surface_transfers?.toFixed(2)} · 몸체 상승 3cm 이상 도약 {report.mean_measured_jump_count?.toFixed(2)}회 · 실제 episode {report.mean_episode_seconds?.toFixed(2)}초</p>
+    {report.mean_clean_airborne_count!=null && <p>네 발 비접촉 후 재접촉: 평균 {report.mean_clean_airborne_count.toFixed(2)}회 (20ms 이상, 비발 충돌 제외 · 낮은 바운딩과 하강 포함, 갭 통과 횟수와 별도)</p>}
     <p>앞발 진행 {report.mean_front_accepted_index?.toFixed(2)} / 뒷발 진행 {report.mean_rear_accepted_index?.toFixed(2)}</p>
     {report.mean_active_motion_seconds!=null && <p>정지 시간을 제외한 몸체 이동: 평균 {report.mean_active_motion_seconds.toFixed(2)}초 (속력 0.15m/s 초과)</p>}
     {report.mean_travel_motion_seconds!=null && <p>종점 안정화 구간을 제외한 이동: 평균 {report.mean_travel_motion_seconds.toFixed(2)}초</p>}

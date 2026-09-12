@@ -10,5 +10,6 @@ class FlightEventsTest(unittest.TestCase):
         force[:,:,2]=20
         f.update(force,torch.tensor([.3,.2]),torch.zeros(2),torch.zeros(2),.005)
         self.assertEqual(f.count.tolist(),[1,0])
+        self.assertEqual(f.airborne_count.tolist(),[1,1])
         f.update(force,torch.tensor([.3,.2]),torch.zeros(2),torch.zeros(2),.005)
         self.assertEqual(f.count.tolist(),[1,0]);f.reset(torch.tensor([0]));self.assertEqual(f.count.tolist(),[0,0])

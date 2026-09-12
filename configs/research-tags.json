@@ -108,7 +108,16 @@
     "step:p3-37-gap-body-reference": "P3-37 · 갭 착지 몸체 참조 비교",
     "condition:mean-bounded": "행동 평균 tanh 제한",
     "condition:mean-control": "기존 행동 평균",
-    "condition:gap-landing-body": "갭 착지면 몸체 참조"
+    "condition:gap-landing-body": "갭 착지면 몸체 참조",
+    "step:p3-38-gap-flight-credit": "P3-38 · 넓은 갭 비행·착지 보상",
+    "step:p3-39-long60-terminal": "P3-39 · 60구간 장거리·종점 감속",
+    "condition:gap-credit-bonus": "갭 비행·접촉 보상 10",
+    "condition:gap-credit-control": "갭 비행 보상 없음",
+    "condition:terminal-braking": "종점 이동 벌점 2",
+    "condition:terminal-control": "종점 이동 벌점 없음",
+    "course:ten-gaps-60-transfers": "10개 갭 · 60회 발 목표 이동",
+    "curriculum:gap125": "중급 형상 · 갭 폭 125%",
+    "curriculum:hard-gap75": "고급 형상 · 갭 폭 75%"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [

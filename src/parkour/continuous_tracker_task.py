@@ -17,6 +17,8 @@ class ContinuousTrackerCfg(FootholdCfg):
     bound_reward_per_second=0.
     body_progress_weight=0.
     body_progress_reference='pair_midpoint'
+    gap_jump_bonus=0.
+    terminal_motion_cost=0.
     observation_space=105
     episode_length_s=12.
     action_scale=.5
@@ -56,6 +58,12 @@ class ContinuousTrackerEnv(FootholdEnv):
         self.map_low=points.amin(dim=0)-1.;self.map_high=points.amax(dim=0)+1.
         from parkour.flight_events import FlightEvents
         self.flights=FlightEvents(self.num_envs,self.device)
+        self.gap_credit=None
+        if cfg.gap_jump_bonus:
+            from parkour.gap_jump_credit import GapJumpCredit
+            if not self.layout.get('gap_locations'):raise ValueError('Gap jump credit needs explicit gaps')
+            self.gap_credit=GapJumpCredit(self.num_envs,len(self.layout['surfaces']),self.layout['gap_locations'],self.device)
+        self.new_gap_credit=torch.zeros(self.num_envs,device=self.device)
         self.active_motion_steps=torch.zeros(self.num_envs,dtype=torch.long,device=self.device)
         self.travel_motion_steps=torch.zeros_like(self.active_motion_steps)
         original_update=self.scene.update
@@ -64,8 +72,12 @@ class ContinuousTrackerEnv(FootholdEnv):
             if dt<=0:return
             self.active_motion_steps+=(self.robot.data.root_lin_vel_w.norm(dim=1)>.15)
             self.travel_motion_steps+=(self.robot.data.root_lin_vel_w.norm(dim=1)>.15)&~(self.progress.target==self.progress.target_count-1).all(dim=1)
-            self.flights.update(self.contacts.data.net_forces_w[:,self.contact_ids],self.robot.data.root_pos_w[:,2],
+            was_air=self.flights.air.clone() if self.gap_credit is not None else None
+            valid_flight=self.flights.update(self.contacts.data.net_forces_w[:,self.contact_ids],self.robot.data.root_pos_w[:,2],
                 self.robot.data.root_lin_vel_w[:,2],self.contacts.data.net_forces_w[:,self.nonfoot_ids].norm(dim=-1).amax(dim=1),dt)
+            if self.gap_credit is not None:
+                self.gap_credit.observe(self.flights.air&~was_air,valid_flight,
+                    self.robot.data.root_pos_w[:,:2]-self.scene.env_origins[:,:2],self.progress.target)
         self.scene.update=update
         self.body_progress_before=torch.zeros(self.num_envs,3,device=self.device)
         self.body_waypoint=torch.zeros_like(self.body_progress_before)
@@ -91,6 +103,8 @@ class ContinuousTrackerEnv(FootholdEnv):
         self.progress.reset(ids);self.flights.reset(ids);self.final_hold[ids]=0;self.accept_events[ids]=False
         self.active_motion_steps[ids]=0
         self.travel_motion_steps[ids]=0
+        self.new_gap_credit[ids]=0
+        if self.gap_credit is not None:self.gap_credit.reset(ids,self.calibrated_root[:2].expand(len(ids),-1))
         self.current_valid[ids]=False;self.current_error[ids]=0
         root=self.calibrated_root.expand(len(ids),-1).clone();root[:,:3]+=self.scene.env_origins[ids]
         self.robot.write_root_pose_to_sim(root[:,:7],ids);self.robot.write_root_velocity_to_sim(root[:,7:],ids)
@@ -143,6 +157,7 @@ class ContinuousTrackerEnv(FootholdEnv):
         peaks=self.contacts.data.net_forces_w_history[:,:,self.nonfoot_ids].norm(dim=-1).amax(dim=1)
         self.failure_nonfoot_id=torch.tensor(self.nonfoot_ids,device=self.device)[peaks.argmax(dim=1)]
         self.failure=nonfoot|outside|self.failure_low|self.failure_tilt
+        if self.gap_credit is not None:self.new_gap_credit=self.gap_credit.settle(self.progress.accepted,self.failure)
         final=decision['sequence_completed']&self.current_valid.all(dim=1)&((root[:,:2]-self.goal[:2]).norm(dim=1)<.3)&(self.robot.data.root_lin_vel_b.norm(dim=1)<.2)&(self.robot.data.root_ang_vel_b.norm(dim=1)<1.)
         self.final_hold=torch.where(final,self.final_hold+1,0)
         self.success=(self.final_hold>=self.cfg.final_hold_steps)&~self.failure
@@ -157,7 +172,12 @@ class ContinuousTrackerEnv(FootholdEnv):
             dense+=self.cfg.bound_reward_per_second*bounding_mask(self.contact_on,terminal)
         dense-=.0001*self.robot.data.applied_torque.square().sum(dim=1)
         dense-=.01*(self.actions-self.previous_actions).square().sum(dim=1)
+        if self.cfg.terminal_motion_cost:
+            final_targets=(self.progress.target==self.progress.target_count-1).all(dim=1)
+            motion=self.robot.data.root_lin_vel_b.square().sum(dim=1)+.1*self.robot.data.root_ang_vel_b.square().sum(dim=1)
+            dense-=self.cfg.terminal_motion_cost*motion*final_targets
         reward=dense*self.step_dt+2.*self.accept_events.sum(dim=1)+5.*self.success-5.*self.failure
+        reward+=self.cfg.gap_jump_bonus*self.new_gap_credit
         if self.cfg.body_progress_weight:
             from parkour.body_progress import progress_reward
             reward+=progress_reward(self.body_progress_before,self.robot.data.root_pos_w,self.body_waypoint,self.cfg.body_progress_weight)
@@ -168,9 +188,11 @@ class ContinuousTrackerEnv(FootholdEnv):
             'front_accepted_index':self.progress.accepted[:,0].clone(),'rear_accepted_index':self.progress.accepted[:,1].clone(),
             'front_target_index':self.progress.target[:,0].clone(),'rear_target_index':self.progress.target[:,1].clone(),
             'final_hold_steps':self.final_hold.clone(),'measured_jump_count':self.flights.count.clone(),
+            'clean_airborne_count':self.flights.airborne_count.clone(),
             'active_motion_seconds':self.active_motion_steps*self.physics_dt,
             'travel_motion_seconds':self.travel_motion_steps*self.physics_dt,
             'completed_surface_transfers':self.progress.accepted.amin(dim=1).clamp_min(0).clone(),
             'failure_nonfoot':self.failure_nonfoot.clone(),'failure_nonfoot_body_id':self.failure_nonfoot_id.clone(),
             'failure_outside_map':self.failure_outside.clone(),'failure_low_body':self.failure_low.clone(),'failure_tilt':self.failure_tilt.clone()}
+        if self.gap_credit is not None:self.extras['terminal_metrics']['credited_gap_jumps']=self.gap_credit.paid.sum(dim=1).clone()
         return reward

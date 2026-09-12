@@ -45,6 +45,13 @@ class ContinuousForkTest(unittest.TestCase):
         self.target['body_progress_reference']='unknown'
         with self.assertRaises(ValueError):validate_fork_configs(self.parent,self.target)
 
+    def test_gap_bonus_requires_finite_bounded_explicit_value(self):
+        self.target['gap_jump_bonus']=10.
+        validate_fork_configs(self.parent,self.target)
+        for value in (-1.,float('nan'),21.):
+            self.target['gap_jump_bonus']=value
+            with self.assertRaises(ValueError):validate_fork_configs(self.parent,self.target)
+
     def test_incompatible_contracts_and_unversioned_geometry_rejected(self):
         for key,value in [('seed',42),('action_limit',4),('body_progress_weight',20),('pair_contact_quorum','both'),('initial_rear_target','own_stance'),('success_radius_m',.12),('episode_seconds',40)]:
             with self.subTest(key=key):
