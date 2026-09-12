@@ -1,3 +1,5 @@
+> Current active work: **P3-19 long scenarios**. See [live handoff](current-course-history-batch.md) and [protocol](p3-19-long-scenarios-protocol.md). Older batch descriptions below are historical.
+
 # 현재 연구 인계
 
 **최우선 방향 수정: [영상 기준 목표 재점검](parkour-target-review-2026-09-12.md). 사용자 지적에 따라 발별 직선·강제 안정화 과제에서 공유 경사/회전 지형과 연속 앞뒤 접촉 Tracker로 주력 전환한다. P3-16 실행 중인 유한 예산 이후 추가 직선 튜닝 자동 연장 금지.**

@@ -1,3 +1,17 @@
+# Active handoff — P3-19 long scenarios (2026-09-12)
+
+Latest user requirement supersedes parallel final videos: difficulty-tiered long courses, about ten dynamic movements and over ten seconds of actual successful running, single-robot third-person follow. Training stays parallel.
+
+- Active batch: `python3 scripts/p3_19_train.py`, exec session 48387. GPUs 0/1, fresh seeds 1/2, 1024 environments each, 3000 updates each. Config `configs/p3-19-long-easy.json`. Outputs `artifacts/p3-19-long-easy-seed{1,2}`. Native 64-episode evaluation and single-robot follow recording run automatically.
+- Easy/medium/hard shared inclined/turning maps have 11 surfaces and ten transfers (~4.6/6.5/8.6 m). Transfers are not automatically jumps. Flight events are measured independently. Episode limit 30 seconds; standing until timeout is not a successful demo.
+- Early updates ~500 show zero first-surface progress and exploration collapse. GPU 2 checkpoint-500 diagnostic: first attempt omitted matching config and failed restore; preserved. Retry `p3-19-long-easy-seed1-interim500-retry1` uses correct config, session 18052. Inspect before choosing next curriculum. GPU 3 free.
+- P3-18 short main pilot was NEVER launched; do not launch it. Prior P3-16/P4-03 batches are finished. Do not resume endless straight-hop tuning.
+- P3-19 learning smoke retry1 and medium/hard physical geometry probes passed. Smoke follow video is 30s stationary novice behavior, zero completion, not the requested final demo.
+- Web updated for continuous-course metrics and schema-2 diagnostics, follow recording now includes force/action/progress traces. UI build and nine backend integration tests passed. Web service restarted, health OK on 18710.
+- Current controller is an independent front/rear target Tracker using scripted training contacts, not an autonomous Planner. No long-course completion established yet.
+
+--- Previous chronological notes ---
+
 # Current work after this completed batch
 
 P3-16 currently training two seeds1200updates/1024env via scripts/p3_16_train.py, execsession86316, logartifacts/p3-16-training-batch.log. Each follows with full-gap50cm translation and continuous regression evaluations; native reach video also automatic. Script asserts curriculum changes atupdates301/601. Read p3-16-protocol.md. Short12update64env smoke/native evaluation passed. FrozenP3-15seed1 physicalgap probe0/64; sixfirst/lastclone PhysX rays verify actualemptygap withcatchfloor at-0.5m andplatforms0m. Gap parentartifact/eventaudit passed.

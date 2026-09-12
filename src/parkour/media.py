@@ -121,8 +121,17 @@ class FollowRecorder:
             imageio.imwrite(self.out/('first-frame.png' if self.name=='evaluation' else self.name+'-preview.png'),frame)
         self.writer.append_data(frame);self.frames+=1
         i=self.ids[0]
-        self.trace.append({'sim_time_s':step*self.env.step_dt,'env_index':i,
-            'root_state_w':self.env.robot.data.root_state_w[i].tolist(),'eye_m':self.eye.tolist(),'look_at_m':self.look.tolist()})
+        env=self.env
+        row={'sim_time_s':step*env.step_dt,'env_index':i,
+            'root_state_w':env.robot.data.root_state_w[i].tolist(),'eye_m':self.eye.tolist(),'look_at_m':self.look.tolist(),
+            'foot_positions_w':env.robot.data.body_pos_w[i,env.foot_ids].tolist(),
+            'targets_w':env.targets[i].tolist(),'foot_normal_force_N':env.contacts.data.net_forces_w[i,env.contact_ids,2].tolist(),
+            'contact_state':env.contact_on[i].tolist(),'root_vz':float(env.robot.data.root_lin_vel_w[i,2]),
+            'actions':env.actions[i].tolist()}
+        if hasattr(env,'progress'):
+            row.update(target_indices=env.progress.target[i].tolist(),accepted_indices=env.progress.accepted[i].tolist(),
+                       measured_jump_count=int(env.flights.count[i]))
+        self.trace.append(row)
     def close(self,**metadata):
         self.writer.close();self.writer=None
         payload={'artifact_type':'original_simulation_frames','layout':'third_person_follow','visible_env_ids':self.ids,

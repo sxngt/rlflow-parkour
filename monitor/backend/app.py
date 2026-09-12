@@ -157,7 +157,8 @@ def replay(path:str, env:int=Query(0,ge=0), limit:int=Query(3000,ge=1,le=10000))
             'foot_positions':feet,'targets':targets,'learning_iteration':row.get('learning_iteration'),
             'first_episode_finished':get('first_episode_finished'),
             'foot_normal_force_N':get('foot_normal_force_N'),'contact_state':get('contact_state'),
-            'root_vz':get('root_vz'),'actions':get('actions')})
+            'root_vz':get('root_vz'),'actions':get('actions'),'target_indices':get('target_indices'),
+            'accepted_indices':get('accepted_indices'),'measured_jump_count':get('measured_jump_count')})
     return {'metadata':data,'env_id':ids[env],'samples':rows,'stride':stride,
         'available_channels':[key for key in ['root_z','feet_z','stage','phase','foot_normal_force_N','contact_state','root_vz','actions'] if any(r.get(key) is not None for r in rows)],'unavailable_channels':['impact']}
 
