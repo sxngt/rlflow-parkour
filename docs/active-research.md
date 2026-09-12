@@ -471,3 +471,14 @@ mean성공56/32/48/21,유효비행·최초정밀모두64,안정화64/64/64/53. s
 deck성공0/0/64/0,flight전부64. continuous/split모든seed성공0/flight0/비발충돌64. 좁은지지면512episode모두초기발XY내부,후속XY이탈/발높이−2cm아래관측. seed2 FR0.355초이탈/0.425초표면아래,continuous종료.46/split.44. docs/p2-26-findings.md/summary.json/preparation.json. 유효비행전지지손실이며갭만의문제아님. 원인과미끄러짐확정금지.
 
 다음P227은좁은continuous학습분포/준비동작의구조적수정후보. terrain_contract flat/deck전용확장및목표영역가용성(20cm목표를현24cm패드에무조건넣지않음)/reset/restore/물리probe검증필요. 관측경계추가와지형분포변경을동시에섞지말고먼저프로토콜/비교예산고정. 기존deck회귀유지. 현재P227미착수,추가학습없음,전체목표미완료.
+
+
+### 최신: P2-27 continuous 직접 학습 시작
+
+직전P226전체완료는progress. 이번턴src/parkour/terrain_contract.py에continuous허용/버전geometry일치/발투영반경2cm 및모든train/eval/curriculum목표영역검증추가. 기존flat/deck계약유지. tests58통과 artifacts/p2-27-unit-tests.log. configs/p2-27-continuous.json은P224에서terrain/tags만차이임을정확대조. fresh4seed예산동일,지도관측/보상변경없음. docs/p2-27-protocol.md.
+
+source5f2d3c1 smoke64env3update 거리5/10/15cm·반경6/4.5/3cm·cap.35/.2/.05 확인/유한loss. autoeval+영상완료. zero-support64대모두4초실패0,settle후모든200Hz표본네발>2N 확인. resume3→4/5update유한loss/체크포인트확인. artifacts/p2-27-smoke-audit.jsonl4감사통과. 이것은학습성공증거아님.
+
+sourcebd8bd54 scripts/p2_27_train.py batch39983(출력 artifacts/p2-27-main-batch.log),4실제PID실행확인: seed0 1522303/seed1 1522214/seed2 1522215/seed3 1522200. 각1024×24×1600,신규157286400step. artifacts/p2-27-start-observation.json. 저장532GB. 중복실행금지.
+
+다음401/801/1201실제전환및checkpoint확인후1600+continuous mean평가. 이어새모델4개의deck혼합거리회귀평가와P224모델4개의continuous혼합거리대조평가필수(--support-preserve-goals 사용,같은고정calibration/matched). 기존P224 deck평가4재사용. 총비교16행/새평가12,학습4감사. report spec/추가평가배치는아직작성전. scripts/p2_15_support_report.py는foot='all'기반deck전용surface선택가능성있으므로continuous지원확인후사용. 지지면밖성공을확정성공으로과장금지. P226은15cm고정군이므로혼합거리대조에대신넣지않음. 전체목표미완료.
