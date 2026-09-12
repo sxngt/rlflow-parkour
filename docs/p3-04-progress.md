@@ -7,3 +7,11 @@ schema2 hold-last 두hop 학습을 course/deck에 허용했다. 기존schema1 �
 본학습을scripts/p3_04_train.py로시작했다. 실행session47669,로그artifacts/p3-04-training-batch.log. GPU0 course seed1, GPU1 deck seed1, GPU2 course seed2, GPU3 deck seed2. 각각1024env800update,부모는같은seed P240 checkpoint800. 별도warmup결과에서재개하지않았다. 실행시각실제GPU worker PID1992570/1992578/1992584/1992563확인. session종료/실제PID를확인하고관측timeout만으로재시작하지않는다.
 
 아직학습결과가아니다. 본학습은자동native최종평가까지실행한다. 다음은완료상태/hash/학습step회계확인후protocol의course/deck/continuous회귀평가를수행하고부모대조를확보한다. GPU용도고정아니며작업종료후회수된다. 자동champion승격없음. P3계획연결은제한된기하학적경로이며동역학rollout검증/일반코스완료는미달이다.
+
+## 평가 준비
+
+scripts/p3_04_evaluate.py는4개신규모델+2개부모×course/deck/continuous총18평가(1,152episode)를동일한명시적평가계약으로실행한다. native평가는훈련종료검증용이고비교표는새명시적평가를사용한다. course는map-goal30cm기하학적Planner와hold-last,deck은hold-last,continuous는단일0/5/10/15cm이다. 실행전4훈련800update/해제/hash/native평가gate를모두요구하며기존attempt덮어쓰기거부. --dry-run으로전체명령생성확인. 아직추가평가는시작하지않았다.
+
+scripts/p3_04_report.py는각suite의scenario/support/chain/action동일성,checkpoint/plan/영상hash,64camera4,태그를검사하고비교표와거리별통계를작성한다. 현시점컴파일확인만했고최종데이터전체감사는실험완료후실행한다. 다음명령: python3 scripts/p3_04_evaluate.py (본batch정상종료확인후), 이어 python3 scripts/p3_04_report.py. 보고서불일치시실제계약차이를조사하고검증을우회하지않는다.
+
+본학습실제4PID생존및iteration169~186까지진행확인. 활성session47669와artifacts/p3-04-training-batch.log를계속관찰한다. 아직최종성능을주장하지않는다.
