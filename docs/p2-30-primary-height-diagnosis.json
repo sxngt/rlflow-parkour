@@ -1,0 +1,86 @@
+[
+  {
+    "run": "p2-29-split-seed0",
+    "condition": "parent",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.05555958300828934,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-30-fixed-seed0",
+    "condition": "fixed",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.10495677590370178,
+    "terminal_height_outside_tolerance": 32
+  },
+  {
+    "run": "p2-30-mixed-seed0",
+    "condition": "mixed",
+    "seed": 0,
+    "mean_terminal_base_rise_m": -0.028253749012947083,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-split-seed1",
+    "condition": "parent",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.03164088353514671,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-30-fixed-seed1",
+    "condition": "fixed",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.044085338711738586,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-30-mixed-seed1",
+    "condition": "mixed",
+    "seed": 1,
+    "mean_terminal_base_rise_m": -0.022055067121982574,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-29-split-seed2",
+    "condition": "parent",
+    "seed": 2,
+    "mean_terminal_base_rise_m": 0.004789901897311211,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-30-fixed-seed2",
+    "condition": "fixed",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.01750270277261734,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-30-mixed-seed2",
+    "condition": "mixed",
+    "seed": 2,
+    "mean_terminal_base_rise_m": -0.08229795843362808,
+    "terminal_height_outside_tolerance": 32
+  },
+  {
+    "run": "p2-29-split-seed3",
+    "condition": "parent",
+    "seed": 3,
+    "mean_terminal_base_rise_m": 0.014387784525752068,
+    "terminal_height_outside_tolerance": 0
+  },
+  {
+    "run": "p2-30-fixed-seed3",
+    "condition": "fixed",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.047764137387275696,
+    "terminal_height_outside_tolerance": 16
+  },
+  {
+    "run": "p2-30-mixed-seed3",
+    "condition": "mixed",
+    "seed": 3,
+    "mean_terminal_base_rise_m": -0.029192272573709488,
+    "terminal_height_outside_tolerance": 0
+  }
+]

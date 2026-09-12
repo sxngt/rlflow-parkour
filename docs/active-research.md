@@ -758,3 +758,12 @@ scripts/goal_exposure_report.py 추가:완료artifact감사후spec의새run만�
 Native split0/15각32개성공:fixedseed0~3 0/32모두, mixed0=29/32,mixed1=0/32,mixed2=0/32,mixed3=31/32. 각쌍첫값0cm성공수/둘째값15cm성공수이며분모각32. 두seed회복만으로일반개선/승격주장금지.
 
 추가20평가 scripts/p2_30_evaluate.py 시작session31532,log artifacts/p2-30-evaluation-batch.log. 부모split0/15×32새4평가부터시작,이어서모델8continuous회귀및split15유지. 다음동일세션/PID재확인·완료후20감사,부모/자식scenario동일성,3spec×4보고서,모든신규result영상hash/camera/tags/대표시각검수,노출량·실패단계최종분석. 전체목표미완료.
+
+
+### 최신: P2-30 추가평가·보고서 완료
+
+이전턴전체학습/평가시작은progress. session31532exit0/PID1709014없음. 추가20평가감사통과 artifacts/p2-30-additional-evaluation-audit.jsonl. 부모split0cm32/2/0/0,15cm32각. mixed0cm29/0/0/31,fixed0모두0;retention15×64모든12모델행64. continuous회귀mixed:seed0[11,8,16,16],1[0,0,16,16],2[0,8,16,16],3[15,16,16,16]. docs/p2-30-findings.md. 승격안함.
+
+primary4보고서session20788exit0,regression/retention8보고서session38072exit0. 첫분모검사에서과거P229원본by_distance누락으로assert발생했으나기존load_report정정뷰사용후3군각12행scenario정확일치/거리별64및성공합계검증 artifacts/p2-30-scenario-pairing-audit.json. 원본수정없음.28새result영상hash/render64/camera4/step태그 artifacts/p2-30-videos-audit.json. GPUcompute없음/530GB. 대표P230영상시각검수남음.
+
+다음P230실패단계진단(특히mixed1/2의0cm,0~2의5cm),대표영상검수,다음학습출발점고려:능력을이미잃은P229부모로부터복구대신P227부모에서직접혼합으로유지가능성. P229같은부모15전용대조를재사용가능한지계약/예산/조건검토. 아직P231프로토콜/실행없음. 전체목표미완료.
