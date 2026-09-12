@@ -26,7 +26,8 @@ def main():
     p.add_argument("--restore-transition", type=Path, help="Probe a saved landing state; success is for the remaining hop only")
     p.add_argument("--transition-states", action="store_true", help="Record articulated successful-landing states; replay not yet validated")
     p.add_argument("--reward-components", action="store_true", help="Audit grouped control-step rewards without changing the policy or reward")
-    p.add_argument('--chain-hops', type=int, choices=[1, 2], help='P2-32 frozen-policy deck evaluation; separate course success contract')
+    p.add_argument('--chain-hops', type=int, choices=[1, 2, 3, 4], help='P2-32 frozen-policy deck evaluation; separate course success contract')
+    p.add_argument('--mapped-contact-progress', action='store_true', help='Separate mapped foothold course contract; retains strict trunk-flight metric')
     p.add_argument('--chain-settle-mode', choices=['default', 'hold-last'], default='default')
     p.add_argument('--action-mode', choices=['mean', 'sampled'], default='mean')
     p.add_argument('--action-seed', type=int, default=20000)
@@ -41,9 +42,9 @@ def main():
     p.add_argument('--support-calibration', type=Path, help='Frozen flat evaluation run.json for support transfer')
     p.add_argument('--support-probe-offset', type=float, choices=[.075], help='Zero-action geometry probe only: start feet above the gap')
     args = p.parse_args()
-    if args.chain_settle_mode != 'default' and args.chain_hops != 2:
+    if args.chain_settle_mode != 'default' and args.chain_hops not in (2,3,4):
         p.error('Holding last action requires two-hop chain evaluation')
-    if args.chain_hops is not None and ((args.chain_hops == 2 and args.support_mode not in ('deck', 'course')) or not args.support_matched_material
+    if args.chain_hops is not None and ((args.chain_hops >= 2 and args.support_mode not in ('deck', 'course')) or not args.support_matched_material
             or args.support_preserve_goals or args.support_probe_offset is not None
             or args.baseline != 'policy' or args.action_mode != 'mean' or args.launch_radius is not None):
         p.error('Chain evaluation requires matched support, policy mean and original launch radius; two hops require deck or course')
@@ -74,7 +75,7 @@ def main():
                    'reference_sha256': sha256(args.support_calibration),
                    'goal_forward_m': .15}
         if args.support_mode != 'flat':
-            support['layout'] = build_support_layout(names, support['calibration']['foot_xy_m'], mode=args.support_mode)
+            support['layout'] = build_support_layout(names, support['calibration']['foot_xy_m'], mode=args.support_mode, course_hops=args.chain_hops or 2)
         if args.support_preserve_goals:
             support.pop('goal_forward_m')
     elif args.support_calibration:
@@ -119,14 +120,16 @@ def main():
         support = copy.deepcopy(support)
         support.pop('goal_forward_m', None)
         manifest['evaluation_support'] = support
+    if args.mapped_contact_progress and (args.support_mode!='course' or args.chain_hops not in (2,3,4) or args.restore_transition):
+        p.error('Mapped contact progression requires an original course evaluation')
     plan = None
     if args.map_goal_forward_m is not None:
-        if args.support_mode != 'course' or args.chain_hops != 2:
+        if args.support_mode != 'course' or args.chain_hops not in (2,3,4):
             p.error('Geometric execution currently requires the two-hop course adapter')
         from parkour.geometric_planner import plan_stances
-        plan = plan_stances(support['layout'], support['calibration']['foot_xy_m'], args.map_goal_forward_m)
+        plan = plan_stances(support['layout'], support['calibration']['foot_xy_m'], args.map_goal_forward_m, max_hops=args.chain_hops)
         selected = [c['forward_m'] for c in plan['contacts']]
-        if plan['status'] != 'planned' or selected != [.15, .30]:
+        if plan['status'] != 'planned' or (len(selected)!=args.chain_hops or any(abs(x-.15*(i+1))>1e-7 for i,x in enumerate(selected))):
             p.error('No geometric plan compatible with the current 15cm two-hop Tracker contract')
         for episode in manifest['episodes']:
             episode['foot_offsets_xy_m'] = [[selected[0], 0.] for _ in range(4)]
@@ -148,6 +151,8 @@ def main():
             meta['chain_contract']['absolute_forward_targets_m'] = distances if len(distances) == 1 else None
             meta['chain_contract']['single_hop_goal_choices_m'] = distances
             meta['chain_contract']['target_source'] = 'scenarios.episodes[*].foot_offsets_xy_m'
+        if args.mapped_contact_progress:
+            meta['chain_contract']['progress_criterion']='mapped_contact_v1'
         manifest['chain_contract'] = meta['chain_contract']
     if plan is not None:
         atomic_json(args.out/'geometric-plan.json', plan)
@@ -165,7 +170,7 @@ def main():
         from parkour.learning import make_env, make_algorithm, read_checkpoint, restore
         torch.manual_seed(10000)
         env = make_env(config, evaluation_support=support, chain_hops=args.chain_hops,
-                       chain_settle_mode=args.chain_settle_mode, independent_support_clones=args.independent_support_clones)
+                       chain_settle_mode=args.chain_settle_mode, independent_support_clones=args.independent_support_clones, mapped_contact_progress=args.mapped_contact_progress)
         if plan is not None:
             env.planned_forward_targets = [c['forward_m'] for c in plan['contacts']]
         if args.independent_support_clones:
@@ -178,7 +183,7 @@ def main():
             contract = inspect_collision_contract(env)
             atomic_json(args.out/'collision-contract.json', contract)
         if args.transition_states:
-            if args.chain_hops != 2:
+            if args.chain_hops not in (2,3,4):
                 raise ValueError('Transition states require two-hop evaluation')
             env.capture_transition_states = True
         alg, norm = make_algorithm(config, env)
@@ -229,7 +234,7 @@ def main():
         meta["baseline"] = args.baseline
         meta["nominal_foot_xy_m"] = env.nominal_xy.tolist()
         if args.restore_transition:
-            if args.chain_hops != 2 or args.transition_states or args.action_mode != 'mean':
+            if args.chain_hops not in (2,3,4) or args.transition_states or args.action_mode != 'mean':
                 raise ValueError('Restore probe requires two-hop mean policy without nested capture')
             from parkour.transition_states import restore_transition_states
             restored = restore_transition_states(env, args.restore_transition, args.checkpoint, support)
@@ -348,6 +353,9 @@ def main():
             atomic_json(args.out / 'chain-events.json', {'contract': meta['chain_contract'],
                 'hops': env.hop_events, 'transitions': env.transition_events,
                 'scope': 'first episode per environment only; later auto-reset episodes excluded'})
+        if args.mapped_contact_progress:
+            report['success_contract']='valid flight + launch region + first contact on assigned surface + precise stable support; trunk airborne distance is a separate legacy metric'
+            report['evaluation_scope']='mapped_contact_v1; not comparable to legacy strict-travel success'
         if args.restore_transition:
             report['evaluation_scope'] = 'restored_remaining_hop_only'
             report['success_contract'] = 'Remaining hop from restored landing passes original gates; prior hop not executed in this run'

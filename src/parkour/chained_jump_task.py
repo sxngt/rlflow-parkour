@@ -12,8 +12,8 @@ from parkour.directed_jump_task import DirectedJumpEnv
 
 class ChainedDirectedJumpEnv(DirectedJumpEnv):
     def __init__(self, cfg, render_mode=None, hops=2, settle_mode='default', retention=False, retention_goals=None, retention_weights=None):
-        if hops not in (1, 2):
-            raise ValueError('P2-32 supports one-hop control or two-hop evaluation')
+        if hops not in (1, 2, 3, 4):
+            raise ValueError('Adapter supports one to four hops')
         if settle_mode not in ('default', 'hold-last'):
             raise ValueError('Unknown inter-hop settle command')
         super().__init__(cfg, render_mode)

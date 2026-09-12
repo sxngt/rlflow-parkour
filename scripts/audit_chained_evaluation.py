@@ -37,8 +37,23 @@ def check(directory):
         for h in local:
             m = h['metrics']
             if m['success']:
-                assert all(m[k] for k in ('valid_flight', 'launch_in_region',
-                    'travel_requirement_met', 'first_touch_all_within', 'precise_stabilized_once'))
+                gates = ('valid_flight', 'launch_in_region', 'first_touch_all_within', 'precise_stabilized_once')
+                assert all(m[k] for k in gates)
+                if contract.get('progress_criterion') == 'mapped_contact_v1':
+                    from parkour.support_geometry import expected_goal_surface
+                    assert m['mapped_contact_ok']
+                    sample = h['episode_step'] * 4 - 1
+                    for foot, name in enumerate(('fl','fr','rl','rr')):
+                        surface = expected_goal_surface(run['evaluation_support'], foot,
+                            run['nominal_foot_xy_m'][foot], .15*(h['segment']+1))
+                        x0,x1,y0,y1 = surface['bounds_xy_m']
+                        assert x0 <= m['first_touch_x_'+name] <= x1
+                        assert y0 <= m['first_touch_y_'+name] <= y1
+                        x,y,z = trace['foot_pos'][sample,i,foot]
+                        assert x0 <= x <= x1 and y0 <= y <= y1 and 0 <= z <= .04
+                        assert trace['force'][sample,i,foot,2] > 2
+                else:
+                    assert m['travel_requirement_met']
         displacements = []
         for j, transition in enumerate(transitions):
             step = transition['episode_step']

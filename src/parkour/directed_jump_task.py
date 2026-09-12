@@ -42,7 +42,13 @@ class DirectedJumpEnv(PrecisionJumpEnv):
             self.launch_reference_xy(),self.jump['launch_radius_m'])
         self.precise_stabilized|=self.success
         self.failure|=self.flight_event&~self.travel.launch_ok
-        self.success&=self.travel.valid(self.goal_distance,self.jump['travel_tolerance_m'])&~self.failure
+        self.strict_travel_success=self.success&self.travel.valid(self.goal_distance,self.jump['travel_tolerance_m'])&~self.failure
+        if getattr(self.cfg, 'mapped_contact_progress', False):
+            from parkour.mapped_contact import mapped_contact_gate
+            self.mapped_contact_ok=mapped_contact_gate(self)
+            self.success&=self.travel.launch_ok&self.mapped_contact_ok&~self.failure
+        else:
+            self.success=self.strict_travel_success.clone()
         term=self.success|self.failure
         return term,(self.episode_length_buf>=self.max_episode_length)&~term
     def _get_rewards(self):
@@ -62,4 +68,10 @@ class DirectedJumpEnv(PrecisionJumpEnv):
         for axis,i in [('x',0),('y',1)]:
             m[f'launch_root_{axis}_m']=self.travel.launch_xy[:,i].clone()
             m[f'first_touch_root_{axis}_m']=self.travel.touch_xy[:,i].clone()
+        if getattr(self.cfg, 'mapped_contact_progress', False):
+            m['mapped_contact_ok']=self.mapped_contact_ok.clone()
+            m['strict_travel_success']=self.strict_travel_success.clone()
+            for i,name in enumerate(['fl','fr','rl','rr']):
+                m['first_touch_x_'+name]=self.first_touch.positions[:,i,0].clone()
+                m['first_touch_y_'+name]=self.first_touch.positions[:,i,1].clone()
         return reward

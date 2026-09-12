@@ -10,9 +10,11 @@ import math
 
 def build_support_layout(foot_names, foot_xy, *, mode, travel_m=0.15,
                          pad_length_m=0.09, pad_width_m=0.12,
-                         thickness_m=0.10, catch_floor_z_m=-0.5):
+                         thickness_m=0.10, catch_floor_z_m=-0.5, course_hops=2):
     if mode not in ('continuous', 'split', 'deck', 'course'):
         raise ValueError('Support mode must be continuous, split, deck or course')
+    if type(course_hops) is not int or course_hops not in (1,2,3,4):
+        raise ValueError('Course supports one to four hops')
     if mode == 'course':
         # Rear final pads approach front departure pads: 9 cm pads overlap.
         pad_length_m = .06
@@ -36,7 +38,7 @@ def build_support_layout(foot_names, foot_xy, *, mode, travel_m=0.15,
                     [(x, pad_length_m, 'departure'),
                      (x + travel_m, pad_length_m, 'landing')])
         if mode == 'course':
-            segments = [(x + k * travel_m, pad_length_m, f'station_{k}') for k in range(3)]
+            segments = [(x + k * travel_m, pad_length_m, f'station_{k}') for k in range(course_hops+1)]
         for cx, length, role in segments:
             surfaces.append({'id': f'{name}_{role}', 'foot': name, 'role': role,
                 'center_m': [cx, y, -thickness_m / 2],

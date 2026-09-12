@@ -45,10 +45,12 @@ def collect(evaluation, result_root=ROOT / 'result'):
     task, task_title = TASKS[run['config']['task']]
     if run.get('evaluation_support'):
         support = run['evaluation_support']
-        label = {'flat': '평지대조', 'continuous': '발별_연속지지면', 'split': '발별_분리지지면_갭6cm', 'deck': '단일발판_140x120cm', 'course': '연속불연속발판_2도약_발별15cm이동_패드6x12cm_갭9cm'}[support['mode']]
+        label = {'flat': '평지대조', 'continuous': '발별_연속지지면', 'split': '발별_분리지지면_갭6cm', 'deck': '단일발판_140x120cm', 'course': '불연속발판_발별15cm이동_패드6x12cm_갭9cm'}[support['mode']]
         task_title = label + ('_목표전이15cm_고정정책' if support.get('goal_forward_m') == .15 else '_목표거리별평가')
         if support.get('matched_material'):
             task_title += '_동일물리재질'
+    if run.get('chain_contract',{}).get('progress_criterion')=='mapped_contact_v1':
+        task_title='지도접촉기준v1_몸체비행거리별도_'+task_title
     if run.get('transition_restore'):
         task_title = '저장착지복원_후속도약만_전체코스평가아님_' + task_title
     model = run.get('checkpoint')
