@@ -1031,3 +1031,11 @@ P237 실행상태정정:첫session27226은실제terminal exit1,4첫chain평가�
 핵심mixedseed0/2 deck0/5/10/15 전부16/16,continuous0/16/16/16 및0/0/0/0. 혼합목표능력전부소실이아닌지지면이전실패요소확인. seed1/3은deck내거리실패도남음. 정확접촉원인미확정. 다음P238명세/구현후보:동일P236목표step분할 유지,chain환경deck/single환경continuous와기존all-deck대조,부모4/동일총step. 실제환경별geometry/충돌분리/마찰보정검증먼저필요. 관련생성 src/parkour/task.py72~80,learning.py support계약,collision_contract.py. 아직P238명세/코드/학습없음.
 
 현재모든GPU유휴(16~35MiB),저장527GB. 실행중batch없음. P236미승격유지. 전체목표미완료.
+
+### 최신: P2-38 명세 / 이종 지형 배치 계약
+
+이전P237완료검증은progress. 설치IsaacLab interactive_scene.py45~56/134~207확인:서로다른asset환경은replicate_physics=False,그경우GPU도명시적filter_collisions필요. 기존P236생성경로와달라대조재사용금지,docs/p2-38-protocol.md에서Aall-deck/Bsingle-continuous둘다같은이종생성방식의신규8학습800update/총157286400step으로사전고정. 부모P231전체4,목표/50:50/PPO기존유지. 아직본학습없음.
+
+src/parkour/support_assignment.py 순수strict계약추가:optional config support_assignment={schema_version:1,single_mode:deck|continuous,assignment:fixed_env_id_chain_first,replicate_physics:false},retention/chain조건+짝수env강제,앞절반deck/뒤절반선택지형,기존build_support_layout 및expected_goal_surface로목표포함검증. plan copy_from_sourceTrue/explicitcollisionfilter,원본불변. tests/test_support_assignment.py2개통과 artifacts/p2-38-assignment-tests.log. 현재helper만구현,아직make_env/task.py/fork/resume에연결안됨,새config/실제scene없음.
+
+다음:cfg.support_assignment추가,learning.make_env학습시에만계획생성/replicatefalse(명시적평가는기존override),task._setup_scene는assignment일때support선생성스킵→robotclone copy_from_sourceTrue→각env별지형spawn→명시적filter_collisionsglobalGround. 환경0상속잔여deck금지/전체USD collider배치감사(경계/firstlast뿐아니라전체). staticCuboid형상/재질기존유지,본학습전실제접촉/환경간충돌분리/보정동일검증필요. fork/resume검증및metadata保存추가후smallscene/probe/smoke/profiling. 현재GPU작업없음,전체목표미완료.
