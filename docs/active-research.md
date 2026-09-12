@@ -947,3 +947,10 @@ scripts/p2_34_evaluate.py작성:4seed×2조건×4평가군=32유일결과참조,
 이전첫완료결과확인은progress. chainseed1/3본학습800및native평가완료. seed1두도약64/64완주,seed3첫도약0/64. artifacts/p2-34-first-wave-chain-audit.json 64전환trace/상태보존/도약판정감사passed;training2감사 artifacts/p2-34-first-wave-chain-training-audit.jsonl. seed1 MP4 2.0초프레임직접확인 artifacts/p2-34-chain-seed1-second-jump-review.png(전체영상검수아님). result두개MP4/chain-events hash/64/camera4검증 artifacts/p2-34-first-wave-chain-videos-audit.json. 단일seed0/2의같은예산코스평가는아직이므로인과/일반화결론금지.
 
 두번째묶음실제worker:chain0 PID1801536,chain2 PID1801804,single3 PID1803170,single1 PID1803471. 초기화감사4모두passed artifacts/p2-34-second-wave-fork-audit.log(session60280exit0). 전체학습batchsession65779유지. 다음동일4작업업데이트확인→800/native후8학습감사→추가24평가→최종pairedreport. 전체목표미완료.
+
+
+### 최신: P2-34 전체 본학습 완료 / 추가 평가 실행
+
+이전두턴은동일실제worker의verifiedwait. 이번같은4worker확인/45초단위대기후batchsession65779exit0,4seedworkerexit0배치결과확인. 8학습800+8native완료감사통과 artifacts/p2-34-main-native-audit.json. native single seed0/1/2/3 성공64/64/64/0,chain코스0/64/0/0. chain0/2/3첫도약성공0. 서로다른native과제이므로이숫자만으로조건우열주장금지.
+
+scripts/p2_34_evaluate.py 추가24평가 시작session5859,log artifacts/p2-34-evaluation-batch.log. 32참조명세 artifacts/p2-34-evaluation-plan.json. 다음실제PID/동일session확인→평가완료→scripts/p2_34_report.py실행(전체8학습/32평가paired검증)→실패단계와회귀해석/영상확인. 전체목표미완료.
