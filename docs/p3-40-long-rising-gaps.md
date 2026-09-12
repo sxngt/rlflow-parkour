@@ -7,3 +7,9 @@ New long_ten_gap_course_v3 raises terrain by5cm or10cm at each gap, keeping the 
 40transfer geometry-onlysmokes: rise05 reaches25.81transfers;rise10reaches3;0strictjumps. No main40runs. Integrated60transfer configurations combine56.25cm nominalgaps, fiveapproaches per gap, landingbodyreference, gapflightcredit10, terminalmotioncost2. These are integrated engineering scenarios, not an isolated multi-factor causal comparison. Both12×64smokes passed physics/trace audits and reachfirstgap5/60. Main1600×1024 per height, parentP338gap125bonus800, parentadaptiveLR2.25e-5 andstdcap.12 retained. GPU0rise05session68626/GPU1rise10session7449. Evaluate frozen finalcheckpoint and original fixedenv0follow video; no final performance promise.
 
 Metric change: clean airborne count can include terminal rocking. New travel_clean_airborne_count and travel_measured_jump_count exclude landings after both targets enter finalstance. Demo eligibilityv5 tightensv4 by requiring8strictjumps during travel itself, not jumps accumulated while waiting at the goal. Old artifact reports remain unchanged.
+
+## Frozen 1600-update evaluation
+
+Rise05: 48/64 full successes, 25% failures, no timeouts. Fixed env0 succeeds at12.24s with11.52s travel,60transfers,59clean travel airborne events,0strict travel jumps. No terminal controller. Rise10:0/64full success,100% failures; env0 reaches60 but non-foot contact at11.82s. These are identical-geometry development clones, not independent terrain seeds. Both physics-rate trace/artifact audits pass. Representative frames show single-robot third-person tracking. Curated video entry: result/long-course-follow/README.md.
+
+P3-42 evaluates the frozen rise05 checkpoint001600 on unseen geometry seed101 at medium and easy levels, preserving60transfers/gapscale1.25/rise05 and the controller. This is development generalization probing, not final locked testing.

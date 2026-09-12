@@ -128,7 +128,9 @@
     "step:p3-41-terminal-pose": "P3-41 · 종점 PD 자세 연결 평가",
     "purpose:hybrid-evaluation": "RL 주행 + PD 종점 평가",
     "condition:pose-settled": "정착 후 자세 전환",
-    "condition:pose-contact-capture": "지지 접촉 시 자세 전환"
+    "condition:pose-contact-capture": "지지 접촉 시 자세 전환",
+    "step:p3-42-long-course-generalization": "P3-42 · 장거리 정책 지형 일반화 평가",
+    "step:p3-43-tiered-long-course": "P3-43 · 난이도별 장거리 시나리오 학습"
   },
   "task_defaults": {
     "a1_t0_foothold_v1": [
@@ -620,6 +622,27 @@
       "difficulty:medium",
       "purpose:diagnosis",
       "course:ten-gaps-60-transfers"
+    ],
+    "p3-42-rise05-medium-seed101": [
+      "phase:P3",
+      "step:p3-42-long-course-generalization",
+      "difficulty:medium",
+      "purpose:development-evaluation",
+      "course:ten-rising-gaps-60"
+    ],
+    "p3-42-rise05-easy-seed101": [
+      "phase:P3",
+      "step:p3-42-long-course-generalization",
+      "difficulty:easy",
+      "purpose:development-evaluation",
+      "course:ten-rising-gaps-60"
+    ],
+    "p3-42-rise05-hard-seed101": [
+      "phase:P3",
+      "step:p3-42-long-course-generalization",
+      "difficulty:hard",
+      "purpose:development-evaluation",
+      "course:ten-rising-gaps-60"
     ]
   },
   "note": "Phase is work classification, not a completion claim. Explicit run research_tags override task defaults. Legacy annotations are derived without changing original artifacts."
