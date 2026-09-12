@@ -1,5 +1,6 @@
-"""Eight bounded cross-terrain evaluations after all P2-27 training finishes."""
+"""Bounded cross-terrain evaluations, gated on each requested seed completion."""
 from concurrent.futures import ThreadPoolExecutor
+import argparse
 import json
 from pathlib import Path
 import subprocess
@@ -23,13 +24,17 @@ def worker(seed):
         if r.returncode:return {'seed':seed,'exit_code':r.returncode,'command':c}
     return {'seed':seed,'exit_code':0}
 if __name__=='__main__':
-    for seed in range(4):
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--seeds',nargs='+',type=int,choices=range(4),default=list(range(4)))
+    args=parser.parse_args()
+    if len(set(args.seeds))!=len(args.seeds):parser.error('Duplicate seeds')
+    for seed in args.seeds:
         for source,_ in CASES:
             p=ROOT/'artifacts'/f'{source}-seed{seed}'
             audit(p);audit(p.with_name(p.name+'__final-evaluation'))
         for source,terrain in CASES:
             c=command(seed,source,terrain);p=ROOT/c[c.index('--out')+1]
             if p.exists() or p.with_suffix('.log').exists():raise RuntimeError(f'Existing attempt {p}')
-    with ThreadPoolExecutor(max_workers=4) as pool:results=list(pool.map(worker,range(4)))
+    with ThreadPoolExecutor(max_workers=4) as pool:results=list(pool.map(worker,args.seeds))
     print(json.dumps(results),flush=True)
     sys.exit(int(any(r['exit_code'] for r in results)))
