@@ -813,7 +813,7 @@ wheels = [
 [[package]]
 name = "lab-logging"
 version = "0.1.0"
-source = { git = "https://github.com/sxngt/rl-flow?subdirectory=lab_logging&rev=main#5eed8a971098f32f5ced8863f08c694e8c18cede" }
+source = { git = "https://github.com/sxngt/rl-flow?subdirectory=lab_logging&rev=main#944dc30ea71de22a4644edb73b752f91afc89419" }
 dependencies = [
     { name = "boto3" },
     { name = "imageio" },
