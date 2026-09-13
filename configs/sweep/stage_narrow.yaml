@@ -6,4 +6,4 @@ max_concurrent: 4
 scheduler: none
 overrides: [exploration.stages.0.max_std=0.12, gap_jump_bonus=0.0]
 space:
-  runner.algorithm.learning_rate: {grid: [0.00015, 0.0002, 0.00025, 0.0003]}
+  runner.algorithm.learning_rate: {grid: [0.0001, 0.00015, 0.0002, 0.00025]}
