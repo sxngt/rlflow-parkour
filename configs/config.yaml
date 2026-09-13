@@ -2,3 +2,7 @@
 defaults:
   - p3-70-control
   - _self_
+
+# 평가 suite 기본값 (evaluate-promote 는 config_name 태그가 없으면 config.yaml 을 읽는다)
+eval:
+  default_suite: eval_suite/curriculum.yaml
