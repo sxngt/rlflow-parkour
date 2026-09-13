@@ -99,6 +99,19 @@ def resolve_checkpoint(ref: str, dst: Path) -> Path:
     return p
 
 
+_EMA: dict[str, float] = {}
+
+
+def _ema(name: str, value, m: dict[str, float], alpha: float = 0.05) -> None:
+    if value is None:
+        if name in _EMA:
+            m[name] = _EMA[name]
+        return
+    v = float(value)
+    _EMA[name] = v if name not in _EMA else (1 - alpha) * _EMA[name] + alpha * v
+    m[name] = _EMA[name]
+
+
 def to_metrics(d: dict, prev_steps: int, episode_seconds: float) -> tuple[int, dict[str, float]]:
     step = int(d.get("total_environment_steps", 0))
     losses = d.get("losses") or {}
@@ -119,6 +132,10 @@ def to_metrics(d: dict, prev_steps: int, episode_seconds: float) -> tuple[int, d
     if eps > 0:
         m["custom/success_rate"] = float(d.get("successes", 0)) / eps
         m["custom/failure_rate"] = float(d.get("failures", 0)) / eps
+    # 스윕·커리큘럼 선택용 평활 지표 (iteration 단위 EMA, 0.05). 에피소드가 없는 iteration 은 이전 값 유지.
+    _ema("custom/success_ema", m.get("custom/success_rate"), m)
+    _ema("custom/transfers_ema", d.get("terminal_mean_surface_transfers"), m)
+    _ema("custom/jumps_ema", d.get("terminal_mean_credited_gap_jumps"), m)
     for k, v in d.items():
         if k in ("iteration", "total_environment_steps", "wall_seconds", "losses") or not isinstance(v, (int, float)) or isinstance(v, bool):
             continue

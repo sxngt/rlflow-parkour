@@ -35,6 +35,7 @@ def main():
     p.add_argument("--reward-components", action="store_true", help="Audit grouped control-step rewards without changing the policy or reward")
     p.add_argument('--chain-hops', type=int, choices=range(1,9), help='Frozen-policy one-to-eight-hop evaluation; explicit course success contract')
     p.add_argument('--vectorized-map-contact', action='store_true', help='Opt-in equivalent map gate performance probe')
+    p.add_argument('--curriculum-map', help='RLflow curriculum: JSON {"seed":1,"fractions":0.4 | {"base":.25,"gap":.5,...}} → parkour.curriculum_maps.build_mixed_discrete_axes')
     p.add_argument('--course-station-heights', type=float, nargs='+', help='Initial and landing support heights, one per station')
     p.add_argument('--course-friction', type=float, help='Authored static/dynamic friction for later course pads')
     p.add_argument('--friction-start-station', type=int, default=4)
@@ -162,6 +163,11 @@ def main():
         if config['task']!='a1_continuous_tracker_v1' or args.shared_course_level is not None or args.support_mode:p.error('Mixed override requires continuous Tracker and no other terrain override')
         from parkour.shared_terrain import build_mixed_discrete
         support=copy.deepcopy(support);support['layout']=build_mixed_discrete(args.shared_course_seed,args.mixed_course_fraction);support['geometry_seed']=args.shared_course_seed
+    if args.curriculum_map is not None:
+        if config['task']!='a1_continuous_tracker_v1' or args.shared_course_level is not None or args.support_mode or args.mixed_course_fraction is not None:p.error('Curriculum map override requires continuous Tracker and no other terrain override')
+        from parkour.curriculum_maps import build_mixed_discrete_axes
+        spec=json.loads(args.curriculum_map)
+        support=copy.deepcopy(support);support['layout']=build_mixed_discrete_axes(int(spec.get('seed',1)),spec.get('fractions',.25));support['geometry_seed']=int(spec.get('seed',1))
     if args.shared_course_level is not None:
         config['research_tags']=[t for t in config.get('research_tags',[]) if not t.startswith('difficulty:')]+['difficulty:'+args.shared_course_level]
     if config['task']=='a1_continuous_tracker_v1':
@@ -270,6 +276,8 @@ def main():
     if support:
         meta['evaluation_support'] = support
         atomic_json(args.out/'terrain.json', support)
+    if args.curriculum_map is not None:
+        meta['curriculum_map_override']=json.loads(args.curriculum_map)
     if args.shared_course_level is not None:
         meta['shared_course_override']={'level':args.shared_course_level,'geometry_seed':args.shared_course_seed,
             'scope':'Frozen policy, evaluation-only geometry; training configuration unchanged'}
