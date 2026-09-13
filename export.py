@@ -39,12 +39,15 @@ def build(data: dict) -> tuple[Policy, int, int]:
     num_obs = int(state[actor_keys[0]].shape[1])
     num_actions = int(state[actor_keys[-1]].shape[0])
     ac = ActorCritic(num_obs, num_obs, num_actions, **{k: v for k, v in pcfg.items() if k in ("actor_hidden_dims", "critic_hidden_dims", "activation", "init_noise_std")})
-    missing, unexpected = ac.load_state_dict(state, strict=False)
-    bad = [k for k in missing if k.startswith("actor.")]
+    own = set(ac.state_dict().keys())
+    actor_state = {k: v for k, v in state.items() if k.startswith("actor.")}
+    bad = [k for k in own if k.startswith("actor.") and k not in actor_state]
     if bad:
-        raise RuntimeError(f"actor weights missing: {bad}")
-    if unexpected:
-        print(f"note: ignored checkpoint keys {unexpected} (exploration cap 등 학습 전용)")
+        raise RuntimeError(f"actor weights missing in checkpoint: {bad}")
+    ac.load_state_dict({k: v for k, v in state.items() if k in own}, strict=False)   # rsl_rl 의 load_state_dict 는 bool 을 돌려준다
+    extra = sorted(k for k in state if k not in own)
+    if extra:
+        print(f"note: ignored checkpoint keys {extra} (exploration cap 등 학습 전용)")
     norm: torch.nn.Module = EmpiricalNormalization(shape=[num_obs], until=int(1e8))
     try:
         norm.load_state_dict(data["normalizer"])
