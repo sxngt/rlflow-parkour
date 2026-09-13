@@ -39,6 +39,10 @@ def normalize_fractions(spec) -> dict[str, float]:
 
 def build_mixed_discrete_axes(seed: int = 1, fractions=None) -> dict:
     fr = normalize_fractions(fractions if fractions is not None else .25)
+    f0 = next(iter(fr.values()))
+    if len({round(v, 9) for v in fr.values()}) == 1 and f0 in (.25, .5, .75, 1.):
+        from parkour.shared_terrain import build_mixed_discrete
+        return build_mixed_discrete(seed, f0)          # 원 generator 와 바이트 단위로 같은 layout (terrain contract 호환)
     base = build_discrete_parkour('medium', seed, 24, .75)
     surfaces = copy.deepcopy(base['surfaces'][:4])
     gaps = copy.deepcopy(base['gap_locations'][:3])
@@ -67,12 +71,10 @@ def build_mixed_discrete_axes(seed: int = 1, fractions=None) -> dict:
         candidate['scenario_role'] = 'gap_landing'
         surfaces.append(candidate)
         gaps.append({'arrival_surface_index': i, 'projected_top_gap_m': top_gap, 'full_box_clearance_m': clearance, 'direction_xy': direction})
-    f = next(iter(fr.values()))
-    uniform = len({round(v, 9) for v in fr.values()}) == 1 and f in (.25, .5, .75, 1.)   # 원 generator 가 받는 값만 mixed_discrete_v1
     return {'schema_version': 2, 'geometry_contract': 'oriented_shared_surfaces_v1',
-            'scenario_contract': 'mixed_discrete_v1' if uniform else 'mixed_discrete_axes_v1',
+            'scenario_contract': 'mixed_discrete_axes_v1',
             'kind': 'mixed-discrete-challenge', 'level': 'development', 'seed': seed,
-            'difficulty_fraction': f if uniform else None, 'difficulty_axes': dict(fr), 'transitions': 24, 'frame': 'course_local',
+            'difficulty_fraction': None, 'difficulty_axes': dict(fr), 'transitions': 24, 'frame': 'course_local',
             'surfaces': surfaces, 'start_position_m': [0., 0., 0.], 'goal_position_m': surfaces[-1]['top_center_m'],
             'catch_floor_z_m': -.8, 'planned_gap_count': 24, 'gap_locations': gaps,
             'nominal_path_length_m': sum(math.dist(a['top_center_m'], b['top_center_m']) for a, b in zip(surfaces, surfaces[1:])),
