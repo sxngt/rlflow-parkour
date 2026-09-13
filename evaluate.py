@@ -52,10 +52,20 @@ def main() -> int:
     n_ep = int(suite.get("episodes_per_scenario", 64))
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
-    cfg_json = out / "config.json"
-    cfg_json.write_text(json.dumps(config, indent=2, ensure_ascii=False))
     ckpt = Path(a.checkpoint)
     ensure_sidecar(ckpt)
+    # parkour checkpoint 는 학습 config 를 통째로 담고 있고 read_checkpoint/restore 가 그것과 평가 config 의 일치를 요구한다.
+    # 스윕 trial 처럼 override 로 바뀐 값(LR, 탐색 상한, 보상 계수)은 Hydra 로 재구성할 수 없으므로 checkpoint 의 config 를 평가 config 로 쓴다.
+    import torch
+
+    saved = torch.load(str(ckpt), map_location="cpu", weights_only=False).get("config")
+    if isinstance(saved, dict) and saved.get("task"):
+        for k in ("research_tags",):
+            saved[k] = config.get(k, saved.get(k))
+        print(f"evaluate: using the checkpoint's embedded config (task={saved.get('task')}, iterations={saved.get('iterations')})", flush=True)
+        config = saved
+    cfg_json = out / "config.json"
+    cfg_json.write_text(json.dumps(config, indent=2, ensure_ascii=False))
     per_scn: dict[str, dict[str, float]] = {}
     failure_counts: dict[str, int] = {}
     videos: list[Path] = []
