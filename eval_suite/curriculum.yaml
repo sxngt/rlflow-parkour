@@ -1,0 +1,18 @@
+# 커리큘럼 평가: 학습 맵(native) + 25% 회귀. 각 64 episode, 고정 개발군, 영상.
+schema_version: 1
+episodes_per_scenario: 64
+scenarios:
+  - {name: native, args: []}
+  - {name: quarter, args: ["--curriculum-map", "{\"seed\":1,\"fractions\":0.25}"]}
+gate:
+  required: {}
+  p_value: 0.05
+  effect_size_threshold: 0.8
+  min_relative_drop: 0.05
+higher_is_better:
+  env/success_rate: true
+  env/ep_return: true
+  env/ep_len: true
+  custom/fail_rate: false
+  custom/timeout_rate: false
+  custom/mean_final_error_m: false
