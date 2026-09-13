@@ -3,7 +3,7 @@ project: parkour
 schema_version: 1
 task: a1_continuous_tracker_v1
 seed: 1
-num_envs: 4096
+num_envs: 2048
 iterations: 1200
 episode_seconds: 30.0
 target_offset_m: 0.06
