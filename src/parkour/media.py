@@ -100,6 +100,10 @@ class FollowRecorder:
         followed=UsdGeom.Imageable(env.scene.stage.GetPrimAtPath(env.scene.env_prim_paths[env_index]+'/Robot'))
         if followed.ComputeVisibility()==UsdGeom.Tokens.invisible:raise RuntimeError('Followed robot is invisible')
         env.render_mode='rgb_array';env.cfg.viewer.resolution=(1280,720)
+        self.plan_markers=None
+        if hasattr(env,'plan'):
+            self.plan_markers=VisualizationMarkers(VisualizationMarkersCfg(prim_path='/World/FollowPlannedContacts',markers={
+                'planned':sim_utils.SphereCfg(radius=.035,visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.,0.,0.),emissive_color=(.45,0.,0.)))}))
         self.eye=None;self.look=None;self.yaw=None
         self._camera()
         for _ in range(40):env.render()
@@ -119,6 +123,18 @@ class FollowRecorder:
     def capture(self,step,finished=None,iteration=None):
         if step%2:return
         if finished is not None and bool(finished[self.ids[0]]):return
+        displayed=None
+        if self.plan_markers is not None:
+            from parkour.planned_contacts import planned_contacts
+            override=getattr(self.env,'follow_planned_contacts_override',None)
+            if override is None:
+                points,normals,indices,valid=planned_contacts(self.env,self.ids[0])
+                displayed={'positions_w':points.cpu().tolist(),'normals_w':normals.cpu().tolist(),'surface_indices':indices.cpu().tolist(),'valid':valid.cpu().tolist(),'horizon':4}
+            else:
+                displayed=override
+                points=torch.tensor(displayed['positions_w'],device=self.env.device)
+                normals=torch.tensor(displayed['normals_w'],device=self.env.device)
+            self.plan_markers.visualize(translations=points+.025*normals)
         self._camera();frame=self.env.render()
         if self.frames==0:
             if frame.max()==0:raise RuntimeError('Black follow-camera output')
@@ -135,6 +151,7 @@ class FollowRecorder:
         if hasattr(env,'progress'):
             row.update(target_indices=env.progress.target[i].tolist(),accepted_indices=env.progress.accepted[i].tolist(),
                        measured_jump_count=int(env.flights.count[i]))
+        if displayed is not None:row['planned_contacts']=displayed
         self.trace.append(row)
     def close(self,**metadata):
         self.writer.close();self.writer=None
@@ -142,6 +159,7 @@ class FollowRecorder:
             'total_simulated_envs':self.env.num_envs,'fps':25,'frame_count':self.frames,'frame_dt_s':.04,
             'video_start_sim_time_s':0.,'resolution':[1280,720],'trace':self.trace,
             'camera':{'mode':'smoothed_body_yaw_third_person','behind_m':2.5,'side_m':.85,'above_body_m':1.4},
+            'planned_contact_overlay':{'color':'red','horizon':4,'meaning':'Active planned targets, not measured landings','radius_m':.035,'normal_display_offset_m':.025} if self.plan_markers is not None else None,
             'scope':'Single first episode; no padding or stitching after failure/reset',**metadata}
         atomic_json(self.out/('replay.json' if self.name=='evaluation' else self.name+'-replay.json'),payload)
         return payload

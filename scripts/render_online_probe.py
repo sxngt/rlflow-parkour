@@ -17,11 +17,15 @@ def main():
   from parkour.media import FollowRecorder
   env=make_env(c,evaluation_support=source.get('evaluation_support'));env.reset();rec=FollowRecorder(env,a.out)
   frames=json.loads((a.source/'state-playback.json').read_text())['frames']
+  if frames and 'planned_contacts' not in frames[0]:
+   rec.plan_markers.set_visibility(False);rec.plan_markers=None
   for row in frames:
    if row['step']%2:continue
    root=torch.tensor([row['root']],device=env.device);q=torch.tensor([row['q']],device=env.device);dq=torch.tensor([row['dq']],device=env.device)
    env.robot.write_root_state_to_sim(root);env.robot.write_joint_state_to_sim(q,dq);env.sim.forward()
    env.progress.target[0]=torch.tensor(row['target'],device=env.device);env._sync_targets()
+   if 'planned_contacts' in row:env.follow_planned_contacts_override=row['planned_contacts']
+   elif getattr(env,'candidate_plan',None) is not None:raise ValueError('Historical candidate playback needs recorded planned contacts')
    rec.capture(row['step'])
    r=rec.trace[-1]
    # Sensor data come from the execution trace, never the non-stepped renderer.
