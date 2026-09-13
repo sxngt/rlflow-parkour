@@ -45,6 +45,7 @@ research_tags:
 - stage:c1-f35
 - condition:f35
 - purpose:curriculum-sweep
+- curriculum:gap0.35,turn0.35,tilt0.35,height0.35,size0.35
 evaluation_diagnostics: true
 terrain_contract:
   schema_version: 2
@@ -1332,13 +1333,3 @@ motion_control:
   joint_speed_cost: 0.02
 eval:
   default_suite: eval_suite/curriculum.yaml
-curriculum:
-  generator: build_mixed_discrete_axes
-  geometry_seed: 1
-  fractions:
-    gap: 0.35
-    turn: 0.35
-    tilt: 0.35
-    height: 0.35
-    size: 0.35
-  base_config: p3-70-control

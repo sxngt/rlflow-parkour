@@ -1,5 +1,6 @@
 # 커리큘럼 단계 스윕 (Ray Tune, lab-pipeline sweep). 부모 checkpoint 와 단계 config 는 제출 overrides 로 준다:
 #   +fork_from=mlflow://<run>/checkpoints/step_<n>.pt  iterations=600
+# 탐색 공간은 policy_fork.validate_continuous_fork 가 허용하는 키만 (LR, exploration cap, gap_jump_bonus, motion_control, gap_clearance …).
 # 지표: 학습 rollout 성공률 EMA (custom/success_ema). ASHA 는 300 updates (7.4M step) 이후 하위 trial 을 끊는다.
 metric: custom/success_ema
 mode: max
@@ -11,5 +12,5 @@ reduction_factor: 2
 overrides: []
 space:
   runner.algorithm.learning_rate: {loguniform: [0.00003, 0.0003]}
-  runner.algorithm.entropy_coef: {choice: [0.0, 0.005, 0.01]}
+  gap_jump_bonus: {choice: [0.0, 2.0, 5.0]}
   exploration.stages.0.max_std: {choice: [0.12, 0.18, 0.25]}

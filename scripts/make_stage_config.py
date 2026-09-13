@@ -59,7 +59,8 @@ def main() -> int:
     for kv in a.set:
         k, v = kv.split("=", 1)
         set_dotted(cfg, k, parse_value(v))
-    cfg["curriculum"] = {"generator": "build_mixed_discrete_axes", "geometry_seed": a.geometry_seed, "fractions": fr, "base_config": a.base}
+    # fork 계약(policy_fork.validate_continuous_fork)은 새 최상위 키를 허용하지 않는다 → 커리큘럼 정보는 태그로만 남긴다
+    cfg["research_tags"] = [t for t in cfg.get("research_tags", []) if not t.startswith("curriculum:")] + ["curriculum:" + ",".join(f"{k}{v:g}" for k, v in fr.items())]
     training_support(cfg)      # 계약 검증 (layout 일관성)
     out = ROOT / "configs" / f"{a.name}.json"
     if out.exists() and not a.force:
