@@ -1,0 +1,35 @@
+# RLflow 프로젝트 선언 (콘솔 런 제출 폼의 선택 축과 태그). 형식: rlflow/api/app/routers/projects.py manifest 참고.
+# 지형(mode)은 config 안의 terrain_contract.layout 과 짝이 맞아야 하므로 override 로 바꾸지 않는다 —
+# 축은 태그만 붙이고, 어떤 config 가 그 지형을 실현하는지는 configs/<name>.yaml 의 research_tags(terrain:*)로 찾는다.
+docs: docs/active-research.md
+tag_keys: [phase, step, purpose, terrain, condition, difficulty, task]
+axes:
+  - key: terrain
+    label: 지형
+    description: terrain_contract.mode. config 를 고를 때 같은 지형의 config 를 쓴다 (override 로 바꾸면 layout 검증에 실패한다).
+    options:
+      - {id: flat, label: 평지, description: 평면 지지. calibration 기준 자세 (P1·P2 초기), tags: ["terrain:flat"]}
+      - {id: continuous, label: 연속 지지면, description: 발판이 이어진 좁은 통로. 갭 없음, tags: ["terrain:continuous"]}
+      - {id: split, label: 분리 지지면, description: 앞·뒤 발판 사이 갭 (gap_width_m), tags: ["terrain:split"]}
+      - {id: deck, label: 넓은 발판, description: 1.4×1.2 m 단일 발판 (P2-14 진단), tags: ["terrain:deck"]}
+      - {id: course, label: 코스, description: 스테이션 열 (station heights · friction 변화, P3 앞부분·P4), tags: ["terrain:course"]}
+      - {id: shared-course, label: 공유 코스, description: 여러 로봇이 공유하는 24구간 코스 (geometry_seed, 난이도 easy/medium/hard). 현재 기준선, tags: ["terrain:shared-course"]}
+  - key: task
+    label: 과제
+    options:
+      - {id: a1_continuous_tracker_v1, label: continuous tracker v1, description: 온라인 계획 목표를 따르는 연속 tracker (P3 후반~), tags: ["task:continuous-tracker"]}
+      - {id: a1_directed_jump_v5, label: directed jump v5, description: 목표 발판으로 도약 (P2·P3 초반), tags: ["task:directed-jump"]}
+      - {id: a1_t0_sequential_v2, label: t0 sequential v2, description: 순차 lift→place (P1), tags: ["task:sequential-foothold"]}
+  - key: difficulty
+    label: 난이도
+    options:
+      - {id: easy, label: easy, tags: ["difficulty:easy"]}
+      - {id: medium, label: medium, tags: ["difficulty:medium"]}
+      - {id: hard, label: hard, tags: ["difficulty:hard"]}
+  - key: purpose
+    label: 목적
+    options:
+      - {id: comparison, label: 비교 (matched budget), tags: ["purpose:comparison"]}
+      - {id: diagnosis, label: 진단, tags: ["purpose:diagnosis"]}
+      - {id: training, label: 학습 (난이도 상향), tags: ["purpose:higher-difficulty-training"]}
+      - {id: smoke, label: 파이프라인 확인, tags: ["purpose:rlflow-smoke"]}

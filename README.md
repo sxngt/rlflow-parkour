@@ -1,3 +1,27 @@
+# parkour — RLflow 프로젝트
+
+사전 지도 기반 Planner–RL Tracker 사족(Unitree A1) 파쿠르 연구. 2026-09-13 부터 새 실행은 RLflow(https://rlflow.kr/p/parkour) 로 제출하고,
+`workspace/parkour` 에서 만들었던 실행 1,400여 개(학습 395·평가 903·probe 72, 영상 891)는 MLflow 실험 `parkour` 로 편입했다
+(출처 태그 `legacy_path`, 콘솔 런 목록의 `legacy` 표시). 원본 워크스페이스는 그대로 두었다. 편입 절차·매핑은 플랫폼 문서
+[프로젝트 › parkour](https://docs.rlflow.kr/projects/parkour/) 에 있다.
+
+## RLflow 에서 실행
+
+| 항목 | 값 |
+|---|---|
+| config | `configs/<name>.yaml` = 기존 `configs/<name>.json` 의 1:1 사본 (`scripts/sync_rlflow_configs.py`). 기본 `config.yaml` → `p3-70-control` |
+| overrides | Hydra 점 경로. 예: `iterations=400 num_envs=512 runner.algorithm.learning_rate=5e-4 seed=3` |
+| 체크포인트에서 시작 | `+fork_from=mlflow://<run_id>/checkpoints/step_<n>.pt` (새 계보) 또는 `+resume=…` (같은 계보 이어서) |
+| 태그 | 제출 폼의 지형·과제·난이도·목적 축 (rlflow.yaml) + 자유 태그 `phase:P3` … → MLflow 태그 `rt.<key>` |
+| 촬영 | 프로젝트 설정 → 촬영. 학습은 `--video`(parallel-training.mp4), 평가는 시나리오별 `evaluation.mp4` |
+
+파이프라인: `train.py`(→ `scripts/train.py`) → candidate → `evaluate.py`(→ `scripts/evaluate.py`, `eval_suite/default.yaml`) → 게이트 → `export.py`(ONNX) → validated.
+세 진입점은 연구 코드를 감싸는 얇은 래퍼다. 지표 이름 매핑과 한계(env/ep_return 자리 채움 등)는 `train.py` 머리말 참고.
+
+기존 모니터링 웹(`monitor/`, `web/`)은 RLflow 콘솔(런·정책·영상 라이브러리·Grafana)이 대신하므로 트리에서 제거했다 (git 이력에는 남아 있다).
+
+---
+
 # parkour
 
 사전 지도 기반 Planner–RL Tracker 사족 파쿠르 연구 플랫폼. **현재 P3의 수평 발판 8회 연속 도약과 작은 간격 변화를 검증하고, P4 마찰 변화 학습을 진행 중**이다. 고정 mapped 정책 seed 2는 1.20m 발 목표 코스에서 64/64회 완주했지만, 후반 발판의 마찰 재질을 바꾸면 0/64회로 떨어졌다. 동일 예산의 저마찰 학습·기존 마찰 대조군을 비교한다.

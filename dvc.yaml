@@ -1,0 +1,5 @@
+stages:
+  assets:
+    cmd: python scripts/prepare_assets.py
+    deps: [scripts/prepare_assets.py]
+    outs: [assets/task.json]

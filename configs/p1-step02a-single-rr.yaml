@@ -1,0 +1,70 @@
+# generated from p1-step02a-single-rr.json by scripts/sync_rlflow_configs.py — edit the JSON, then re-run.
+project: parkour
+schema_version: 1
+task: a1_t0_single_foot_v4
+seed: 0
+num_envs: 1024
+iterations: 800
+episode_seconds: 12.0
+target_offset_m: 0.06
+surface_height_m: 0.0
+success_radius_m: 0.025
+success_dwell_s: 0.08
+runner:
+  num_steps_per_env: 24
+  save_interval: 100
+  empirical_normalization: true
+  logger: tensorboard
+  policy:
+    class_name: ActorCritic
+    init_noise_std: 0.35
+    actor_hidden_dims:
+    - 128
+    - 128
+    critic_hidden_dims:
+    - 128
+    - 128
+    activation: elu
+  algorithm:
+    class_name: PPO
+    value_loss_coef: 1.0
+    use_clipped_value_loss: true
+    clip_param: 0.2
+    entropy_coef: 0.005
+    num_learning_epochs: 5
+    num_mini_batches: 4
+    learning_rate: 0.001
+    schedule: adaptive
+    gamma: 0.99
+    lam: 0.95
+    desired_kl: 0.01
+    max_grad_norm: 1.0
+sequence:
+  foot_order:
+  - RR_foot
+  - FL_foot
+  - FR_foot
+  - RL_foot
+  forward_step_range_m:
+  - 0.04
+  - 0.07
+  lateral_step_m: 0.01
+  settle_seconds: 0.5
+  min_lift_clearance_m: 0.035
+  lift_target_height_m: 0.055
+  lift_confirm_steps: 2
+  min_support_feet: 3
+  stability:
+    final_hold_seconds: 0.2
+    final_vz_max_m_s: 0.1
+    final_angular_speed_max_rad_s: 0.5
+    final_height_error_max_m: 0.04
+    vertical_velocity_penalty: 0.0
+  sequence_length: 1
+research_tags:
+- phase:P1
+- step:02a-single-foot
+- task:single-foot
+- purpose:comparison
+- condition:foot-rr
+evaluation_diagnostics: true

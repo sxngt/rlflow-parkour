@@ -1,0 +1,6 @@
+[core]
+    remote = lab
+    autostage = true
+['remote "lab"']
+    url = s3://dvc/parkour
+    endpointurl = http://seaweedfs-s3.platform.svc:8333

@@ -1,0 +1,41 @@
+# generated from t0-ppo.json by scripts/sync_rlflow_configs.py — edit the JSON, then re-run.
+project: parkour
+schema_version: 1
+task: a1_t0_foothold_v1
+seed: 0
+num_envs: 256
+iterations: 100
+episode_seconds: 4.0
+target_offset_m: 0.06
+surface_height_m: 0.0
+success_radius_m: 0.035
+success_dwell_s: 0.2
+runner:
+  num_steps_per_env: 24
+  save_interval: 25
+  empirical_normalization: true
+  logger: tensorboard
+  policy:
+    class_name: ActorCritic
+    init_noise_std: 0.5
+    actor_hidden_dims:
+    - 128
+    - 128
+    critic_hidden_dims:
+    - 128
+    - 128
+    activation: elu
+  algorithm:
+    class_name: PPO
+    value_loss_coef: 1.0
+    use_clipped_value_loss: true
+    clip_param: 0.2
+    entropy_coef: 0.005
+    num_learning_epochs: 5
+    num_mini_batches: 4
+    learning_rate: 0.001
+    schedule: adaptive
+    gamma: 0.99
+    lam: 0.95
+    desired_kl: 0.01
+    max_grad_norm: 1.0

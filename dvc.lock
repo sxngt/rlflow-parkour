@@ -1,0 +1,14 @@
+schema: '2.0'
+stages:
+  assets:
+    cmd: python scripts/prepare_assets.py
+    deps:
+    - path: scripts/prepare_assets.py
+      hash: md5
+      md5: 25de00ff24a1a050b456d67aed7a48b5
+      size: 407
+    outs:
+    - path: assets/task.json
+      hash: md5
+      md5: 9f5443dc1164879be0b577e0d255247c
+      size: 93

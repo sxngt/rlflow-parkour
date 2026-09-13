@@ -1,0 +1,4 @@
+# RLflow 기본 config = 현재 기준선 (P3-70 control, shared-course). 다른 실험은 --config-name <json 이름> 으로.
+defaults:
+  - p3-70-control
+  - _self_

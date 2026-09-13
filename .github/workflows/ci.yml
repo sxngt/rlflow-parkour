@@ -1,0 +1,17 @@
+# CI ①: 계약 진입점 문법·설정 동기화·YAML config 검증. Isaac Sim 이 필요한 테스트는 러너에서 돌리지 않는다 (플랫폼 dry_run 도 GPU 필요).
+name: ci
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv python install 3.10
+      - run: uv pip install --system pyyaml ruff omegaconf hydra-core
+      - run: ruff check train.py evaluate.py export.py scripts/sync_rlflow_configs.py
+      - run: python scripts/sync_rlflow_configs.py --check
+      - run: python -c "import ast,glob; [ast.parse(open(f).read()) for f in ('train.py','evaluate.py','export.py')]; print('syntax ok')"
+      - run: python -c "from hydra import compose, initialize_config_dir; import glob,os; d=os.path.abspath('configs'); names=[os.path.basename(f)[:-5] for f in glob.glob('configs/*.yaml')]
+                        with initialize_config_dir(config_dir=d, version_base=None): [compose(config_name=n) for n in names]
+                        print(len(names), 'configs compose')"

@@ -1,0 +1,18 @@
+# parkour 평가 suite. scenario.args 는 scripts/evaluate.py 인자 그대로 (고정 개발군 episodes_per_scenario 개, --video).
+# 게이트: 이전 validated 와 Welch t-test (per_seed = 시나리오별 값). required 는 절대 하한.
+schema_version: 1
+episodes_per_scenario: 64
+scenarios:
+  - {name: nominal, args: []}
+gate:
+  required: {}
+  p_value: 0.05
+  effect_size_threshold: 0.8
+  min_relative_drop: 0.05
+higher_is_better:
+  env/success_rate: true
+  env/ep_return: true
+  env/ep_len: true
+  custom/fail_rate: false
+  custom/timeout_rate: false
+  custom/mean_final_error_m: false
