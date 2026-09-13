@@ -53,3 +53,5 @@ sequence:
   min_lift_clearance_m: 0.035
   lift_target_height_m: 0.055
   lift_confirm_steps: 2
+eval:
+  default_suite: eval_suite/default.yaml

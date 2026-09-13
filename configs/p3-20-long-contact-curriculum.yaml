@@ -588,3 +588,5 @@ exploration:
   stages:
   - start_update: 0
     max_std: 0.5
+eval:
+  default_suite: eval_suite/default.yaml

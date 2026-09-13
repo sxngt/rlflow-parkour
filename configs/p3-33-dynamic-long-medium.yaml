@@ -1783,3 +1783,5 @@ initial_rear_target: front_stance
 pair_contact_quorum: either
 contact_target_mode: surface_region
 bound_reward_scope: travel_only
+eval:
+  default_suite: eval_suite/default.yaml

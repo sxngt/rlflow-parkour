@@ -39,3 +39,5 @@ runner:
     lam: 0.95
     desired_kl: 0.01
     max_grad_norm: 1.0
+eval:
+  default_suite: eval_suite/default.yaml

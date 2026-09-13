@@ -589,3 +589,5 @@ exploration:
   - start_update: 0
     max_std: 0.5
 body_progress_weight: 10.0
+eval:
+  default_suite: eval_suite/default.yaml

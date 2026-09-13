@@ -84,3 +84,5 @@ jump:
   - 0.15
   launch_radius_m: 0.03
   travel_tolerance_m: 0.03
+eval:
+  default_suite: eval_suite/default.yaml

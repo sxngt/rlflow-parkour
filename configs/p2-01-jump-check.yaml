@@ -68,3 +68,5 @@ jump:
   final_vz_max_m_s: 0.15
   final_angular_speed_max_rad_s: 1.0
   final_height_error_max_m: 0.06
+eval:
+  default_suite: eval_suite/default.yaml

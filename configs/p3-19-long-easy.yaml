@@ -569,3 +569,5 @@ demo_target:
   surface_transfers: 10
   camera: third_person_follow
   jump_count: measured separately; surface transfers are not automatically jumps
+eval:
+  default_suite: eval_suite/default.yaml

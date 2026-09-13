@@ -227,3 +227,5 @@ support_assignment:
   single_mode: continuous
   assignment: fixed_env_id_chain_first
   replicate_physics: false
+eval:
+  default_suite: eval_suite/default.yaml

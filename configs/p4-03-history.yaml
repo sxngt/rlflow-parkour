@@ -562,3 +562,5 @@ observation_history:
   normalization: shared_current_frame
   reset: episode_boundary
   mode: stack
+eval:
+  default_suite: eval_suite/default.yaml

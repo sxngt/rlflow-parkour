@@ -319,3 +319,5 @@ terrain_contract:
   geometry_seed: 1
 evaluation_video_envs: 64
 evaluation_camera_side: 4
+eval:
+  default_suite: eval_suite/default.yaml

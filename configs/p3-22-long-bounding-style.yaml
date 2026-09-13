@@ -590,3 +590,5 @@ exploration:
     max_std: 0.5
 body_progress_weight: 10.0
 bound_reward_per_second: 2.0
+eval:
+  default_suite: eval_suite/default.yaml

@@ -2702,3 +2702,5 @@ bound_reward_scope: travel_only
 gap_jump_bonus: 10.0
 body_progress_reference: gap_landing
 terminal_motion_cost: 2.0
+eval:
+  default_suite: eval_suite/default.yaml

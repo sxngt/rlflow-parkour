@@ -67,3 +67,5 @@ research_tags:
 - purpose:comparison
 - condition:b-vz4
 evaluation_diagnostics: true
+eval:
+  default_suite: eval_suite/default.yaml

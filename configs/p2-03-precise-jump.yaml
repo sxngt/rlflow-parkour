@@ -73,3 +73,5 @@ jump:
   landing_height_weight: 0.5
   first_touch_reward_weight: 2.0
   first_touch_reward_scale_m: 0.08
+eval:
+  default_suite: eval_suite/default.yaml

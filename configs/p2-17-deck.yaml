@@ -215,3 +215,5 @@ terrain_contract:
     scope: Per-foot support transfer; not a whole-body gap-width claim
 evaluation_video_envs: 64
 evaluation_camera_side: 4
+eval:
+  default_suite: eval_suite/default.yaml

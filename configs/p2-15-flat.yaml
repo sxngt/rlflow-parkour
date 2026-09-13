@@ -148,3 +148,5 @@ terrain_contract:
   reference_sha256: ae9b6a5489470941d07f99b43e4688aa028c41395e2552449000f99c0fb993ef
 evaluation_video_envs: 64
 evaluation_camera_side: 4
+eval:
+  default_suite: eval_suite/default.yaml

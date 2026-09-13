@@ -215,3 +215,5 @@ retention_training:
   - 0.0
   - 0.15
   assignment: fixed_env_id_chain_first
+eval:
+  default_suite: eval_suite/default.yaml

@@ -555,3 +555,5 @@ chain_training:
   hop_seconds: 4.0
   settle_command: hold-last
   progress_criterion: mapped_contact_v1
+eval:
+  default_suite: eval_suite/default.yaml

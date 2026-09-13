@@ -590,3 +590,5 @@ body_progress_weight: 10.0
 bound_reward_per_second: 2.0
 initial_rear_target: front_stance
 pair_contact_quorum: either
+eval:
+  default_suite: eval_suite/default.yaml

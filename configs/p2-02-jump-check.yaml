@@ -70,3 +70,5 @@ jump:
   final_height_error_max_m: 0.06
   apex_progress_weight: 3.0
   landing_height_weight: 0.5
+eval:
+  default_suite: eval_suite/default.yaml

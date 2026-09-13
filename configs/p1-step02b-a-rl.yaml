@@ -69,3 +69,5 @@ research_tags:
 - condition:foot-rl
 - condition:alignment-a
 evaluation_diagnostics: true
+eval:
+  default_suite: eval_suite/default.yaml

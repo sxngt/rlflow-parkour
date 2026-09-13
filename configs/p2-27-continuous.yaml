@@ -291,3 +291,5 @@ exploration:
     max_std: 0.2
   - start_update: 1200
     max_std: 0.05
+eval:
+  default_suite: eval_suite/default.yaml

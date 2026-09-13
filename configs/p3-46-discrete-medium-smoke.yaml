@@ -946,3 +946,5 @@ motion_control:
   joint_reference_rate_rad_s: 8.0
   joint_speed_soft_rad_s: 16.0
   joint_speed_cost: 0.02
+eval:
+  default_suite: eval_suite/default.yaml

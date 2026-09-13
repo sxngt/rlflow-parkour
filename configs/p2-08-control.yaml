@@ -87,3 +87,5 @@ jump:
   travel_tolerance_m: 0.03
   travel_reward_weight: 0.0
   travel_reward_scale_m: 0.03
+eval:
+  default_suite: eval_suite/default.yaml

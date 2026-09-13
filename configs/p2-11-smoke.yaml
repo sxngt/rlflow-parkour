@@ -94,3 +94,5 @@ jump:
     radius_m: 0.045
   - start_update: 2
     radius_m: 0.03
+eval:
+  default_suite: eval_suite/default.yaml

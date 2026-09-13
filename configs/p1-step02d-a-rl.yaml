@@ -69,3 +69,5 @@ research_tags:
 - condition:foot-rl
 - condition:budget-1600
 evaluation_diagnostics: true
+eval:
+  default_suite: eval_suite/default.yaml

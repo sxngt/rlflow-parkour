@@ -208,3 +208,5 @@ chain_training:
   forward_per_hop_m: 0.15
   hop_seconds: 4.0
   settle_command: default
+eval:
+  default_suite: eval_suite/default.yaml

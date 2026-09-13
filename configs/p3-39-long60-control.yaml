@@ -2702,3 +2702,5 @@ contact_target_mode: surface_region
 bound_reward_scope: travel_only
 body_progress_reference: gap_landing
 terminal_motion_cost: 0.0
+eval:
+  default_suite: eval_suite/default.yaml

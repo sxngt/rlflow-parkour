@@ -69,3 +69,5 @@ research_tags:
 - purpose:baseline
 evaluation_diagnostics: true
 evaluation_episodes: 256
+eval:
+  default_suite: eval_suite/default.yaml

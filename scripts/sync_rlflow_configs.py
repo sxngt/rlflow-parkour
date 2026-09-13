@@ -22,6 +22,7 @@ def render(path: Path) -> str:
     if "task" not in data:
         raise ValueError(f"{path.name}: not a run config (no 'task')")
     out = {"project": "parkour", **data}
+    out.setdefault("eval", {"default_suite": "eval_suite/default.yaml"})   # 파이프라인이 suite 를 비우면 이 값을 쓴다
     return "# generated from " + path.name + " by scripts/sync_rlflow_configs.py — edit the JSON, then re-run.\n" + yaml.safe_dump(out, allow_unicode=True, sort_keys=False, width=200)
 
 

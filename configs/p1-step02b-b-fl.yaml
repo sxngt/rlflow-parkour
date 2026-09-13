@@ -70,3 +70,5 @@ research_tags:
 - condition:foot-fl
 - condition:alignment-b
 evaluation_diagnostics: true
+eval:
+  default_suite: eval_suite/default.yaml

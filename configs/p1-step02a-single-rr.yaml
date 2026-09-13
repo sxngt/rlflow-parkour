@@ -68,3 +68,5 @@ research_tags:
 - purpose:comparison
 - condition:foot-rr
 evaluation_diagnostics: true
+eval:
+  default_suite: eval_suite/default.yaml

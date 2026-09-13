@@ -32,7 +32,7 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "src"))
 
 CONTROL_HZ = 50.0            # sim 200 Hz × decimation 4 (evaluation results[].length 과 episode 초의 비율)
-DROP_KEYS = {"project", "fork_from", "resume", "smoke"}
+DROP_KEYS = {"project", "fork_from", "resume", "smoke", "eval"}
 
 
 def _split_args(argv: list[str]) -> tuple[argparse.Namespace, list[str]]:

@@ -45,7 +45,7 @@ def main() -> int:
         cfg = compose(config_name=a.config_name, overrides=a.overrides)
     config = OmegaConf.to_container(cfg, resolve=True)
     assert isinstance(config, dict)
-    for k in ("project", "fork_from", "resume", "smoke", "device"):
+    for k in ("project", "fork_from", "resume", "smoke", "device", "eval"):
         config.pop(k, None)
     suite_path = ROOT / a.suite
     suite = yaml.safe_load(suite_path.read_text())

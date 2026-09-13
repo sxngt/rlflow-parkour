@@ -954,3 +954,5 @@ gap_clearance:
   version: gap_clearance_v1
   apex_m: 0.2
   height_cost: 200.0
+eval:
+  default_suite: eval_suite/default.yaml

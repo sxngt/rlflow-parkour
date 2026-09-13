@@ -1882,3 +1882,5 @@ pair_contact_quorum: either
 contact_target_mode: surface_region
 bound_reward_scope: travel_only
 body_progress_reference: gap_landing
+eval:
+  default_suite: eval_suite/default.yaml
