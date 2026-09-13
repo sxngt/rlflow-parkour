@@ -231,8 +231,11 @@ def main(cfg: DictConfig) -> None:
             cmd += ["--resume", str(resolve_checkpoint(str(resume_ref), work / "init"))]
         elif fork_from:
             cmd += ["--fork-from", str(resolve_checkpoint(str(fork_from), work / "init"))]
-        if REC.enabled and REC.train_every_steps > 0:
+        # 학습 중 촬영(--video)은 매 스텝 렌더라 학습이 수십 배 느려진다. 스윕 trial 에서는 끄고, 단독 런도 train_every_steps>0 일 때만.
+        if REC.enabled and REC.train_every_steps > 0 and not os.environ.get("LAB_SWEEP_ID"):
             cmd.append("--video")
+        elif REC.enabled and os.environ.get("LAB_SWEEP_ID"):
+            print("sweep trial: training video disabled (rendering cost)", flush=True)
         env = {**os.environ, "PARKOUR_GRAPHICS_GPU": os.environ.get("PARKOUR_GRAPHICS_GPU", "0"), "PYTHONUNBUFFERED": "1"}
         print("+", " ".join(cmd), flush=True)
         proc = subprocess.Popen(cmd, cwd=str(ROOT), env=env)
