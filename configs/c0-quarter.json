@@ -1624,7 +1624,7 @@
         },
         {
           "arrival_surface_index": 7,
-          "projected_top_gap_m": 0.35397991773560356,
+          "projected_top_gap_m": 0.3539799177356038,
           "full_box_clearance_m": 0.33373619033832336,
           "direction_xy": [
             0.9996559409742638,
@@ -1651,7 +1651,7 @@
         },
         {
           "arrival_surface_index": 10,
-          "projected_top_gap_m": 0.33230574999463125,
+          "projected_top_gap_m": 0.33230574999463147,
           "full_box_clearance_m": 0.31793183963373783,
           "direction_xy": [
             0.6364411381659476,
@@ -1723,7 +1723,7 @@
         },
         {
           "arrival_surface_index": 18,
-          "projected_top_gap_m": 0.33856540023220344,
+          "projected_top_gap_m": 0.3385654002322032,
           "full_box_clearance_m": 0.32159335592500593,
           "direction_xy": [
             0.735628423955468,
@@ -1785,7 +1785,7 @@
           ]
         }
       ],
-      "nominal_path_length_m": 26.85405430131856,
+      "nominal_path_length_m": 26.854054301318556,
       "scope": "Mixed-width, sharp-turn, high/low and longer-gap development challenge; first three transfers retain stage2 approach. No policy feasibility certificate."
     },
     "foot_projection_radius_m": 0.02,
