@@ -1,0 +1,1335 @@
+# generated from c22-f73.json by scripts/sync_rlflow_configs.py — edit the JSON, then re-run.
+project: parkour
+schema_version: 1
+task: a1_continuous_tracker_v1
+seed: 1
+num_envs: 2048
+iterations: 1200
+episode_seconds: 30.0
+target_offset_m: 0.06
+surface_height_m: 0.0
+success_radius_m: 0.06
+success_dwell_s: 0.2
+runner:
+  num_steps_per_env: 24
+  save_interval: 100
+  empirical_normalization: true
+  logger: tensorboard
+  policy:
+    class_name: ActorCritic
+    init_noise_std: 0.35
+    actor_hidden_dims:
+    - 128
+    - 128
+    critic_hidden_dims:
+    - 128
+    - 128
+    activation: elu
+  algorithm:
+    class_name: PPO
+    value_loss_coef: 1.0
+    use_clipped_value_loss: true
+    clip_param: 0.2
+    entropy_coef: 0.005
+    num_learning_epochs: 5
+    num_mini_batches: 4
+    learning_rate: 0.0001
+    schedule: adaptive
+    gamma: 0.99
+    lam: 0.95
+    desired_kl: 0.01
+    max_grad_norm: 1.0
+research_tags:
+- phase:P3
+- step:curriculum
+- stage:c22-f73
+- condition:f73
+- purpose:auto-curriculum
+- curriculum:gap0.73,turn0.73,tilt0.73,height0.73,size0.73
+evaluation_diagnostics: true
+terrain_contract:
+  schema_version: 2
+  mode: shared-course
+  matched_material: true
+  foot_names:
+  - FL_foot
+  - FR_foot
+  - RL_foot
+  - RR_foot
+  calibration:
+    physics_steps: 300
+    root_state:
+    - -0.04720878601074219
+    - 0.0022640228271484375
+    - 0.277654767036438
+    - 0.999968945980072
+    - -0.0018939899746328592
+    - -0.006792317610234022
+    - 0.0035308287478983402
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    joint_positions:
+    - 0.11046929657459259
+    - -0.10680407285690308
+    - 0.10644455254077911
+    - -0.10452435165643692
+    - 0.9094340205192566
+    - 0.9054018259048462
+    - 0.9633494019508362
+    - 0.9663541316986084
+    - -1.6527284383773804
+    - -1.6473263502120972
+    - -1.6828137636184692
+    - -1.6745795011520386
+    foot_xy_m:
+    - - 0.11318397521972656
+      - 0.1624736785888672
+    - - 0.11574077606201172
+      - -0.1567840576171875
+    - - -0.2577667236328125
+      - 0.1582355499267578
+    - - -0.2575645446777344
+      - -0.15825939178466797
+    foot_normal_force_N:
+    - 39.01641845703125
+    - 37.77352523803711
+    - 28.474130630493164
+    - 27.736160278320312
+  reference_path: artifacts/p2-11-curriculum-seed0__final-evaluation/run.json
+  reference_sha256: ae9b6a5489470941d07f99b43e4688aa028c41395e2552449000f99c0fb993ef
+  layout:
+    schema_version: 2
+    geometry_contract: oriented_shared_surfaces_v1
+    scenario_contract: mixed_discrete_axes_v1
+    kind: mixed-discrete-challenge
+    level: development
+    seed: 1
+    difficulty_fraction: null
+    difficulty_axes:
+      gap: 0.73
+      turn: 0.73
+      tilt: 0.73
+      height: 0.73
+      size: 0.73
+    transitions: 24
+    frame: course_local
+    surfaces:
+    - id: surface_0
+      top_center_m:
+      - 0.0
+      - 0.0
+      - 0.0
+      center_m:
+      - 0.0
+      - 0.0
+      - -0.09
+      size_m:
+      - 1.0
+      - 1.0
+      - 0.18
+      orientation_wxyz:
+      - 1.0
+      - 0.0
+      - 0.0
+      - 0.0
+      rotation_local_to_world:
+      - - 1.0
+        - 0.0
+        - 0.0
+      - - 0.0
+        - 1.0
+        - 0.0
+      - - -0.0
+        - 0.0
+        - 1.0
+      normal:
+      - 0.0
+      - 0.0
+      - 1.0
+      usable_half_extents_m:
+      - 0.48
+      - 0.48
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: start
+    - id: surface_1
+      top_center_m:
+      - 1.2463613547525474
+      - 0.3258137869130443
+      - 0.09159232484797454
+      center_m:
+      - 1.2436231193967684
+      - 0.3208450486558727
+      - 0.00177131557248221
+      size_m:
+      - 0.7
+      - 0.75
+      - 0.18
+      orientation_wxyz:
+      - 0.9912822175615871
+      - -0.02544268445052332
+      - 0.018629619477663333
+      - 0.127926432891138
+      rotation_local_to_world:
+      - - 0.9665755300917332
+        - -0.25457037122174875
+        - 0.030424837286432742
+      - - 0.25267442110253474
+        - 0.9659749951514005
+        - 0.05520820285746242
+      - - -0.043444004746153835
+        - -0.045675319793875464
+        - 0.9980112141721371
+      normal:
+      - 0.030424837286432742
+      - 0.05520820285746242
+      - 0.9980112141721371
+      usable_half_extents_m:
+      - 0.32999999999999996
+      - 0.355
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_2
+      top_center_m:
+      - 2.169096247784608
+      - 0.9479118766588529
+      - 0.21328785099109385
+      center_m:
+      - 2.1722620779193433
+      - 0.9433996304242366
+      - 0.12345680316532155
+      size_m:
+      - 0.7
+      - 0.75
+      - 0.18
+      orientation_wxyz:
+      - 0.9558930036331922
+      - -0.029127364100529168
+      - -0.009498413062666366
+      - 0.29211289327066736
+      rotation_local_to_world:
+      - - 0.8291596754686614
+        - -0.5579040144256534
+        - -0.03517589038594928
+      - - 0.5590106693682675
+        - 0.8276433084911899
+        - 0.05013606927351413
+      - - 0.001141975982934314
+        - -0.06123450495837562
+        - 0.9981227536196923
+      normal:
+      - -0.03517589038594928
+      - 0.05013606927351413
+      - 0.9981227536196923
+      usable_half_extents_m:
+      - 0.32999999999999996
+      - 0.355
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_3
+      top_center_m:
+      - 2.918860494440856
+      - 1.6940799797983095
+      - 0.2680741088881841
+      center_m:
+      - 2.908364298213705
+      - 1.690853120588306
+      - 0.1787465249938463
+      size_m:
+      - 0.7
+      - 0.75
+      - 0.18
+      orientation_wxyz:
+      - 0.9231971675288202
+      - 0.005596477673570358
+      - 0.0608631618395369
+      - 0.37943556084703883
+      rotation_local_to_world:
+      - - 0.7046486613911748
+        - -0.6999064314146355
+        - 0.1166244025238955
+      - - 0.701268908720147
+        - 0.7119946692046846
+        - 0.035853991222260684
+      - - -0.10813039194453909
+        - 0.05652060056777443
+        - 0.9925287099370871
+      normal:
+      - 0.1166244025238955
+      - 0.035853991222260684
+      - 0.9925287099370871
+      usable_half_extents_m:
+      - 0.32999999999999996
+      - 0.355
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_4
+      top_center_m:
+      - 3.9297074009113473
+      - 2.0967002022291528
+      - 0.12827823700392854
+      center_m:
+      - 3.9356388841917034
+      - 2.110452747146137
+      - 0.039533180722459024
+      size_m:
+      - 0.627
+      - 0.5675
+      - 0.18
+      orientation_wxyz:
+      - 0.9780002357821478
+      - 0.06890320250410728
+      - -0.04716204228051972
+      - 0.19116388064347203
+      rotation_local_to_world:
+      - - 0.9224642250105177
+        - -0.3804158721842159
+        - -0.06590536978173554
+      - - 0.36741740918516824
+        - 0.9174174388440127
+        - -0.1528060546331553
+      - - 0.11859258409952814
+        - 0.11674333854749268
+        - 0.9860561809052169
+      normal:
+      - -0.06590536978173554
+      - -0.1528060546331553
+      - 0.9860561809052169
+      usable_half_extents_m:
+      - 0.2935
+      - 0.26375
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_5
+      top_center_m:
+      - 5.1306078471443035
+      - 2.2240912496841068
+      - 0.2733061322026975
+      center_m:
+      - 5.152264398045209
+      - 2.210427652793327
+      - 0.18702577567189285
+      size_m:
+      - 0.773
+      - 0.677
+      - 0.18
+      orientation_wxyz:
+      - 0.9887146331690814
+      - -0.08181712709034414
+      - -0.11819747736164517
+      - 0.0421744972389089
+      rotation_local_to_world:
+      - - 0.9685013362559773
+        - -0.06405592907920489
+        - -0.24062834334339395
+      - - 0.10273824118742808
+        - 0.9830545389946556
+        - 0.151817743230886
+      - - 0.22682595854112525
+        - -0.17175741996142482
+        - 0.9586706281200517
+      normal:
+      - -0.24062834334339395
+      - 0.151817743230886
+      - 0.9586706281200517
+      usable_half_extents_m:
+      - 0.3665
+      - 0.3185
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_6
+      top_center_m:
+      - 6.160134506584636
+      - 2.6628150272509417
+      - 0.35056568889829165
+      center_m:
+      - 6.140502420909839
+      - 2.669054628799672
+      - 0.2629549099691523
+      size_m:
+      - 0.6123999999999999
+      - 0.5821000000000001
+      - 0.18
+      orientation_wxyz:
+      - 0.9745570397378698
+      - 0.05548860641811992
+      - 0.10096764309146247
+      - 0.19226316834924445
+      rotation_local_to_world:
+      - - 0.9056808182897302
+        - -0.36353774077719203
+        - 0.21813428527551484
+      - - 0.3859479560110615
+        - 0.9199117773081702
+        - -0.06932890609700489
+      - - -0.175460624166587
+        - 0.146978341943086
+        - 0.9734530992126601
+      normal:
+      - 0.21813428527551484
+      - -0.06932890609700489
+      - 0.9734530992126601
+      usable_half_extents_m:
+      - 0.28619999999999995
+      - 0.27105
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_7
+      top_center_m:
+      - 7.447888716127478
+      - 2.650653382359287
+      - 0.16192928124391576
+      center_m:
+      - 7.472193191160224
+      - 2.6392061433802243
+      - 0.07603252220645935
+      size_m:
+      - 0.846
+      - 0.7135
+      - 0.18
+      orientation_wxyz:
+      - 0.9884471350712143
+      - -0.062491871594212385
+      - -0.13744289399563248
+      - -0.013284503914953083
+      rotation_local_to_world:
+      - - 0.9618659456916777
+        - 0.043440187037379424
+        - -0.27004972258606696
+      - - -0.00908393230493139
+        - 0.9918365758807721
+        - 0.12719154421180975
+      - - 0.2733704166374512
+        - -0.11988810155833991
+        - 0.9544084337495156
+      normal:
+      - -0.27004972258606696
+      - 0.12719154421180975
+      - 0.9544084337495156
+      usable_half_extents_m:
+      - 0.40299999999999997
+      - 0.33675
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_8
+      top_center_m:
+      - 8.394056589268539
+      - 3.5088995414308934
+      - 0.2526349256495414
+      center_m:
+      - 8.388623273863828
+      - 3.529069222129405
+      - 0.16509257553125276
+      size_m:
+      - 0.6635
+      - 0.6040000000000001
+      - 0.18
+      orientation_wxyz:
+      - 0.9244896783621591
+      - 0.11613104309006118
+      - -0.01293024689502785
+      - 0.36285702990004143
+      rotation_local_to_world:
+      - - 0.7363351691347081
+        - -0.6739183638461386
+        - 0.06037017116345149
+      - - 0.667911951608812
+        - 0.7096967133658695
+        - -0.2241075633167935
+      - - 0.10818569033596186
+        - 0.20534023937997734
+        - 0.9726927790920958
+      normal:
+      - 0.06037017116345149
+      - -0.2241075633167935
+      - 0.9726927790920958
+      usable_half_extents_m:
+      - 0.31174999999999997
+      - 0.28200000000000003
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_9
+      top_center_m:
+      - 9.209664781775762
+      - 4.394819226709818
+      - 0.1650864517182834
+      center_m:
+      - 9.20974398082963
+      - 4.374244111634859
+      - 0.07746991008850868
+      size_m:
+      - 0.627
+      - 0.5675
+      - 0.18
+      orientation_wxyz:
+      - 0.9070104247522669
+      - -0.10524878892210027
+      - 0.04652018723706482
+      - 0.40508104621244856
+      rotation_local_to_world:
+      - - 0.667490436357713
+        - -0.7446178503027521
+        - -0.0008799894874247649
+      - - 0.7250330768342305
+        - 0.6496640768597186
+        - 0.22861238972177017
+      - - -0.16965716862920543
+        - -0.1532346052578133
+        - 0.9735171292197192
+      normal:
+      - -0.0008799894874247649
+      - 0.22861238972177017
+      - 0.9735171292197192
+      usable_half_extents_m:
+      - 0.2935
+      - 0.26375
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_10
+      top_center_m:
+      - 9.66251895539315
+      - 5.420137149178322
+      - 0.39254027625413007
+      center_m:
+      - 9.658753583149766
+      - 5.442130719599249
+      - 0.3053502261795461
+      size_m:
+      - 0.7364999999999999
+      - 0.6405
+      - 0.18
+      orientation_wxyz:
+      - 0.8273416206703632
+      - 0.114330429889483
+      - -0.05039231806797539
+      - 0.5476267066054746
+      rotation_local_to_world:
+      - - 0.39513120898435483
+        - -0.9176714847063723
+        - 0.041837469370940975
+      - - 0.8946259831550155
+        - 0.3740670860274548
+        - -0.24437300467697026
+      - - 0.2086041177697218
+        - 0.1339882879498466
+        - 0.9687783341620441
+      normal:
+      - 0.041837469370940975
+      - -0.24437300467697026
+      - 0.9687783341620441
+      usable_half_extents_m:
+      - 0.34824999999999995
+      - 0.30024999999999996
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_11
+      top_center_m:
+      - 10.113784910003899
+      - 6.461138064228812
+      - 0.2874684227329241
+      center_m:
+      - 10.141526096941426
+      - 6.4733473427643
+      - 0.20272551704200525
+      size_m:
+      - 0.627
+      - 0.5675
+      - 0.18
+      orientation_wxyz:
+      - 0.831679126252331
+      - -0.025760943281906867
+      - -0.1689451191840759
+      - 0.5283027081714271
+      rotation_local_to_world:
+      - - 0.38470759048522873
+        - -0.8700522981913934
+        - -0.30823541041698016
+      - - 0.8874610407236173
+        - 0.44046524467992465
+        - -0.1356586503943193
+      - - 0.25379710601345246
+        - -0.22135800559484797
+        - 0.9415878410102095
+      normal:
+      - -0.30823541041698016
+      - -0.1356586503943193
+      - 0.9415878410102095
+      usable_half_extents_m:
+      - 0.2935
+      - 0.26375
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_12
+      top_center_m:
+      - 10.945208148987927
+      - 7.183343224058967
+      - 0.1232690830511672
+      center_m:
+      - 10.929100790972738
+      - 7.184015416139984
+      - 0.03472473723746364
+      size_m:
+      - 0.773
+      - 0.677
+      - 0.18
+      orientation_wxyz:
+      - 0.934352005198188
+      - 0.03462539714856591
+      - 0.0829942743443848
+      - 0.34481786885322313
+      rotation_local_to_world:
+      - - 0.748425175491141
+        - -0.6386151149618868
+        - 0.17897064461321882
+      - - 0.6501099538028122
+        - 0.759803438383651
+        - -0.0074688009001913636
+      - - -0.13121282200135898
+        - 0.12194043612599333
+        - 0.9838260645967062
+      normal:
+      - 0.17897064461321882
+      - -0.0074688009001913636
+      - 0.9838260645967062
+      usable_half_extents_m:
+      - 0.3665
+      - 0.3185
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_13
+      top_center_m:
+      - 12.222406589235637
+      - 7.49756364342527
+      - 0.25563789653549973
+      center_m:
+      - 12.240108807531428
+      - 7.489772457026132
+      - 0.16774063331358785
+      size_m:
+      - 0.6123999999999999
+      - 0.5821000000000001
+      - 0.18
+      orientation_wxyz:
+      - 0.987584399295772
+      - -0.054595801179109
+      - -0.09328005940708689
+      - 0.11399641783069746
+      rotation_local_to_world:
+      - - 0.9566072944775588
+        - -0.21497676849566874
+        - -0.1966913143976744
+      - - 0.2353475668051279
+        - 0.9680482304307605
+        - 0.08656873776819843
+      - - 0.17179641134561283
+        - -0.12910310827796867
+        - 0.9766362580212431
+      normal:
+      - -0.1966913143976744
+      - 0.08656873776819843
+      - 0.9766362580212431
+      usable_half_extents_m:
+      - 0.28619999999999995
+      - 0.27105
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_14
+      top_center_m:
+      - 13.218384085537753
+      - 8.131267561617925
+      - 0.14689952210066312
+      center_m:
+      - 13.22158561082727
+      - 8.151565322669521
+      - 0.05927674462749201
+      size_m:
+      - 0.846
+      - 0.7135
+      - 0.18
+      orientation_wxyz:
+      - 0.951901015478826
+      - 0.10365846278742882
+      - -0.04961567200253604
+      - 0.28403813989438836
+      rotation_local_to_world:
+      - - 0.8337212403541453
+        - -0.5510385561802664
+        - -0.03557250321685092
+      - - 0.5304662190204739
+        - 0.8171545163557663
+        - -0.22553067835107593
+      - - 0.15334433103466272
+        - 0.16915970561023427
+        - 0.9735864163685679
+      normal:
+      - -0.03557250321685092
+      - -0.22553067835107593
+      - 0.9735864163685679
+      usable_half_extents_m:
+      - 0.40299999999999997
+      - 0.33675
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_15
+      top_center_m:
+      - 14.600095118621358
+      - 8.41309526444116
+      - 0.3704200499423812
+      center_m:
+      - 14.584730437956557
+      - 8.394800036048016
+      - 0.2836490224844137
+      size_m:
+      - 0.6635
+      - 0.6040000000000001
+      - 0.18
+      orientation_wxyz:
+      - 0.9850589036929579
+      - -0.09254060507475434
+      - 0.09682444297295653
+      - 0.1082599644864307
+      rotation_local_to_world:
+      - - 0.9578096146647469
+        - -0.2312052689391708
+        - 0.1707186740533523
+      - - 0.19536449878419704
+        - 0.9594320330035903
+        - 0.20328031547938236
+      - - -0.21079244452913518
+        - -0.16135147244869952
+        - 0.9641225273107501
+      normal:
+      - 0.1707186740533523
+      - 0.20328031547938236
+      - 0.9641225273107501
+      usable_half_extents_m:
+      - 0.31174999999999997
+      - 0.28200000000000003
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_16
+      top_center_m:
+      - 15.303478526511778
+      - 9.33148603089613
+      - 0.2722012244443865
+      center_m:
+      - 15.29602455742674
+      - 9.349275763467377
+      - 0.1842923866638606
+      size_m:
+      - 0.627
+      - 0.5675
+      - 0.18
+      orientation_wxyz:
+      - 0.8891916193206795
+      - 0.10754354867982138
+      - -0.007207844568119917
+      - 0.4446579542118869
+      rotation_local_to_world:
+      - - 0.6044547014655628
+        - -0.792322567065353
+        - 0.08282187872263505
+      - - 0.7892219383326001
+        - 0.5814273777869008
+        - -0.19766369523608038
+      - - 0.10845849865598833
+        - 0.18484359355633048
+        - 0.9767648642280655
+      normal:
+      - 0.08282187872263505
+      - -0.19766369523608038
+      - 0.9767648642280655
+      usable_half_extents_m:
+      - 0.2935
+      - 0.26375
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_17
+      top_center_m:
+      - 15.912180967449201
+      - 10.289222179591537
+      - 0.16791579040180066
+      center_m:
+      - 15.932694994714572
+      - 10.293043644674379
+      - 0.08036825422872344
+      size_m:
+      - 0.7364999999999999
+      - 0.6405
+      - 0.18
+      orientation_wxyz:
+      - 0.8737540265734393
+      - -0.03574678193425638
+      - -0.11111690519360498
+      - 0.472153684734369
+      rotation_local_to_world:
+      - - 0.5294478627439071
+        - -0.8171482228379515
+        - -0.22793363628189314
+      - - 0.8330365099546125
+        - 0.5515861311462057
+        - -0.04246072314268186
+      - - 0.16042173705127263
+        - -0.16739630175107867
+        - 0.9727504019230803
+      normal:
+      - -0.22793363628189314
+      - -0.04246072314268186
+      - 0.9727504019230803
+      usable_half_extents_m:
+      - 0.34824999999999995
+      - 0.30024999999999996
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_18
+      top_center_m:
+      - 16.783574720001628
+      - 10.963934031033043
+      - 0.36231641594692876
+      center_m:
+      - 16.759151898048692
+      - 10.960488058609341
+      - 0.27576209172271543
+      size_m:
+      - 0.627
+      - 0.5675
+      - 0.18
+      orientation_wxyz:
+      - 0.9397584046554216
+      - 0.024898336043590062
+      - 0.13609818537025165
+      - 0.31258838379038023
+      rotation_local_to_world:
+      - - 0.7675315725164852
+        - -0.580737885020786
+        - 0.27136468836596217
+      - - 0.5942923584378713
+        - 0.803337150363157
+        - 0.038288582485583506
+      - - -0.24023296587421986
+        - 0.13188226472117862
+        - 0.9617147136023703
+      normal:
+      - 0.27136468836596217
+      - 0.038288582485583506
+      - 0.9617147136023703
+      usable_half_extents_m:
+      - 0.2935
+      - 0.26375
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_19
+      top_center_m:
+      - 18.066275384833187
+      - 11.188908796602533
+      - 0.2248124233584841
+      center_m:
+      - 18.087940171366295
+      - 11.177691564365288
+      - 0.13818211269639252
+      size_m:
+      - 0.773
+      - 0.677
+      - 0.18
+      orientation_wxyz:
+      - 0.9876097160414918
+      - -0.07214659327369324
+      - -0.11625560373897631
+      - 0.07685409851615208
+      rotation_local_to_world:
+      - - 0.9611561642811114
+        - -0.13502881730683644
+        - -0.24071985036788748
+      - - 0.16857860034181074
+        - 0.9777766332405398
+        - 0.12463591374716634
+      - - 0.2185408048196428
+        - -0.16037479223840645
+        - 0.9625590073565728
+      normal:
+      - -0.24071985036788748
+      - 0.12463591374716634
+      - 0.9625590073565728
+      usable_half_extents_m:
+      - 0.3665
+      - 0.3185
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_20
+      top_center_m:
+      - 19.060127688700288
+      - 11.7728440199712
+      - 0.3227625767200692
+      center_m:
+      - 19.061416594504998
+      - 11.792062275393953
+      - 0.2348478602026827
+      size_m:
+      - 0.6123999999999999
+      - 0.5821000000000001
+      - 0.18
+      orientation_wxyz:
+      - 0.9578840278770103
+      - 0.1015414986315734
+      - -0.03569639046732743
+      - 0.26622036154541806
+      rotation_local_to_world:
+      - - 0.855704973612462
+        - -0.5172657944075785
+        - -0.014321175607906148
+      - - 0.5027671344724175
+        - 0.8376320863085621
+        - -0.21353617136391553
+      - - 0.1224508335181503
+        - 0.17552374745960228
+        - 0.9768301835265166
+      normal:
+      - -0.014321175607906148
+      - -0.21353617136391553
+      - 0.9768301835265166
+      usable_half_extents_m:
+      - 0.28619999999999995
+      - 0.27105
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_21
+      top_center_m:
+      - 20.36726501032525
+      - 11.783274021014924
+      - 0.180057104149279
+      center_m:
+      - 20.351185020720095
+      - 11.768758752994497
+      - 0.09270299189007691
+      size_m:
+      - 0.846
+      - 0.7135
+      - 0.18
+      orientation_wxyz:
+      - 0.9925587910006248
+      - -0.08020996522019837
+      - 0.09091610317837397
+      - 0.011299118090009795
+      rotation_local_to_world:
+      - - 0.9832131842264945
+        - -0.037014832929373506
+        - 0.1786665511683926
+      - - 0.007845323033800138
+        - 0.9868773828195252
+        - 0.16128075578251644
+      - - -0.182291758644467
+        - -0.1571716686381326
+        - 0.9706012473244676
+      normal:
+      - 0.1786665511683926
+      - 0.16128075578251644
+      - 0.9706012473244676
+      usable_half_extents_m:
+      - 0.40299999999999997
+      - 0.33675
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_22
+      top_center_m:
+      - 21.555192128591994
+      - 12.006075464323931
+      - 0.08980991768993704
+      center_m:
+      - 21.57085552337663
+      - 12.025704926069524
+      - 0.003384560905027062
+      size_m:
+      - 0.6635
+      - 0.6040000000000001
+      - 0.18
+      orientation_wxyz:
+      - 0.984805127552935
+      - 0.10056124951691306
+      - -0.09872468824118645
+      - 0.10148759418138384
+      rotation_local_to_world:
+      - - 0.9599074083179104
+        - -0.2197467622810792
+        - -0.17403771982928
+      - - 0.18003525025027356
+        - 0.9591754066457437
+        - -0.21810513050658248
+      - - 0.21486059695466142
+        - 0.17802780612296182
+        - 0.9602817420545554
+      normal:
+      - -0.17403771982928
+      - -0.21810513050658248
+      - 0.9602817420545554
+      usable_half_extents_m:
+      - 0.31174999999999997
+      - 0.28200000000000003
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_23
+      top_center_m:
+      - 22.617413918130136
+      - 12.062976436975568
+      - 0.0974267651264942
+      center_m:
+      - 22.635969605810466
+      - 12.045799571098454
+      - 0.01105175871057712
+      size_m:
+      - 0.627
+      - 0.5675
+      - 0.18
+      orientation_wxyz:
+      - 0.9897449139703673
+      - -0.09810594237627666
+      - -0.10253817491728504
+      - 0.01631416638645973
+      rotation_local_to_world:
+      - - 0.9784395413194944
+        - -0.012174517853722186
+        - -0.20617430755922755
+      - - 0.05241293497293716
+        - 0.9802181440911553
+        - 0.19085406530125051
+      - - 0.1997722408895195
+        - -0.1975453646875085
+        - 0.9597222935101899
+      normal:
+      - -0.20617430755922755
+      - 0.19085406530125051
+      - 0.9597222935101899
+      usable_half_extents_m:
+      - 0.2935
+      - 0.26375
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    - id: surface_24
+      top_center_m:
+      - 23.80018880515521
+      - 12.236161220743112
+      - 0.05803120492501962
+      center_m:
+      - 23.80018880515521
+      - 12.236161220743112
+      - -0.03196879507498038
+      size_m:
+      - 1.146
+      - 1.146
+      - 0.18
+      orientation_wxyz:
+      - 0.9973589077651555
+      - 0.0
+      - 0.0
+      - 0.07263063473146934
+      rotation_local_to_world:
+      - - 0.9894495817970077
+        - -0.14487762105213645
+        - 0.0
+      - - 0.14487762105213645
+        - 0.9894495817970077
+        - 0.0
+      - - -0.0
+        - 0.0
+        - 1.0
+      normal:
+      - 0.0
+      - 0.0
+      - 1.0
+      usable_half_extents_m:
+      - 0.5529999999999999
+      - 0.5529999999999999
+      material:
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        combine_mode: average
+      contact_ownership: shared
+      scenario_role: gap_landing
+    start_position_m:
+    - 0.0
+    - 0.0
+    - 0.0
+    goal_position_m:
+    - 23.80018880515521
+    - 12.236161220743112
+    - 0.05803120492501962
+    catch_floor_z_m: -0.8
+    planned_gap_count: 24
+    gap_locations:
+    - arrival_surface_index: 1
+      projected_top_gap_m: 0.3276280110965648
+      direction_xy:
+      - 0.9674889717152488
+      - 0.2529132056840261
+      full_box_clearance_m: 0.32372213906706176
+    - arrival_surface_index: 2
+      projected_top_gap_m: 0.3095443007801316
+      direction_xy:
+      - 0.8291602161265482
+      - 0.5590110338740872
+      full_box_clearance_m: 0.3043937004845074
+    - arrival_surface_index: 3
+      projected_top_gap_m: 0.2931773645172245
+      direction_xy:
+      - 0.7088045810131368
+      - 0.7054048950317765
+      full_box_clearance_m: 0.28252236458661545
+    - arrival_surface_index: 4
+      projected_top_gap_m: 0.3078531121487158
+      full_box_clearance_m: 0.28630859716256346
+      direction_xy:
+      - 0.9290203224799591
+      - 0.37002870215597167
+    - arrival_surface_index: 5
+      projected_top_gap_m: 0.43806164686477694
+      full_box_clearance_m: 0.41061815435728
+      direction_xy:
+      - 0.9944206028012067
+      - 0.10548774679783769
+    - arrival_surface_index: 6
+      projected_top_gap_m: 0.33959966085362897
+      full_box_clearance_m: 0.3094187198996729
+      direction_xy:
+      - 0.919952548554218
+      - 0.39202972898569705
+    - arrival_surface_index: 7
+      projected_top_gap_m: 0.48424665836449127
+      full_box_clearance_m: 0.4401450285217964
+      direction_xy:
+      - 0.9999554077245109
+      - -0.009443651968765315
+    - arrival_surface_index: 8
+      projected_top_gap_m: 0.3928901516147318
+      full_box_clearance_m: 0.37305239636681276
+      direction_xy:
+      - 0.7406824537832789
+      - 0.671855269129878
+    - arrival_surface_index: 9
+      projected_top_gap_m: 0.5394469257078163
+      full_box_clearance_m: 0.5132047222776807
+      direction_xy:
+      - 0.6773092922190561
+      - 0.7356983911044805
+    - arrival_surface_index: 10
+      projected_top_gap_m: 0.37584189974575305
+      full_box_clearance_m: 0.3384554622681456
+      direction_xy:
+      - 0.40401957307132214
+      - 0.9147503400246794
+    - arrival_surface_index: 11
+      projected_top_gap_m: 0.44777246209575394
+      full_box_clearance_m: 0.4068553591249923
+      direction_xy:
+      - 0.3977302829779451
+      - 0.9175023825594589
+    - arrival_surface_index: 12
+      projected_top_gap_m: 0.3347486843634341
+      full_box_clearance_m: 0.29407933655594043
+      direction_xy:
+      - 0.7549523249833162
+      - 0.6557796787048874
+    - arrival_surface_index: 13
+      projected_top_gap_m: 0.5176964988216626
+      full_box_clearance_m: 0.4868877978964933
+      direction_xy:
+      - 0.9710443203095029
+      - 0.23889940978297855
+    - arrival_surface_index: 14
+      projected_top_gap_m: 0.3688521168382777
+      full_box_clearance_m: 0.34450191211064574
+      direction_xy:
+      - 0.8436998327232855
+      - 0.5368152310271199
+    - arrival_surface_index: 15
+      projected_top_gap_m: 0.5506073948101147
+      full_box_clearance_m: 0.5247027485879201
+      direction_xy:
+      - 0.9798254688036515
+      - 0.19985507420054277
+    - arrival_surface_index: 16
+      projected_top_gap_m: 0.4071896663318672
+      full_box_clearance_m: 0.3737315867343593
+      direction_xy:
+      - 0.6080415520778434
+      - 0.793905202745748
+    - arrival_surface_index: 17
+      projected_top_gap_m: 0.43350442308584175
+      full_box_clearance_m: 0.4082599341240411
+      direction_xy:
+      - 0.5363949479671654
+      - 0.8439670963937528
+    - arrival_surface_index: 18
+      projected_top_gap_m: 0.34775385217922683
+      full_box_clearance_m: 0.30777360813300214
+      direction_xy:
+      - 0.7906866221799156
+      - 0.6122210920131023
+    - arrival_surface_index: 19
+      projected_top_gap_m: 0.520847959391417
+      full_box_clearance_m: 0.47679580140966304
+      direction_xy:
+      - 0.9849649225950149
+      - 0.17275445365430162
+    - arrival_surface_index: 20
+      projected_top_gap_m: 0.36094585779732746
+      full_box_clearance_m: 0.33710218395838937
+      direction_xy:
+      - 0.8621933399983843
+      - 0.5065793565300805
+    - arrival_surface_index: 21
+      projected_top_gap_m: 0.4690339946709161
+      full_box_clearance_m: 0.4513964918540998
+      direction_xy:
+      - 0.9999681671486891
+      - 0.00797901555904209
+    - arrival_surface_index: 22
+      projected_top_gap_m: 0.41150509682849506
+      full_box_clearance_m: 0.37401145786689
+      direction_xy:
+      - 0.9828624280943054
+      - 0.18434057459107137
+    - arrival_surface_index: 23
+      projected_top_gap_m: 0.3731739664351583
+      full_box_clearance_m: 0.3388726824244663
+      direction_xy:
+      - 0.998568321384962
+      - 0.053491191110493864
+    - arrival_surface_index: 24
+      projected_top_gap_m: 0.27962387480173223
+      full_box_clearance_m: 0.26375250085188096
+      direction_xy:
+      - 0.9894495817970077
+      - 0.14487762105213645
+    nominal_path_length_m: 28.699451209407687
+    scope: Mixed-width, sharp-turn, high/low and longer-gap development challenge; first three transfers retain stage2 approach. No policy feasibility certificate.
+  foot_projection_radius_m: 0.02
+  geometry_seed: 1
+evaluation_video_envs: 1
+evaluation_camera_mode: follow
+demo_target:
+  minimum_actual_seconds: 10.0
+  surface_transfers: 10
+  camera: third_person_follow
+  jump_count: measured separately; surface transfers are not automatically jumps
+exploration:
+  kind: bounded_mean_gaussian_v2
+  min_std: 0.12
+  stages:
+  - start_update: 0
+    max_std: 0.12
+body_progress_weight: 10.0
+bound_reward_per_second: 2.0
+initial_rear_target: front_stance
+pair_contact_quorum: either
+contact_target_mode: surface_region
+bound_reward_scope: travel_only
+gap_jump_bonus: 10.0
+body_progress_reference: gap_landing
+terminal_motion_cost: 2.0
+motion_control:
+  version: motion_control_v1
+  target_speed_mps: 1.8
+  speed_cost: 6.0
+  joint_reference_rate_rad_s: 12.0
+  joint_speed_soft_rad_s: 16.0
+  joint_speed_cost: 0.02
+eval:
+  default_suite: eval_suite/curriculum.yaml
