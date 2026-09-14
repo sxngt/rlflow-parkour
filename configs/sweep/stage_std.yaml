@@ -1,9 +1,9 @@
-# 탐색 std 스윕: 하한·상한을 같이 낮춘다 (성숙 정책 미세조정). LR 2e-4 고정, 3 arm.
+# 탐색 std 스윕: 하한·상한을 같이 낮춘다 (성숙 정책 미세조정). LR 은 부모 체크포인트의 마지막 adaptive LR 을 이어받음(fork_lr=inherit), 3 arm.
 metric: custom/success_ema
 mode: max
 num_samples: 1
 max_concurrent: 3
 scheduler: none
-overrides: [runner.algorithm.learning_rate=0.0002, gap_jump_bonus=0.0, "exploration.stages.0.max_std=${exploration.min_std}"]
+overrides: ["+fork_lr=inherit", gap_jump_bonus=0.0, "exploration.stages.0.max_std=${exploration.min_std}"]
 space:
   exploration.min_std: {grid: [0.04, 0.06, 0.08]}

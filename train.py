@@ -32,7 +32,7 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "src"))
 
 CONTROL_HZ = 50.0            # sim 200 Hz × decimation 4 (evaluation results[].length 과 episode 초의 비율)
-DROP_KEYS = {"project", "fork_from", "resume", "smoke", "eval"}
+DROP_KEYS = {"project", "fork_from", "resume", "smoke", "eval", "fork_lr"}
 
 
 def _split_args(argv: list[str]) -> tuple[argparse.Namespace, list[str]]:
@@ -206,6 +206,7 @@ def main(cfg: DictConfig) -> None:
         sys.exit(3)
     config.pop("device", None)
     fork_from, resume_ref = config.pop("fork_from", None), config.pop("resume", None)
+    fork_lr = config.pop("fork_lr", None)
     for k in DROP_KEYS:
         config.pop(k, None)
     if smoke:
@@ -213,6 +214,22 @@ def main(cfg: DictConfig) -> None:
     work = ckpt_dir()
     attempt = work / "attempt"
     cfg_json = work / "config.json"
+    fork_path: Path | None = None
+    fork_lr_effective: float | None = None
+    if fork_from and not latest_checkpoint(work):
+        fork_path = resolve_checkpoint(str(fork_from), work / "init")
+        if fork_lr is not None:
+            # 부모가 adaptive 스케줄로 수렴한 마지막 LR 을 이어받는다. 성숙한 정책을 설정값(2e-4)으로 다시 시작하면 첫 PPO 업데이트
+            # (fresh Adam = sign-descent) 가 정책을 무너뜨려 매 fork 마다 수 M 스텝을 재학습에 쓰고, 종종 아예 회복하지 못한다(c21/c28/c36/c41 붕괴).
+            import torch
+
+            saved = torch.load(fork_path, map_location="cpu", weights_only=False).get("learning_rate")
+            if saved is None:
+                raise SystemExit("fork_lr: parent checkpoint has no saved learning_rate")
+            scale = 1.0 if str(fork_lr) == "inherit" else float(fork_lr)
+            fork_lr_effective = max(float(saved) * scale, 1e-5)
+            config["runner"]["algorithm"]["learning_rate"] = fork_lr_effective
+            print(f"fork_lr={fork_lr}: parent learning_rate {saved:.3g} -> {fork_lr_effective:.3g}", flush=True)
     cfg_json.write_text(json.dumps(config, indent=2, ensure_ascii=False))
     with LabRun(cfg, run_id=ARGS.run_id, repo_root=ROOT, template="parkour", robot=f"sim:isaaclab:a1:{config['task']}") as run:
         mlflow.set_tags({"contract_note": "env/ep_return=0 placeholder (parkour trainer logs no per-iteration return); see custom/*", "task": str(config["task"]),
@@ -230,7 +247,9 @@ def main(cfg: DictConfig) -> None:
         elif resume_ref:
             cmd += ["--resume", str(resolve_checkpoint(str(resume_ref), work / "init"))]
         elif fork_from:
-            cmd += ["--fork-from", str(resolve_checkpoint(str(fork_from), work / "init"))]
+            cmd += ["--fork-from", str(fork_path or resolve_checkpoint(str(fork_from), work / "init"))]
+            if fork_lr_effective is not None:
+                mlflow.log_param("fork_learning_rate", fork_lr_effective)
         # 학습 중 촬영(--video)은 매 스텝 렌더라 학습이 수십 배 느려진다. 스윕 trial 에서는 끄고, 단독 런도 train_every_steps>0 일 때만.
         if REC.enabled and REC.train_every_steps > 0 and not os.environ.get("LAB_SWEEP_ID"):
             cmd.append("--video")
