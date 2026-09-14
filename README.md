@@ -12,6 +12,7 @@
 | config | `configs/<name>.yaml` = 기존 `configs/<name>.json` 의 1:1 사본 (`scripts/sync_rlflow_configs.py`). 기본 `config.yaml` → `p3-70-control` |
 | overrides | Hydra 점 경로. 예: `iterations=400 num_envs=512 runner.algorithm.learning_rate=5e-4 seed=3` |
 | 체크포인트에서 시작 | `+fork_from=mlflow://<run_id>/checkpoints/step_<n>.pt` (새 계보) 또는 `+resume=…` (같은 계보 이어서) |
+| fork LR | `+fork_lr=inherit` — 부모 체크포인트의 마지막 adaptive LR(~1.5e-5, 하한 1e-5)로 시작. config LR(2e-4)로 재시작하면 첫 PPO 업데이트가 성숙 정책을 무너뜨린다(c21/c28/c36/c41 붕괴 원인). 숫자면 부모 LR 의 배수. MLflow 파라미터 `fork_learning_rate` |
 | 태그 | 제출 폼의 지형·과제·난이도·목적 축 (rlflow.yaml) + 자유 태그 `phase:P3` … → MLflow 태그 `rt.<key>` |
 | 촬영 | 프로젝트 설정 → 촬영. 학습은 `--video`(parallel-training.mp4), 평가는 시나리오별 `evaluation.mp4` |
 
