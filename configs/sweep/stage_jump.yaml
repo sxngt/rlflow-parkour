@@ -1,0 +1,12 @@
+# 점프 길이 절벽용 스윕 (0.89 맵: gap 13 = 0.70 m + 0.18 m 상승에서 몸통이 착지면에 걸림).
+# gap_clearance(몸통 궤적 apex 참조) × motion_control.target_speed 2×2, std 0.04, LR 은 부모 adaptive LR 상속.
+metric: custom/success_ema
+mode: max
+num_samples: 1
+max_concurrent: 4
+scheduler: none
+overrides: ["+fork_lr=inherit", gap_jump_bonus=0.0, exploration.min_std=0.04, exploration.stages.0.max_std=0.04,
+            "+gap_clearance.version=gap_clearance_v1", "+gap_clearance.height_cost=50.0"]
+space:
+  gap_clearance.apex_m: {grid: [0.06, 0.12]}
+  motion_control.target_speed_mps: {grid: [1.8, 2.1]}
