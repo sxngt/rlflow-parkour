@@ -26,6 +26,14 @@ def training_support(config):
         if spec['layout'].get('scenario_contract')=='mixed_discrete_axes_v1':
             from parkour.curriculum_maps import build_mixed_discrete_axes
             expected=build_mixed_discrete_axes(spec['geometry_seed'],spec['layout']['difficulty_axes'])
+        if spec.get('terrain_mix') is not None:
+            # 혼합 지형: layout 은 첫 그룹의 지도(호환용). 각 그룹 layout 은 mix 생성기로 그대로 재생성되어야 한다.
+            from parkour.terrain_mix import build_mix
+            entries=build_mix(spec['terrain_mix'])
+            expected=entries[0]['layout']
+            for e in entries:
+                script=scripted_pair_targets(e['layout'],spec['calibration']['foot_xy_m'])
+                assert_script_contacts_unoccluded(e['layout'],script)
         if spec['layout']!=expected:
             raise ValueError('Shared training layout differs from generator')
         calibration=spec['calibration']

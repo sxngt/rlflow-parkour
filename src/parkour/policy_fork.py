@@ -87,7 +87,7 @@ def validate_continuous_fork(parent, target):
         radius_for_update(config,0)
         for key in ('iterations','num_envs','research_tags','contact_curriculum'):
             config.pop(key,None)
-        for key in ('layout','geometry_seed'):
+        for key in ('layout','geometry_seed','terrain_mix'):
             config['terrain_contract'].pop(key,None)
         # Apart from variants validated above, retain the std floor, network,
         # observation channels, actuator envelope and reward weights.

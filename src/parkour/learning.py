@@ -221,6 +221,14 @@ def make_env(config, evaluation_support=None, chain_hops=None, chain_settle_mode
     if cfg.support_contract and cfg.support_contract['mode']=='shared-course':
         from parkour.shared_terrain import shared_scene_spacing
         cfg.scene.env_spacing=shared_scene_spacing(cfg.support_contract['layout'])
+        if evaluation_support is None and cfg.support_contract.get('terrain_mix') is not None:
+            # env 별 혼합 지형: 그룹마다 다른 layout 을 스폰하고 (task.py), Tracker 는 env 별 표면 테이블을 쓴다
+            from parkour.terrain_mix import mix_assignment, mix_scene_spacing
+            if float(config.get('gap_jump_bonus',0.)) or config.get('gap_clearance') is not None:
+                raise ValueError('terrain_mix does not support gap_jump_bonus/gap_clearance yet (single-layout gap tables)')
+            cfg.support_assignment=mix_assignment(config,cfg.support_contract)
+            cfg.scene.replicate_physics=False
+            cfg.scene.env_spacing=mix_scene_spacing(cfg.support_assignment['groups'])
     if cfg.support_contract is not None:
         from parkour.terrain_contract import validate_surface_materials
         validate_surface_materials(cfg.support_contract)

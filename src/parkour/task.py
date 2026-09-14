@@ -114,8 +114,9 @@ class FootholdEnv(DirectRLEnv):
                             collision_props=sim_utils.CollisionPropertiesCfg(),
                             physics_material=self.cfg.terrain.physics_material,
                             visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(.3, .4, .5)))
+                        orientation = {'orientation': tuple(surface['orientation_wxyz'])} if 'orientation_wxyz' in surface else {}
                         block.func(f'/World/envs/env_{index}/Supports/' + surface['id'], block,
-                                   translation=tuple(surface['center_m']))
+                                   translation=tuple(surface['center_m']), **orientation)
         if self.device == "cpu" or self.cfg.support_assignment:
             self.scene.filter_collisions(global_prim_paths=["/World/Ground"])
         light = sim_utils.DomeLightCfg(intensity=2500.0)

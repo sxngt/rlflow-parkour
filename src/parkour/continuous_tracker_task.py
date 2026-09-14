@@ -44,24 +44,42 @@ class ContinuousTrackerEnv(FootholdEnv):
         self.nominal_xy=torch.tensor(self.calibration['foot_xy_m'],device=self.device)
         self.calibrated_root=torch.tensor(self.calibration['root_state'],device=self.device)
         self.calibrated_joint_pos=torch.tensor(self.calibration['joint_positions'],device=self.device)
-        self.target_script=scripted_pair_targets(self.layout,self.calibration['foot_xy_m'],initial_rear_target=cfg.initial_rear_target)
-        self.plan=torch.tensor(self.target_script['positions_m'],device=self.device)
-        self.surface_rotations=torch.tensor([s['rotation_local_to_world'] for s in self.layout['surfaces']],device=self.device)
-        self.surface_centers=torch.tensor([s['top_center_m'] for s in self.layout['surfaces']],device=self.device)
-        self.gap_surfaces=torch.tensor([s.get('scenario_role')=='gap_landing' for s in self.layout['surfaces']],device=self.device)
-        self.surface_normals=torch.tensor([s['normal'] for s in self.layout['surfaces']],device=self.device)
-        self.surface_halves=torch.tensor([s['usable_half_extents_m'] for s in self.layout['surfaces']],device=self.device)
-        self.surface_box_centers=torch.tensor([s['center_m'] for s in self.layout['surfaces']],device=self.device)
-        self.surface_box_sizes=torch.tensor([s['size_m'] for s in self.layout['surfaces']],device=self.device)
+        # env 별 혼합 지형(terrain_mix): 그룹마다 layout 이 다르다 → 표면 테이블을 [K,S,…] 로 쌓고 env→그룹 인덱스로 조회한다.
+        mix=cfg.support_assignment if (cfg.support_assignment and cfg.support_assignment.get('kind')=='terrain_mix') else None
+        self.mix=mix
+        layouts=[g['layout'] for g in mix['groups']] if mix else [self.layout]
+        self.layout_group=torch.zeros(self.num_envs,dtype=torch.long,device=self.device)
+        if mix:
+            for i,g in enumerate(mix['groups']):
+                self.layout_group[g['env_start']:g['env_stop']]=i
+            self.layout_fraction=torch.tensor([g['fraction_mean'] for g in mix['groups']],device=self.device)[self.layout_group]
+        else:
+            self.layout_fraction=torch.full((self.num_envs,),float(self.layout.get('difficulty_fraction') or 0.),device=self.device)
+        scripts=[scripted_pair_targets(L,self.calibration['foot_xy_m'],initial_rear_target=cfg.initial_rear_target) for L in layouts]
+        self.target_script=scripts[0]
+        plans=torch.tensor([sc['positions_m'] for sc in scripts],device=self.device)            # [K,2,S,2,3]
+        self.plan=plans[self.layout_group] if mix else plans[0]                                   # mix: [E,2,S,2,3] (gather_plan ndim 5)
+        def table(fn,dtype=None):
+            t=torch.tensor([[fn(s) for s in L['surfaces']] for L in layouts],device=self.device,dtype=dtype)
+            return t[self.layout_group] if mix else t[0]                                         # mix: [E,S,…]
+        self.surface_rotations=table(lambda s:s['rotation_local_to_world'])
+        self.surface_centers=table(lambda s:s['top_center_m'])
+        self.gap_surfaces=table(lambda s:s.get('scenario_role')=='gap_landing',torch.bool)
+        self.surface_normals=table(lambda s:s['normal'])
+        self.surface_halves=table(lambda s:s['usable_half_extents_m'])
+        self.surface_box_centers=table(lambda s:s['center_m'])
+        self.surface_box_sizes=table(lambda s:s['size_m'])
         self.progress=PairTargetProgress(self.num_envs,len(self.layout['surfaces']),self.device,cfg.contact_hold_steps,cfg.pair_contact_quorum,cfg.initial_rear_target=='front_stance')
         self.nonfoot_ids=[i for i in range(len(self.contacts.body_names)) if i not in self.contact_ids]
         self.final_hold=torch.zeros(self.num_envs,dtype=torch.long,device=self.device)
         self.accept_events=torch.zeros(self.num_envs,2,dtype=torch.bool,device=self.device)
         self.current_valid=torch.zeros(self.num_envs,4,dtype=torch.bool,device=self.device)
         self.current_error=torch.zeros(self.num_envs,4,device=self.device)
-        self.goal=torch.tensor(self.layout['goal_position_m'],device=self.device)
-        points=self.surface_centers[:,:2]
-        self.map_low=points.amin(dim=0)-1.;self.map_high=points.amax(dim=0)+1.
+        goals=torch.tensor([L['goal_position_m'] for L in layouts],device=self.device)
+        self.goal=(goals[self.layout_group] if mix else goals[0].expand(self.num_envs,-1))    # [E,3]
+        centers=torch.tensor([[s['top_center_m'] for s in L['surfaces']] for L in layouts],device=self.device)[:,:,:2]   # [K,S,2]
+        low=centers.amin(dim=1)-1.;high=centers.amax(dim=1)+1.
+        self.map_low=(low[self.layout_group] if mix else low[0].expand(self.num_envs,-1));self.map_high=(high[self.layout_group] if mix else high[0].expand(self.num_envs,-1))
         from parkour.flight_events import FlightEvents
         self.flights=FlightEvents(self.num_envs,self.device)
         self.travel_jumps=torch.zeros_like(self.flights.count)
@@ -96,6 +114,19 @@ class ContinuousTrackerEnv(FootholdEnv):
         self.body_waypoint=torch.zeros_like(self.body_progress_before)
         self.stance_offset=self.calibrated_root[:3]-torch.cat([self.nominal_xy,torch.full((4,1),.02,device=self.device)],dim=1).mean(dim=0)
         self._sync_targets()
+    def _tab(self,table,indices):
+        """단일 layout: table[indices]. 혼합: table[env, indices] (table 은 [E,S,…])."""
+        if self.mix is None:return table[indices]
+        env=torch.arange(self.num_envs,device=self.device).view(-1,*([1]*(indices.ndim-1))).expand_as(indices)
+        return table[env,indices]
+    def _gap_landing_waypoint(self):
+        from parkour.body_progress import waypoint
+        midpoint=waypoint(self.targets,self.stance_offset)
+        front_target=self.progress.target[:,0];front_accepted=self.progress.accepted[:,0]
+        pending=self._tab(self.gap_surfaces,front_target[:,None])[:,0]&(front_accepted<front_target)
+        landing=self._tab(self.surface_centers,front_target[:,None])[:,0]+self.scene.env_origins
+        landing=landing.clone();landing[:,2]+=self.calibrated_root[2]
+        return torch.where(pending[:,None],landing,midpoint)
     def _pre_physics_step(self,actions):
         if self.cfg.motion_control is not None:
             from parkour.motion_control import limit_reference
@@ -107,10 +138,7 @@ class ContinuousTrackerEnv(FootholdEnv):
             self.body_progress_before.copy_(self.robot.data.root_pos_w)
             self.body_waypoint.copy_(waypoint(self.targets,self.stance_offset))
             if self.cfg.body_progress_reference=='gap_landing':
-                from parkour.body_progress import gap_landing_waypoint
-                self.body_waypoint.copy_(gap_landing_waypoint(self.targets,self.stance_offset,
-                    self.progress.target[:,0],self.progress.accepted[:,0],self.gap_surfaces,
-                    self.surface_centers,self.scene.env_origins,self.calibrated_root[2]))
+                self.body_waypoint.copy_(self._gap_landing_waypoint())
     def _sync_targets(self):
         from parkour.candidate_plan import gather_plan
         points=gather_plan(getattr(self,'candidate_plan',self.plan),self.progress.target[:,:,None])
@@ -140,7 +168,7 @@ class ContinuousTrackerEnv(FootholdEnv):
         # N, pair, horizon, left/right, XYZ -> N, foot, horizon, XYZ.
         from parkour.candidate_plan import gather_plan
         points=gather_plan(getattr(self,'candidate_plan',self.plan),indices).permute(0,1,3,2,4).reshape(self.num_envs,4,2,3)
-        normals=self.surface_normals[indices][:,:,None,:,:].expand(-1,-1,2,-1,-1).reshape(self.num_envs,4,2,3)
+        normals=self._tab(self.surface_normals,indices)[:,:,None,:,:].expand(-1,-1,2,-1,-1).reshape(self.num_envs,4,2,3)
         q=self.robot.data.root_quat_w[:,None,None,:].expand(-1,4,2,-1).reshape(-1,4)
         relative=points+self.scene.env_origins[:,None,None,:]-self.robot.data.root_pos_w[:,None,None,:]
         target_b=quat_apply_inverse(q,relative.reshape(-1,3)).reshape(self.num_envs,4,2,3)
@@ -156,18 +184,22 @@ class ContinuousTrackerEnv(FootholdEnv):
     def _get_dones(self):
         indices=self.progress.target.repeat_interleave(2,dim=1)
         foot=self.robot.data.body_pos_w[:,self.foot_ids]-self.scene.env_origins[:,None,:]
-        R=self.surface_rotations[indices];delta=foot-self.surface_centers[indices]
+        R=self._tab(self.surface_rotations,indices);delta=foot-self._tab(self.surface_centers,indices)
         local=torch.einsum('nfji,nfj->nfi',R,delta)
         forces=self.contacts.data.net_forces_w[:,self.contact_ids]
-        norm_force=(forces*self.surface_normals[indices]).sum(dim=2)
+        norm_force=(forces*self._tab(self.surface_normals,indices)).sum(dim=2)
         magnitude=forces.norm(dim=2)
         self.contact_on=torch.where(self.contact_on,magnitude>2,magnitude>5)
         self.current_error=(self.robot.data.body_pos_w[:,self.foot_ids]-self.targets).norm(dim=2)
-        inside=(local[:,:,:2].abs()<=self.surface_halves[indices]).all(dim=2)&(local[:,:,2]>=0)&(local[:,:,2]<=.04)
+        inside=(local[:,:,:2].abs()<=self._tab(self.surface_halves,indices)).all(dim=2)&(local[:,:,2]>=0)&(local[:,:,2]<=.04)
         self.current_valid=inside&(norm_force>5)&(self.current_error<=self.cfg.success_radius_m)
         if self.cfg.contact_target_mode=='surface_region':
-            from parkour.surface_region import exposed_projection
-            exposed=exposed_projection(foot,indices,self.surface_rotations,self.surface_centers,self.surface_box_centers,self.surface_box_sizes)
+            if self.mix is None:
+                from parkour.surface_region import exposed_projection
+                exposed=exposed_projection(foot,indices,self.surface_rotations,self.surface_centers,self.surface_box_centers,self.surface_box_sizes)
+            else:
+                from parkour.surface_region import exposed_projection_batched
+                exposed=exposed_projection_batched(foot,indices,self.surface_rotations,self.surface_centers,self.surface_box_centers,self.surface_box_sizes)
             self.current_valid=inside&(norm_force>5)&exposed
         decision=self.progress.update(self.current_valid);self.accept_events=decision['accepted_now']
         nonfoot=self.contacts.data.net_forces_w_history[:,:,self.nonfoot_ids].norm(dim=-1).amax(dim=(1,2))>5
@@ -181,7 +213,7 @@ class ContinuousTrackerEnv(FootholdEnv):
         self.failure_nonfoot_id=torch.tensor(self.nonfoot_ids,device=self.device)[peaks.argmax(dim=1)]
         self.failure=nonfoot|outside|self.failure_low|self.failure_tilt
         if self.gap_credit is not None and not getattr(self,"planner_rollout_only",False):self.new_gap_credit=self.gap_credit.settle(self.progress.accepted,self.failure)
-        final=decision['sequence_completed']&self.current_valid.all(dim=1)&((root[:,:2]-self.goal[:2]).norm(dim=1)<.3)&(self.robot.data.root_lin_vel_b.norm(dim=1)<.2)&(self.robot.data.root_ang_vel_b.norm(dim=1)<1.)
+        final=decision['sequence_completed']&self.current_valid.all(dim=1)&((root[:,:2]-self.goal[:,:2]).norm(dim=1)<.3)&(self.robot.data.root_lin_vel_b.norm(dim=1)<.2)&(self.robot.data.root_ang_vel_b.norm(dim=1)<1.)
         self.final_hold=torch.where(final,self.final_hold+1,0)
         self.success=(self.final_hold>=self.cfg.final_hold_steps)&~self.failure
         term=self.success|self.failure
@@ -216,7 +248,7 @@ class ContinuousTrackerEnv(FootholdEnv):
             spec=self.cfg.gap_clearance
             root=self.robot.data.root_pos_w-self.scene.env_origins
             reference,active=height_reference(root[:,:2],self.surface_centers,self.progress.target[:,0],self.calibrated_root[2],spec['apex_m'])
-            active&=self.gap_surfaces[self.progress.target[:,0]]&~(self.progress.target==self.progress.target_count-1).all(dim=1)
+            active&=self._tab(self.gap_surfaces,self.progress.target[:,0:1])[:,0]&~(self.progress.target==self.progress.target_count-1).all(dim=1)
             dense-=spec['height_cost']*(root[:,2]-reference).square()*active
         reward=dense*self.step_dt+2.*self.accept_events.sum(dim=1)+5.*self.success-5.*self.failure
         reward+=self.cfg.gap_jump_bonus*self.new_gap_credit
@@ -240,6 +272,7 @@ class ContinuousTrackerEnv(FootholdEnv):
             'travel_motion_seconds':self.travel_motion_steps*self.physics_dt,
             'completed_surface_transfers':self.progress.accepted.amin(dim=1).clamp_min(0).clone(),
             'failure_nonfoot':self.failure_nonfoot.clone(),'failure_nonfoot_body_id':self.failure_nonfoot_id.clone(),
-            'failure_outside_map':self.failure_outside.clone(),'failure_low_body':self.failure_low.clone(),'failure_tilt':self.failure_tilt.clone()}
+            'failure_outside_map':self.failure_outside.clone(),'failure_low_body':self.failure_low.clone(),'failure_tilt':self.failure_tilt.clone(),
+            'layout_group':self.layout_group.clone(),'layout_fraction':self.layout_fraction.clone()}
         if self.gap_credit is not None:self.extras['terminal_metrics']['credited_gap_jumps']=self.gap_credit.paid.sum(dim=1).clone()
         return reward

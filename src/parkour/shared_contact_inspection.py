@@ -15,12 +15,23 @@ def position_tolerance(origin,expected):
 def inspect_shared_contacts(env):
     from omni.physx import get_physx_scene_query_interface
     query=get_physx_scene_query_interface();rows=[]
-    for env_id in sorted({0,env.num_envs-1}):
+    # terrain_mix: 그룹마다 layout 이 다르므로 그룹의 첫·마지막 env 를 그 그룹의 layout/스크립트로 검사한다
+    checks=[]
+    mix=getattr(env,'mix',None)
+    if mix:
+        from parkour.shared_terrain import scripted_pair_targets
+        for g in mix['groups']:
+            script=scripted_pair_targets(g['layout'],env.calibration['foot_xy_m'],initial_rear_target=env.cfg.initial_rear_target)
+            for env_id in sorted({g['env_start'],g['env_stop']-1}):
+                checks.append((env_id,g['layout'],script))
+    else:
+        checks=[(env_id,env.layout,env.target_script) for env_id in sorted({0,env.num_envs-1})]
+    for env_id,layout,script in checks:
         offset=env.scene.env_origins[env_id].detach().cpu().tolist()
-        for group,targets in enumerate(env.target_script['positions_m']):
+        for group,targets in enumerate(script['positions_m']):
             for index,pair in enumerate(targets):
                 if index==0:continue  # Robot itself can occlude initial foot rays.
-                surface=env.layout['surfaces'][index];normal=surface['normal']
+                surface=layout['surfaces'][index];normal=surface['normal']
                 for foot,point in enumerate(pair):
                     origin=[a+o+.1*n for a,o,n in zip(point,offset,normal)]
                     hit=query.raycast_closest(tuple(origin),tuple(-n for n in normal),.5)

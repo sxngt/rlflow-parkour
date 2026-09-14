@@ -162,12 +162,12 @@ def main():
     if args.mixed_course_fraction is not None:
         if config['task']!='a1_continuous_tracker_v1' or args.shared_course_level is not None or args.support_mode:p.error('Mixed override requires continuous Tracker and no other terrain override')
         from parkour.shared_terrain import build_mixed_discrete
-        support=copy.deepcopy(support);support['layout']=build_mixed_discrete(args.shared_course_seed,args.mixed_course_fraction);support['geometry_seed']=args.shared_course_seed
+        support=copy.deepcopy(support);support['layout']=build_mixed_discrete(args.shared_course_seed,args.mixed_course_fraction);support['geometry_seed']=args.shared_course_seed;support.pop('terrain_mix',None)
     if args.curriculum_map is not None:
         if config['task']!='a1_continuous_tracker_v1' or args.shared_course_level is not None or args.support_mode or args.mixed_course_fraction is not None:p.error('Curriculum map override requires continuous Tracker and no other terrain override')
         from parkour.curriculum_maps import build_mixed_discrete_axes
         spec=json.loads(args.curriculum_map)
-        support=copy.deepcopy(support);support['layout']=build_mixed_discrete_axes(int(spec.get('seed',1)),spec.get('fractions',.25));support['geometry_seed']=int(spec.get('seed',1))
+        support=copy.deepcopy(support);support['layout']=build_mixed_discrete_axes(int(spec.get('seed',1)),spec.get('fractions',.25));support['geometry_seed']=int(spec.get('seed',1));support.pop('terrain_mix',None)
     if args.shared_course_level is not None:
         config['research_tags']=[t for t in config.get('research_tags',[]) if not t.startswith('difficulty:')]+['difficulty:'+args.shared_course_level]
     if config['task']=='a1_continuous_tracker_v1':

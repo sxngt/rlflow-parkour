@@ -37,7 +37,8 @@ def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--base", required=True, help="configs/<base>.json")
     p.add_argument("--name", required=True)
-    p.add_argument("--fractions", required=True, help='JSON: 0.4 또는 {"base":0.25,"gap":0.5}')
+    p.add_argument("--fractions", required=True, help='JSON: 0.4 또는 {"base":0.25,"gap":0.5} (terrain_mix 사용 시 첫 그룹/호환용 layout)')
+    p.add_argument("--mix", help='JSON terrain_mix: {"seeds":[1],"fractions":{"min":0.6,"max":1.0,"count":8}} → env 별 혼합 지형')
     p.add_argument("--geometry-seed", type=int, default=1)
     p.add_argument("--iterations", type=int)
     p.add_argument("--tags", nargs="*", default=[])
@@ -52,6 +53,15 @@ def main() -> int:
     layout = build_mixed_discrete_axes(a.geometry_seed, fr)
     cfg["terrain_contract"]["layout"] = layout
     cfg["terrain_contract"]["geometry_seed"] = a.geometry_seed
+    cfg["terrain_contract"].pop("terrain_mix", None)
+    if a.mix:
+        from parkour.terrain_mix import build_mix, describe_mix, mix_groups
+        mix = json.loads(a.mix)
+        entries = build_mix(mix)
+        cfg["terrain_contract"]["terrain_mix"] = mix
+        cfg["terrain_contract"]["layout"] = entries[0]["layout"]          # 호환용: 첫 그룹의 지도
+        cfg["terrain_contract"]["geometry_seed"] = entries[0]["seed"]
+        print(describe_mix(mix_groups(mix, int(cfg.get("num_envs", 2048)))))
     if a.iterations:
         cfg["iterations"] = a.iterations
     if a.tags:
@@ -60,7 +70,9 @@ def main() -> int:
         k, v = kv.split("=", 1)
         set_dotted(cfg, k, parse_value(v))
     # fork 계약(policy_fork.validate_continuous_fork)은 새 최상위 키를 허용하지 않는다 → 커리큘럼 정보는 태그로만 남긴다
-    cfg["research_tags"] = [t for t in cfg.get("research_tags", []) if not t.startswith("curriculum:")] + ["curriculum:" + ",".join(f"{k}{v:g}" for k, v in fr.items())]
+    cfg["research_tags"] = [t for t in cfg.get("research_tags", []) if not t.startswith(("curriculum:", "mix:"))] + ["curriculum:" + ",".join(f"{k}{v:g}" for k, v in fr.items())]
+    if a.mix:
+        cfg["research_tags"].append("mix:" + ",".join(str(x) for x in json.loads(a.mix)["seeds"]) + ":" + json.dumps(json.loads(a.mix)["fractions"], separators=(",", ":")))
     training_support(cfg)      # 계약 검증 (layout 일관성)
     out = ROOT / "configs" / f"{a.name}.json"
     if out.exists() and not a.force:

@@ -57,9 +57,10 @@ def main():
             atomic_json(args.out/'collision-contract.json', inspect_collision_contract(env))
             meta['terrain_contract'] = support
         if env.cfg.support_assignment:
-            from parkour.support_inspection import inspect_support_assignment
+            from parkour.support_inspection import inspect_support_assignment, inspect_terrain_mix
             atomic_json(args.out/'support-assignment.json', env.cfg.support_assignment)
-            atomic_json(args.out/'support-inspection.json', inspect_support_assignment(env))
+            inspect = inspect_terrain_mix if env.cfg.support_assignment.get('kind') == 'terrain_mix' else inspect_support_assignment
+            atomic_json(args.out/'support-inspection.json', inspect(env))
         env.reset()
         alg, norm = make_algorithm(config, env)
         from parkour.learning import model_profile
@@ -133,6 +134,10 @@ def main():
                 transition = True
             successes, failures, episodes, errors = 0, 0, 0, []
             completed_contacts = []
+            mix_groups = getattr(env, 'mix', None)
+            if mix_groups:
+                mix_episodes = torch.zeros(len(mix_groups['groups']), dtype=torch.long, device=env.device)
+                mix_successes = torch.zeros_like(mix_episodes)
             input_action_clips=torch.zeros((),dtype=torch.long,device=env.device)
             terminal_transfers,terminal_jumps,terminal_seconds=[],[],[]
             terminal_gap_credits=[]
@@ -194,6 +199,9 @@ def main():
                         failures += int(metrics["failure"][dones].sum())
                         episodes += int(dones.sum())
                         errors.extend(metrics["final_error_m"][dones].tolist())
+                        if mix_groups:
+                            mix_episodes += torch.bincount(metrics['layout_group'][dones], minlength=len(mix_groups['groups']))
+                            mix_successes += torch.bincount(metrics['layout_group'][dones & metrics['success']], minlength=len(mix_groups['groups']))
                         if 'completed_surface_transfers' in metrics:
                             terminal_transfers.extend(metrics['completed_surface_transfers'][dones].tolist())
                             terminal_jumps.extend(metrics['measured_jump_count'][dones].tolist())
@@ -217,6 +225,14 @@ def main():
                    "mean_final_error_m": sum(errors) / len(errors) if errors else None,
                    "losses": {k: float(v) for k, v in losses.items()}}
             row['input_action_clip_fraction']=int(input_action_clips)/(env.num_envs*steps_per_iteration*12)
+            if mix_groups:
+                # 그룹(난이도)별 학습 성공률. 키 이름의 f 는 fraction 평균 ×100 (예: mix_success_f085), seed 가 여럿이면 s<seed> 를 붙인다
+                multi_seed = len({g['seed'] for g in mix_groups['groups']}) > 1
+                for i, g in enumerate(mix_groups['groups']):
+                    label = f"f{int(round(g['fraction_mean'] * 100)):03d}" + (f"_s{g['seed']}" if multi_seed else "")
+                    if int(mix_episodes[i]):
+                        row[f'mix_success_{label}'] = float(mix_successes[i]) / float(mix_episodes[i])
+                    row[f'mix_episodes_{label}'] = int(mix_episodes[i])
             if goal_values:
                 if int(goal_steps.sum()) != env.num_envs*steps_per_iteration:
                     raise RuntimeError('Goal accounting did not cover every transition')
