@@ -87,10 +87,14 @@ def resolve_checkpoint(ref: str, dst: Path) -> Path:
         run_id, _, art = ref[len("mlflow://"):].partition("/")
         p = Path(mlflow.artifacts.download_artifacts(run_id=run_id, artifact_path=art, dst_path=str(dst)))
         side = art + ".json"
+        # 없는 sidecar 를 download 로 시도하면 mlflow 재시도 루프에 ~4 분이 걸린다 → 목록으로 먼저 확인
+        folder = side.rpartition("/")[0] or None
         try:
-            mlflow.artifacts.download_artifacts(run_id=run_id, artifact_path=side, dst_path=str(dst))
+            present = any(a.path == side for a in mlflow.MlflowClient().list_artifacts(run_id, folder))
         except Exception:  # noqa: BLE001
-            pass
+            present = False
+        if present:
+            mlflow.artifacts.download_artifacts(run_id=run_id, artifact_path=side, dst_path=str(dst))
     else:
         p = Path(ref)
     if not p.exists():
