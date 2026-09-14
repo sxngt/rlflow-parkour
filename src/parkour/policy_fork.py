@@ -84,6 +84,8 @@ def validate_continuous_fork(parent, target):
         if cap_for_update(config,0) is None:
             raise ValueError('Continuous fork requires bounded exploration')
         config['exploration'].pop('kind')
+        # 2026-09-15: 탐색 std 하한(min_std)도 fork 변형으로 허용. 성숙한 정책의 미세조정은 더 낮은 노이즈가 필요하다 (stochastic rollout 붕괴 완화).
+        config['exploration'].pop('min_std',None)
         radius_for_update(config,0)
         for key in ('iterations','num_envs','research_tags','contact_curriculum'):
             config.pop(key,None)
