@@ -100,10 +100,15 @@ class FollowRecorder:
         followed=UsdGeom.Imageable(env.scene.stage.GetPrimAtPath(env.scene.env_prim_paths[env_index]+'/Robot'))
         if followed.ComputeVisibility()==UsdGeom.Tokens.invisible:raise RuntimeError('Followed robot is invisible')
         env.render_mode='rgb_array';env.cfg.viewer.resolution=(1280,720)
-        self.plan_markers=None
+        self.plan_markers=None;self.foot_markers=None
         if hasattr(env,'plan'):
+            # 파란 점 = 계획기의 고정 페어 목표(표면마다 하나, 진행에 따라 다음 표면으로 넘어감). 빨간 점 = 지금 각 발이 향하는 실시간 예측 착지점.
             self.plan_markers=VisualizationMarkers(VisualizationMarkersCfg(prim_path='/World/FollowPlannedContacts',markers={
-                'planned':sim_utils.SphereCfg(radius=.035,visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.,0.,0.),emissive_color=(.45,0.,0.)))}))
+                'planned':sim_utils.SphereCfg(radius=.022,visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(.25,.55,1.),emissive_color=(.05,.15,.4)))}))
+            if hasattr(env,'progress') and hasattr(env,'surface_rotations'):
+                self.foot_markers=VisualizationMarkers(VisualizationMarkersCfg(prim_path='/World/FollowPredictedFootfall',markers={
+                    'stance':sim_utils.SphereCfg(radius=.03,visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.,.15,.15),emissive_color=(.5,0.,0.))),
+                    'flight':sim_utils.SphereCfg(radius=.04,visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.,0.,0.),emissive_color=(.7,0.,0.)))}))
         self.eye=None;self.look=None;self.yaw=None
         self._camera()
         for _ in range(40):env.render()
@@ -135,6 +140,16 @@ class FollowRecorder:
                 points=torch.tensor(displayed['positions_w'],device=self.env.device)
                 normals=torch.tensor(displayed['normals_w'],device=self.env.device)
             self.plan_markers.visualize(translations=points+.025*normals)
+        footfall=None
+        if self.foot_markers is not None:
+            from parkour.predicted_footfall import predicted_footfall
+            fpos,fnorm,fmode,ftarget=predicted_footfall(self.env,self.ids[0])
+            shown=fmode>0
+            if bool(shown.any()):
+                self.foot_markers.visualize(translations=(fpos+.025*fnorm)[shown],marker_indices=(fmode[shown]-1))
+            else:
+                self.foot_markers.set_visibility(False)
+            footfall={'positions_w':fpos.cpu().tolist(),'mode':fmode.cpu().tolist(),'target_surface':ftarget.cpu().tolist()}
         self._camera();frame=self.env.render()
         if self.frames==0:
             if frame.max()==0:raise RuntimeError('Black follow-camera output')
@@ -152,6 +167,7 @@ class FollowRecorder:
             row.update(target_indices=env.progress.target[i].tolist(),accepted_indices=env.progress.accepted[i].tolist(),
                        measured_jump_count=int(env.flights.count[i]))
         if displayed is not None:row['planned_contacts']=displayed
+        if footfall is not None:row['predicted_footfall']=footfall
         self.trace.append(row)
     def close(self,**metadata):
         self.writer.close();self.writer=None
@@ -159,7 +175,8 @@ class FollowRecorder:
             'total_simulated_envs':self.env.num_envs,'fps':25,'frame_count':self.frames,'frame_dt_s':.04,
             'video_start_sim_time_s':0.,'resolution':[1280,720],'trace':self.trace,
             'camera':{'mode':'smoothed_body_yaw_third_person','behind_m':2.5,'side_m':.85,'above_body_m':1.4},
-            'planned_contact_overlay':{'color':'red','horizon':4,'meaning':'Active planned targets, not measured landings','radius_m':.035,'normal_display_offset_m':.025} if self.plan_markers is not None else None,
+            'planned_contact_overlay':{'color':'blue','horizon':4,'meaning':'Planner pair targets (fixed per surface, advance with progress), not measured landings','radius_m':.022,'normal_display_offset_m':.025} if self.plan_markers is not None else None,
+            'predicted_footfall_overlay':{'color':'red','meaning':'Per-foot live prediction: swing feet extrapolated ballistically onto the pair target surface and clamped to its usable region; stance feet at contact. Display only.','radius_m':[.03,.04],'modes':{'1':'stance','2':'flight'}} if self.foot_markers is not None else None,
             'scope':'Single first episode; no padding or stitching after failure/reset',**metadata}
         atomic_json(self.out/('replay.json' if self.name=='evaluation' else self.name+'-replay.json'),payload)
         return payload
