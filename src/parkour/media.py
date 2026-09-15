@@ -100,15 +100,14 @@ class FollowRecorder:
         followed=UsdGeom.Imageable(env.scene.stage.GetPrimAtPath(env.scene.env_prim_paths[env_index]+'/Robot'))
         if followed.ComputeVisibility()==UsdGeom.Tokens.invisible:raise RuntimeError('Followed robot is invisible')
         env.render_mode='rgb_array';env.cfg.viewer.resolution=(1280,720)
-        self.plan_markers=None;self.foot_markers=None
-        if hasattr(env,'plan'):
-            # 파란 점 = 계획기의 고정 페어 목표(표면마다 하나, 진행에 따라 다음 표면으로 넘어감). 빨간 점 = 지금 각 발이 향하는 실시간 예측 착지점.
-            self.plan_markers=VisualizationMarkers(VisualizationMarkersCfg(prim_path='/World/FollowPlannedContacts',markers={
-                'planned':sim_utils.SphereCfg(radius=.022,visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(.25,.55,1.),emissive_color=(.05,.15,.4)))}))
-            if hasattr(env,'progress') and hasattr(env,'surface_rotations'):
-                self.foot_markers=VisualizationMarkers(VisualizationMarkersCfg(prim_path='/World/FollowPredictedFootfall',markers={
-                    'stance':sim_utils.SphereCfg(radius=.03,visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.,.15,.15),emissive_color=(.5,0.,0.))),
-                    'flight':sim_utils.SphereCfg(radius=.04,visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.,0.,0.),emissive_color=(.7,0.,0.)))}))
+        self.plan_markers=None;self.foot_markers=None;self.footfall_planner=None
+        if hasattr(env,'plan') and hasattr(env,'progress') and hasattr(env,'surface_rotations'):
+            # 빨간 점 = 표면 위의 4 단계 착지 계획 (h1 = 몸통 운동 기반 실시간 예측, h2–4 = 계획기 페어 목표). 크기는 가까운 순.
+            from parkour.predicted_footfall import FootfallPlanner
+            self.footfall_planner=FootfallPlanner(env,env_index,horizon=4)
+            self.foot_markers=VisualizationMarkers(VisualizationMarkersCfg(prim_path='/World/FollowFootfallPlan',markers={
+                f'h{k}':sim_utils.SphereCfg(radius=r,visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.,.05,.05),emissive_color=(e,0.,0.)))
+                for k,(r,e) in enumerate([(.042,.75),(.032,.5),(.026,.35),(.02,.25)])}))
         self.eye=None;self.look=None;self.yaw=None
         self._camera()
         for _ in range(40):env.render()
@@ -128,28 +127,16 @@ class FollowRecorder:
     def capture(self,step,finished=None,iteration=None):
         if step%2:return
         if finished is not None and bool(finished[self.ids[0]]):return
-        displayed=None
-        if self.plan_markers is not None:
-            from parkour.planned_contacts import planned_contacts
-            override=getattr(self.env,'follow_planned_contacts_override',None)
-            if override is None:
-                points,normals,indices,valid=planned_contacts(self.env,self.ids[0])
-                displayed={'positions_w':points.cpu().tolist(),'normals_w':normals.cpu().tolist(),'surface_indices':indices.cpu().tolist(),'valid':valid.cpu().tolist(),'horizon':4}
-            else:
-                displayed=override
-                points=torch.tensor(displayed['positions_w'],device=self.env.device)
-                normals=torch.tensor(displayed['normals_w'],device=self.env.device)
-            self.plan_markers.visualize(translations=points+.025*normals)
-        footfall=None
-        if self.foot_markers is not None:
-            from parkour.predicted_footfall import predicted_footfall
-            fpos,fnorm,fmode,ftarget=predicted_footfall(self.env,self.ids[0])
-            shown=fmode>0
+        displayed=None;footfall=None
+        if self.footfall_planner is not None:
+            pts,normals,valid,target=self.footfall_planner.step()               # [H,4,3]
+            H=pts.shape[0]
+            idx=torch.arange(H,device=pts.device)[:,None].expand_as(valid)
+            shown=valid
             if bool(shown.any()):
-                self.foot_markers.visualize(translations=(fpos+.025*fnorm)[shown],marker_indices=(fmode[shown]-1))
-            else:
-                self.foot_markers.set_visibility(False)
-            footfall={'positions_w':fpos.cpu().tolist(),'mode':fmode.cpu().tolist(),'target_surface':ftarget.cpu().tolist()}
+                self.foot_markers.visualize(translations=(pts+.025*normals)[shown],marker_indices=idx[shown])
+            footfall={'positions_w':pts.cpu().tolist(),'valid':valid.cpu().tolist(),'target_surfaces':target.cpu().tolist(),'horizon':H}
+            displayed=footfall
         self._camera();frame=self.env.render()
         if self.frames==0:
             if frame.max()==0:raise RuntimeError('Black follow-camera output')
@@ -166,8 +153,7 @@ class FollowRecorder:
         if hasattr(env,'progress'):
             row.update(target_indices=env.progress.target[i].tolist(),accepted_indices=env.progress.accepted[i].tolist(),
                        measured_jump_count=int(env.flights.count[i]))
-        if displayed is not None:row['planned_contacts']=displayed
-        if footfall is not None:row['predicted_footfall']=footfall
+        if footfall is not None:row['planned_contacts']=footfall
         self.trace.append(row)
     def close(self,**metadata):
         self.writer.close();self.writer=None
@@ -175,8 +161,7 @@ class FollowRecorder:
             'total_simulated_envs':self.env.num_envs,'fps':25,'frame_count':self.frames,'frame_dt_s':.04,
             'video_start_sim_time_s':0.,'resolution':[1280,720],'trace':self.trace,
             'camera':{'mode':'smoothed_body_yaw_third_person','behind_m':2.5,'side_m':.85,'above_body_m':1.4},
-            'planned_contact_overlay':{'color':'blue','horizon':4,'meaning':'Planner pair targets (fixed per surface, advance with progress), not measured landings','radius_m':.022,'normal_display_offset_m':.025} if self.plan_markers is not None else None,
-            'predicted_footfall_overlay':{'color':'red','meaning':'Per-foot live prediction: swing feet extrapolated ballistically onto the pair target surface and clamped to its usable region; stance feet at contact. Display only.','radius_m':[.03,.04],'modes':{'1':'stance','2':'flight'}} if self.foot_markers is not None else None,
+            'planned_contact_overlay':{'color':'red','horizon':4,'meaning':'Four-step footfall plan on the surfaces: h1 = body-motion prediction + nominal stance (smoothed), h2-4 = planner pair targets; display only, not measured landings','radius_m':[.042,.032,.026,.02],'normal_display_offset_m':.025,'order':'[horizon, foot(env.foot_ids), xyz]'} if self.foot_markers is not None else None,
             'scope':'Single first episode; no padding or stitching after failure/reset',**metadata}
         atomic_json(self.out/('replay.json' if self.name=='evaluation' else self.name+'-replay.json'),payload)
         return payload
