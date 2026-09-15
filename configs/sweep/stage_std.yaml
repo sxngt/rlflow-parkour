@@ -1,9 +1,11 @@
-# 탐색 std 스윕: 하한·상한을 같이 낮춘다 (성숙 정책 미세조정). LR 은 부모 체크포인트의 마지막 adaptive LR 을 이어받음(fork_lr=inherit), 3 arm.
+# 커리큘럼 단계 스윕 (성숙 정책 미세조정). std 는 0.04 고정 — 86%~95% 단계에서 0.04 가 0.06/0.08 을 항상 이겼다.
+# 대신 fork 학습률 배수를 스윕한다: 부모 adaptive LR(보통 하한 1e-5) × {1, 3, 8}. 2e-4 재시작은 정책을 무너뜨리지만(fork_lr 문서 참조)
+# 1e-5 는 새 지형을 익히기엔 느릴 수 있다 (c49: EMA 0.29 / 1200 iter).
 metric: custom/success_ema
 mode: max
 num_samples: 1
 max_concurrent: 3
 scheduler: none
-overrides: ["+fork_lr=inherit", gap_jump_bonus=0.0, "exploration.stages.0.max_std=${exploration.min_std}"]
+overrides: [gap_jump_bonus=0.0, exploration.min_std=0.04, exploration.stages.0.max_std=0.04]
 space:
-  exploration.min_std: {grid: [0.04, 0.06, 0.08]}
+  "+fork_lr": {grid: [1, 3, 8]}
