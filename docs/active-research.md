@@ -26,7 +26,7 @@ P2-11 성공48/17/51/51, P2-12·13모두0. 병렬규모최적화만무한반복�
 
 ## 환경과 범위
 
-Isaac Python /mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh. 웹 http://203.241.249.48:18710/ . 실제갭·발판·Planner·센서적응·실기미검증. 평지목표도약을파쿠르완성으로주장하지않는다. user요청중단전goal active유지.
+Isaac Python /mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh. 웹 http://<lab-server>:18710/ . 실제갭·발판·Planner·센서적응·실기미검증. 평지목표도약을파쿠르완성으로주장하지않는다. user요청중단전goal active유지.
 
 
 ### 최신 진행: P2-14 독립 물리 probe 완료

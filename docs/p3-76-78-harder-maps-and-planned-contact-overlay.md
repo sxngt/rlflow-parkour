@@ -22,7 +22,7 @@ FollowRecorder가 순수 시각화 sphere를 렌더링한다. 반경 3.5cm, 표�
 
 P377은 P372 quarter checkpoint의 새 원본 평가 영상이다. 63/64 완주, 316프레임 모두 앞으로 네 접촉 목표를 기록했다. 첫 프레임, 6초 프레임을 시각 검수하고 artifact hash 및 물리 주기 기록의 평가 일치 검사를 통과했다. 고정 목표 Tracker 평가이며 온라인 재계획 성능 주장이 아니다.
 
-[빨간 접점 평가 영상](http://203.241.249.48:18710/api/file?path=artifacts%2Fp3-77-red-goals%2Fevaluation.mp4)
+[빨간 접점 평가 영상](http://<lab-server>:18710/api/file?path=artifacts%2Fp3-77-red-goals%2Fevaluation.mp4)
 
 `result/P3-77_혼합맵25퍼센트_24구간_4스텝빨간발접점_3인칭추적/`에 상세 제목과 평가·replay 데이터를 함께 보존한다.
 

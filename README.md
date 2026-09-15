@@ -1,104 +1,73 @@
-# parkour — RLflow 프로젝트
+<h1 align="center">rlflow-parkour</h1>
+<p align="center"><b>Unitree A1 사족보행 로봇이 24개의 떨어진 발판을 연속 점프로 건너는 파쿠르 코스를, 강화학습 커리큘럼 50단계를 무인 자동화하여 난이도 25% → 92%까지 끌어올린 연구</b><br>
+Isaac Sim 4.5 · Isaac Lab 2.1.1 · PPO (rsl_rl) · Ray Tune · <a href="https://github.com/sxngt/rl-flow">RLflow</a> MLOps</p>
 
-사전 지도 기반 Planner–RL Tracker 사족(Unitree A1) 파쿠르 연구. 2026-09-13 부터 새 실행은 RLflow(https://rlflow.kr/p/parkour) 로 제출하고,
-`workspace/parkour` 에서 만들었던 실행 1,400여 개(학습 395·평가 903·probe 72, 영상 891)는 MLflow 실험 `parkour` 로 편입했다
-(출처 태그 `legacy_path`, 콘솔 런 목록의 `legacy` 표시). 원본 워크스페이스는 그대로 두었다. 편입 절차·매핑은 플랫폼 문서
-[프로젝트 › parkour](https://docs.rlflow.kr/projects/parkour/) 에 있다.
+<p align="center"><img src="docs/media/hero.gif" width="720" alt="24-gap parkour course, showcase A: 89% completion"></p>
+<p align="center"><sub>쇼케이스 A — 갭 89% · 회전 92% · 경사 86% · 높이 92% · 크기 95% 난이도, 64 에피소드 중 57회 완주(89%). 빨간 점은 표면 위 4단계 착지 계획(큰 점 = 다음 착지 예측).</sub></p>
 
-## RLflow 에서 실행
-
-| 항목 | 값 |
-|---|---|
-| config | `configs/<name>.yaml` = 기존 `configs/<name>.json` 의 1:1 사본 (`scripts/sync_rlflow_configs.py`). 기본 `config.yaml` → `p3-70-control` |
-| overrides | Hydra 점 경로. 예: `iterations=400 num_envs=512 runner.algorithm.learning_rate=5e-4 seed=3` |
-| 체크포인트에서 시작 | `+fork_from=mlflow://<run_id>/checkpoints/step_<n>.pt` (새 계보) 또는 `+resume=…` (같은 계보 이어서) |
-| fork LR | `+fork_lr=inherit` — 부모 체크포인트의 마지막 adaptive LR(~1.5e-5, 하한 1e-5)로 시작. config LR(2e-4)로 재시작하면 첫 PPO 업데이트가 성숙 정책을 무너뜨린다(c21/c28/c36/c41 붕괴 원인). 숫자면 부모 LR 의 배수. MLflow 파라미터 `fork_learning_rate` |
-| 태그 | 제출 폼의 지형·과제·난이도·목적 축 (rlflow.yaml) + 자유 태그 `phase:P3` … → MLflow 태그 `rt.<key>` |
-| 촬영 | 프로젝트 설정 → 촬영. 학습은 `--video`(parallel-training.mp4), 평가는 시나리오별 `evaluation.mp4` |
-
-파이프라인: `train.py`(→ `scripts/train.py`) → candidate → `evaluate.py`(→ `scripts/evaluate.py`, `eval_suite/default.yaml`) → 게이트 → `export.py`(ONNX) → validated.
-세 진입점은 연구 코드를 감싸는 얇은 래퍼다. 지표 이름 매핑과 한계(env/ep_return 자리 채움 등)는 `train.py` 머리말 참고.
-
-기존 모니터링 웹(`monitor/`, `web/`)은 RLflow 콘솔(런·정책·영상 라이브러리·Grafana)이 대신하므로 트리에서 제거했다 (git 이력에는 남아 있다).
+**TL;DR (EN)** — A quadruped (Unitree A1) learns to traverse a 24-gap discontinuous parkour course (gaps up to 0.70 m, rises ±0.27 m, turns to 50°, tilted pads to 22°) in Isaac Sim. A curriculum of 50 stages / 51 Ray Tune sweeps ran **unattended for 44 hours** through RLflow, lifting course difficulty from 25% to 92% (per-axis) with an **89% completion rate** at the final showcase map. Along the way we root-caused every training collapse to a learning-rate restart on policy fork and replaced uniform difficulty steps with probe-guided per-axis steps.
 
 ---
 
-# parkour
+## 결과 한눈에
 
-사전 지도 기반 Planner–RL Tracker 사족 파쿠르 연구 플랫폼. **현재 P3의 수평 발판 8회 연속 도약과 작은 간격 변화를 검증하고, P4 마찰 변화 학습을 진행 중**이다. 고정 mapped 정책 seed 2는 1.20m 발 목표 코스에서 64/64회 완주했지만, 후반 발판의 마찰 재질을 바꾸면 0/64회로 떨어졌다. 동일 예산의 저마찰 학습·기존 마찰 대조군을 비교한다.
+| | 맵 난이도 (gap / turn / tilt / height / size) | 완주 (64 ep) | 정책 |
+|---|---|---|---|
+| **쇼케이스 A** | .89 / .92 / .86 / .92 / .95 | **57 / 64 (89%)** | `parkour/v51` |
+| 쇼케이스 B | .89 / .92 / .86 / .95 / .98 | 48 / 64 (75%) | trial `e3c085b6` |
+| 쇼케이스 C | 균일 .86 | 56 / 64 (88%) | `parkour/v45` |
+| 시작점 | 균일 .25 | 57 / 64 (89%) | `parkour/v5` |
 
-이 결과는 `mapped_contact_v1`과 명시적 지도 경계를 사용하는 개발군 평가다. 기존 몸체 비행거리 기준과 구분하며, 고속·경사·급선회·실기 파쿠르 달성을 의미하지 않는다. [현재 실행과 검증 범위](docs/p4-02-progress.md), [긴 코스 결과](docs/p3-11-findings.md), [마찰 변화 결과](docs/p4-01-findings.md)를 확인할 수 있다.
+<p align="center"><img src="docs/media/curriculum.png" width="820" alt="curriculum progression"></p>
 
-연구를 이어갈 때는 [현재 연구 인계](docs/active-research.md)에서 시작한다.
-- [단일 도약 학습 프로토콜](docs/p2-01-protocol.md)
-- [공유 Tracker 결과](docs/step02e-results.md)
-- [추가 학습·회귀 결과](docs/step02d-results.md)
-- [정렬 비용 적용 시점 결과](docs/step02c-results.md)
-- [최종 정렬 보상 비교 결과](docs/step02b-results.md)
-- [발별 단독 이동 결과](docs/step02a-results.md)
-- [실행별 최종 평가 영상 목록](result/README.md)
-- [순차 발 디딤 과제 v2](docs/t0-sequential-v2.md)
-- [영상 보관·자동 평가 규칙](docs/result-archive.md)
-- [로봇 선정: Unitree A1](docs/robot-selection.md)
-- [T0 관측·행동·보상·평가·재개 계약](docs/t0-contract.md)
-- [환경·재사용·GPU 권한](docs/reuse-and-environment.md)
-- [4 GPU 파일럿 결과와 검증 범위](docs/t0-pilot-results.md)
-- [P0 진행 기록](docs/p0-status.md)
+- 코스: `mixed_discrete` 24갭, geometry seed 1. 난이도 축 5개(갭 길이 · 회전각 · 발판 경사 · 높이차 · 발판 크기)를 0~1 분율로 스케일.
+- 평가: 동결 정책 · 결정론 · 64 에피소드, 성공 = 마지막 발판에 4발 안착 후 0.2 s 유지. 몸통이 발판에 닿으면 즉시 실패.
+- 100% 맵은 미완주(최고 정책이 4번째 이동에서 실패). 여기까지가 정직한 도달점이다.
 
-## 기존 서버에서 실행
+## 왜 어려운가, 무엇을 알아냈나
 
-Isaac Sim 4.5.0 / Isaac Lab 2.1.1 설치 환경을 사용한다. 기존 환경의 재설치는 필요 없다. 실행은 프로젝트 루트에서 한다.
+<p align="center"><img src="docs/media/cliff-vs-pass.gif" width="720" alt="left: uniform 0.89 map fails at gap 13; right: showcase A passes"></p>
+<p align="center"><sub>왼쪽: 같은 정책이 균일 0.89 맵에서는 13번째 갭(0.70 m + 0.18 m 상승)에서 몸통이 착지면에 걸려 64/64 실패. 오른쪽: 축별로 조정한 맵에서는 89% 완주.</sub></p>
 
-```bash
-# GPU 0의 로봇 1024개로 학습 후 최종 평가·MP4·result/ 정리까지 실행한다.
-python3 scripts/run_job.py --gpu 0 --timeout 1200 train \
-  --config configs/t0-sequential-ppo.json --out artifacts/my-train --iterations 800
+1. **"절벽"의 진짜 원인은 지형이 아니라 fork 학습률이었다.** 부모 정책은 adaptive KL 스케줄로 LR이 1e-5까지 내려가 있는데, 자식은 설정값 2e-4로 새 Adam을 시작했다. 첫 PPO 업데이트가 성숙한 정책을 무너뜨려 매 단계 수 M 스텝을 재학습에 쓰고, 4번은 아예 회복하지 못했다. A/B(1024 env, 40 iter): LR 2e-4 → 12 iter 만에 이동 수 3 → 0.1, LR 1.5e-5 → 7 → 13. 해결: `+fork_lr=inherit`.
+2. **균일 난이도 스텝은 5축을 한꺼번에 흔든다.** 86% 정책을 축 하나만 0.89로 올리면 41~58/64인데, 5축 모두 0.89면 0/64. 그래서 30초 동결 프로브로 축별 허용 폭을 재고, 견디는 조합만 다음 맵으로 삼는 **프로브 유도 축별 커리큘럼**을 만들었다(단계당 프로브 약 2분, 4 GPU 병렬).
+3. **탐색 노이즈는 낮아야 한다.** 86% 이후 `min_std` 0.04가 0.06/0.08을 매 단계 이겼다(EMA 0.72 vs 0.46 vs 0.12).
+4. **혼합 지형 학습은 망각을 막지만 최전선을 밀지 못한다.** env별로 다른 난이도 맵을 섞어 학습(`terrain_mix`)하면 쉬운 맵 성능은 유지되지만, 정책이 못 하는 난이도에서는 학습 신호가 생기지 않았다.
 
-# checkpoint에서 새 attempt로 재개한다. iterations는 추가 학습량이다.
-python3 scripts/run_job.py --gpu 0 --timeout 600 train \
-  --config configs/t0-sequential-ppo.json --out artifacts/my-resume --iterations 100 \
-  --resume artifacts/my-train/checkpoint-000800.pt
+<p align="center"><img src="docs/media/footfall-plan.gif" width="560" alt="4-step footfall plan overlay"></p>
+<p align="center"><sub>착지 계획 오버레이: 큰 점 = 몸통 운동 외삽 + 기본 보폭으로 예측한 다음 착지점, 작은 점 = 이후 3단계 계획기 목표. 모두 표면 위에 그려진다 (`src/parkour/predicted_footfall.py`).</sub></p>
 
-# 고정 개발군의 모든 첫 episode를 평가하고 첫 episode MP4를 기록한다.
-python3 scripts/run_job.py --gpu 1 evaluate \
-  --config configs/t0-sequential-ppo.json \
-  --out artifacts/my-eval --checkpoint artifacts/my-train/checkpoint-000800.pt --video
+## 방법
 
-# 같은 과제의 기본 자세 대조군
-python3 scripts/run_job.py --gpu 1 evaluate \
-  --config configs/t0-sequential-ppo.json --out artifacts/my-zero --baseline zero --video
-
-# 메타데이터·checkpoint hash·평가 완전성·GPU 해제 검사
-python3 scripts/audit_artifacts.py artifacts/my-train artifacts/my-resume artifacts/my-eval
-/mnt/sdb1/sxngt/isaac-sim-4.5.0/python.sh -m unittest discover -s tests -v
+```
+[맵 생성] curriculum_maps.build_mixed_discrete_axes(seed, {gap, turn, tilt, height, size})
+    │
+[학습] PPO (rsl_rl, 105-dim obs → 12 joint targets), 2048 env, 1200 iter ≈ 30 분/GPU
+    │   fork: 이전 단계 최고 체크포인트 + fork_lr=inherit + min_std 0.04
+[스윕] Ray Tune (RLflow lab-pipeline sweep) — std / LR 배수 / 후보 맵
+    │
+[평가] 동결 정책 64 ep → 게이트(native ≥ 0.75) → MLflow 레지스트리 candidate → validated
+    │
+[다음 맵] 30 s 동결 프로브 × (축별 +0.06, +0.03) × 조합 → auto-axes / auto-multi 드라이버
 ```
 
-`--gpu`에 전체 GPU UUID를 직접 전달할 수도 있다. 출력 폴더는 항상 새 이름이어야 한다. 학습 seed 및 환경 수를 바꿀 때는 `--seed`, `--num-envs`를 사용한다. 기존 checkpoint의 seed/환경 수 변경은 단순 resume로 허용하지 않는다.
+- 정책·평가·촬영 코드: `src/parkour/` (`continuous_tracker_task.py`, `policy_fork.py`, `terrain_mix.py`, `predicted_footfall.py`, `media.py`)
+- RLflow 진입점: `train.py`, `evaluate.py`, `export.py` (연구 코드를 감싸는 얇은 래퍼), 설정 `configs/*.yaml`, 스윕 `configs/sweep/*.yaml`, 평가 스위트 `eval_suite/*.yaml`
+- 캠페인 드라이버: [`rl-flow/tools/parkour_campaign.py`](https://github.com/sxngt/rl-flow/blob/main/tools/parkour_campaign.py) — `stage` / `auto` / `auto-axes` / `auto-multi`
+- 실행 방법: [docs/rlflow-usage.md](docs/rlflow-usage.md) · 연구 문서 490편: [docs/](docs/) (인계: [active-research.md](docs/active-research.md)) · 이관 이전 README: [docs/legacy-readme.md](docs/legacy-readme.md)
 
-주요 출력:
+## 숫자로 보는 캠페인 (2026-09-13 → 09-15)
 
-- `run.json`, `config.json`: 실행·설정·코드 hash·계보.
-- `metrics.jsonl`, `checkpoint-*.pt` + `.json`: 학습 진행과 무결성 확인된 모델 묶음.
-- `evaluation.json`, `scenarios.json`: 고정 개발군 episode별 성능·종료 이유.
-- `evaluation.mp4`, `replay.json`: 원본 프레임 영상과 simulator 시간·계획 목표·실제 발 위치·접촉 진행 단계.
-- 실행 폴더 옆 `.log`, `.gpu.jsonl`, `.supervisor.json`: 로그·GPU PID 관측·종료 및 자원 회수.
+| 항목 | 값 |
+|---|---|
+| 무인 진행 | 50 단계 · 51 스윕 · 약 150 trial · 44 시간 |
+| 학습 규모 | 단계당 2048 env × 1200 iter ≈ 5.9 × 10⁷ env-step, 총 ≈ 9 × 10⁹ env-step |
+| 도달 난이도 | 균일 .86 통과, 축별 .89 / .92 / .86 / .95 / .98 통과 |
+| 평가 | 모든 단계 64 ep 동결 평가, 정책 55 버전 등록 |
+| 실험 자산 | 콘솔 런 1,456개 (이관 1,378 + 신규 78), 영상 900+ |
 
-## 최소 모델 smoke
+모든 런·지표·영상·계보는 RLflow 콘솔(`/p/parkour`)과 MLflow에 있다. 쇼케이스 세 런은 `purpose:showcase` 태그로 모아 볼 수 있다.
 
-기존 `scripts/smoke_a1.py`는 모델·접촉·영상 검사용으로 유지한다. 일반 학습은 위 supervisor를 사용한다. 초기 smoke의 Isaac Sim 종료에는 시간 제한 강제 종료가 필요했다. 현재 전용 worker는 모든 파일을 저장한 후 자체 프로세스를 종료하고 supervisor가 GPU 해제를 확인한다.
+## 배경
 
-현재는 정답 상태를 쓰는 평지의 순차 lift→place 과제다. 동적 Tracker, 불연속 지형 Planner, 센서 적응 비교, 실패 커리큘럼, 웹 서비스 및 장기 scheduler는 후속 작업이다.
-
-순차 과제 4-seed 결과와 병렬 촬영 기록: [T0S-v2 결과](docs/t0-sequential-results.md).
-
-## 연구 모니터링 웹
-
-[공인 주소에서 열기](http://203.241.249.48:18710) · [서버에서 열기](http://127.0.0.1:18710) · [Tailscale에서 열기](http://100.104.103.77:18710)
-
-GPU 현황, 학습·평가 지표, 실행 비교, 실제 학습/평가 영상, 시간 연동 위치 기록, 연구 파일 탐색을 제공합니다. 새 결과는 자동으로 편입됩니다. [설치·운영·검증 기록](docs/monitoring-web.md).
-
-최근 연구: [P1 · hopping 진단 결과](docs/hopping-diagnosis-results.md) · [연구 phase·태그 사용법](docs/research-phases.md).
-
-최근 비교: [Step 02 · 3발 지지와 안정화 파일럿](docs/step02-results.md) — 수직 속도 벌점 A/B, 두 seed씩 평가. 아직 완주 정책을 확보하지 못했습니다.
-
-P2-09 거리 확장: [결과](docs/p2-09-results.md), [3cm 재평가](docs/p2-09-strict-results.md). 다음 [P2-10](docs/p2-10-protocol.md)은 같은 조건에서3cm 출발을 직접 학습한다.
+원본 연구(`workspace/parkour`, 351 커밋)는 사전 지도 기반 Planner–RL Tracker 구조로 단일 도약 → 연속 도약 → 혼합 지형으로 단계를 밟아 왔다. 2026-09-13에 RLflow 프로젝트로 이관하면서 실행 1,375개와 영상 900개를 무수정 임포트했고, 이후의 모든 학습·평가는 RLflow를 통해 이루어졌다. 구현은 AI 코딩 에이전트(Claude Code)와 페어로 진행했다.
